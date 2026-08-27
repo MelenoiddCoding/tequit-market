@@ -1,0 +1,3 @@
+import { LoginForm } from "@/components/login-form";
+export const metadata={title:"Iniciar sesión"};
+export default async function LoginPage({searchParams}:{searchParams:Promise<{next?:string}>}){const{next}=await searchParams;return <main className="page"><div className="container"><div className="form-card"><p className="eyebrow">Cuenta de prestador o negocio</p><h1 style={{fontSize:"clamp(2.4rem,7vw,4.5rem)"}}>Bienvenido de vuelta</h1><p className="muted">En local puedes usar las credenciales demo precargadas.</p><LoginForm next={next}/><div className="empty" style={{marginTop:24}}><strong>Usuarios demo</strong><p className="help">provider@tequit.local · business@tequit.local · admin@tequit.local<br/>Contraseña: Tequit123!</p></div></div></div></main>}
