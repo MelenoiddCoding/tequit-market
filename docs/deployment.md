@@ -1,5 +1,7 @@
 # Despliegue Vercel + Supabase
 
+Entorno público actual: [https://tequit-market.vercel.app](https://tequit-market.vercel.app). El despliegue de pruebas usa Demo Mode hasta completar la integración de lectura y autenticación con Supabase alojado.
+
 1. Crear proyecto Supabase y enlazar CLI: `npx supabase link --project-ref <ref>`.
 2. Aplicar schema: `npx supabase db push`.
 3. Verificar buckets `avatars`, `business-media`, `provider-work` y `lead-media`.

@@ -2,6 +2,10 @@
 
 Tequit es un marketplace/directorio local de servicios para Tepic, Nayarit. Ayuda a una persona a buscar una necesidad en lenguaje cotidiano, comparar reputación y evidencia, y contactar directamente por WhatsApp. Tequit genera el lead; no procesa pagos ni promete disponibilidad inmediata.
 
+## Entorno público de pruebas
+
+La versión desplegada está disponible en [https://tequit-market.vercel.app](https://tequit-market.vercel.app). Actualmente opera con `NEXT_PUBLIC_DEMO_MODE=true`: permite recorrer el producto completo sin depender de infraestructura externa y devuelve solicitudes demo no persistentes.
+
 ## Estado del MVP
 
 La aplicación incluye frontend público mobile-first, búsqueda, perfiles de prestadores, negocios con productos y servicios, guardados en el navegador, solicitudes sin cuenta, eventos de contacto, login demo, dashboard, límite Free/Pro, moderación administrativa, migraciones PostgreSQL, RLS, Storage y seed reproducible.
