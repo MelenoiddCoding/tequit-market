@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tequit - Solicitudes y Mensajes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#671800",
+                      "secondary-fixed": "#aff0d1",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#e6f4ea",
+                      "surface-tint": "#3e6656",
+                      "background": "#effdf3",
+                      "on-background": "#121e18",
+                      "on-tertiary-container": "#f47b57",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#a4d0bc",
+                      "tertiary-fixed": "#ffdbd1",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "outline": "#717974",
+                      "on-tertiary-fixed-variant": "#822709",
+                      "on-secondary-fixed": "#002115",
+                      "on-surface-variant": "#414844",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "surface-container-low": "#e9f7ed",
+                      "surface": "#effdf3",
+                      "on-primary-fixed": "#002116",
+                      "surface-dim": "#cfddd4",
+                      "surface-bright": "#effdf3",
+                      "primary": "#00251a",
+                      "on-surface": "#121e18",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#27332d",
+                      "surface-container-highest": "#d8e6dc",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "secondary-container": "#aceece",
+                      "tertiary": "#420c00",
+                      "on-secondary-container": "#2f6e55",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "primary-fixed": "#c0ecd8",
+                      "outline-variant": "#c1c8c3",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "on-primary-container": "#7da794",
+                      "secondary": "#2a6951",
+                      "surface-container-high": "#ddece2",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "on-tertiary-fixed": "#3b0a00",
+                      "surface-variant": "#d8e6dc",
+                      "surface-container": "#e3f1e7",
+                      "primary-container": "#123c2e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xxl": "48px",
+                      "xl": "32px",
+                      "base": "16px",
+                      "huge": "64px",
+                      "md": "12px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "giant": "96px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "numeric-display": [
+                              "Fraunces"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "label-sm": [
+                              "Manrope"
+                      ],
+                      "title-md": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "numeric-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: #effdf3; /* bg-surface */ }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface flex h-screen overflow-hidden">
+<!-- SideNavBar (JSON mapped) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface border-r border-surface-container-low py-base px-md z-40">
+<div class="mb-xl px-sm">
+<h1 class="font-display-lg text-headline-lg text-primary">Tequit</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">Panel de Proveedor</p>
+</div>
+<div class="flex-1 space-y-sm">
+<!-- Panel (Inactive) -->
+<a class="flex items-center px-sm py-md rounded-lg text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">dashboard</span>
+                Panel
+            </a>
+<!-- Solicitudes (Active) -->
+<a class="flex items-center px-sm py-md rounded-lg text-primary font-bold border-r-4 border-primary bg-surface-container-low font-label-md text-label-md transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-md" style="font-variation-settings: 'FILL' 1;">inbox</span>
+                Solicitudes
+            </a>
+<!-- Servicios (Inactive) -->
+<a class="flex items-center px-sm py-md rounded-lg text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">handyman</span>
+                Servicios
+            </a>
+<!-- Perfil (Inactive) -->
+<a class="flex items-center px-sm py-md rounded-lg text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">person</span>
+                Perfil
+            </a>
+<!-- Ayuda (Inactive) -->
+<a class="flex items-center px-sm py-md rounded-lg text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">help</span>
+                Ayuda
+            </a>
+</div>
+<div class="mt-auto">
+<button class="w-full py-md px-sm rounded-lg border border-outline text-primary font-label-md text-label-md hover:bg-surface-container transition-colors">
+                Ver Perfil Público
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 h-full relative">
+<!-- TopNavBar (JSON mapped) -->
+<header class="flex justify-between items-center px-base md:px-xl h-16 w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant docked top-0 sticky z-50">
+<!-- Mobile Brand -->
+<div class="md:hidden font-display-lg text-headline-lg-mobile text-primary">
+                Tequit
+            </div>
+<!-- Desktop Placeholder (to keep layout balanced if search is on right) -->
+<div class="hidden md:block font-title-md text-title-md text-primary">
+                Solicitudes
+            </div>
+<div class="flex items-center gap-md">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container rounded-full transition-transform active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container rounded-full transition-transform active:scale-95">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-sm h-10 w-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img alt="Foto de perfil del proveedor" class="w-full h-full object-cover" data-alt="A close-up documentary-style portrait of a Mexican professional plumber in their mid-40s, looking confidently at the camera. The lighting is natural and warm, highlighting textures of their work shirt. The background is a slightly blurred workshop environment, establishing trust and local craft. Modern editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwQgClWrQM9oHeBWmVc0O3geINbHgrF33l7cbnJf71Ixt4aQeUqllhHMEMbX-dXRj7GwFngnXqHic3-Qv9-wFzXR-k9to1GLXcoRZapi8VcrCaarhtHoTb3rJx3yQ53sldKFreBxBs0b0MUsL8kwzdrLDPCtX8EDzHtsdlCN-cL7CENWcBdZ6HcwPzoCbItiu4ia4Tfhl7MDyq_hPBNw9vDZ_iMbN2uqkbH_A5pV6SBm2qzotJPHue"/>
+</div>
+</div>
+</header>
+<!-- Split View Interface -->
+<main class="flex-1 flex overflow-hidden bg-surface-bright">
+<!-- Left Column: Request List (30%) -->
+<div class="w-full md:w-[350px] lg:w-[400px] border-r border-outline-variant flex flex-col bg-surface h-full">
+<!-- List Header / Filters -->
+<div class="p-base border-b border-surface-container-highest">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-xl pr-sm py-sm rounded-lg border border-outline-variant bg-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container font-body-md text-body-md" placeholder="Buscar solicitudes..." type="text"/>
+</div>
+</div>
+<!-- List Items -->
+<div class="flex-1 overflow-y-auto">
+<!-- Item 1: Active -->
+<div class="p-base border-b border-surface-container-low bg-surface-container cursor-pointer transition-colors relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-label-md text-label-md text-primary font-bold">Maria Garcia</h3>
+<span class="px-sm py-xs rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Nuevo</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-sm font-medium">Reparación de fuga</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">"Hola, ¿podría venir mañana?"</p>
+</div>
+<!-- Item 2: In Progress -->
+<div class="p-base border-b border-surface-container-low hover:bg-surface-container-highest cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface font-bold">Carlos Ruiz</h3>
+<span class="px-sm py-xs rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm">En Proceso</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-sm">Instalación de tina</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">"Gracias por el presupuesto..."</p>
+</div>
+<!-- Item 3: Completed -->
+<div class="p-base border-b border-surface-container-low hover:bg-surface-container-highest cursor-pointer transition-colors opacity-75">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface font-bold">Elena Soto</h3>
+<span class="px-sm py-xs rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant font-label-sm text-label-sm">Completado</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-sm">Cambio de grifos</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">"Excelente trabajo, gracias."</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Detail View (70%) -->
+<div class="hidden md:flex flex-1 flex-col bg-surface-bright relative">
+<!-- Detail Header -->
+<div class="px-lg py-base border-b border-outline-variant flex justify-between items-center bg-surface z-10 shadow-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img alt="Maria Garcia" class="w-full h-full object-cover" data-alt="A well-lit, documentary-style portrait of a female client in her home environment in Tepic, Nayarit. She looks friendly and approachable. The background is a subtly blurred modern living space with warm, paper-like tones. Editorial framing, shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKeABvNbDqsoFNuSqjTuEk1YdYlc_MKjC5qBkDvEAuDB3vVc_TO0tRG7PHZsW0kw7rwiyR_ts04SS0Y0wO6Us0_xKhvU7h-t7KQ-ONbpcDqoBrCE8EVUJmtGoOfaw0XniDdCgECljuPJIoeqCk5Ie06yYcdwYhJ_rEIV5hGAlU9G6_G_-ODvHsXBtXUyCfjwoC0hJ1QB_lDZWHz5O7UkG4kl7fdFh4QhG0AxKGbY2s7IKaCDa7pBMl"/>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">Maria Garcia</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Plomería - Reparación de fuga</p>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="p-sm rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Chat/Request Thread -->
+<div class="flex-1 overflow-y-auto p-lg space-y-xl bg-[#F7F1E7]/20">
+<!-- System Date Divider -->
+<div class="flex justify-center">
+<span class="px-md py-xs rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Hoy, 10:42 AM</span>
+</div>
+<!-- Client Initial Request Card (Bento/Card style) -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md shadow-sm max-w-2xl mx-auto w-full">
+<div class="flex items-start gap-sm mb-md">
+<span class="material-symbols-outlined text-secondary">plumbing</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-bold">Detalles de la solicitud</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Enviado mediante Tequit</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg">
+<p class="font-body-md text-body-md text-on-surface">
+                                "Tengo una fuga en el baño de visitas, sale mucha agua del grifo principal. Necesito que alguien lo revise lo antes posible porque estoy desperdiciando agua."
+                            </p>
+</div>
+<div class="mt-md flex gap-sm flex-wrap">
+<span class="px-sm py-xs rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">home</span> Residencial
+                            </span>
+<span class="px-sm py-xs rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Urgente
+                            </span>
+</div>
+</div>
+<!-- Client Chat Message -->
+<div class="flex flex-col items-start max-w-[80%]">
+<div class="flex items-end gap-xs">
+<div class="bg-surface border border-outline-variant rounded-2xl rounded-bl-sm px-md py-sm text-on-surface">
+<p class="font-body-md text-body-md">Hola, ¿podría venir mañana en la mañana?</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-xs ml-sm">10:45 AM</span>
+</div>
+</div>
+<!-- Action Area & Input -->
+<div class="border-t border-outline-variant bg-surface p-base flex flex-col gap-md">
+<!-- Quick Actions -->
+<div class="flex gap-sm overflow-x-auto pb-xs">
+<button class="whitespace-nowrap px-md py-sm rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold hover:bg-primary transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined">send</span> Responder
+                        </button>
+<button class="whitespace-nowrap px-md py-sm rounded-lg border border-primary-container text-primary-container font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined">request_quote</span> Enviar Presupuesto
+                        </button>
+<button class="whitespace-nowrap px-md py-sm rounded-lg border border-primary-container text-primary-container font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined">calendar_month</span> Agendar Cita
+                        </button>
+</div>
+<!-- Text Input -->
+<div class="flex items-end gap-sm">
+<button class="p-sm rounded-full text-on-surface-variant hover:bg-surface-container transition-colors mb-xs">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container transition-all">
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none px-md py-sm font-body-md text-body-md max-h-32" placeholder="Escribe un mensaje..." rows="1" style="min-height: 44px;"></textarea>
+</div>
+<button class="p-sm rounded-full bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container transition-colors mb-xs">
+<span class="material-symbols-outlined">arrow_upward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Hidden on desktop, mapped from JSON for mobile compatibility rule) -->
+<nav class="md:hidden fixed bottom-0 w-full h-16 z-50 bg-surface border-t border-outline-variant shadow-sm flex justify-around items-center px-base">
+<!-- Inicio -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm-mobile mt-xs">Inicio</span>
+</a>
+<!-- Solicitudes (Active mapped logic) -->
+<a class="flex flex-col items-center justify-center text-secondary font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-sm text-label-sm-mobile mt-xs">Solicitudes</span>
+</a>
+<!-- Mensajes -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-sm text-label-sm-mobile mt-xs">Mensajes</span>
+</a>
+<!-- Ajustes -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm-mobile mt-xs">Ajustes</span>
+</a>
+</nav>
+</body></html>

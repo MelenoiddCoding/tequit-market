@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tequit - Buscar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "surface-container": "#e3f1e7",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#e9f7ed",
+                        "on-surface-variant": "#414844",
+                        "on-surface": "#121e18",
+                        "surface-container-high": "#ddece2",
+                        "on-background": "#121e18",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "tertiary-fixed": "#ffdbd1",
+                        "outline": "#717974",
+                        "surface-container-highest": "#d8e6dc",
+                        "inverse-on-surface": "#e6f4ea",
+                        "surface-variant": "#d8e6dc",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "on-secondary-fixed": "#002115",
+                        "surface": "#effdf3",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "secondary-fixed": "#aff0d1",
+                        "secondary-container": "#aceece",
+                        "surface-tint": "#3e6656",
+                        "on-error": "#ffffff",
+                        "tertiary": "#420c00",
+                        "primary": "#00251a",
+                        "secondary": "#2a6951",
+                        "on-tertiary-container": "#f47b57",
+                        "surface-dim": "#cfddd4",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-primary-container": "#7da794",
+                        "inverse-primary": "#a4d0bc",
+                        "surface-bright": "#effdf3",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-secondary-container": "#2f6e55",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "primary-fixed": "#c0ecd8",
+                        "on-error-container": "#93000a",
+                        "background": "#effdf3",
+                        "primary-container": "#123c2e",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#27332d",
+                        "tertiary-container": "#671800",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "outline-variant": "#c1c8c3",
+                        "on-primary-fixed": "#002116"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xxl": "48px",
+                        "huge": "64px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "md": "12px",
+                        "xs": "4px",
+                        "base": "16px",
+                        "giant": "96px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Fraunces"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "display-lg": ["Fraunces"],
+                        "label-sm": ["Manrope"],
+                        "numeric-display": ["Fraunces"],
+                        "title-md": ["Fraunces"],
+                        "headline-lg": ["Fraunces"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Level 0 Background */
+        body {
+            background-color: #FFFCF7;
+        }
+        /* Level 1 Container (white or #F7F1E7 with border) */
+        .card-level-1 {
+            background-color: #ffffff;
+            border: 1px solid #DCE4DE;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface flat no shadows">
+<div class="flex justify-between items-center px-base h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" data-icon="storefront">storefront</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed font-bold tracking-tight">Tequit</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity cursor-pointer">Tepic, Nay</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 px-base w-full max-w-7xl mx-auto md:max-w-md lg:max-w-3xl">
+<!-- Header & Search -->
+<div class="mb-lg">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-sm">Resultados para "plomería"</h1>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-xl pr-sm py-sm rounded-lg border border-[#DCE4DE] bg-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:border-primary-container transition-all" placeholder="Buscar servicios o negocios..." type="text" value="plomería"/>
+<button class="absolute right-xs top-1/2 -translate-y-1/2 bg-primary-container text-white p-xs rounded-lg hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex overflow-x-auto gap-sm mb-lg pb-xs snap-x scrollbar-hide">
+<button class="snap-start shrink-0 px-md py-xs rounded-full font-label-md text-label-md bg-primary-container text-on-primary transition-colors">Todos</button>
+<button class="snap-start shrink-0 px-md py-xs rounded-full font-label-md text-label-md bg-[#F7F1E7] text-on-surface-variant hover:bg-surface-variant transition-colors border border-[#DCE4DE]">Personas</button>
+<button class="snap-start shrink-0 px-md py-xs rounded-full font-label-md text-label-md bg-[#F7F1E7] text-on-surface-variant hover:bg-surface-variant transition-colors border border-[#DCE4DE]">Negocios</button>
+<button class="snap-start shrink-0 px-md py-xs rounded-full font-label-md text-label-md bg-[#F7F1E7] text-on-surface-variant hover:bg-surface-variant transition-colors border border-[#DCE4DE] flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+                Verificados
+            </button>
+</div>
+<!-- Summary -->
+<div class="mb-lg border-b border-[#DCE4DE] pb-md">
+<div class="font-label-md text-label-md text-on-surface">6 opciones encontradas</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Personas y negocios; compara antes de contactar.</p>
+</div>
+<!-- Results List -->
+<div class="flex flex-col gap-base">
+<!-- Provider Card -->
+<div class="card-level-1 rounded-xl p-md flex gap-md items-start">
+<div class="shrink-0 w-20 h-20 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A candid, warm, documentary-style photograph of a local plumber in Tepic, Nayarit, working on a pipe fitting. The shot emphasizes his experienced hands and traditional tools. High quality, soft natural light, minimalist background to convey professionalism and trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfu-hIkrYT3zxnY-sylrbX_C6OpmUQQLsYNRtiXDujoqDgyYco4vug7NB7qenT9I4IBKk0LGcSL-kxR5_D1G5bDCdBdtIqCdmGHJUqrzUrBE6nw7neyka3h-0Xk3YAboW7SPiyRn_guvQ0oYi4B83fs6bjjKJQCx6jID6d2gpdpX2iZE7ifVswaF_f68xv1nxqyghtVmWqnsLZ3qGuP1ytwITiqR0G-D9qVyuRrS2XxgH6xKUYAF3M"/>
+</div>
+<div class="flex-1 flex flex-col min-w-0">
+<div class="flex justify-between items-start w-full">
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate text-lg leading-tight">Juan Pérez</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Plomero Especializado</p>
+</div>
+<button class="text-outline hover:text-error transition-colors p-xs -mr-xs -mt-xs">
+<span class="material-symbols-outlined" data-icon="favorite_border">favorite_border</span>
+</button>
+</div>
+<div class="flex items-center gap-xs mt-xs text-sm">
+<span class="material-symbols-outlined text-[#E3A600] text-sm" data-icon="star" data-weight="fill">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.8</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-xs">(124 reseñas)</span>
+<span class="mx-xs text-outline-variant">•</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-xs">15 años exp.</span>
+</div>
+<div class="mt-md">
+<button class="w-full py-xs px-sm rounded-lg font-label-md text-label-md bg-[#F7F1E7] text-on-surface hover:bg-surface-variant transition-colors border border-[#DCE4DE]">Ver perfil</button>
+</div>
+</div>
+</div>
+<!-- Business Card -->
+<div class="card-level-1 rounded-xl p-md flex gap-md items-start">
+<div class="shrink-0 w-20 h-20 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A well-lit, documentary-style photograph of the storefront of a local plumbing supply and service business 'Plomería El Rayo' in Tepic. The shot captures the neatly organized shelves of fittings inside and a professional, inviting exterior. Warm paper-like tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7jspldZExpErja63hQdGZ-8fhsG5jo4IxfPI5Tm8ou6PZcSKg4GbascXKxtcL8HCmkf7Jz9v9GyAt7QS4oG8NhANQgdHvZA0QLhw-5VNe69XlDT0ABE_f11dlBdcEkjUvxJt56qv-nhKCJSwx6hv1ohsg_uTfFURcV1nSWes0rQhbD2RX5wFyZkOgRq1KJolQZufn_9jkebkbFbxd9Cbk0mixCTPWtCzLUzyn1OrBBtLCG5Nn2CcZ"/>
+</div>
+<div class="flex-1 flex flex-col min-w-0">
+<div class="flex justify-between items-start w-full">
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate text-lg leading-tight">Plomería El Rayo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Negocio • Centro</p>
+</div>
+<button class="text-outline hover:text-error transition-colors p-xs -mr-xs -mt-xs">
+<span class="material-symbols-outlined" data-icon="favorite_border">favorite_border</span>
+</button>
+</div>
+<div class="flex items-center gap-xs mt-xs text-sm">
+<span class="material-symbols-outlined text-[#E3A600] text-sm" data-icon="star" data-weight="fill">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.9</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-xs">(89 reseñas)</span>
+<span class="mx-xs text-outline-variant">•</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-xs flex items-center gap-1"><span class="material-symbols-outlined text-xs text-secondary" data-icon="verified">verified</span> Certificado</span>
+</div>
+<div class="mt-md">
+<button class="w-full py-xs px-sm rounded-lg font-label-md text-label-md bg-[#F7F1E7] text-on-surface hover:bg-surface-variant transition-colors border border-[#DCE4DE]">Ver negocio</button>
+</div>
+</div>
+</div>
+<!-- Provider Card 2 -->
+<div class="card-level-1 rounded-xl p-md flex gap-md items-start">
+<div class="shrink-0 w-20 h-20 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A documentary-style portrait of a female plumber in Tepic, Nayarit, smiling confidently while holding a wrench. She is wearing professional work gear. The background is slightly blurred, focusing on her friendly and reliable demeanor. Natural, warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjCXkDLm1715zePxRVkr7wCVq0iv6jK-X7hgQqSbSXzChRqpKq3YunRPjZ1iJNMX__abuU1DB6rJD4xRm800hwxqnJScJdCk4M48O3GZbQ65OhCSWw_j3c0APXrXJeve4EJZuxjEaG6BEtT0pMLYvikOp9yh-Df_nLztPC0FcWZKblIP-SQe_nYCsRgrw6BNRgcSh5mnvytvreAujszprvtUiCOZPs_XDtj6SN2pWJaFbWlE-GaHWT"/>
+</div>
+<div class="flex-1 flex flex-col min-w-0">
+<div class="flex justify-between items-start w-full">
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate text-lg leading-tight">María González</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Plomería General</p>
+</div>
+<button class="text-error hover:text-error transition-colors p-xs -mr-xs -mt-xs">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-xs mt-xs text-sm">
+<span class="material-symbols-outlined text-[#E3A600] text-sm" data-icon="star" data-weight="fill">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.7</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-xs">(56 reseñas)</span>
+<span class="mx-xs text-outline-variant">•</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-xs">8 años exp.</span>
+</div>
+<div class="mt-md flex gap-sm">
+<button class="w-full py-xs px-sm rounded-lg font-label-md text-label-md bg-[#F7F1E7] text-on-surface hover:bg-surface-variant transition-colors border border-[#DCE4DE]">Ver perfil</button>
+<button class="shrink-0 py-xs px-sm rounded-lg font-label-md text-label-md bg-[#08783E] text-white hover:opacity-90 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="chat">chat</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-16 bg-surface-container-lowest dark:bg-inverse-surface shadow-sm md:hidden">
+<div class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe bg-surface-container-lowest dark:bg-inverse-surface h-16 shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant active:scale-90 transition-transform duration-200 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Active State: Search -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed font-bold hover:bg-surface-container dark:hover:bg-surface-variant active:scale-90 transition-transform duration-200 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="search" data-weight="fill">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant active:scale-90 transition-transform duration-200 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="store">store</span>
+<span class="font-label-sm text-label-sm">Stores</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant active:scale-90 transition-transform duration-200 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant active:scale-90 transition-transform duration-200 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

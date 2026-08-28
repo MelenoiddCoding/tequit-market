@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tu Plan - Tequit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#822709",
+                        "secondary": "#2a6951",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-surface": "#121e18",
+                        "tertiary": "#420c00",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#27332d",
+                        "secondary-container": "#aceece",
+                        "on-tertiary-container": "#f47b57",
+                        "surface-container-high": "#ddece2",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#3e6656",
+                        "on-surface-variant": "#414844",
+                        "surface-variant": "#d8e6dc",
+                        "inverse-primary": "#a4d0bc",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "inverse-on-surface": "#e6f4ea",
+                        "surface-container-highest": "#d8e6dc",
+                        "primary-fixed": "#c0ecd8",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#effdf3",
+                        "on-primary-container": "#7da794",
+                        "outline": "#717974",
+                        "surface-container": "#e3f1e7",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "outline-variant": "#c1c8c3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbd1",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-primary-fixed": "#002116",
+                        "tertiary-container": "#671800",
+                        "surface-container-low": "#e9f7ed",
+                        "secondary-fixed": "#aff0d1",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#121e18",
+                        "surface-dim": "#cfddd4",
+                        "primary-container": "#123c2e",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#002115",
+                        "primary": "#00251a",
+                        "on-secondary-container": "#2f6e55",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "surface-bright": "#effdf3",
+                        "background": "#effdf3",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "base": "16px",
+                        "huge": "64px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "12px",
+                        "giant": "96px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Manrope"],
+                        "numeric-display": ["Fraunces"],
+                        "title-md": ["Fraunces"],
+                        "headline-lg": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg-mobile": ["Fraunces"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #effdf3; /* surface color */
+            color: #121e18; /* on-surface */
+            font-family: 'Manrope', sans-serif;
+        }
+        .fraunces { font-family: 'Fraunces', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+<div class="flex h-screen bg-surface">
+<!-- Sidebar Navigation (Shared Component Integration Style) -->
+<aside class="w-72 border-r border-outline-variant bg-surface-container flex flex-col h-full overflow-y-auto">
+<div class="p-lg flex flex-col gap-xl">
+<!-- Brand -->
+<div class="flex items-center gap-md">
+<div class="size-10 bg-primary-container rounded-full flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">texture</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-title-md text-on-surface">Tequit</h1>
+<p class="font-label-sm text-secondary">Panel del Prestador</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="font-label-md">Servicios</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-label-md">Solicitudes</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg bg-secondary-container text-on-secondary-container" href="#">
+<span class="material-symbols-outlined" data-icon="credit_card" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+<span class="font-label-md font-bold">Plan</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md">Ajustes</span>
+</a>
+</nav>
+</div>
+<!-- User Profile Minimal -->
+<div class="mt-auto p-lg border-t border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="size-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional artisan in a bright, sun-drenched studio in Nayarit, Mexico. The lighting is warm and natural, highlighting the textures of handmade pottery and woven textiles in the background. The aesthetic is clean, modern, and grounded in a light-mode color palette of creams, soft greens, and earthy browns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbgEyFCC670VEVByxlgZObG8MgG982hjv91hBsdYAsUNKOdEb8sHwUrZxzQoDIVQVXFdd2UzoK5k0qa62yiAqUjz3fEdPE_xI_OBJZrF4X9c5N10F1KQRzzd4ockyIBY1Q9QMtj1nZE2S5oHCSICMy-YcTeTvO8SZ2DA3Aais3aCU8rTLkTKLQGj98QH8Ee24m5fj3cIr-QH6SaP_dwDR3G-BL9jE6ha7W_EFDE5dOwV9GCu98AFw3"/>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-bold truncate">Carlos Mendoza</p>
+<p class="text-label-sm text-secondary">Carpintería Fina</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto">
+<!-- Header -->
+<header class="h-16 px-huge border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest sticky top-0 z-10">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-outline">menu_open</span>
+<h2 class="font-title-md text-on-surface">Gestión de Cuenta</h2>
+</div>
+<div class="flex items-center gap-md">
+<button class="size-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-xs"></div>
+<button class="px-md py-xs rounded-lg border border-outline text-label-md font-bold hover:bg-surface-container transition-colors">
+                    Ver mi Perfil Público
+                </button>
+</div>
+</header>
+<!-- View Content -->
+<div class="max-w-5xl mx-auto w-full p-huge flex flex-col gap-xl">
+<!-- Page Hero -->
+<div class="flex flex-col gap-sm">
+<h1 class="font-display-lg text-on-primary-container fraunces">Tu Plan en Tequit</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">
+                    Gestiona tu visibilidad y beneficios en la plataforma de servicios más grande de Nayarit.
+                </p>
+</div>
+<!-- Pilot Stage Info Card -->
+<div class="bg-primary-container rounded-xl p-lg flex flex-col md:flex-row gap-lg items-center border border-secondary">
+<div class="bg-surface-container-lowest p-md rounded-full text-primary-container shrink-0">
+<span class="material-symbols-outlined text-huge" data-icon="info">info</span>
+</div>
+<div class="flex flex-col gap-xs">
+<h3 class="text-title-md text-primary-fixed fraunces">Etapa Piloto</h3>
+<p class="text-body-md text-surface-variant leading-relaxed">
+                        Actualmente todos los perfiles operan en el <strong>Plan Free</strong>. Durante esta etapa inicial, un administrador puede habilitar funciones Pro para cuentas seleccionadas que ayuden a testear las nuevas funcionalidades de la plataforma.
+                    </p>
+</div>
+<button class="shrink-0 text-primary-fixed-dim font-bold flex items-center gap-xs hover:underline decoration-2 underline-offset-4">
+                    Más información <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Plans Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- Plan Free (Actual) -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-xl flex flex-col gap-lg relative overflow-hidden">
+<!-- Status Badge -->
+<div class="absolute top-md right-md bg-secondary text-on-secondary px-md py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-sm uppercase tracking-wider">Plan Actual</span>
+</div>
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-lg text-secondary fraunces">Plan Free</h2>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-lg fraunces text-on-surface">$0</span>
+<span class="text-label-md text-outline">MXN / mes</span>
+</div>
+</div>
+<div class="flex flex-col gap-md border-t border-outline-variant pt-lg">
+<p class="font-label-sm text-outline uppercase tracking-widest">Incluye:</p>
+<ul class="flex flex-col gap-md">
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="check">check</span>
+<span class="text-body-md">Hasta <strong>5 servicios</strong> publicados</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="check">check</span>
+<span class="text-body-md">Presencia en resultados de búsqueda</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="check">check</span>
+<span class="text-body-md">Recepción de solicitudes ilimitadas</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="check">check</span>
+<span class="text-body-md">Sistema de reseñas de clientes</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="check">check</span>
+<span class="text-body-md">Métricas básicas de rendimiento</span>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-lg">
+<button class="w-full py-md bg-outline-variant text-on-surface-variant font-bold rounded-lg cursor-not-allowed" disabled="">
+                            Plan Activo
+                        </button>
+</div>
+</div>
+<!-- Tequit Pro (Future) -->
+<div class="bg-surface-container-lowest border-2 border-secondary rounded-xl p-xl flex flex-col gap-lg relative overflow-hidden shadow-xl">
+<!-- Status Badge -->
+<div class="absolute top-md right-md bg-tertiary-fixed text-on-tertiary-fixed px-md py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<span class="text-label-sm uppercase tracking-wider">Próximamente</span>
+</div>
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-lg text-on-primary-container fraunces">Tequit Pro</h2>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-lg fraunces text-on-surface">Premium</span>
+<span class="text-label-md text-outline">Exclusivo</span>
+</div>
+</div>
+<div class="flex flex-col gap-md border-t border-outline-variant pt-lg">
+<p class="font-label-sm text-outline uppercase tracking-widest">Beneficios Pro:</p>
+<ul class="flex flex-col gap-md">
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="text-body-md"><strong>Servicios ilimitados</strong> en catálogo</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="photo_library">photo_library</span>
+<span class="text-body-md">Galería ampliada (hasta 20 fotos)</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="query_stats">query_stats</span>
+<span class="text-body-md">Estadísticas avanzadas (tendencias)</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-body-md">Badge de verificación premium</span>
+</li>
+<li class="flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="map">map</span>
+<span class="text-body-md">Mayor visibilidad en zonas de Nayarit</span>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-lg">
+<button class="w-full py-md bg-primary-container text-white font-bold rounded-lg hover:bg-primary transition-all shadow-md active:scale-95" id="interest-btn">
+                            Me interesa Tequit Pro
+                        </button>
+<p class="text-center text-label-sm text-outline mt-sm">Sin compromisos ni cargos actuales</p>
+</div>
+</div>
+</div>
+<!-- Atmospheric Illustration Area -->
+<div class="mt-xl relative h-64 rounded-xl overflow-hidden group">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700" data-alt="A cinematic, wide-angle shot of a traditional Mexican workshop where modern digital tools meet ancestral craft. An iPad showing service analytics sits next to handcrafted clay pots and wooden shavings. The lighting is soft morning light filtering through an open doorway, creating a professional yet authentic atmosphere. The colors are dominated by the Tequit palette: deep forest greens, creamy whites, and warm terracotta." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIEVQEcFJObdyZqzuXP3oTYgHeEpqcwTgB4ROXUq8DOqA0-KU1VpKrgHwxLRZB9SfYEyH3C0jCRFiQ5yEKI2ddt01FVkJKlumDE81K3BCZnQYsjkyOd73j0FgLmTyYREK2IEYhari_Cc-fJN8QyqZ4338tnuuy0NqTOtFM0WabHFYawesxsr3RLbjjjxaceCSFkQUCdHXHXihGSRZmzwPgt-vgPd__FxINnWnLEiPSGhanZI8hGWqD"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent flex flex-col justify-end p-xl">
+<p class="text-white font-title-md fraunces">Impulsando el talento local hacia el futuro digital.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Simple Interaction Script -->
+<script>
+    const interestBtn = document.getElementById('interest-btn');
+    interestBtn.addEventListener('click', () => {
+        const originalText = interestBtn.innerText;
+        interestBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Registrando...';
+        interestBtn.classList.replace('bg-primary-container', 'bg-secondary');
+        
+        setTimeout(() => {
+            interestBtn.innerHTML = '<span class="material-symbols-outlined">check</span> ¡Interés registrado!';
+            interestBtn.disabled = true;
+            interestBtn.classList.add('cursor-default');
+            interestBtn.classList.replace('hover:bg-primary', 'hover:bg-secondary');
+        }, 1500);
+    });
+</script>
+</body></html>

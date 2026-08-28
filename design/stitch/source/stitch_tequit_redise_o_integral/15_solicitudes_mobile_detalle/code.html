@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Solicitud - Concreto Estampado | Tequit</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00251a",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#2f6e55",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "surface": "#effdf3",
+                        "on-surface-variant": "#414844",
+                        "surface-container-highest": "#d8e6dc",
+                        "tertiary": "#420c00",
+                        "background": "#effdf3",
+                        "surface-bright": "#effdf3",
+                        "on-tertiary-container": "#f47b57",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c1c8c3",
+                        "secondary-container": "#aceece",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "surface-variant": "#d8e6dc",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#e6f4ea",
+                        "surface-tint": "#3e6656",
+                        "on-background": "#121e18",
+                        "on-error-container": "#93000a",
+                        "secondary": "#2a6951",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e3f1e7",
+                        "inverse-surface": "#27332d",
+                        "tertiary-fixed": "#ffdbd1",
+                        "primary-fixed": "#c0ecd8",
+                        "on-primary-fixed": "#002116",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "secondary-fixed": "#aff0d1",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-secondary-fixed": "#002115",
+                        "inverse-primary": "#a4d0bc",
+                        "surface-dim": "#cfddd4",
+                        "outline": "#717974",
+                        "surface-container-high": "#ddece2",
+                        "on-surface": "#121e18",
+                        "primary-container": "#123c2e",
+                        "on-primary-container": "#7da794",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#671800",
+                        "surface-container-low": "#e9f7ed",
+                        "brand-whatsapp": "#08783E"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "giant": "96px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "md": "12px",
+                        "xs": "4px",
+                        "base": "16px",
+                        "huge": "64px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Fraunces"],
+                        "body-lg": ["Manrope"],
+                        "headline-lg": ["Fraunces"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "title-md": ["Fraunces"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "numeric-display": ["Fraunces"],
+                        "label-sm": ["Manrope"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base typography defaults */
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Specific Material Symbol overrides */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Hide scrollbar for photo gallery */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Drawer animation */
+        #drawer-overlay {
+            transition: opacity 0.3s ease;
+        }
+        #nav-drawer {
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+        }
+        #nav-drawer.open {
+            transform: translateX(0);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface antialiased overflow-x-hidden pb-32 relative">
+<!-- TopAppBar (Shell) -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant docked full-width top-0 md:hidden flex justify-between items-center w-full px-base h-16 fixed z-40 transition-transform duration-300">
+<div class="flex items-center gap-md">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed tracking-tight">Tequit</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant hover:bg-surface-container-high transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-[#E3A600] outline-none active:scale-95 duration-100">
+<img alt="Juan's Avatar" class="w-full h-full object-cover" data-alt="A documentary-style close-up portrait of a Mexican tradesman, Juan, wearing a simple work shirt. He has a warm, experienced smile. The lighting is natural and cinematic, reflecting an authentic, hardworking local aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArP4dMypOJpalv8iaKKMpjgUx5Pg5ZrYT5X8-ltmcNgJqGsBH-ZcvnV0RMr1nd_NuR0bZ0vwebYlfc0sXxTK8QI4bMekAxjuYW8kmLcZpScBcq1G5wbzJ_6WPic1WK_ES56bZWcaum3yCxRUmlNXUUzIke6X2oOymHcYR1O2xY1uWFMyz6v0jBPKCiU1GMIdv-pC-DIVDrvmDsFfSBwKI4da5Z_6Po6Xu2l8c4tiMi5ZoXmlXFde8v"/>
+</button>
+<button aria-label="Abrir menú" class="p-2 text-on-surface hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-100" id="menu-toggle">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Navigation Drawer (Shell) -->
+<div class="fixed inset-0 bg-on-surface/40 z-40 hidden md:hidden opacity-0 backdrop-blur-sm" id="drawer-overlay"></div>
+<nav class="bg-surface-container-low dark:bg-surface-dim shadow-xl h-full w-4/5 max-w-[320px] fixed left-0 top-0 z-50 md:hidden flex flex-col overflow-y-auto px-base py-lg" id="nav-drawer">
+<!-- Drawer Header -->
+<div class="flex items-center gap-md mb-xl">
+<div class="w-14 h-14 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Juan's Profile Picture" class="w-full h-full object-cover" data-alt="A documentary-style close-up portrait of a Mexican tradesman, Juan, wearing a simple work shirt. He has a warm, experienced smile. The lighting is natural and cinematic, reflecting an authentic, hardworking local aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqaHLD-rkJsLoLEmcDghZeOKKzp-GEIB0KuNnn5kS-lv63PLbolAsfyhcWc5Ilnx3_R5I0Ykh8ka7vnsCULzNXqjcVnZhUilws420rfblkHLKqGjXX8uBJJR9YD7GEsCE3I_hvhXb3v8zYdYnufmWhp3J7TAGEQaA8fYlodSgIHp4xPIY0mNFPev0xo4v5V80GKABm3sqDffoOqqLIe7pcChdxYQvol4DsDgorsF43RgtIOBsPa5FR"/>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary dark:text-primary-fixed">Panel de Juan</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Local Expert</p>
+</div>
+</div>
+<!-- Drawer Navigation Items -->
+<ul class="flex-1 flex flex-col gap-xs">
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">dashboard</span> <span class="font-body-md text-body-md">Resumen</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">person</span> <span class="font-body-md text-body-md">Mi perfil</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">construction</span> <span class="font-body-md text-body-md">Servicios</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">handyman</span> <span class="font-body-md text-body-md">Trabajos</span></a></li>
+<!-- Active Tab: Solicitudes -->
+<li><a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg p-md active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">inbox</span> <span class="font-body-md text-body-md font-bold">Solicitudes</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">grade</span> <span class="font-body-md text-body-md">Reseñas</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">monitoring</span> <span class="font-body-md text-body-md">Estadísticas</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">storefront</span> <span class="font-body-md text-body-md">Negocios</span></a></li>
+<li><a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">loyalty</span> <span class="font-body-md text-body-md">Plan</span></a></li>
+</ul>
+<!-- Drawer Footer Items -->
+<div class="mt-auto pt-lg border-t border-outline-variant flex flex-col gap-xs">
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">visibility</span> <span class="font-body-md text-body-md">Ver perfil público</span></a>
+<a class="flex items-center gap-md text-error p-md hover:bg-error-container/20 rounded-lg active:opacity-90 transition-opacity" href="#"><span class="material-symbols-outlined">logout</span> <span class="font-body-md text-body-md">Cerrar sesión</span></a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-16 px-base md:px-lg max-w-screen-sm mx-auto w-full flex flex-col gap-lg">
+<!-- Back Navigation & Status Header -->
+<div class="flex flex-col gap-sm mt-lg">
+<button class="flex items-center gap-xs text-on-surface-variant w-fit hover:text-primary transition-colors focus:outline-none rounded-sm focus:ring-2 focus:ring-[#E3A600]" onclick="history.back()">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span class="font-label-md text-label-md">Volver a Solicitudes</span>
+</button>
+<div class="flex justify-between items-start mt-md">
+<h1 class="font-title-md text-title-md text-on-surface leading-tight">Concreto estampado</h1>
+<!-- Status Selector -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-highest border border-outline-variant rounded-full pl-3 pr-8 py-1.5 font-label-md text-label-md text-on-surface focus:ring-2 focus:ring-[#E3A600] focus:border-primary cursor-pointer outline-none shadow-sm">
+<option selected="" value="nueva">Nueva</option>
+<option value="vista">Vista</option>
+<option value="interesa">Me interesa</option>
+<option value="descartada">Descartada</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Client Info Card (Glassmorphism/Paper layering) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="Foto de Mariana López" class="w-full h-full object-cover" data-alt="A candid, warm documentary portrait of Mariana, a Mexican client, standing near a residential street in Tepic. Natural sunlight, slight bokeh background, authentic and relatable editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCzTScyI98WMEgBtCdOwhyYkJIph3F-8Bm0zFzkrXdsnmeawbo5xZZuF_MCLXz97ca5yIl9DxRhifTe1-YKhuFwVQ50r258nfnnZf58JDTd5QAovfkJwgCzZwta7xvy4UZqJu12dw7s_7TqElJ8cLKwJ-K_WiiYpQK5tzF1SQYLzfn6cFUexoF2MYz-JQN-ppjc60afnqk0i3YnEkLi1xj62_NCTwgw6kNDPhsoc0G_8wbyHKgP4LF"/>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-surface">Mariana López</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Cliente local</p>
+</div>
+</section>
+<!-- Request Details (Bento-style list) -->
+<section class="flex flex-col gap-xs">
+<div class="bg-surface-container-low rounded-lg p-md flex items-start gap-md">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5">architecture</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Descripción del trabajo</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Cochera de 35 m2</p>
+</div>
+</div>
+<div class="flex gap-xs">
+<div class="bg-surface-container-low rounded-lg p-md flex items-start gap-md flex-1">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5">location_on</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Ubicación</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs" data-location="Tepic">Ciudad del Valle</p>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-md flex items-start gap-md flex-1">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5">calendar_clock</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Urgencia</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Esta semana</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Photos Section -->
+<section class="mt-sm">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-label-md text-label-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">photo_library</span> 
+                    Fotos adjuntas (3)
+                </h3>
+</div>
+<!-- Horizontal scroll gallery for mobile -->
+<div class="flex gap-md overflow-x-auto pb-sm no-scrollbar snap-x">
+<div class="snap-center shrink-0 w-64 h-48 rounded-xl overflow-hidden border border-outline-variant bg-surface-variant relative shadow-sm">
+<img alt="Foto del sitio 1" class="w-full h-full object-cover" data-alt="Documentary photography of a distressed residential concrete driveway in Tepic, Mexico. The surface is uneven and shows signs of wear, bathed in warm afternoon sunlight casting long shadows. Earthy, realistic tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4xPVvOevCuNnt8POlF7cs1fQtZ5PKI1Lb9C5akZ0cfLRW2NpkCkVO-dEdSRPR0hznpOcnOzAI13W5YQX64WXi-wfZnkM-MxxtjQIIIFPhDeEhvGRIqzNTrXGlviEE1vTTHdpY3KRkop6S4To5bfBycGtNrkE8ju6Izf6sFKsodZQWdGDMxeFm6Uv498_66uBMuHNzlV5JOArO1PJGdivozS3CLzhjksBqDT6CHsDX-VrAyMnzcOil"/>
+<div class="absolute bottom-2 right-2 bg-on-surface/60 backdrop-blur-md px-2 py-1 rounded text-white font-label-sm text-label-sm">1/3</div>
+</div>
+<div class="snap-center shrink-0 w-64 h-48 rounded-xl overflow-hidden border border-outline-variant bg-surface-variant">
+<img alt="Foto del sitio 2" class="w-full h-full object-cover" data-alt="Close-up shot of cracked concrete texture on a driveway. Authentic documentary style, high detail on the rough surface, neutral earthy colors, showing the exact area needing repair work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKawaNBH2JKaIYe8FeRbi1yMmyc49jUzfCThYd-Ki_RP1Snqa4kTFPydjNdA5NcEkhLb_rHRZs3y3Po_L0ymFOJ1eP5f7ISlo2fdRyyWsXJdU9Ne2o3lBvj6WPeqwuDvjWtaCEUJQpoc4dOpcK8BZtiFttly6MHCW2auZRt7GM1sBkVmphqYHo1YxjomR1Lm6Fv0icdiAJ5PZuc5Vz13NzQHxurWT3mImPmKWnbM2F_wLofgAxaWVq"/>
+</div>
+<div class="snap-center shrink-0 w-64 h-48 rounded-xl overflow-hidden border border-outline-variant bg-surface-variant">
+<img alt="Foto del sitio 3" class="w-full h-full object-cover" data-alt="Wide angle view of a 35 square meter driveway space outside a house. The ground is prepared for new concrete pouring. Dusty environment, warm lighting, conveying a sense of manual labor and local construction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-AeY5dCWByXPWJcdoMu46ef84H9_-2w0ivtCnck_lYPoNsmbv5hnmPQBtbOrUolGvD61kDE0V6p3S13gJdQOn_umWP42xIHO4bOF16UPdr_6u5CZAWXL_iAnSAoZWcMU8CTnMVdlehPlfDKmVS0Z751yCVQ6dQ8EaIyEML3Hak_Bk0AZ-zOlZqjT2Vi3AbUOL55Z5ZKvxXScgAYDbBdRhKnfd7U2HH0wWI4ENE1v4x9OtWou3Gat0"/>
+</div>
+</div>
+</section>
+<!-- Privacy Notice -->
+<section class="bg-surface-variant/50 border border-outline-variant rounded-xl p-md flex items-start gap-3 mt-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">shield_lock</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">
+                    Aviso de privacidad: Esta información es confidencial. Úsala únicamente para cotizar y organizar el trabajo solicitado por el cliente.
+                </p>
+</div>
+</section>
+</main>
+<!-- Fixed Bottom CTA (WhatsApp) -->
+<div class="fixed bottom-0 left-0 w-full px-base py-md bg-surface/90 backdrop-blur-md border-t border-outline-variant z-30 pb-safe">
+<button class="w-full bg-brand-whatsapp text-white rounded-xl py-4 flex items-center justify-center gap-sm font-label-md text-label-md font-bold shadow-[0_4px_12px_rgba(8,120,62,0.2)] hover:bg-[#066333] transition-colors active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-whatsapp">
+<!-- Inline Lucide MessageCircle SVG as requested -->
+<svg class="lucide lucide-message-circle" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+            Contactar por WhatsApp
+        </button>
+</div>
+<!-- Scripts for interaction -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navDrawer = document.getElementById('nav-drawer');
+            const drawerOverlay = document.getElementById('drawer-overlay');
+            const body = document.body;
+
+            function openDrawer() {
+                drawerOverlay.classList.remove('hidden');
+                // Small delay to allow display:block to apply before animating opacity
+                setTimeout(() => {
+                    drawerOverlay.classList.remove('opacity-0');
+                    navDrawer.classList.add('open');
+                    body.style.overflow = 'hidden'; // Prevent background scrolling
+                }, 10);
+            }
+
+            function closeDrawer() {
+                drawerOverlay.classList.add('opacity-0');
+                navDrawer.classList.remove('open');
+                body.style.overflow = '';
+                
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    drawerOverlay.classList.add('hidden');
+                }, 300);
+            }
+
+            menuToggle.addEventListener('click', openDrawer);
+            drawerOverlay.addEventListener('click', closeDrawer);
+        });
+    </script>
+</body></html>

@@ -1,3 +1,16 @@
-import { Star } from "lucide-react";
+import { Link2, Star } from "lucide-react";
 import { providers } from "@/lib/demo-data";
-export default function ReviewsPage(){const reviews=providers[0].reviews.filter(r=>r.status==="approved");return <main><p className="eyebrow">Reputación</p><h1 style={{fontSize:"clamp(2.3rem,6vw,4rem)"}}>Reseñas</h1><div className="metrics"><div className="metric"><Star className="verified"/><span className="muted">Rating general</span><strong>4.8</strong><span className="help">Sólo reseñas aprobadas</span></div><div className="metric"><span className="muted">Reseñas</span><strong>23</strong><span className="help">1 enlace pendiente</span></div></div><section className="section">{reviews.map(r=><article className="review" key={r.id}><strong>{r.author} · {r.rating}/5</strong><p>{r.comment}</p><span className="status">Aprobada</span></article>)}<button className="btn btn-dark" style={{marginTop:20}}>Generar enlace para cliente anterior</button></section></main>}
+import { DashboardContent } from "@/components/dashboard-shell";
+import { DashboardPageHeader, DashboardSection, MetricGrid, MetricItem, StatusBadge, dashboardStyles as styles } from "@/components/dashboard-components";
+
+export default function ReviewsPage() {
+  const reviews = providers[0].reviews.filter((review) => review.status === "approved");
+  return <DashboardContent>
+    <DashboardPageHeader eyebrow="Reputación" title="Reseñas" description="Consulta las reseñas aprobadas y solicita opinión a clientes anteriores." />
+    <MetricGrid><MetricItem icon={Star} label="Rating general" value="4.8" note="Sólo reseñas aprobadas" /><MetricItem label="Reseñas" value="23" note="Publicadas en tu perfil" /><MetricItem icon={Link2} label="Enlaces pendientes" value="1" note="Aún no utilizado" /><MetricItem label="Última reseña" value="4 ago" note="María G. · 5 estrellas" /></MetricGrid>
+    <DashboardSection title="Reseñas aprobadas" description="Estas opiniones son visibles en tu perfil público.">
+      <div>{reviews.map((review) => <article className={styles.review} key={review.id}><header className={styles.reviewHeader}><div><strong>{review.author}</strong><div className={styles.stars} aria-label={`${review.rating} de 5 estrellas`}>{"★".repeat(review.rating)}</div></div><div><StatusBadge>Aprobada</StatusBadge><br /><time dateTime={review.date}>{new Intl.DateTimeFormat("es-MX", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${review.date}T12:00:00`))}</time></div></header><p>{review.comment}</p></article>)}</div>
+    </DashboardSection>
+    <DashboardSection title="Pide una reseña" description="Genera un enlace único para una persona a la que ya le hayas realizado un trabajo." action={<button className={styles.primary} type="button"><Link2 size={17} />Generar enlace</button>}><p className={styles.help}>Tequit revisa las reseñas antes de publicarlas. El enlace no garantiza su aprobación.</p></DashboardSection>
+  </DashboardContent>;
+}

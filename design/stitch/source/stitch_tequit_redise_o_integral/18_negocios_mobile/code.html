@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mis Negocios - Gestión</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#3e6656",
+                      "on-surface-variant": "#414844",
+                      "outline-variant": "#c1c8c3",
+                      "on-secondary-container": "#2f6e55",
+                      "on-tertiary-fixed": "#3b0a00",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#e9f7ed",
+                      "primary-container": "#123c2e",
+                      "surface-bright": "#effdf3",
+                      "inverse-surface": "#27332d",
+                      "inverse-on-surface": "#e6f4ea",
+                      "on-primary-fixed": "#002116",
+                      "surface-container": "#e3f1e7",
+                      "on-secondary-fixed": "#002115",
+                      "tertiary-container": "#671800",
+                      "surface": "#effdf3",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "on-surface": "#121e18",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#d8e6dc",
+                      "on-tertiary-container": "#f47b57",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "outline": "#717974",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "secondary-fixed": "#aff0d1",
+                      "inverse-primary": "#a4d0bc",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#7da794",
+                      "background": "#effdf3",
+                      "secondary": "#2a6951",
+                      "surface-variant": "#d8e6dc",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "primary": "#00251a",
+                      "secondary-container": "#aceece",
+                      "surface-container-high": "#ddece2",
+                      "primary-fixed": "#c0ecd8",
+                      "tertiary-fixed": "#ffdbd1",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#420c00",
+                      "surface-dim": "#cfddd4",
+                      "on-background": "#121e18",
+                      "on-tertiary-fixed-variant": "#822709"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xxl": "48px",
+                      "lg": "24px",
+                      "giant": "96px",
+                      "base": "16px",
+                      "xs": "4px",
+                      "sm": "8px",
+                      "md": "12px",
+                      "huge": "64px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Fraunces"],
+                      "title-md": ["Fraunces"],
+                      "display-lg": ["Fraunces"],
+                      "headline-lg-mobile": ["Fraunces"],
+                      "body-md": ["Manrope"],
+                      "numeric-display": ["Fraunces"],
+                      "body-lg": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "label-sm": ["Manrope"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                      "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                      "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                      "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                      "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                      "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                      "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                      "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }]
+              }
+            }
+          }
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-fraunces { font-family: 'Fraunces', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen relative pb-huge md:hidden">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center px-4 md:px-lg py-md w-full max-w-7xl mx-auto z-40">
+<div class="flex items-center gap-md">
+<!-- Replacing product_name 'Tequit' with contextually accurate Title for this screen based on prompt while maintaining style -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">
+                Mis Negocios
+            </h1>
+</div>
+<div class="flex items-center gap-base">
+<button class="text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-lowest transition-colors p-sm rounded-full active:scale-95 duration-150 transition-transform">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-lowest transition-colors p-sm rounded-full active:scale-95 duration-150 transition-transform">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-base flex flex-col gap-lg pb-24">
+<!-- Search Bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md rounded-full py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all placeholder:text-outline-variant" placeholder="Buscar negocios..." type="text"/>
+</div>
+<!-- Business Cards List -->
+<div class="flex flex-col gap-base">
+<!-- Card 1: Active -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col gap-md shadow-[0_4px_12px_rgba(23,35,29,0.02)]">
+<div class="flex gap-4 items-center">
+<img alt="Logo de Tostadores del Nayar" class="w-16 h-16 rounded-xl object-cover bg-surface-container border border-outline-variant flex-shrink-0" data-alt="Close-up documentary style photo of a rustic ceramic mug filled with dark coffee resting on a worn wooden table in a local café. Warm, natural lighting highlighting the textures. Modern editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-kryyqhlK9tgHZ-rFoKltOIH3mMdzvjRRCnu_mDBI7BX7Ou0ZLWKNE6sOe1BLr4fGIptVYCTwzxueEFlYCh0e0X3Nn75oCodYeFdfV6bAWE50W_JTeHYjkiYFXWH1ULTh8iVX6_qsxpXTHGX1l7AGBTgS3BMaDdsNVpnhHa_QEhnp5BiiMpBZE8_fh-BsojVK6v5saSIHoYuxcRezrYqA_j3n4C7UfTgPwLmfZ6Sbdpy2Ycl6LD0H"/>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md text-primary truncate">Tostadores del Nayar</h2>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Cafetería de Especialidad</p>
+</div>
+<div class="flex-shrink-0">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm border border-secondary-container">
+<span class="material-symbols-outlined text-[14px] mr-1" data-icon="check_circle">check_circle</span>
+                            Activo
+                        </span>
+</div>
+</div>
+<div class="pt-sm mt-sm border-t border-surface-variant flex justify-end">
+<button class="bg-primary-container text-on-primary font-label-md text-label-md py-2 px-6 rounded-lg active:scale-95 transition-transform flex items-center justify-center gap-2 w-full">
+<span class="material-symbols-outlined text-[18px]" data-icon="storefront">storefront</span>
+                        Gestionar
+                    </button>
+</div>
+</article>
+<!-- Card 2: Pending -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col gap-md shadow-[0_4px_12px_rgba(23,35,29,0.02)] opacity-80">
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl bg-cover bg-center bg-surface-container border border-outline-variant flex-shrink-0" data-alt="Detail shot of hands working with natural clay on a pottery wheel. The clay is a rich earthy tone, hands are dusted with dried clay. Soft, diffused workshop lighting. Documentary craft photography." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQa6xBQCHRDlBPsHr6Qd9IQzEk30-twv_dJIVfKwjbsWAWEiZ6TqNdkAMZ6v25LCRoAhwJ1gyBuQhBdT_3wIZURXmGle1zZ_x5nUPLyJk_bDZjuLy9fweB4Z049O_74yRYGI_oeBAFW7Vqke-qJWacNDbStv7_KbmHExqQ2_J1m-sbkkBO729wSYrY7vGnwsd2FXdyl7PmYvThV7n93xhbCARrANNxtBcsgRzYLJ3vI3LH3fTHqBe9')"></div>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md text-primary truncate">Barro y Vida</h2>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Taller Artesanal</p>
+</div>
+<div class="flex-shrink-0">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-variant text-on-surface font-label-sm text-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[14px] mr-1" data-icon="pending">pending</span>
+                            Pendiente
+                        </span>
+</div>
+</div>
+<div class="pt-sm mt-sm border-t border-surface-variant flex justify-end">
+<button class="bg-surface-container border border-outline-variant text-on-surface font-label-md text-label-md py-2 px-6 rounded-lg active:scale-95 transition-transform flex items-center justify-center gap-2 w-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit_document">edit_document</span>
+                        Completar Perfil
+                    </button>
+</div>
+</article>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-[88px] right-4 bg-primary-container text-on-primary shadow-[0_4px_12px_rgba(23,35,29,0.15)] rounded-2xl flex items-center justify-center p-4 gap-2 active:scale-95 transition-transform z-40 hover:bg-inverse-surface">
+<span class="material-symbols-outlined font-bold" data-icon="add">add</span>
+<span class="font-label-md text-label-md pr-1">Nuevo Negocio</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe bg-surface dark:bg-surface-container-lowest border-t border-outline-variant shadow-sm h-16">
+<!-- Tab 1: Mis Negocios (Active) -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-on-secondary-container bg-secondary-container/30 rounded-xl px-3 py-1 font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined fill" data-icon="storefront" data-weight="fill" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="mt-1">Mis Negocios</span>
+</button>
+<!-- Tab 2: Estadísticas -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200 px-3 py-1">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="mt-1">Estadísticas</span>
+</button>
+<!-- Tab 3: Mensajes -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200 px-3 py-1 relative">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="absolute top-1 right-2 w-2 h-2 bg-on-tertiary-container rounded-full"></span>
+<span class="mt-1">Mensajes</span>
+</button>
+<!-- Tab 4: Perfil -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200 px-3 py-1">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="mt-1">Perfil</span>
+</button>
+</nav>
+</body></html>

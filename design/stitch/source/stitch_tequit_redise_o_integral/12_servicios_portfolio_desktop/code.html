@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oficio Humano - Servicios y Portafolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#002115",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "on-primary-container": "#7da794",
+                      "inverse-on-surface": "#e6f4ea",
+                      "secondary": "#2a6951",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#414844",
+                      "on-tertiary-fixed": "#3b0a00",
+                      "inverse-primary": "#a4d0bc",
+                      "surface-container-highest": "#d8e6dc",
+                      "tertiary": "#420c00",
+                      "secondary-fixed": "#aff0d1",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-container-high": "#ddece2",
+                      "on-tertiary-container": "#f47b57",
+                      "background": "#effdf3",
+                      "primary": "#00251a",
+                      "tertiary-fixed": "#ffdbd1",
+                      "primary-fixed": "#c0ecd8",
+                      "surface": "#effdf3",
+                      "on-tertiary-fixed-variant": "#822709",
+                      "on-primary-fixed": "#002116",
+                      "surface-container-low": "#e9f7ed",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#27332d",
+                      "surface-bright": "#effdf3",
+                      "surface-container": "#e3f1e7",
+                      "outline-variant": "#c1c8c3",
+                      "on-surface": "#121e18",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "outline": "#717974",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "surface-tint": "#3e6656",
+                      "primary-container": "#123c2e",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#cfddd4",
+                      "on-background": "#121e18",
+                      "surface-variant": "#d8e6dc",
+                      "on-secondary-container": "#2f6e55",
+                      "secondary-container": "#aceece",
+                      "tertiary-container": "#671800"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "base": "16px",
+                      "sm": "8px",
+                      "xs": "4px",
+                      "giant": "96px",
+                      "xl": "32px",
+                      "huge": "64px",
+                      "md": "12px",
+                      "xxl": "48px"
+              },
+              "fontFamily": {
+                      "label-md": ["Manrope"],
+                      "headline-lg": ["DM Serif Display", "serif"], // Override for specific user request
+                      "numeric-display": ["DM Serif Display", "serif"],
+                      "body-md": ["Manrope"],
+                      "headline-lg-mobile": ["DM Serif Display", "serif"],
+                      "label-sm": ["Manrope"],
+                      "display-lg": ["DM Serif Display", "serif"],
+                      "title-md": ["DM Serif Display", "serif"],
+                      "body-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "400"}], // DM Serif is usually 400
+                      "numeric-display": ["24px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "title-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FFFCF7; /* Level 0 Floor */
+        }
+        .paper-card {
+            background-color: #F7F1E7;
+            border: 1px solid #DCE4DE;
+        }
+        .btn-primary {
+            background-color: #123C2E;
+            color: #ffffff;
+            border-radius: 10px;
+        }
+        .focus-ring:focus-within {
+            outline: 2px solid #E3A600;
+            outline-offset: 2px;
+        }
+        .text-gold {
+            color: #E3A600;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased bg-[#FFFCF7]">
+<!-- Shell Layout -->
+<div class="flex min-h-screen">
+<!-- SideNavBar (from JSON) -->
+<aside class="bg-surface-container-low dark:bg-inverse-surface h-screen w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline flex flex-col py-lg px-base space-y-md z-50 hidden md:flex">
+<!-- Header/Brand -->
+<div class="mb-xl flex items-center space-x-md">
+<img class="w-12 h-12 rounded-full object-cover border border-outline-variant" data-alt="A professional documentary-style portrait of a Mexican tradesman in his late 40s. He is wearing a clean work shirt, looking directly at the camera with a confident, welcoming smile. The background is a slightly blurred, well-organized workshop with warm, natural lighting. The overall aesthetic is high-quality, editorial photography emphasizing local expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2-y2PaIIVLHCfQ2jSBIiTe-ZnqJSfo3_UZjgOMs1BQ4AxIEy3-QhxstO61-mjsKPnsRDlZlYTCYIDkvHciLhMk2NST3VSgN2gkLdnZERVj2MESlRmZ0tOerJXyuSEFne9X6vCAi7qTCb14asojPd4s0JrqjuLnqrZxYotacSDasiy2kQQYqqfhGDptxVvAoo5hSDmsTMwsHKvX-IPQagBYo2FObPBlRhYixCcZRs2uf9E_OGsnZka"/>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed leading-none text-xl font-bold">Oficio Humano</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Local Trade Expert</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-sm">
+<!-- Dashboard -->
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">dashboard</span>
+                    Dashboard
+                </a>
+<!-- Services (Active - determined by semantic match to "Services & Portfolio") -->
+<a class="flex items-center px-md py-sm rounded-lg text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-surface-variant transition-colors font-label-md text-label-md active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mr-md" style="font-variation-settings: 'FILL' 1;">handyman</span>
+                    Services
+                </a>
+<!-- Portfolio -->
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">photo_library</span>
+                    Portfolio
+                </a>
+<!-- Messages -->
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">chat</span>
+                    Messages
+                </a>
+<!-- Settings -->
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">settings</span>
+                    Settings
+                </a>
+</nav>
+<!-- CTA -->
+<div class="mt-auto mb-md">
+<button class="w-full btn-primary py-sm px-md font-label-md text-label-md flex justify-center items-center shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined mr-sm text-sm">add</span>
+                    Add New Project
+                </button>
+</div>
+<!-- Footer Links -->
+<div class="border-t border-outline-variant pt-md space-y-sm">
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">help_outline</span>
+                    Help
+                </a>
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mr-md">logout</span>
+                    Sign Out
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 min-h-screen flex flex-col relative">
+<!-- TopAppBar (from JSON) -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md docked full-width top-0 sticky z-40 border-b border-outline-variant dark:border-outline flex justify-between items-center px-lg h-16 w-full">
+<!-- Search on Right (Implicitly handled by putting actions on right) -->
+<div class="flex-1"></div> <!-- Spacer -->
+<div class="flex items-center space-x-md text-primary dark:text-primary-fixed">
+<button class="p-2 hover:opacity-80 transition-opacity active:opacity-70 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:opacity-80 transition-opacity active:opacity-70 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-lg md:p-xl max-w-7xl mx-auto w-full pb-giant">
+<!-- Header Section -->
+<div class="mb-huge">
+<h1 class="font-display-lg text-display-lg text-primary-container mb-xs">Servicios y Portafolio</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Gestiona lo que ofreces y muestra tu mejor trabajo. Asegúrate de que tus clientes conozcan la calidad de tu oficio.</p>
+</div>
+<!-- Section 1: Mis Servicios -->
+<section class="mb-giant">
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-title-md text-title-md text-on-surface">Mis Servicios</h2>
+<button class="btn-primary px-lg py-sm font-label-md text-label-md flex items-center shadow-sm hover:bg-[#0a241b] transition-colors focus-ring">
+<span class="material-symbols-outlined mr-sm text-sm">add</span>
+                            Nuevo Servicio
+                        </button>
+</div>
+<!-- Services Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Service Card 1 -->
+<div class="paper-card rounded-xl p-lg flex flex-col relative overflow-hidden group hover:shadow-[0_4px_12px_rgba(23,35,29,0.05)] transition-shadow">
+<div class="absolute top-0 right-0 p-md flex space-x-xs">
+<button aria-label="Editar" class="p-2 text-outline hover:text-primary transition-colors rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button aria-label="Eliminar" class="p-2 text-outline hover:text-error transition-colors rounded-full hover:bg-error-container">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex items-start mb-md">
+<div class="w-12 h-12 bg-white rounded-lg border border-[#DCE4DE] flex items-center justify-center mr-md text-primary-container">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div class="pt-1">
+<h3 class="font-headline-lg text-numeric-display text-primary-container mb-1 leading-none">Plomería General</h3>
+<span class="inline-block bg-[#effdf3] border border-[#a4d0bc] text-[#123c2e] font-label-sm text-label-sm px-2 py-1 rounded-full">Desde $500 MXN</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">Reparación de fugas, destape de tuberías, instalación de llaves y mantenimiento preventivo. Servicio rápido y garantizado con materiales de primera calidad.</p>
+</div>
+<!-- Service Card 2 -->
+<div class="paper-card rounded-xl p-lg flex flex-col relative overflow-hidden group hover:shadow-[0_4px_12px_rgba(23,35,29,0.05)] transition-shadow">
+<div class="absolute top-0 right-0 p-md flex space-x-xs">
+<button aria-label="Editar" class="p-2 text-outline hover:text-primary transition-colors rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button aria-label="Eliminar" class="p-2 text-outline hover:text-error transition-colors rounded-full hover:bg-error-container">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex items-start mb-md">
+<div class="w-12 h-12 bg-white rounded-lg border border-[#DCE4DE] flex items-center justify-center mr-md text-primary-container">
+<span class="material-symbols-outlined">cloud_download</span>
+</div>
+<div class="pt-1">
+<h3 class="font-headline-lg text-numeric-display text-primary-container mb-1 leading-none">Instalación de Tinacos</h3>
+<span class="inline-block bg-[#effdf3] border border-[#a4d0bc] text-[#123c2e] font-label-sm text-label-sm px-2 py-1 rounded-full">$1,200 - $2,500 MXN</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">Instalación profesional de tinacos y cisternas, incluyendo bases, conexiones a red hidráulica y pruebas de presión. Aseguramos un flujo de agua constante.</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Galería de Trabajos -->
+<section>
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-title-md text-title-md text-on-surface">Galería de Trabajos</h2>
+</div>
+<!-- Bento Grid for Portfolio -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Add Project Card -->
+<div class="md:col-span-1 min-h-[250px] border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center bg-white/50 hover:bg-[#F7F1E7] transition-colors cursor-pointer group focus-ring">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">add_photo_alternate</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface font-bold">Añadir Proyecto</h3>
+<p class="font-body-sm text-sm text-outline mt-1 text-center px-4">Sube fotos de tus trabajos terminados.</p>
+</div>
+<!-- Portfolio Item 1 (Spans 2 columns) -->
+<div class="md:col-span-2 relative rounded-xl overflow-hidden min-h-[250px] group border border-[#DCE4DE]">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A close-up, high-quality documentary-style photograph showing the pristine, newly installed copper pipes under a modern bathroom sink. The lighting is bright and clean, highlighting the craftsmanship and precision of the plumbing work. The background is slightly out of focus, showing clean white tiles, creating a professional and trustworthy aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMqReoM5RCRElVLrfLHqkML2mO92Nq9ryIIALCVj663de22R9kpCs-JRX3quPeACnHwgavuKe_NQ2hmtcRV_Y_z5BNQZczPsd4WkYiQwwHqGLIhizWRcLh6fx3pUt1PdpjtNNly-cchmutqFfPrzXj8aWchjMJM6Wk6cgMgFUB8jCmW0VT95JTT3gCl-6ARAzyAcjZmddnu0F9kiwODkTr8eDVqPs6B6pZLCl25YvDz3eEmFAeSDAB"/>
+<!-- Gradient overlay for text legibility -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#121e18]/90 via-[#121e18]/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 w-full p-lg">
+<span class="inline-block bg-[#123C2E]/80 backdrop-blur-sm text-white font-label-sm text-label-sm px-2 py-1 rounded mb-2 border border-white/20">Instalación Residencial</span>
+<h3 class="font-headline-lg text-[24px] leading-tight text-white mb-1">Renovación de Baño Completo</h3>
+<p class="font-body-md text-body-md text-surface-container-low/90">Sustitución total de red hidráulica en residencia de Col. Centro.</p>
+</div>
+<!-- Actions -->
+<div class="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-white/90 backdrop-blur-sm text-primary rounded-full hover:bg-white transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Portfolio Item 2 -->
+<div class="md:col-span-1 relative rounded-xl overflow-hidden min-h-[250px] group border border-[#DCE4DE]">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A documentary-style photo of a large black water tank (tinaco) perfectly installed on a flat concrete roof against a clear blue sky. The focus is on the neat PVC piping connections leading into the tank, demonstrating expert local craftsmanship. The lighting is natural and bright, conveying reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZnExFjsFA6bGf8qaM7lfkPCkjnuVWjyducuZXnGV-5r6e7cubGmCVc03yupRwz0pEeArgcCk1ak-UbzhC3LJfg4qW5a--eOGG6Au41vBq2c9-JiYI5q4TF9adhxLjhe7_PUJgRV18cRW-zvO_ahlmreb1moE3xPnEGFMCRNulT6pP6e_FHoL04TvATzIpURNF5WS9BAUwO4CIbhH2Km3XwS5q1w4GZ49q5btQUQGxOzHFXnrHvwTV"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#121e18]/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-md">
+<h3 class="font-label-md text-label-md text-white font-bold mb-1">Tinaco 1100L</h3>
+<p class="font-body-sm text-sm text-surface-variant line-clamp-1">Instalación con base elevada.</p>
+</div>
+</div>
+<!-- Portfolio Item 3 -->
+<div class="md:col-span-2 relative rounded-xl overflow-hidden min-h-[250px] group border border-[#DCE4DE]">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A close-up shot of a tradesman's hands carefully adjusting a shiny new modern kitchen faucet. The background is a clean, contemporary kitchen with warm wood accents and cream countertops. The focus is on the action of tightening a fixture, representing care, precision, and high-quality local service in a warm, documentary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9fdTIiUfJLyXkTSvNN7FYnXpR5sOm2oCZVHG5hn5pqL6EWBk-XIXsCX_0Drhu6xor_yn7pHr8ju9K3wNMMk64PB2IMliz2lf4xpTtB82CQHKf492PA2MukX_z9GaXgfe23s7P9KJhU8jXmKYK4z1xpRmDtC1i-uIoWC25A5_E4YrtH0fqCGJndmsk-iryyS4lMQCiWZzZxssCAbaQ_T_RsBGSTFG4VMWZGgbw_AqJTbYSN_d_5y_O"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#121e18]/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-md">
+<h3 class="font-label-md text-label-md text-white font-bold mb-1">Mantenimiento Preventivo</h3>
+<p class="font-body-sm text-sm text-surface-variant line-clamp-1">Cambio de mezcladoras en cocina integral.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,3 +1,35 @@
+import Link from "next/link";
+import { BadgeCheck, HeartHandshake, MessagesSquare } from "lucide-react";
 import { RegisterForm } from "@/components/register-form";
-export const metadata={title:"Crear perfil"};
-export default function RegisterPage(){return <main className="page"><div className="container"><div className="form-card"><p className="eyebrow">Haz que te encuentren</p><h1 style={{fontSize:"clamp(2.4rem,7vw,4.5rem)"}}>Publica lo que sabes hacer</h1><p className="muted">Crea tu perfil Free. Sin comisiones, pagos ni contratos dentro de Tequit.</p><RegisterForm/></div></div></main>}
+import { SiteContainer } from "@/components/layout-primitives";
+import styles from "@/components/identity-redesign.module.css";
+
+export const metadata = {
+  title: "Crear perfil",
+  description: "Crea una cuenta para publicar tu trabajo o negocio en Tequit.",
+};
+
+export default function RegisterPage() {
+  return <main className={styles.authPage}>
+    <SiteContainer className={styles.authShell}>
+      <div className={styles.authMain}>
+        <header className={styles.authHeader}>
+          <p className="eyebrow">Haz que te encuentren</p>
+          <h1>Publica lo que sabes hacer</h1>
+          <p>Crea una cuenta para ofrecer tus servicios como prestador o negocio local. Explorar, guardar y solicitar sigue disponible sin cuenta.</p>
+        </header>
+        <RegisterForm />
+        <p className={styles.authFooterLink}>¿Ya tienes cuenta? <Link className="text-link" href="/login">Inicia sesión</Link></p>
+      </div>
+      <aside className={styles.authAside} aria-label="Lo que puedes hacer en Tequit">
+        <BadgeCheck size={30} color="var(--verified)" aria-hidden />
+        <h2>Tu oficio, bien presentado</h2>
+        <ul className={styles.benefitList}>
+          <li><BadgeCheck size={20} aria-hidden /><span>Publica servicios y evidencia de trabajos reales.</span></li>
+          <li><MessagesSquare size={20} aria-hidden /><span>Recibe solicitudes y responde directamente por WhatsApp.</span></li>
+          <li><HeartHandshake size={20} aria-hidden /><span>Construye confianza con información clara y reseñas aprobadas.</span></li>
+        </ul>
+      </aside>
+    </SiteContainer>
+  </main>;
+}

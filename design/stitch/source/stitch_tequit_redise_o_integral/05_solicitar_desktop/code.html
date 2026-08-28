@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Solicitar Trabajo - Tequit Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-surface": "#121e18",
+                        "background": "#effdf3",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "on-primary-container": "#7da794",
+                        "on-secondary-container": "#2f6e55",
+                        "outline": "#717974",
+                        "surface": "#effdf3",
+                        "tertiary-container": "#671800",
+                        "on-background": "#121e18",
+                        "primary-container": "#123c2e",
+                        "tertiary-fixed": "#ffdbd1",
+                        "primary-fixed": "#c0ecd8",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c1c8c3",
+                        "secondary": "#2a6951",
+                        "secondary-container": "#aceece",
+                        "secondary-fixed": "#aff0d1",
+                        "inverse-surface": "#27332d",
+                        "on-tertiary-container": "#f47b57",
+                        "surface-container-highest": "#d8e6dc",
+                        "surface-container-high": "#ddece2",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#002115",
+                        "inverse-primary": "#a4d0bc",
+                        "surface-container-low": "#e9f7ed",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#00251a",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#420c00",
+                        "surface-tint": "#3e6656",
+                        "surface-bright": "#effdf3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "on-primary-fixed": "#002116",
+                        "inverse-on-surface": "#e6f4ea",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "surface-variant": "#d8e6dc",
+                        "surface-dim": "#cfddd4",
+                        "surface-container": "#e3f1e7",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-surface-variant": "#414844"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "16px",
+                        "xxl": "48px",
+                        "xs": "4px",
+                        "huge": "64px",
+                        "lg": "24px",
+                        "giant": "96px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "display-lg": ["Fraunces"],
+                        "body-md": ["Manrope"],
+                        "title-md": ["Fraunces"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-lg": ["Fraunces"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "numeric-display": ["Fraunces"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FFFCF7; }
+        .input-focus:focus { outline: none; border-color: #123C2E; box-shadow: 0 0 0 2px #FFFCF7, 0 0 0 4px #E3A600; }
+        .accent-bg { background-color: #F7DDD2; }
+    </style>
+</head>
+<body class="text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar (Semantic match: None direct, but intent is a transactional form, so nav is technically suppressible per rules, but prompt requests "Header público desktop". Merging JSON rules with prompt instructions) -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 dark:border-outline-variant/10">
+<div class="hidden md:flex justify-between items-center px-lg h-16 w-full max-w-7xl mx-auto">
+<div class="font-title-md text-title-md text-primary dark:text-primary-fixed">
+                Tequit Marketplace
+            </div>
+<nav class="flex gap-lg items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Inicio</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Buscar</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Servicios</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Citas</a> <!-- Intent map for Publicar necesidad / Request work -->
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Cómo funciona</a>
+</nav>
+<div class="flex items-center gap-md">
+<span class="text-on-surface-variant font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Tepic
+                </span>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg font-label-md hover:opacity-90 transition-opacity">
+                    Publicar servicio
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-[120px] pb-giant px-lg">
+<div class="max-w-[1200px] mx-auto w-full">
+<div class="mb-xxl text-center max-w-2xl mx-auto">
+<h1 class="font-display-lg text-display-lg text-primary mb-md">Publica lo que necesitas</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                    Cuéntanos el trabajo. El equipo de Tequit podrá revisar la solicitud y ayudarte a encontrar opciones en Tepic.
+                </p>
+</div>
+<form class="max-w-[800px] mx-auto bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 p-xl shadow-[0_4px_12px_rgba(23,35,29,0.05)] flex flex-col gap-xl">
+<!-- 1. Necesidad -->
+<section class="flex flex-col gap-md">
+<h2 class="font-title-md text-title-md text-primary border-b border-outline-variant/20 pb-sm">1. Necesidad</h2>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="servicio">Servicio requerido</label>
+<input class="w-full rounded-[10px] border border-[#DCE4DE] bg-white p-md font-body-md text-on-surface placeholder:text-outline input-focus transition-all" id="servicio" placeholder="Ej. Plomería, Carpintería, etc." type="text"/>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="descripcion">Descripción detallada</label>
+<textarea class="w-full rounded-[10px] border border-[#DCE4DE] bg-white p-md font-body-md text-on-surface placeholder:text-outline input-focus transition-all resize-none" id="descripcion" placeholder="Describe exactamente lo que necesitas, medidas, problemas específicos..." rows="4"></textarea>
+</div>
+</section>
+<!-- 2. Ubicación y tiempo -->
+<section class="flex flex-col gap-md accent-bg p-lg rounded-[12px]">
+<h2 class="font-title-md text-title-md text-primary">2. Ubicación y tiempo</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="zona">Zona en Tepic</label>
+<select class="w-full rounded-[10px] border border-[#DCE4DE] bg-white p-md font-body-md text-on-surface input-focus transition-all appearance-none cursor-pointer" id="zona">
+<option disabled="" selected="" value="">Selecciona tu zona</option>
+<option value="centro">Centro</option>
+<option value="norte">Norte</option>
+<option value="sur">Sur</option>
+<option value="oriente">Oriente</option>
+<option value="poniente">Poniente</option>
+</select>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface">Urgencia</label>
+<div class="flex bg-white rounded-[10px] border border-[#DCE4DE] overflow-hidden p-1">
+<label class="flex-1 text-center">
+<input class="sr-only peer" name="urgencia" type="radio" value="hoy"/>
+<span class="block py-2 px-4 cursor-pointer font-label-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container rounded-[6px] transition-colors">Hoy</span>
+</label>
+<label class="flex-1 text-center">
+<input checked="" class="sr-only peer" name="urgencia" type="radio" value="semana"/>
+<span class="block py-2 px-4 cursor-pointer font-label-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container rounded-[6px] transition-colors">Esta semana</span>
+</label>
+<label class="flex-1 text-center">
+<input class="sr-only peer" name="urgencia" type="radio" value="flexible"/>
+<span class="block py-2 px-4 cursor-pointer font-label-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container rounded-[6px] transition-colors">Flexible</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Evidencia -->
+<section class="flex flex-col gap-md">
+<h2 class="font-title-md text-title-md text-primary border-b border-outline-variant/20 pb-sm">3. Evidencia (Opcional)</h2>
+<div class="border-2 border-dashed border-[#DCE4DE] rounded-[10px] p-xl text-center bg-[#F7F1E7]/50 hover:bg-[#F7F1E7] transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[48px] text-primary-container/50 group-hover:text-primary-container transition-colors mb-sm">cloud_upload</span>
+<p class="font-label-md text-label-md text-on-surface mb-xs">Arrastra y suelta fotos aquí</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">o haz clic para seleccionar (Máx. 4 fotos)</p>
+</div>
+</section>
+<!-- 4. Contacto -->
+<section class="flex flex-col gap-md">
+<h2 class="font-title-md text-title-md text-primary border-b border-outline-variant/20 pb-sm">4. Tus datos</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col gap-sm md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface" for="nombre">Nombre completo</label>
+<input class="w-full rounded-[10px] border border-[#DCE4DE] bg-white p-md font-body-md text-on-surface placeholder:text-outline input-focus transition-all" id="nombre" placeholder="Tu nombre" type="text"/>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="whatsapp">WhatsApp</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-[#08783E]">chat</span>
+<input class="w-full rounded-[10px] border border-[#DCE4DE] bg-white p-md pl-xl font-body-md text-on-surface placeholder:text-outline input-focus transition-all" id="whatsapp" placeholder="311 000 0000" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="correo">Correo electrónico (Opcional)</label>
+<input class="w-full rounded-[10px] border border-[#DCE4DE] bg-white p-md font-body-md text-on-surface placeholder:text-outline input-focus transition-all" id="correo" placeholder="correo@ejemplo.com" type="email"/>
+</div>
+</div>
+</section>
+<div class="flex flex-col md:flex-row justify-between items-center mt-lg pt-lg border-t border-outline-variant/20 gap-md">
+<p class="font-body-md text-[12px] text-on-surface-variant max-w-sm text-center md:text-left">
+                        Tus datos están protegidos. Solo compartiremos esta información con proveedores verificados por el equipo de Tequit.
+                    </p>
+<button class="w-full md:w-auto bg-[#123C2E] text-white px-xl py-md rounded-[10px] font-label-md hover:bg-[#00251a] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E3A600] whitespace-nowrap" type="button">
+                        Enviar solicitud
+                    </button>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-primary-container text-on-surface dark:text-on-primary-container w-full py-huge mt-giant border-t border-outline-variant flat">
+<div class="flex flex-col md:flex-row justify-between items-center px-lg max-w-7xl mx-auto gap-xl">
+<div class="font-title-md text-title-md text-on-surface">
+                Tequit Marketplace
+            </div>
+<nav class="flex flex-wrap justify-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:opacity-80 transition-opacity" href="#">Privacidad</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:opacity-80 transition-opacity" href="#">Términos</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:opacity-80 transition-opacity" href="#">Contacto</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface hover:opacity-80 transition-opacity" href="#">Preguntas Frecuentes</a>
+</nav>
+<div class="font-body-md text-body-md text-on-surface-variant">
+                © 2024 Tequit Marketplace - Hecho en Tepic
+            </div>
+</div>
+</footer>
+</body></html>

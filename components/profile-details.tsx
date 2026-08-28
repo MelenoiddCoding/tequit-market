@@ -1,13 +1,47 @@
-import Link from "next/link";
-import Image from "next/image";
-import { BadgeCheck, BriefcaseBusiness, Calendar, Check, MapPin, ShieldCheck, Star } from "lucide-react";
-import { Rating } from "@/components/cards";
-import { RequestForm } from "@/components/request-form";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { AffiliationNotice, DetailSection, DirectedRequest, EntityHero, identityStyles, PortfolioGallery, ReviewList, ServiceList, VerificationPanel } from "@/components/identity-redesign";
+import { SiteContainer } from "@/components/layout-primitives";
 import { ViewTracker } from "@/components/view-tracker";
-import { providerMessage } from "@/lib/whatsapp";
-import type { Provider, Verification } from "@/types";
+import type { Provider } from "@/types";
 
-const labels:Record<Verification["type"],string>={phone:"Teléfono verificado",identity:"Identidad verificada",references:"Referencias verificadas",visited_by_tequit:"Visitado por Tequit"};
-function initials(name:string){return name.split(" ").slice(0,2).map(v=>v[0]).join("")}
-export function ProviderProfile({provider}: {provider:Provider}){const approved=provider.reviews.filter(r=>r.status==="approved");return <main><ViewTracker type="profile_view" target={provider.slug}/><section className="profile-hero"><div className="container profile-head"><div className="profile-avatar">{initials(provider.name)}</div><div><p className="eyebrow" style={{color:"#efb79f"}}>{provider.profession} en Tepic</p><h1>{provider.name}</h1><div className="card-meta"><Rating value={provider.rating} count={provider.reviewCount}/><span className="verified"><BadgeCheck size={17} style={{display:"inline"}}/> Identidad confirmada</span></div><p className="muted" style={{marginTop:10}}><MapPin size={16} style={{display:"inline"}}/> {provider.zone}</p></div><div className="profile-actions"><WhatsAppButton phone={provider.phone} message={providerMessage(provider.name,provider.profession)}/><Link className="btn btn-secondary" href={`#solicitar`}>Solicitar trabajo</Link></div></div></section><div className="container profile-layout"><div className="profile-main">{provider.businessSlug&&<section><div className="affiliation"><BriefcaseBusiness size={18} style={{display:"inline",marginRight:8}}/>Trabaja con <Link href={`/n/${provider.businessSlug}`}>{provider.businessName}</Link></div></section>}<section><p className="eyebrow">Lo que publica</p><h2>Servicios</h2><div className="service-list">{provider.services.map(s=><div className="service-item" key={s.id}><Check size={18} className="verified"/><strong>{s.name}</strong><p className="help">{s.category}</p></div>)}</div></section><section><p className="eyebrow">Evidencia real</p><h2>Trabajos realizados</h2><div className="portfolio">{provider.portfolio.map(work=><figure key={work.id} style={{margin:0}}><Image src={work.image} alt={work.title} width={900} height={600}/><figcaption><strong>{work.title}</strong><p className="muted">{work.description}</p></figcaption></figure>)}</div></section><section><p className="eyebrow">Experiencia</p><h2>Sobre mí</h2><p style={{fontSize:"1.08rem",lineHeight:1.7}}>{provider.bio}</p><div className="filters">{provider.areas.map(a=><span className="chip" key={a}>{a}</span>)}</div></section><section><p className="eyebrow">Reputación separada</p><h2>Reseñas</h2>{approved.map(r=><article className="review" key={r.id}><div className="rating">{Array.from({length:r.rating}).map((_,i)=><Star key={i} size={15}/>)}</div><p style={{margin:"12px 0"}}>“{r.comment}”</p><span className="help">{r.author} · {new Intl.DateTimeFormat("es-MX",{dateStyle:"long"}).format(new Date(`${r.date}T12:00:00`))} · {r.source==="tequit_lead"?"Trabajo solicitado en Tequit":"Cliente invitado"}</span></article>)}</section><section id="solicitar"><p className="eyebrow">Solicitud directa</p><h2>¿No encuentras lo que necesitas?</h2><p className="muted">Solicita otro trabajo a {provider.name.split(" ")[0]}. No necesitas crear una cuenta.</p><RequestForm targetProvider={provider.slug}/></section></div><aside className="profile-aside"><div className="aside-box"><ShieldCheck size={28} className="verified"/><h3 style={{fontSize:"1.45rem",marginTop:12}}>Verificaciones</h3><div className="verification-list">{provider.verifications.map(v=><div className="verification-item" key={v.type}><BadgeCheck size={19} className="verified"/><div><strong>{labels[v.type]}</strong>{v.date&&<p className="help"><Calendar size={13} style={{display:"inline"}}/> {new Intl.DateTimeFormat("es-MX",{dateStyle:"long"}).format(new Date(`${v.date}T12:00:00`))}</p>}</div></div>)}</div><p className="help" style={{marginTop:20}}>Las verificaciones confirman la información indicada; no constituyen una garantía del resultado del trabajo.</p><WhatsAppButton phone={provider.phone} message={providerMessage(provider.name)} className="btn btn-primary btn-block"/></div></aside></div></main>}
+export function ProviderProfile({ provider }: { provider: Provider }) {
+  return <main className={identityStyles.detailPage}>
+    <ViewTracker type="profile_view" target={provider.slug} />
+    <EntityHero entity={provider} kind="provider" />
+    <SiteContainer className={identityStyles.detailGrid}>
+      <div className={identityStyles.mainColumn}>
+        {provider.businessSlug && provider.businessName && <DetailSection title="Afiliación" eyebrow="Reputación independiente">
+          <AffiliationNotice businessSlug={provider.businessSlug} businessName={provider.businessName} />
+        </DetailSection>}
+
+        <DetailSection title="Servicios" eyebrow="Lo que publica">
+          <ServiceList services={provider.services} />
+        </DetailSection>
+
+        <DetailSection title="Trabajos realizados" eyebrow="Evidencia del oficio">
+          <PortfolioGallery portfolio={provider.portfolio} />
+        </DetailSection>
+
+        <DetailSection title="Sobre mí" eyebrow="Experiencia">
+          <p className={identityStyles.bodyCopy}>{provider.bio}</p>
+          <div className={identityStyles.tagList} aria-label="Zonas y capacidades">
+            {provider.areas.map((area) => <span className={identityStyles.tag} key={area}>{area}</span>)}
+            <span className={identityStyles.tag}>{provider.zone}</span>
+          </div>
+        </DetailSection>
+
+        <DetailSection title="Reseñas" eyebrow="Experiencias aprobadas">
+          <ReviewList reviews={provider.reviews} />
+        </DetailSection>
+
+      </div>
+      <aside className={identityStyles.aside} aria-label={`Confianza y contacto de ${provider.name}`}>
+        <VerificationPanel verifications={provider.verifications} phone={provider.phone} name={provider.name} />
+      </aside>
+    </SiteContainer>
+    <SiteContainer size="reading">
+      <DetailSection id="solicitar" title="Solicitar trabajo">
+        <DirectedRequest entity={provider} kind="provider" />
+      </DetailSection>
+    </SiteContainer>
+  </main>;
+}

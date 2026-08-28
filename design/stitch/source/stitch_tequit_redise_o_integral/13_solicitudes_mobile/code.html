@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Tequit Provider Dashboard - Solicitudes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#671800",
+                      "secondary-fixed": "#aff0d1",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#e6f4ea",
+                      "surface-tint": "#3e6656",
+                      "background": "#effdf3",
+                      "on-background": "#121e18",
+                      "on-tertiary-container": "#f47b57",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#a4d0bc",
+                      "tertiary-fixed": "#ffdbd1",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "outline": "#717974",
+                      "on-tertiary-fixed-variant": "#822709",
+                      "on-secondary-fixed": "#002115",
+                      "on-surface-variant": "#414844",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "surface-container-low": "#e9f7ed",
+                      "surface": "#effdf3",
+                      "on-primary-fixed": "#002116",
+                      "surface-dim": "#cfddd4",
+                      "surface-bright": "#effdf3",
+                      "primary": "#00251a",
+                      "on-surface": "#121e18",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#27332d",
+                      "surface-container-highest": "#d8e6dc",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "secondary-container": "#aceece",
+                      "tertiary": "#420c00",
+                      "on-secondary-container": "#2f6e55",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "primary-fixed": "#c0ecd8",
+                      "outline-variant": "#c1c8c3",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "on-primary-container": "#7da794",
+                      "secondary": "#2a6951",
+                      "surface-container-high": "#ddece2",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "on-tertiary-fixed": "#3b0a00",
+                      "surface-variant": "#d8e6dc",
+                      "surface-container": "#e3f1e7",
+                      "primary-container": "#123c2e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xxl": "48px",
+                      "xl": "32px",
+                      "base": "16px",
+                      "huge": "64px",
+                      "md": "12px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "giant": "96px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "numeric-display": [
+                              "Fraunces"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "label-sm": [
+                              "Manrope"
+                      ],
+                      "title-md": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "numeric-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface font-body-md min-h-screen flex flex-col pb-safe pt-16">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant w-full top-0 sticky z-40 h-16 flex items-center justify-between px-base max-w-7xl mx-auto transition-transform duration-150">
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container-low active:scale-95 duration-150 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="text-primary font-headline-lg-mobile text-headline-lg-mobile">Solicitudes</h1>
+</div>
+<div>
+<img alt="Provider profile photo" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A close up portrait of a confident Mexican craftsman in a workshop, soft natural light, warm documentary style photography, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuX4WAwPcaaAQqYlQ1v-P1r2GEECq4-KN1UmlcvZLwADl6VkcitGd1aP_b7Df7ds6KgAWeArDL6reaVSZ3c8442BzfnQl6Tbb1UGrMDZKYsVtJ7uWuT9PDxn5-tcbRFxttefGs3IVeNV68DQHxpbznz2KbVJE0vx1c9efS4qrPHxO12_65XtLe8yz3m9B57_pzH6Wk7BXbEWIRe6iYMZDbKwV59e-ekxJ7Oh0KdTeV4rVoVBNz1FVg"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 p-base md:px-lg max-w-3xl mx-auto w-full pb-24">
+<!-- Filter/Tabs -->
+<div class="flex gap-sm mb-lg overflow-x-auto pb-2 scrollbar-hide">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap">Todas (5)</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap">Nuevas (2)</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap">En Proceso (3)</button>
+</div>
+<!-- Solicitudes List -->
+<div class="flex flex-col gap-base">
+<!-- Card 1: Nuevo -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant p-base shadow-sm active:scale-[0.98] transition-transform cursor-pointer relative overflow-hidden group hover:border-primary-container">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<img alt="Avatar Maria" class="w-12 h-12 rounded-full object-cover" data-alt="A headshot of a smiling middle aged Mexican woman with dark hair in a bright outdoor setting, shallow depth of field, natural documentary photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBMetjplmsPV-cU4QeMGcnAVtnR1m1kbBRnOOy95wGQBVwc31ooQL3MNKMk_sDc661kvHHfdQlCtZ8hBmGgNdqq9MvlnYdVyG24laz60rDKM4PK5LKPSwqpsYl92CDNpJtW425SIh6BOnbzFxNc7mTPS0ohXBcCp1j7cVqXA1cqXTZM-dSt2oML8f6kd2FiaBU9ZQibT6UG8_s36Rvfu4q8nk0T9QuV0_vQnNfgQNdcEXCpZn6AXVa"/>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">María Garcia</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Plomería</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2 py-1 rounded-md mb-1">Nuevo</span>
+<span class="font-label-sm text-label-sm text-outline">Hace 10 min</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg mt-md">
+<p class="font-body-md text-body-md text-on-surface italic opacity-90 line-clamp-2">"Hola, ¿podría venir mañana en la tarde? Hay una fuga en el lavabo del baño principal."</p>
+</div>
+<div class="mt-md flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-2 rounded-lg text-center">Responder</button>
+</div>
+</article>
+<!-- Card 2: En Proceso -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant p-base shadow-sm active:scale-[0.98] transition-transform cursor-pointer hover:border-secondary-container">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-title-md text-title-md">
+                            JR
+                        </div>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">José Ramírez</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Carpintería</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-md mb-1">En Proceso</span>
+<span class="font-label-sm text-label-sm text-outline">Ayer</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg mt-md">
+<p class="font-body-md text-body-md text-on-surface italic opacity-90 line-clamp-2">"Perfecto, lo espero el viernes a las 10am con los materiales para la puerta."</p>
+</div>
+</article>
+<!-- Card 3: Nuevo -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant p-base shadow-sm active:scale-[0.98] transition-transform cursor-pointer relative overflow-hidden group hover:border-primary-container">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<img alt="Avatar Luis" class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a young Mexican man in front of a colorful wall in a local neighborhood, warm sunlight, authentic documentary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwmnPQ0GqiTXoT2gz4u9HBf_lysR0jOB5NTzUb7GlMokAtw2kbRSRv6BggtTKnrfvkvCl2aHbFKlyiK6SGXBeC6h8vMIjo24yl-xxFNd49hZzyOhPTX-behsv5UBJujdTnKyD01wEYAwXb2dcMEbhoSzO2D5LSJ8p3pjUuzsDNlGmh092UkWZnMcgIlCE9klQfuwWE5YmYpqPx62GtdGHBNz26tknIU5C4BF69AhXGgEiAL3vLYhqM"/>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">Luis Fernandez</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Electricidad</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2 py-1 rounded-md mb-1">Nuevo</span>
+<span class="font-label-sm text-label-sm text-outline">Hace 2 horas</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg mt-md">
+<p class="font-body-md text-body-md text-on-surface italic opacity-90 line-clamp-2">"Necesito cotización para instalar dos lámparas de techo en la sala. Gracias."</p>
+</div>
+<div class="mt-md flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-2 rounded-lg text-center">Responder</button>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-16 bg-surface-container border-t border-outline-variant flex justify-around items-center px-4 pb-safe shadow-sm md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out w-full py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container bg-secondary-container rounded-full px-6 py-1 hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-sm text-label-sm mt-1">Solicitudes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out w-full py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">handyman</span>
+<span class="font-label-sm text-label-sm mt-1">Servicios</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out w-full py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-label-sm mt-1">Perfil</span>
+</a>
+</nav>
+</body></html>

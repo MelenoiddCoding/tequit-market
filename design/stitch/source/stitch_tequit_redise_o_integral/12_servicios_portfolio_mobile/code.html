@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Servicios &amp; Portfolio - Oficio Humano</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Fraunces:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#002115",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-primary-container": "#7da794",
+                        "inverse-on-surface": "#e6f4ea",
+                        "secondary": "#2a6951",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#414844",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "inverse-primary": "#a4d0bc",
+                        "surface-container-highest": "#d8e6dc",
+                        "tertiary": "#420c00",
+                        "secondary-fixed": "#aff0d1",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#ddece2",
+                        "on-tertiary-container": "#f47b57",
+                        "background": "#effdf3",
+                        "primary": "#00251a",
+                        "tertiary-fixed": "#ffdbd1",
+                        "primary-fixed": "#c0ecd8",
+                        "surface": "#effdf3",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "on-primary-fixed": "#002116",
+                        "surface-container-low": "#e9f7ed",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#27332d",
+                        "surface-bright": "#effdf3",
+                        "surface-container": "#e3f1e7",
+                        "outline-variant": "#c1c8c3",
+                        "on-surface": "#121e18",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "outline": "#717974",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "surface-tint": "#3e6656",
+                        "primary-container": "#123c2e",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#cfddd4",
+                        "on-background": "#121e18",
+                        "surface-variant": "#d8e6dc",
+                        "on-secondary-container": "#2f6e55",
+                        "secondary-container": "#aceece",
+                        "tertiary-container": "#671800"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "lg": "24px",
+                        "base": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "giant": "96px",
+                        "xl": "32px",
+                        "huge": "64px",
+                        "md": "12px",
+                        "xxl": "48px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Manrope"],
+                        "headline-lg": ["Fraunces"],
+                        "numeric-display": ["Fraunces"],
+                        "body-md": ["Manrope"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "label-sm": ["Manrope"],
+                        "display-lg": ["Fraunces"],
+                        "title-md": ["Fraunces"],
+                        "body-lg": ["Manrope"]
+                    },
+                    fontSize: {
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+                        "numeric-display": ["24px", { lineHeight: "24px", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "600" }],
+                        "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "700" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "title-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom depth shadow for Level 2 */
+        .shadow-level-2 {
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);
+        }
+        .focus-ring:focus-within {
+            outline: 2px solid #E3A600;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface font-body-md min-h-screen flex flex-col pb-20 md:pb-0 md:pl-64">
+<!-- Top App Bar for Mobile -->
+<header class="md:hidden bg-surface-container-low/90 backdrop-blur-md sticky top-0 z-40 px-base h-16 flex justify-between items-center w-full">
+<h1 class="font-title-md text-title-md text-primary truncate">Portfolio</h1>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors focus:outline-none">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex flex-col py-lg px-base space-y-md bg-surface-container-low border-r border-outline-variant h-screen w-64 fixed left-0 top-0 z-50">
+<div class="mb-xl px-sm">
+<h1 class="font-headline-lg text-headline-lg text-primary">Oficio Humano</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Local Trade Expert</p>
+</div>
+<div class="flex flex-col space-y-xs flex-grow">
+<a class="flex items-center space-x-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-95 transition-transform duration-150">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center space-x-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-95 transition-transform duration-150">handyman</span>
+<span class="font-label-md text-label-md">Services</span>
+</a>
+<a class="flex items-center space-x-md p-sm rounded-lg text-primary font-bold border-r-4 border-primary bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">photo_library</span>
+<span class="font-label-md text-label-md">Portfolio</span>
+</a>
+<a class="flex items-center space-x-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-95 transition-transform duration-150">chat</span>
+<span class="font-label-md text-label-md">Messages</span>
+</a>
+<a class="flex items-center space-x-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-95 transition-transform duration-150">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-md rounded-lg mt-auto hover:opacity-90 transition-opacity">
+            Add New Project
+        </button>
+<div class="mt-xl pt-lg border-t border-outline-variant flex flex-col space-y-xs">
+<a class="flex items-center space-x-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-95 transition-transform duration-150">help_outline</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center space-x-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-95 transition-transform duration-150">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-base md:p-xl max-w-4xl mx-auto w-full">
+<!-- Mis Servicios Section -->
+<section class="mb-huge">
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Mis Servicios</h2>
+<button class="text-secondary font-label-md text-label-md flex items-center space-x-xs hover:opacity-80">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Nuevo</span>
+</button>
+</div>
+<div class="flex flex-col space-y-md">
+<!-- Service Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-base flex justify-between items-center shadow-level-2 hover:border-primary transition-colors group">
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">Instalación Eléctrica Residencial</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant line-clamp-1">Cableado completo, revisión de tableros y mantenimiento preventivo para el hogar.</p>
+<span class="inline-block mt-sm px-xs py-[2px] bg-surface-container-highest text-on-surface-variant rounded font-label-sm text-[10px] uppercase tracking-wider">$800 MXN / hr</span>
+</div>
+<button class="p-sm text-outline hover:text-primary transition-colors focus:outline-none ml-md">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<!-- Service Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-base flex justify-between items-center shadow-level-2 hover:border-primary transition-colors group">
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">Reparación de Motores Pequeños</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant line-clamp-1">Diagnóstico y compostura de bombas de agua y extractores.</p>
+<span class="inline-block mt-sm px-xs py-[2px] bg-surface-container-highest text-on-surface-variant rounded font-label-sm text-[10px] uppercase tracking-wider">Cotización previa</span>
+</div>
+<button class="p-sm text-outline hover:text-primary transition-colors focus:outline-none ml-md">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Galería de Proyectos Section -->
+<section class="mb-huge">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-lg">Galería de Proyectos</h2>
+<div class="grid grid-cols-2 gap-md md:gap-lg">
+<!-- Project 1 -->
+<div class="group relative rounded-xl overflow-hidden shadow-level-2 aspect-square">
+<img alt="Proyecto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A documentary style close up photograph of weathered, skilled hands meticulously connecting electrical wires inside a modern breaker box. The lighting is warm and natural, highlighting the textures of the tools and the wire casings. The aesthetic is professional and authentic, emphasizing local craftsmanship. Light mode palette with soft earth tones and subtle greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE-C0vyQIzu5JrtfRObSwc9TEQeKCQ_Xit8GEqbUXhir_NPeojVuM-ajfl7d61bqrp1LJ2qxu9xBU3pB4CZjg0erXyw0X89LXY-0BERgWZfDHCcV88HBWrzsuTtWUXI3i_L0dHC7GMJ7X4nwztWhlXaubsPIvfqGVCHE60zxR468IFpARJ94LrrOt-ciV4YbuIYb2s6RSP6cqKx6sFSZ-dTLOVAzllUsxUJubpSE-rQLDEBpU9sras"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-sm">
+<p class="font-label-md text-label-md text-on-primary">Tablero Principal</p>
+<p class="font-label-sm text-label-sm text-on-primary/80">Centro, Tepic</p>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="group relative rounded-xl overflow-hidden shadow-level-2 aspect-[3/4]">
+<img alt="Proyecto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A well-lit, documentary style photograph showing a newly installed, sleek modern lighting fixture against a textured plaster wall in a residential setting. The light casts a warm, inviting glow. The composition focuses on the neatness of the installation, reflecting high-quality trade work. The overall vibe is clean, minimal, and professional, aligning with a premium local service aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIN4ABfp7dC2IM9kfa3L5wtmujEgEvWjdZw6mK5dtbSYYMdym8FjqNSPF8kkgwTlbOWPgt0grHSFORITOe3JBi0mPQR15TH5KJzG9YyQYw5DFmkWBY8H00k-n8f87nR64o6ZFyVkkO0sK8sR-h9MQNO5crUn4Y-x56djIiv6l_r-DrWMmBkHHEGNzNziizGFZQyDb66wyy4G5QJzFsQ8VmbYQocMGu2yXFEoPs3iaeRwTWwHls-wsp"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-sm">
+<p class="font-label-md text-label-md text-on-primary">Iluminación Exterior</p>
+<p class="font-label-sm text-label-sm text-on-primary/80">Ciudad del Valle</p>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="group relative rounded-xl overflow-hidden shadow-level-2 aspect-[3/4] mt-[-25%]">
+<img alt="Proyecto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A detailed shot of organized trade tools—pliers, wire strippers, and a multimeter—laid out neatly on a rustic wooden table. The lighting is soft and diffused, creating a serene, almost still-life quality. The colors are muted, focusing on the metallic sheen of the tools and the warm wood grain, embodying a 'Human Craft' and editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiQYaQz-BIViGGSbq50mBtS9WStlgNAtGLdrytA7X0FEy35tBzOhGeBlI904iU43v8IJQFKtxzjO9ikgtWDZD6SnBGx57JO3w29Yqerzspxot8r1OU0P6BQl8Ljkr6OSSfN7ox3GAvW_BooYEWFIMJbp7FSmPwO7zn2-J7o52hbY7QAeE0c9lmcFCZtJXpZC2QG74tzzRcgRruLXewXISZpk3D3WIC1TeKLeSQeEMWvn7hoLG-t6el"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-sm">
+<p class="font-label-md text-label-md text-on-primary">Mantenimiento</p>
+<p class="font-label-sm text-label-sm text-on-primary/80">Zona Industrial</p>
+</div>
+</div>
+<!-- Add New Project (Placeholder style) -->
+<div class="rounded-xl border-2 border-dashed border-outline-variant bg-surface-container flex flex-col justify-center items-center aspect-square cursor-pointer hover:bg-surface-container-high hover:border-primary transition-colors text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[32px] mb-xs">add_photo_alternate</span>
+<span class="font-label-md text-label-md">Subir Foto</span>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for adding service/project (Mobile specific) -->
+<button class="md:hidden fixed bottom-[88px] right-base w-14 h-14 bg-primary-container text-on-primary rounded-xl flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity z-40 focus:outline-none focus-ring">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- Mobile Bottom Navigation Shell -->
+<!-- Displayed on md:hidden, maps to Semantic Concept -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-low h-16 flex justify-around items-center z-50">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm mt-1">Buscar</span>
+</a>
+<!-- Active State: Maps to "Portfolio" / "Services" -->
+<a class="flex flex-col items-center justify-center w-full h-full text-secondary font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="font-label-sm text-label-sm mt-1">Trabajos</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm mt-1">Guardados</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Perfil</span>
+</a>
+</nav>
+</body></html>

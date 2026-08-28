@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inicio - Tequit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#414844",
+                      "on-primary": "#ffffff",
+                      "surface": "#effdf3",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#d8e6dc",
+                      "on-background": "#121e18",
+                      "primary": "#00251a",
+                      "tertiary-container": "#671800",
+                      "error": "#ba1a1a",
+                      "primary-container": "#123c2e",
+                      "on-tertiary-fixed": "#3b0a00",
+                      "background": "#effdf3",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#cfddd4",
+                      "tertiary-fixed": "#ffdbd1",
+                      "on-surface": "#121e18",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#2a6951",
+                      "outline": "#717974",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#a4d0bc",
+                      "tertiary": "#420c00",
+                      "surface-container-high": "#ddece2",
+                      "inverse-on-surface": "#e6f4ea",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "inverse-surface": "#27332d",
+                      "on-tertiary-container": "#f47b57",
+                      "on-primary-fixed": "#002116",
+                      "on-primary-container": "#7da794",
+                      "on-secondary-container": "#2f6e55",
+                      "surface-tint": "#3e6656",
+                      "surface-container-low": "#e9f7ed",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "surface-variant": "#d8e6dc",
+                      "secondary-fixed": "#aff0d1",
+                      "on-tertiary-fixed-variant": "#822709",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#e3f1e7",
+                      "surface-bright": "#effdf3",
+                      "outline-variant": "#c1c8c3",
+                      "secondary-container": "#aceece",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#c0ecd8",
+                      "on-secondary-fixed": "#002115"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "huge": "64px",
+                      "xxl": "48px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "base": "16px",
+                      "sm": "8px",
+                      "giant": "96px",
+                      "xs": "4px",
+                      "md": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Fraunces"
+                      ],
+                      "numeric-display": [
+                              "Fraunces"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "label-sm": [
+                              "Manrope"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "title-md": [
+                              "Fraunces"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "numeric-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        body {
+            background-color: #FFFCF7; /* Level 0 Paper Base */
+        }
+        
+        .paper-card {
+            background-color: #F7F1E7;
+            border: 1px solid #DCE4DE;
+        }
+        
+        .focus-ring:focus-within {
+            outline: 2px solid #E3A600;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="text-on-background min-h-screen flex flex-col items-center">
+<!-- TopAppBar (Web) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-base h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-primary dark:text-primary-fixed" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Tepic, Nayarit</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed font-bold tracking-tight">Tequit</div>
+<div class="flex items-center gap-lg">
+<nav class="hidden md:flex gap-lg items-center">
+<a class="font-label-md text-label-md text-primary font-bold opacity-80 hover:text-primary transition-colors" href="#">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Buscar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Negocios</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Publicar necesidad</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Soy prestador</a>
+</nav>
+<button class="hover:text-primary transition-colors text-on-surface-variant">
+<span aria-hidden="true" class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="w-full max-w-[1200px] px-lg mt-[80px] flex-grow flex flex-col gap-giant">
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] rounded-2xl overflow-hidden mt-xl flex items-center justify-center">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A wide documentary-style photograph of a local craftsman in Tepic, Nayarit, deeply focused on woodworking in a sunlit, dusty workshop. Warm, authentic lighting highlighting the textures of wood and tools. Modern editorial composition, earthy paper tones, professional quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpenEVPmlMT9L0xnN0FWfPDBoxDKJ_THCecEtaJRma-MBTV9c5L8Lq9hWST5vraHjEgS-mDapR0FUIDMizt_GjvflJQW-lOPPLwFH18B_lzZ_zex_kLOA5rs59vHLWzgngnPVh00Tl4OUI3yLbvFR2Pfi83FAWS_qXnR-wsMiUcHZVnyBlQ45g4SJqQoG-37qCSXzrhjuSmial8asJ8J-iifGL99Rw27xgB9UrGCkHVHNjvWrjbk2P"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="relative z-10 flex flex-col items-center text-center px-lg mt-auto pb-xxl w-full max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-on-primary mb-lg">Encuentra quién le sabe.</h1>
+<!-- Dominant Search -->
+<div class="w-full bg-surface-container-lowest rounded-[24px] p-2 flex items-center focus-ring shadow-lg">
+<span class="material-symbols-outlined text-outline ml-md" data-icon="search">search</span>
+<input class="w-full bg-transparent border-none font-body-lg text-body-lg text-on-surface focus:ring-0 px-md" placeholder="¿Qué servicio buscas hoy?" type="text"/>
+<button class="bg-primary-container text-on-primary px-lg py-md rounded-xl font-label-md text-label-md hover:bg-primary transition-colors whitespace-nowrap">
+                        Buscar
+                    </button>
+</div>
+</div>
+</section>
+<!-- Quick Access Grid -->
+<section class="w-full">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-xl text-center">Servicios Populares</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-md">
+<div class="paper-card rounded-xl p-md flex flex-col items-center justify-center gap-sm hover:-translate-y-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="plumbing">plumbing</span>
+<span class="font-label-md text-label-md text-on-surface text-center">Plomería</span>
+</div>
+<div class="paper-card rounded-xl p-md flex flex-col items-center justify-center gap-sm hover:-translate-y-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="electrical_services">electrical_services</span>
+<span class="font-label-md text-label-md text-on-surface text-center">Electricidad</span>
+</div>
+<div class="paper-card rounded-xl p-md flex flex-col items-center justify-center gap-sm hover:-translate-y-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="carpenter">carpenter</span>
+<span class="font-label-md text-label-md text-on-surface text-center">Carpintería</span>
+</div>
+<div class="paper-card rounded-xl p-md flex flex-col items-center justify-center gap-sm hover:-translate-y-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="cleaning_services">cleaning_services</span>
+<span class="font-label-md text-label-md text-on-surface text-center">Limpieza</span>
+</div>
+<div class="paper-card rounded-xl p-md flex flex-col items-center justify-center gap-sm hover:-translate-y-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md text-on-surface text-center">Fletes</span>
+</div>
+<div class="paper-card rounded-xl p-md flex flex-col items-center justify-center gap-sm hover:-translate-y-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="format_paint">format_paint</span>
+<span class="font-label-md text-label-md text-on-surface text-center">Pintura</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-giant bg-surface-container-high dark:bg-surface-container py-huge px-base flex flex-col md:flex-row justify-between gap-xl">
+<div class="flex flex-col gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">Tequit</span>
+<span class="font-body-md text-body-md text-on-surface-variant">© 2024 Tequit - Oficio Humano</span>
+</div>
+<nav class="flex flex-wrap gap-lg max-w-md">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Nosotros</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Servicios</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contacto</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Ayuda</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Términos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Facebook</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Instagram</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">WhatsApp</a>
+</nav>
+</footer>
+</body></html>

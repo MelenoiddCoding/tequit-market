@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Negocios - Tequit</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&amp;family=Manrope:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#effdf3",
+                        "primary-fixed": "#c0ecd8",
+                        "primary-container": "#123c2e",
+                        "surface-container-highest": "#d8e6dc",
+                        "background": "#effdf3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#7da794",
+                        "on-surface-variant": "#414844",
+                        "surface-tint": "#3e6656",
+                        "secondary-container": "#aceece",
+                        "on-primary-fixed": "#002116",
+                        "on-secondary-fixed": "#002115",
+                        "on-surface": "#121e18",
+                        "on-background": "#121e18",
+                        "surface-bright": "#effdf3",
+                        "on-tertiary-container": "#f47b57",
+                        "tertiary": "#420c00",
+                        "primary": "#00251a",
+                        "surface-container-high": "#ddece2",
+                        "secondary": "#2a6951",
+                        "on-secondary-container": "#2f6e55",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#e3f1e7",
+                        "tertiary-fixed": "#ffdbd1",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "surface-variant": "#d8e6dc",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#27332d",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "inverse-primary": "#a4d0bc",
+                        "inverse-on-surface": "#e6f4ea",
+                        "surface-dim": "#cfddd4",
+                        "secondary-fixed": "#aff0d1",
+                        "tertiary-container": "#671800",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#e9f7ed",
+                        "outline": "#717974",
+                        "outline-variant": "#c1c8c3",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#264e3f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "huge": "64px",
+                        "lg": "24px",
+                        "md": "12px",
+                        "giant": "96px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "base": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Fraunces"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "headline-lg": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "numeric-display": ["Fraunces"]
+                    },
+                    "fontSize": {
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FFFCF7; /* Level 0 Base */
+            color: #17231D;
+        }
+        
+        .paper-card {
+            background-color: #ffffff;
+            border: 1px solid #DCE4DE;
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);
+        }
+
+        .gold-focus:focus-within {
+            outline: 2px solid #E3A600;
+            outline-offset: 2px;
+            border-color: #123C2E;
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, #F7F1E7 25%, #F0E8DB 50%, #F7F1E7 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-full overflow-y-auto pb-huge md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-background/80 backdrop-blur-md w-full sticky top-0 z-50 flex justify-between items-center px-base py-md" id="top-app-bar">
+<button class="active:scale-95 duration-200 hover:bg-surface-container-high transition-colors p-xs rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="location_on" data-weight="fill" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</button>
+<span class="font-display-lg text-headline-lg-mobile text-primary tracking-tight">Tequit</span>
+<button class="active:scale-95 duration-200 hover:bg-surface-container-high transition-colors p-xs rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="w-full px-base pt-lg pb-xxl flex flex-col gap-lg md:max-w-screen-md md:mx-auto">
+<!-- Editorial Header -->
+<section class="flex flex-col gap-sm text-center">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Negocios locales</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[300px] mx-auto">Comercios que venden productos, prestan servicios o ambas cosas</p>
+</section>
+<!-- Search Input -->
+<div class="relative w-full gold-focus rounded-xl">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-xl pr-sm py-md rounded-xl border border-outline-variant bg-surface-container-lowest font-body-md text-body-md text-on-surface placeholder:text-outline focus:ring-0 focus:border-transparent transition-colors" placeholder="Buscar negocios..." type="text"/>
+</div>
+<!-- State Selector (For demonstration) -->
+<div class="flex justify-center gap-sm mb-sm text-sm">
+<button class="px-3 py-1 rounded bg-surface-container-high text-primary font-label-md" onclick="showState('content')">Contenido</button>
+<button class="px-3 py-1 rounded bg-surface-container-high text-primary font-label-md" onclick="showState('skeleton')">Skeleton</button>
+<button class="px-3 py-1 rounded bg-surface-container-high text-primary font-label-md" onclick="showState('error')">Error</button>
+</div>
+<!-- Content State -->
+<div class="flex flex-col gap-md" id="state-content">
+<!-- Business Card 1 -->
+<article class="paper-card rounded-xl overflow-hidden flex flex-col">
+<div class="relative h-48 w-full bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A documentary-style photograph of a bustling hardware store in Tepic, Nayarit. Natural light streams through an open storefront illuminating aisles packed with tools, paint cans, and construction materials. A shop worker in a casual apron is assisting a customer. The aesthetic is warm, authentic, and high-quality, avoiding stock-photo clichés." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqCvfPPFIPrXhAvBj4uH0vjGVhWitXvx5R4NP07L7BcaoGX3aWvwXNz4FdtSAM5JlpUp5-UG5vTGOnfXy6RoVtwKLtQZ2rGdys2KiWWtbjK5qJOxkGAc44Joss0BRn8jaL8BHNsSrWaQagfEoJEuQp8AJg1aGXonB5WPUay2RK0eeYkuixSzjTKs3qzky95oY0AA4kTTFa6QFLvsX69Yfx-QJVpoXxSc6wDIH3_w98GYUBJSIw-G7r"/>
+<button class="absolute top-sm right-sm p-xs rounded-full bg-surface-container-lowest/80 backdrop-blur text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<span class="absolute bottom-sm left-sm px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur font-label-sm text-label-sm text-primary uppercase">Ferretería</span>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h2 class="font-title-md text-title-md text-primary">Ferretería "El Martillo"</h2>
+<div class="flex items-center gap-xs text-[#E3A600]">
+<span class="material-symbols-outlined text-sm" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4.9 (42)</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Especialistas en herramientas de construcción, plomería y electricidad para el hogar y la obra.</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-2 py-1 bg-surface-container-low rounded text-xs font-medium text-on-surface-variant">Herramienta manual</span>
+<span class="px-2 py-1 bg-surface-container-low rounded text-xs font-medium text-on-surface-variant">Pinturas</span>
+<span class="px-2 py-1 bg-surface-container-low rounded text-xs font-medium text-on-surface-variant">Material eléctrico</span>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-surface-variant">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-label-sm text-label-sm">Centro Histórico</span>
+</div>
+<button class="bg-[#123C2E] text-white px-md py-sm rounded-[10px] font-label-md text-label-md hover:bg-primary transition-colors">Ver negocio</button>
+</div>
+</div>
+</article>
+<!-- Business Card 2 -->
+<article class="paper-card rounded-xl overflow-hidden flex flex-col">
+<div class="relative h-48 w-full bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A beautifully lit, documentary-style shot of a local bakery in Tepic. Trays of freshly baked bolillos and sweet breads sit on wooden racks. A baker with flour on their apron is organizing the display. The light is warm and inviting, highlighting the textures of the bread and the rustic interior." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk_FOaUKmNghzj9kkoApudhIR_91H_lvwbl1h0_AO5KLDYPyj084LWNKoWgZ1ZOwSjKkDMhG30TWFpPwpwsEWu5G6dROcakcNHLbr_JgYvr-6kl-DUdoev5PSpJdqwHEHekfGqy5aJIy4ccCm4o8zxk3XE6DLVzw_OODJZfGEZ3X_cSr-AmsOcGSd5jJpG65L0glbrN-JA0vhV7EEBByFvSDeP2L58tCbNbEXgvtLjj5BS8y0ouqU9"/>
+<button class="absolute top-sm right-sm p-xs rounded-full bg-surface-container-lowest/80 backdrop-blur text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<span class="absolute bottom-sm left-sm px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur font-label-sm text-label-sm text-primary uppercase">Panadería</span>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h2 class="font-title-md text-title-md text-primary">Panadería La Tradición</h2>
+<div class="flex items-center gap-xs text-[#E3A600]">
+<span class="material-symbols-outlined text-sm" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4.8 (85)</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Pan dulce, bolillos calientes y pasteles elaborados con recetas familiares desde 1980.</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-2 py-1 bg-surface-container-low rounded text-xs font-medium text-on-surface-variant">Pan dulce</span>
+<span class="px-2 py-1 bg-surface-container-low rounded text-xs font-medium text-on-surface-variant">Pasteles</span>
+<span class="px-2 py-1 bg-surface-container-low rounded text-xs font-medium text-on-surface-variant">Bocadillos</span>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-surface-variant">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-label-sm text-label-sm">Colonia Mololoa</span>
+</div>
+<button class="bg-[#123C2E] text-white px-md py-sm rounded-[10px] font-label-md text-label-md hover:bg-primary transition-colors">Ver negocio</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Skeleton State -->
+<div class="hidden flex-col gap-md" id="state-skeleton">
+<article class="paper-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 w-full shimmer"></div>
+<div class="p-md flex flex-col gap-sm">
+<div class="h-6 w-3/4 rounded shimmer"></div>
+<div class="h-4 w-full rounded shimmer"></div>
+<div class="h-4 w-5/6 rounded shimmer"></div>
+<div class="flex gap-xs mt-xs">
+<div class="h-6 w-20 rounded shimmer"></div>
+<div class="h-6 w-24 rounded shimmer"></div>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-surface-variant">
+<div class="h-4 w-24 rounded shimmer"></div>
+<div class="h-8 w-28 rounded-[10px] shimmer"></div>
+</div>
+</div>
+</article>
+<article class="paper-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 w-full shimmer"></div>
+<div class="p-md flex flex-col gap-sm">
+<div class="h-6 w-2/3 rounded shimmer"></div>
+<div class="h-4 w-full rounded shimmer"></div>
+<div class="h-4 w-4/5 rounded shimmer"></div>
+<div class="flex gap-xs mt-xs">
+<div class="h-6 w-24 rounded shimmer"></div>
+<div class="h-6 w-16 rounded shimmer"></div>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-surface-variant">
+<div class="h-4 w-32 rounded shimmer"></div>
+<div class="h-8 w-28 rounded-[10px] shimmer"></div>
+</div>
+</div>
+</article>
+</div>
+<!-- Error State -->
+<div class="hidden flex-col items-center justify-center text-center py-giant px-lg" id="state-error">
+<span class="material-symbols-outlined text-[64px] text-primary opacity-20 mb-md">storefront</span>
+<h2 class="font-title-md text-title-md text-primary mb-sm">No pudimos cargar los negocios</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Ocurrió un problema de conexión. Por favor, intenta nuevamente.</p>
+<button class="border border-outline bg-surface-container-lowest text-primary px-lg py-sm rounded-[10px] font-label-md text-label-md hover:bg-surface-container-low transition-colors" onclick="showState('content')">Reintentar</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden bg-surface-container-lowest border-t border-outline-variant shadow-sm fixed bottom-0 left-0 w-full flex justify-around items-center px-sm pb-safe h-[64px] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-sm text-label-sm mt-1">Buscar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined" data-icon="storefront" data-weight="fill" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="font-label-sm text-label-sm mt-1">Negocios</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-label-sm mt-1">Guardados</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm mt-1">Cuenta</span>
+</a>
+</nav>
+<script>
+        function showState(state) {
+            document.getElementById('state-content').classList.add('hidden');
+            document.getElementById('state-skeleton').classList.add('hidden');
+            document.getElementById('state-error').classList.add('hidden');
+
+            document.getElementById('state-' + state).classList.remove('hidden');
+            if (state === 'content') {
+                document.getElementById('state-content').classList.add('flex');
+            } else if (state === 'skeleton') {
+                document.getElementById('state-skeleton').classList.add('flex');
+            } else if (state === 'error') {
+                document.getElementById('state-error').classList.add('flex');
+            }
+        }
+    </script>
+</body></html>

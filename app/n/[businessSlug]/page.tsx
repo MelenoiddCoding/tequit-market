@@ -1,13 +1,63 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BadgeCheck, MapPin, Package, Store } from "lucide-react";
-import { ProviderCard, Rating } from "@/components/cards";
-import { RequestForm } from "@/components/request-form";
+import { BusinessTeam, DetailSection, DirectedRequest, EntityHero, identityStyles, ProductList, ReviewList, ServiceList, VerificationPanel } from "@/components/identity-redesign";
+import { SiteContainer } from "@/components/layout-primitives";
 import { ViewTracker } from "@/components/view-tracker";
-import { WhatsAppButton } from "@/components/whatsapp-button";
 import { businesses, providers } from "@/lib/demo-data";
-import { providerMessage } from "@/lib/whatsapp";
-export function generateStaticParams(){return businesses.map(b=>({businessSlug:b.slug}))}
-export async function generateMetadata({params}:{params:Promise<{businessSlug:string}>}):Promise<Metadata>{const{businessSlug}=await params;const b=businesses.find(x=>x.slug===businessSlug);return{title:b?.name??"Negocio",description:b?.description}}
-export default async function BusinessPage({params}:{params:Promise<{businessSlug:string}>}){const{businessSlug}=await params;const business=businesses.find(b=>b.slug===businessSlug&&b.status==="active");if(!business)notFound();const team=providers.filter(p=>business.providerSlugs.includes(p.slug));return <main><ViewTracker type="business_view" target={business.slug}/><section className="profile-hero"><div className="container profile-head"><div className="profile-avatar"><Store size={48}/></div><div><p className="eyebrow" style={{color:"#efb79f"}}>{business.category} · Negocio local</p><h1>{business.name}</h1><div className="card-meta"><Rating value={business.rating} count={business.reviewCount}/><span className="verified"><BadgeCheck size={17} style={{display:"inline"}}/> {business.verifications.length} verificaciones</span></div><p className="muted" style={{marginTop:10}}><MapPin size={16} style={{display:"inline"}}/> {business.address}</p></div><div className="profile-actions"><WhatsAppButton phone={business.phone} message={providerMessage(business.name,"sus productos o servicios")}/><Link className="btn btn-secondary" href="#solicitar">Solicitar trabajo</Link></div></div></section><div className="container page"><section style={{maxWidth:760,marginBottom:50}}><p className="eyebrow">Sobre el negocio</p><h2>Hecho para resolver en Tepic</h2><p style={{fontSize:"1.1rem",lineHeight:1.7}}>{business.description}</p></section><section className="section"><p className="eyebrow">Servicios</p><h2>Lo que hacemos</h2><div className="service-list">{business.services.map(s=><div className="service-item" key={s.id}><BadgeCheck size={18} className="verified"/><strong>{s.name}</strong><p className="help">Cotización directa por WhatsApp</p></div>)}</div></section><section className="section"><p className="eyebrow">Sin checkout</p><h2>Productos</h2><div className="provider-grid">{business.products.map(p=><article className="provider-card" key={p.id}><Package size={25} className="verified"/><h3 className="card-title" style={{marginTop:14}}>{p.name}</h3><p className="muted">{p.description}</p><WhatsAppButton phone={business.phone} message={providerMessage(business.name,p.name)} label="Preguntar por WhatsApp" className="btn btn-secondary btn-block"/></article>)}</div></section>{team.length>0&&<section className="section"><p className="eyebrow">Afiliación independiente</p><h2>Nuestro equipo</h2><p className="muted">Cada persona conserva su propia reputación y reseñas.</p><div className="provider-grid">{team.map(p=><ProviderCard provider={p} key={p.id}/>)}</div></section>}<section className="section" id="solicitar"><div className="form-card"><p className="eyebrow">Solicitud directa</p><h2>Cuéntales qué necesitas</h2><RequestForm targetBusiness={business.slug}/></div></section></div></main>}
+
+export function generateStaticParams() {
+  return businesses.map((business) => ({ businessSlug: business.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ businessSlug: string }> }): Promise<Metadata> {
+  const { businessSlug } = await params;
+  const business = businesses.find((item) => item.slug === businessSlug);
+  return business ? { title: business.name, description: business.description } : { title: "Negocio no encontrado" };
+}
+
+export default async function BusinessPage({ params }: { params: Promise<{ businessSlug: string }> }) {
+  const { businessSlug } = await params;
+  const business = businesses.find((item) => item.slug === businessSlug && item.status === "active");
+  if (!business) notFound();
+  const team = providers.filter((provider) => business.providerSlugs.includes(provider.slug) && provider.status === "active");
+
+  return <main className={identityStyles.detailPage}>
+    <ViewTracker type="business_view" target={business.slug} />
+    <EntityHero entity={business} kind="business" />
+    <SiteContainer className={identityStyles.detailGrid}>
+      <div className={identityStyles.mainColumn}>
+        <DetailSection title="Sobre el negocio" eyebrow="Oficio local">
+          <p className={identityStyles.bodyCopy}>{business.description}</p>
+          <div className={identityStyles.tagList} aria-label="Zona y categoría">
+            <span className={identityStyles.tag}>{business.category}</span>
+            <span className={identityStyles.tag}>{business.zone}</span>
+          </div>
+        </DetailSection>
+
+        <DetailSection title="Servicios" eyebrow="Lo que hacen">
+          <ServiceList services={business.services} />
+        </DetailSection>
+
+        <DetailSection title="Productos" eyebrow="Cotización directa" description="Pregunta disponibilidad y detalles por WhatsApp. Tequit no procesa compras ni pagos.">
+          <ProductList business={business} />
+        </DetailSection>
+
+        <DetailSection title="Equipo afiliado" eyebrow="Perfiles independientes" description="Cada persona conserva sus propias verificaciones y reseñas.">
+          <BusinessTeam providers={team} />
+        </DetailSection>
+
+        <DetailSection title="Reseñas" eyebrow="Experiencias aprobadas">
+          <ReviewList reviews={business.reviews} />
+        </DetailSection>
+      </div>
+      <aside className={identityStyles.aside} aria-label={`Confianza y contacto de ${business.name}`}>
+        <VerificationPanel verifications={business.verifications} phone={business.phone} name={business.name} />
+      </aside>
+    </SiteContainer>
+    <SiteContainer size="reading">
+      <DetailSection id="solicitar" title="Solicitar trabajo">
+        <DirectedRequest entity={business} kind="business" />
+      </DetailSection>
+    </SiteContainer>
+  </main>;
+}

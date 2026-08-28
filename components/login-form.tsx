@@ -1,5 +1,45 @@
 "use client";
+
 import { FormEvent, useState } from "react";
-import { LogIn } from "lucide-react";
+import { Loader2, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
-export function LoginForm({next="/dashboard"}:{next?:string}){const router=useRouter();const[error,setError]=useState("");async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setError("");const data=Object.fromEntries(new FormData(e.currentTarget));const res=await fetch("/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const body=await res.json();if(!res.ok){setError(body.error);return}router.push(body.role==="admin"?"/admin":next);router.refresh()}return <form onSubmit={submit} className="form-grid"><div className="form-group full"><label htmlFor="email">Correo</label><input className="field" id="email" name="email" type="email" defaultValue="provider@tequit.local" autoComplete="email" required/></div><div className="form-group full"><label htmlFor="password">Contraseña</label><input className="field" id="password" name="password" type="password" defaultValue="Tequit123!" autoComplete="current-password" required/></div>{error&&<p className="error form-group full">{error}</p>}<button className="btn btn-primary form-group full" type="submit"><LogIn size={18}/>Entrar a mi cuenta</button></form>}
+import styles from "@/components/identity-redesign.module.css";
+
+export function LoginForm({ next = "/dashboard", demo = false, sessionExpired = false }: { next?: string; demo?: boolean; sessionExpired?: boolean }) {
+  const router = useRouter();
+  const [error, setError] = useState(sessionExpired ? "Tu sesión terminó. Inicia sesión de nuevo para continuar." : "");
+  const [loading, setLoading] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      const data = Object.fromEntries(new FormData(event.currentTarget));
+      const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error ?? "No pudimos iniciar sesión.");
+      router.push(body.role === "admin" ? "/admin" : next);
+      router.refresh();
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "No pudimos iniciar sesión. Revisa tu conexión e inténtalo otra vez.");
+      setLoading(false);
+    }
+  }
+
+  return <form className={styles.formGrid} onSubmit={submit} aria-busy={loading}>
+    <div className={`${styles.fieldGroup} ${styles.fieldGroupFull}`}>
+      <label htmlFor="login-email">Correo</label>
+      <input className={styles.field} id="login-email" name="email" type="email" defaultValue={demo ? "provider@tequit.local" : ""} autoComplete="email" required />
+    </div>
+    <div className={`${styles.fieldGroup} ${styles.fieldGroupFull}`}>
+      <label htmlFor="login-password">Contraseña</label>
+      <input className={styles.field} id="login-password" name="password" type="password" defaultValue={demo ? "Tequit123!" : ""} autoComplete="current-password" required />
+    </div>
+    {error && <p className={styles.formError} role="alert">{error}</p>}
+    <button className={`btn btn-primary ${styles.fieldGroupFull}`} disabled={loading} type="submit">
+      {loading ? <Loader2 className="animate-spin" aria-hidden /> : <LogIn size={18} aria-hidden />}
+      {loading ? "Iniciando sesión…" : "Entrar a mi cuenta"}
+    </button>
+  </form>;
+}

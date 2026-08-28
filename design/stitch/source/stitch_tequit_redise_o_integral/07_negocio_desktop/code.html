@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oficio Humano - Concretos Estampados de Nayarit</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#3b0a00",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c1c8c3",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#717974",
+                        "secondary-fixed": "#aff0d1",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "inverse-on-surface": "#e6f4ea",
+                        "tertiary-fixed": "#ffdbd1",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-surface": "#121e18",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#ddece2",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "secondary-container": "#aceece",
+                        "surface-container-low": "#e9f7ed",
+                        "primary-container": "#123c2e",
+                        "on-tertiary-container": "#f47b57",
+                        "surface-bright": "#effdf3",
+                        "on-primary-fixed": "#002116",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "surface-tint": "#3e6656",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#27332d",
+                        "surface-dim": "#cfddd4",
+                        "surface": "#effdf3",
+                        "background": "#effdf3",
+                        "tertiary-container": "#671800",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "on-surface-variant": "#414844",
+                        "secondary": "#2a6951",
+                        "on-secondary-fixed": "#002115",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#2f6e55",
+                        "on-background": "#121e18",
+                        "surface-variant": "#d8e6dc",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a4d0bc",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#00251a",
+                        "tertiary": "#420c00",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "surface-container": "#e3f1e7",
+                        "primary-fixed": "#c0ecd8",
+                        "on-primary-container": "#7da794",
+                        "surface-container-highest": "#d8e6dc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "base": "16px",
+                        "xs": "4px",
+                        "giant": "96px",
+                        "huge": "64px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "numeric-display": ["Fraunces"],
+                        "label-sm": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "display-lg": ["Fraunces"],
+                        "headline-lg": ["Fraunces"],
+                        "body-md": ["Manrope"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "title-md": ["Fraunces"]
+                    },
+                    "fontSize": {
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        .shadow-level-2 {
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md min-h-screen flex flex-col pt-[88px]"> <!-- pt offsets fixed nav -->
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-container-highest transition-colors duration-300">
+<nav class="flex justify-between items-center w-full px-lg md:px-giant py-base max-w-screen-2xl mx-auto">
+<!-- Brand -->
+<div class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed">
+                Oficio Humano
+            </div>
+<!-- Navigation Links (Web only) -->
+<ul class="hidden md:flex space-x-xl items-center font-body-md text-body-md">
+<li>
+<!-- Active State: 'Directorio' (Closest match to 'Negocios' intent) -->
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1 opacity-80 transition-opacity" href="#">
+                        Directorio
+                    </a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-all rounded px-xs py-1" href="#">
+                        Servicios
+                    </a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-all rounded px-xs py-1" href="#">
+                        Nosotros
+                    </a>
+</li>
+</ul>
+<!-- Trailing Actions -->
+<div class="flex items-center space-x-base">
+<div class="hidden md:flex space-x-sm">
+<button aria-label="notifications" class="p-xs rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="search" class="p-xs rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+<button class="font-label-md text-label-md text-primary bg-surface-container hover:bg-surface-container-high transition-all px-md py-sm rounded-lg">
+                    Mi Cuenta
+                </button>
+</div>
+</nav>
+</header>
+<main class="flex-grow flex flex-col">
+<!-- Hero Section -->
+<section class="relative w-full h-[300px] md:h-[450px]">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A highly detailed, documentary-style photograph of a newly finished decorative concrete patio in warm, natural afternoon light. The texture of the stamped concrete mimics natural slate, featuring earthy browns and subtle grey tones. The camera angle is wide, showing the patio leading to a modern Mexican residential garden. The aesthetic is tactile, premium, and authentic to local craftsmanship in Nayarit, without looking like a generic stock photo. Sharp focus on the ground texture with a soft depth of field in the background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuClvOe8MapauP3AURqfbtYnV1BZGviFJPoYVTpkaVjJraHr-6Kl2sN_333jEVK7Dy4ek4y86F0xp-3qk78XLM4kvybL98S60SpbkclsnNBtHQgmlc-HA54iCUNWDAtOQOR4t4fRr3_qpr0ww5OnBnVk3g7R__E_zDflE2_7FB2MPx3kijz45DTzCNpeAEnkX2fFyHVgpPRKzukRCxhS1bZ7d-zojwmoV0ne_n1urE-SQODYzGRbNhMY')">
+<!-- Overlay for better text legibility if needed, keeping it minimal -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<!-- Floating Business Header Card -->
+<div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-full max-w-screen-2xl px-lg md:px-giant z-10">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg md:p-xl shadow-level-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-lg">
+<div class="flex items-center gap-lg">
+<!-- Logo/Avatar -->
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border border-outline-variant shrink-0 bg-surface">
+<img alt="Concretos Estampados Logo" class="w-full h-full object-cover" data-alt="A clean, minimalist logo for a decorative concrete business. The logo features a geometric emblem resembling a concrete stamp tool or a patterned tile, utilizing deep forest green and earthy clay colors on a pure white background. The design is modern, professional, and avoids complex illustrative details, fitting a high-end service brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzSAsJiCHm4b8p_WDeaqBgg1h_rhsKswoCIJND1LkYRMrVtsEDE4SvnLIjvK_V3lYbyzda0TpPRNsYfetCD0fWtW9TOAhWwBuMuuDhFFupANfQWWzKD2wi4ekbF2yfXUo_HDm-rf9-LG-TRQ3AJd-OO3d8sS3p7U5zniwtfWTuEn1xidsdhAd845LWfLndaODmWtvD-Jjd4gY_o_V8jW90kb1PbpdadlebMPssSk0hVOs-jw9vth8X"/>
+</div>
+<!-- Title & Meta -->
+<div>
+<div class="flex items-center gap-sm mb-xs">
+<h1 class="font-headline-lg text-headline-lg text-on-surface m-0 leading-tight">
+                                    Concretos Estampados de Nayarit
+                                </h1>
+<span class="material-symbols-outlined filled text-secondary" data-icon="verified" title="Negocio Verificado">verified</span>
+</div>
+<div class="flex items-center gap-md font-label-md text-label-md text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined filled text-on-tertiary-container text-[18px]" data-icon="star" data-weight="fill">star</span>
+<span class="font-numeric-display font-bold text-on-surface">4.9</span>
+<a class="underline hover:text-primary transition-colors" href="#opiniones">(56 opiniones)</a>
+</div>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>10+ años de experiencia</span>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-md w-full md:w-auto mt-base md:mt-0">
+<button class="flex items-center justify-center gap-sm bg-primary-container text-on-primary-container font-label-md text-label-md px-lg py-md rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+                            Contactar por WhatsApp
+                        </button>
+<button class="flex items-center justify-center gap-sm border border-outline text-on-surface hover:bg-surface-container-low font-label-md text-label-md px-lg py-md rounded-lg transition-colors whitespace-nowrap">
+                            Pedir presupuesto
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Layout (Two Column) -->
+<!-- Added pt-24 md:pt-32 to account for the overlapping hero card -->
+<div class="max-w-screen-2xl mx-auto px-lg md:px-giant w-full pt-32 md:pt-32 pb-huge grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Sidebar (Left Column) -->
+<aside class="lg:col-span-4 flex flex-col gap-base">
+<!-- Contact & Info Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex flex-col gap-lg">
+<h3 class="font-title-md text-title-md text-on-surface border-b border-outline-variant pb-sm">Información</h3>
+<ul class="flex flex-col gap-md font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-start gap-md">
+<span class="material-symbols-outlined text-outline mt-xs" data-icon="location_on">location_on</span>
+<div>
+<strong class="text-on-surface block font-label-md">Ubicación</strong>
+                                Servicio en Tepic y Xalisco, Nayarit.
+                                <div class="mt-sm w-full h-32 rounded-lg bg-surface-container overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A minimalist, stylized map graphic showing the region of Tepic and Xalisco in Nayarit, Mexico. The map uses the brand's 'paper and clay' color palette, with soft cream backgrounds, subtle grey roads, and a forest green pin marker indicating the central service area. The aesthetic is clean, UI-friendly, and slightly abstract, avoiding cluttered real-world satellite imagery." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPhicqs8tZr2bocAN_ozdSfJnmXzZ_dZy5ATnDUhcMhejAn4F6mvEP1hlw6Dznsk1jCzK2cw-1_niYlhlA5I_EZX8mPqNS9vbDdMwLCoXc4LXiGNIsL62C3qmc5Qc2VNfDKJ-iXVPxFfJGpE4KVABhtpaYOoXL-pubN7wXMEz4xn5vP5jxBxpTwC-Gj_8cnwfztd87TxixR4y4AMBSzABgWGf0OeUpdEV90cebcdfakmAdxiDl3_T-')"></div>
+</div>
+</div>
+</li>
+<li class="flex items-start gap-md">
+<span class="material-symbols-outlined text-outline mt-xs" data-icon="schedule">schedule</span>
+<div>
+<strong class="text-on-surface block font-label-md">Horario</strong>
+                                Lunes a Sábado: 8:00 AM - 6:00 PM<br/>
+                                Domingo: Cerrado
+                            </div>
+</li>
+</ul>
+</div>
+<!-- Verification Badges Card -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-lg flex flex-col gap-base">
+<h3 class="font-title-md text-title-md text-on-surface border-b border-outline-variant pb-sm">Credenciales</h3>
+<ul class="flex flex-col gap-sm font-label-md text-label-md text-on-surface-variant">
+<li class="flex items-center gap-sm">
+<span class="material-symbols-outlined filled text-secondary" data-icon="check_circle">check_circle</span>
+                            Identidad verificada
+                        </li>
+<li class="flex items-center gap-sm">
+<span class="material-symbols-outlined filled text-secondary" data-icon="check_circle">check_circle</span>
+                            Domicilio confirmado
+                        </li>
+<li class="flex items-center gap-sm">
+<span class="material-symbols-outlined filled text-secondary" data-icon="check_circle">check_circle</span>
+                            Licencia profesional activa
+                        </li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Area (Right Column) -->
+<div class="lg:col-span-8 flex flex-col gap-xxl">
+<!-- Sobre el negocio -->
+<section class="flex flex-col gap-base">
+<h2 class="font-display-lg text-headline-lg md:text-display-lg text-on-surface">Sobre el negocio</h2>
+<div class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+<p class="mb-sm">
+                            Somos artesanos del concreto en Nayarit. Con más de una década transformando espacios, nos especializamos en acabados decorativos que combinan la resistencia industrial con la estética natural. Nuestro enfoque "Oficio Humano" garantiza que cada proyecto sea tratado con precisión milimétrica y atención al detalle.
+                        </p>
+<p>
+                            Utilizamos materiales de primera calidad para asegurar que sus pisos estampados, muros y superficies no solo luzcan increíbles el primer día, sino que perduren a través del tiempo y el clima de nuestra región.
+                        </p>
+</div>
+</section>
+<!-- Nuestras Especialidades -->
+<section class="flex flex-col gap-base">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Nuestras Especialidades</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Specialty Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg hover:shadow-level-2 transition-shadow cursor-pointer flex items-start gap-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-xs text-base">Piso Estampado</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Diversidad de moldes y colores imitando piedra natural, madera o adoquín.</p>
+</div>
+</div>
+<!-- Specialty Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg hover:shadow-level-2 transition-shadow cursor-pointer flex items-start gap-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="foundation">foundation</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-xs text-base">Muros de Piedra (Falsa)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Estampado vertical para fachadas y muros interiores con gran realismo.</p>
+</div>
+</div>
+<!-- Specialty Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg hover:shadow-level-2 transition-shadow cursor-pointer flex items-start gap-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-xs text-base">Lavado y Sellado</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Mantenimiento profesional para revivir el color y proteger superficies existentes.</p>
+</div>
+</div>
+<!-- Specialty Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg hover:shadow-level-2 transition-shadow cursor-pointer flex items-start gap-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-xs text-base">Reparaciones</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Solución a grietas, desniveles y desgaste prematuro en concreto.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Galería de Proyectos -->
+<section class="flex flex-col gap-base">
+<div class="flex justify-between items-end mb-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Galería de Proyectos</h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">Ver todos</a>
+</div>
+<!-- Asymmetric Bento Grid for Gallery -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-sm md:gap-md h-[400px] md:h-[500px]">
+<div class="col-span-2 md:col-span-2 row-span-2 rounded-xl overflow-hidden border border-outline-variant">
+<img alt="Proceso de estampado" class="w-full h-full object-cover" data-alt="A documentary-style close-up photograph of a worker's hands expertly pressing a heavy polyurethane stamp mat into wet concrete. The scene captures the physical labor and precision of the craft. The lighting highlights the rough texture of the partially stamped concrete against the smooth mat. Shot with a shallow depth of field, natural daylight, emphasizing the earthy, warm tones of the materials in Tepic, Nayarit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARFFIlumrmMQX_LQe7fteacAL2h_F6DQeBDTW523-ilWUJ35pOmLVA1Z-JqNTE-jLJCVr31elVRmh7UQFCmKP1MEubLCpgJ3E2JuEOQY7PmZpGsttVeknpZLDc9PRn-iByhdHYmhJKwMbGaXdf1oxwgMIIlAmI3OvWKACLjfKesfQvSkxB1nX7n7tSRzc1gUjHXxf_Eh8gAQxarI0sRBLMYMZeHRUEW1m6R6l8tNIobe8dWlspohOh"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-outline-variant">
+<img alt="Entrada residencial terminada" class="w-full h-full object-cover" data-alt="A bright, high-resolution photo of a finished residential driveway featuring stamped concrete designed to look like large ashlar slate. The surface is sealed and slightly glossy, reflecting warm sunlight. The edges meet a neatly manicured lawn. The aesthetic is clean, professional, and aspirational, utilizing the 'paper and clay' design system's natural color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO3mGJFPraJ2e_-rGtPgNSozzIIE3hZdTNM5jEdEXHJhDMzUS5NZoc9BGYVoSkEIYB4I956K8XZBeCPB9YVgRoYyDBI3asJJtLm2dcwfWLc2H-MdXr-qpBqTa4yo-gpFNV-qkQZZ8kq1q2OtMB8PIxN2eJog9UJnDzRoZyDuhIUdMu83ubekcrH_xnsS-aFisAkau8-Ih3sNpNeZv7sm_cCUvKuDyBH_IEnDHsdWbx_FDvYfHHIXa3"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-outline-variant">
+<img alt="Muro estampado vertical" class="w-full h-full object-cover" data-alt="A detailed shot of a vertical stamped concrete wall mimicking stacked fieldstone. The texture is incredibly realistic with deep shadow lines between the faux stones, colored in varying shades of terracotta, warm grey, and beige. The lighting is soft and directional, emphasizing the 3D relief of the craftwork." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT3du0jCg7xs7p0VNXJ7JdItLY-1-CCZc8mngQoaQqI3---WjlZ1GofipBI_ELqlw0DZhzEhUH2eQfKJk5p8FIjkrSbtObM2tB8MTEqzPL7PGFh6iQq5uPYI2ZhFnQCBj-t_V5ZDF-c-2U5gs54uvqSAuXG_uyqXDNCEBecGlYHegHdhIq_7T81geDWBeX7QvJ0L890mv3w30c3i1kx9xiq-IKyotXyUb6Pdptvrh7aYd3atmcE6JP"/>
+</div>
+</div>
+</section>
+<!-- Opiniones -->
+<section class="flex flex-col gap-base mt-lg" id="opiniones">
+<h2 class="font-headline-lg text-headline-lg text-on-surface border-b border-outline-variant pb-md">Opiniones de Clientes</h2>
+<div class="flex flex-col gap-lg mt-sm">
+<!-- Review 1 -->
+<div class="flex gap-md items-start">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center font-title-md text-primary shrink-0">
+                                M
+                            </div>
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-sm">
+<strong class="font-label-md text-label-md text-on-surface">María Fernanda V.</strong>
+<span class="text-on-surface-variant font-label-sm text-xs opacity-70">Hace 2 semanas</span>
+</div>
+<div class="flex text-on-tertiary-container text-[16px]">
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+                                    Excelente trabajo en mi terraza. Fueron muy puntuales, el diseño de la piedra quedó súper natural y dejaron todo limpio al terminar. 100% recomendados en Tepic.
+                                </p>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="flex gap-md items-start">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center font-title-md text-primary shrink-0">
+                                R
+                            </div>
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-sm">
+<strong class="font-label-md text-label-md text-on-surface">Roberto G.</strong>
+<span class="text-on-surface-variant font-label-sm text-xs opacity-70">Hace 1 mes</span>
+</div>
+<div class="flex text-on-tertiary-container text-[16px]">
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined filled" data-icon="star">star</span>
+<span class="material-symbols-outlined" data-icon="star_half">star_half</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+                                    El estampado del cochera quedó muy bien. El único detalle fue que tardaron un día más de lo presupuestado por el clima, pero la calidad del material se nota.
+                                </p>
+</div>
+</div>
+</div>
+<button class="self-start mt-md font-label-md text-label-md text-on-surface border border-outline rounded-lg px-md py-sm hover:bg-surface-container transition-colors">
+                        Leer las 56 opiniones
+                    </button>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-lg py-huge max-w-screen-2xl mx-auto gap-xl md:gap-0">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed mb-md md:mb-0">
+                Oficio Humano
+            </div>
+<nav>
+<ul class="flex flex-wrap justify-center md:justify-end gap-md md:gap-lg font-label-md text-label-md">
+<li><a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-all duration-200" href="#">Privacidad</a></li>
+<li><a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-all duration-200" href="#">Términos de Servicio</a></li>
+<li><a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-all duration-200" href="#">Contacto</a></li>
+<li><a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-all duration-200" href="#">Unirse al Directorio</a></li>
+</ul>
+</nav>
+<div class="font-label-sm text-label-sm text-on-surface-variant dark:text-outline-variant opacity-70 mt-md md:mt-0 text-center md:text-left w-full md:w-auto">
+                © 2024 Oficio Humano Tepic. Orgullosamente Nayarita.
+            </div>
+</div>
+</footer>
+</body></html>

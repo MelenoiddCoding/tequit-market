@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Reseñas y Reputación - Tepic Oficios</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#3b0a00",
+                    "error-container": "#ffdad6",
+                    "surface": "#effdf3",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#aceece",
+                    "surface-dim": "#cfddd4",
+                    "tertiary-container": "#671800",
+                    "on-tertiary-container": "#f47b57",
+                    "surface-container-high": "#ddece2",
+                    "on-surface": "#121e18",
+                    "on-secondary-container": "#2f6e55",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#3e6656",
+                    "surface-bright": "#effdf3",
+                    "outline-variant": "#c1c8c3",
+                    "on-secondary-fixed-variant": "#09513a",
+                    "background": "#effdf3",
+                    "secondary-fixed-dim": "#94d4b6",
+                    "secondary-fixed": "#aff0d1",
+                    "primary-fixed-dim": "#a4d0bc",
+                    "primary-container": "#123c2e",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#264e3f",
+                    "inverse-surface": "#27332d",
+                    "outline": "#717974",
+                    "on-secondary-fixed": "#002115",
+                    "on-surface-variant": "#414844",
+                    "inverse-primary": "#a4d0bc",
+                    "on-primary-container": "#7da794",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "primary": "#00251a",
+                    "tertiary": "#420c00",
+                    "on-background": "#121e18",
+                    "surface-container": "#e3f1e7",
+                    "surface-variant": "#d8e6dc",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#822709",
+                    "inverse-on-surface": "#e6f4ea",
+                    "primary-fixed": "#c0ecd8",
+                    "secondary": "#2a6951",
+                    "tertiary-fixed": "#ffdbd1",
+                    "surface-container-low": "#e9f7ed",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#002116",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#d8e6dc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "12px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "huge": "64px",
+                    "xs": "4px",
+                    "xxl": "48px",
+                    "giant": "96px",
+                    "lg": "24px",
+                    "base": "16px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "display-lg": ["Fraunces"],
+                    "title-md": ["Fraunces"],
+                    "headline-lg-mobile": ["Fraunces"],
+                    "body-md": ["Manrope"],
+                    "headline-lg": ["Fraunces"],
+                    "numeric-display": ["Fraunces"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "numeric-display": ["24px", {"lineHeight": "24px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Utilities for Design System */
+        .glass-panel {
+            background: rgba(247, 241, 231, 0.85); /* Approximating Paper #F7F1E7 */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(220, 228, 222, 0.6); /* Approximating #DCE4DE */
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05); /* Level 2 Shadow */
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Ensure content doesn't get hidden behind bottom nav */
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 80px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#FFFCF7] text-on-surface font-body-md antialiased md:hidden pb-safe"> <!-- Base Level 0 (Floor) Background -->
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-[#FFFCF7]/95 backdrop-blur-sm border-b border-[#DCE4DE] px-base py-md flex items-center gap-sm">
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] rounded-DEFAULT">
+<span class="material-symbols-outlined text-title-md">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Reseñas</h1>
+</header>
+<main class="pt-[72px] px-base pb-huge">
+<!-- Summary Section -->
+<section class="mt-lg flex flex-col items-center">
+<div class="flex items-end gap-sm mb-xs">
+<span class="font-numeric-display text-[64px] leading-none text-primary">4.9</span>
+<span class="font-title-md text-title-md text-on-surface-variant mb-xs">/ 5</span>
+</div>
+<div class="flex items-center gap-[2px] text-[#E3A600] mb-xs">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Basado en 128 reseñas</p>
+</section>
+<!-- Filter Pills -->
+<section class="mt-xl">
+<div class="flex overflow-x-auto hide-scrollbar gap-sm -mx-base px-base pb-sm">
+<!-- Active Pill -->
+<button class="whitespace-nowrap px-lg py-sm rounded-full bg-primary-container text-on-primary text-label-md font-label-md shadow-sm border border-primary-container focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2">
+                    Todas
+                </button>
+<!-- Inactive Pills -->
+<button class="whitespace-nowrap px-lg py-sm rounded-full bg-[#F7F1E7] text-on-surface-variant text-label-md font-label-md border border-[#DCE4DE] hover:bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2">
+                    Nuevas (3)
+                </button>
+<button class="whitespace-nowrap px-lg py-sm rounded-full bg-[#F7F1E7] text-on-surface-variant text-label-md font-label-md border border-[#DCE4DE] hover:bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2">
+                    Pendientes (1)
+                </button>
+<button class="whitespace-nowrap px-lg py-sm rounded-full bg-[#F7F1E7] text-on-surface-variant text-label-md font-label-md border border-[#DCE4DE] hover:bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2">
+                    Positivas
+                </button>
+<button class="whitespace-nowrap px-lg py-sm rounded-full bg-[#F7F1E7] text-on-surface-variant text-label-md font-label-md border border-[#DCE4DE] hover:bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2">
+                    Con Fotos
+                </button>
+</div>
+</section>
+<!-- Review Feed -->
+<section class="mt-lg flex flex-col gap-lg">
+<!-- Review Card 1 (New) -->
+<article class="bg-surface-container-lowest rounded-xl border border-[#DCE4DE] p-base card-shadow relative overflow-hidden">
+<!-- 'New' indicator dot -->
+<div class="absolute top-md right-md w-2 h-2 rounded-full bg-[#E3A600]"></div>
+<header class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-[2px] text-[#E3A600]">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<time class="font-label-sm text-label-sm text-on-surface-variant">Hace 2 horas</time>
+</header>
+<h3 class="font-title-md text-title-md text-primary mb-xs">María Fernanda</h3>
+<p class="font-body-md text-body-md text-on-surface mb-md">
+                    Excelente servicio. El carpintero llegó a tiempo y dejó la puerta principal como nueva. El acabado de la madera es espectacular, muy detallista con su trabajo.
+                </p>
+<div class="flex gap-sm mb-lg overflow-x-auto hide-scrollbar">
+<img alt="Foto de trabajo 1" class="w-16 h-16 object-cover rounded-lg border border-[#DCE4DE] flex-shrink-0" data-alt="A close-up documentary style photo of a newly restored wooden door, showing rich textures and a smooth finish, bathed in warm natural light, reflecting quality craftsmanship in a local setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8hYrs-8A1Ev849mMjlGGkyMKRR3LbnWpaIBHQfoI1FEwhC_WIDiDCO5_hKdwePikHIMZNu3Xrr-WzKX6tbiq9IcRlaqDSsf4qXLzLzDIzRrV9LMU49i6gbUR-6G1VCpmQFEeahRLMrTFE6firnjZcZYhZUvMUQ2ANz4_EVpHTYJVaMrC_bJY6NBFWIHn-ncFZnhzzzScMw57orqHiua56aM9t7dCBIOiHO4JFtWi8WUcYs_RglT8U"/>
+<img alt="Foto de trabajo 2" class="w-16 h-16 object-cover rounded-lg border border-[#DCE4DE] flex-shrink-0" data-alt="A detailed shot of carpenter's hands polishing a wooden surface, documentary aesthetic, authentic local trade context, shallow depth of field highlighting the craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSAaLeuiw_hJVAGM4c1-dxOva7zBry0kIvag4LlemRksV9-3TqsYK5yakcEAxOaQH3iCUuJ_U05R9JAxu5T_LzFEuKufreBVcV0pK0Li4q2hPQYICCpPbGaFQILQwh96XCHC4CUbbYpNxIEeJSEXmVmyf--NftMykx-EEFOSynyZ6vD5jJ3NuN4Kb_kp6U0HyIXpE-RARCTo8l7w291bPa-zKnIG6djzJYKoCadLds7mYtBi18dt7X"/>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-md rounded-[10px] hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 flex justify-center items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">reply</span>
+                    Responder a María
+                </button>
+</article>
+<!-- Review Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl border border-[#DCE4DE] p-base card-shadow">
+<header class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-[2px] text-[#E3A600]">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]">star</span>
+</div>
+<time class="font-label-sm text-label-sm text-on-surface-variant">Ayer</time>
+</header>
+<h3 class="font-title-md text-title-md text-primary mb-xs">Carlos Gómez</h3>
+<p class="font-body-md text-body-md text-on-surface mb-md">
+                    Buen trabajo en general, arregló la tubería rápidamente. Un poco de retraso en la hora de llegada, pero el resultado fue muy bueno y limpio.
+                </p>
+<!-- Responded State -->
+<div class="bg-surface-variant rounded-lg p-sm mb-lg border-l-4 border-primary">
+<p class="font-label-sm text-label-sm text-primary mb-[2px]">Tu respuesta:</p>
+<p class="font-body-md text-[14px] leading-snug text-on-surface-variant">
+                        ¡Gracias Carlos! Tomo nota sobre la puntualidad para mejorar. Me alegra que el trabajo quedara bien.
+                    </p>
+</div>
+<button class="w-full bg-[#F7F1E7] text-primary font-label-md text-label-md py-md rounded-[10px] border border-[#DCE4DE] hover:bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2">
+                    Editar Respuesta
+                </button>
+</article>
+<!-- Review Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl border border-[#DCE4DE] p-base card-shadow">
+<header class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-[2px] text-[#E3A600]">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<time class="font-label-sm text-label-sm text-on-surface-variant">Hace 3 días</time>
+</header>
+<h3 class="font-title-md text-title-md text-primary mb-xs">Familia Ramírez</h3>
+<p class="font-body-md text-body-md text-on-surface mb-md">
+                    La instalación eléctrica para el patio quedó perfecta. Muy profesional, explicó todo el proceso y dejó todo recogido. Altamente recomendado.
+                </p>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-md rounded-[10px] hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 flex justify-center items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">reply</span>
+                    Responder
+                </button>
+</article>
+</section>
+<!-- Loading Indicator / End of feed -->
+<div class="mt-lg flex justify-center py-sm">
+<span class="material-symbols-outlined text-outline-variant animate-spin">refresh</span>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Injected from Shared Components) -->
+<!-- The intent of this page is viewing Reviews, so the "Reseñas" tab must be active -->
+<nav class="bg-surface dark:bg-surface-container-highest fixed bottom-0 w-full lg:hidden h-16 z-50 shadow-md flex justify-around items-center px-4 pb-safe">
+<!-- Inicio (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant transition-all duration-300 active:scale-90 active:bg-surface-container-high dark:active:bg-inverse-surface rounded-lg p-xs" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Inicio</span>
+</a>
+<!-- Reseñas (Active based on Intent) -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold transition-all duration-300 active:scale-90 active:bg-surface-container-high dark:active:bg-inverse-surface rounded-lg p-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm mt-1">Reseñas</span>
+</a>
+<!-- Mensajes (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant transition-all duration-300 active:scale-90 active:bg-surface-container-high dark:active:bg-inverse-surface rounded-lg p-xs" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-sm text-label-sm mt-1">Mensajes</span>
+</a>
+<!-- Perfil (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant transition-all duration-300 active:scale-90 active:bg-surface-container-high dark:active:bg-inverse-surface rounded-lg p-xs" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Perfil</span>
+</a>
+</nav>
+</body></html>

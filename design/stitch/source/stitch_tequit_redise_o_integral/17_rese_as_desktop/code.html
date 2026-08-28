@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reseñas y Reputación - Taller de Oficios</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#3b0a00",
+                      "error-container": "#ffdad6",
+                      "surface": "#effdf3",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#aceece",
+                      "surface-dim": "#cfddd4",
+                      "tertiary-container": "#671800",
+                      "on-tertiary-container": "#f47b57",
+                      "surface-container-high": "#ddece2",
+                      "on-surface": "#121e18",
+                      "on-secondary-container": "#2f6e55",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#3e6656",
+                      "surface-bright": "#effdf3",
+                      "outline-variant": "#c1c8c3",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "background": "#effdf3",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "secondary-fixed": "#aff0d1",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "primary-container": "#123c2e",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "inverse-surface": "#27332d",
+                      "outline": "#717974",
+                      "on-secondary-fixed": "#002115",
+                      "on-surface-variant": "#414844",
+                      "inverse-primary": "#a4d0bc",
+                      "on-primary-container": "#7da794",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "primary": "#00251a",
+                      "tertiary": "#420c00",
+                      "on-background": "#121e18",
+                      "surface-container": "#e3f1e7",
+                      "surface-variant": "#d8e6dc",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#822709",
+                      "inverse-on-surface": "#e6f4ea",
+                      "primary-fixed": "#c0ecd8",
+                      "secondary": "#2a6951",
+                      "tertiary-fixed": "#ffdbd1",
+                      "surface-container-low": "#e9f7ed",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#002116",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-highest": "#d8e6dc"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "12px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "huge": "64px",
+                      "xs": "4px",
+                      "xxl": "48px",
+                      "giant": "96px",
+                      "lg": "24px",
+                      "base": "16px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "title-md": [
+                              "Fraunces"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ],
+                      "numeric-display": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "numeric-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .star-filled {
+            font-variation-settings: 'FILL' 1;
+            color: #E3A600;
+        }
+        .star-empty {
+            font-variation-settings: 'FILL' 0;
+            color: #DCE4DE;
+        }
+      </style>
+</head>
+<body class="bg-[#FFFCF7] text-on-surface h-full flex overflow-hidden font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Side Navigation Bar -->
+<nav class="fixed left-0 top-0 h-full w-64 hidden lg:flex flex-col border-r border-outline-variant dark:border-outline bg-surface-container-low dark:bg-surface-container py-lg gap-sm z-40">
+<!-- Header -->
+<div class="px-lg pb-lg mb-sm border-b border-outline-variant/30 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-outline-variant/30 bg-white">
+<img alt="Logotipo del negocio local" class="w-full h-full object-cover" data-alt="A macro shot of hands working with fine wood, dramatic documentary lighting, emphasizing craftsmanship. Warm, tactile aesthetic typical of a high-end local business portrait. Soft natural light from a nearby window highlighting the texture of the materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5j2_jQm1OwTiSsP639iuSXP6rBIZ4OJsHuGxNQ9kzmotEgSs2qLSQ8xL1cer-RwswzEHvj1CtZNYCgcy_y8RzTU3KiRvPPWZBkNC1oqQFxPTxkvFwL3pTaSBRxrWoomSy9aTUqZcKYfgsmFQQrxTfwGDn66K17fLvDP-Oakuhu0cvNWbWO51PewPh_H1m_mqBTnZI5gjtpTVBwqobvd1pHp_1r7A3ScoF8mh5my4HHNNqv6rz3zyU"/>
+</div>
+<div class="flex flex-col min-w-0">
+<h2 class="font-display-lg text-[20px] leading-tight text-primary truncate">Taller de Oficios</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Administrador de Perfil</span>
+</div>
+</div>
+<!-- Main Links -->
+<div class="flex-1 flex flex-col gap-xs overflow-y-auto px-xs">
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-inverse-surface mx-2 rounded-lg duration-200 ease-in-out hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all flex items-center gap-md px-md py-sm" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0">analytics</span>
+<span class="font-label-md text-label-md truncate">Resumen</span>
+</a>
+<a class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg mx-2 duration-200 ease-in-out flex items-center gap-md px-md py-sm" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0" style="font-variation-settings: 'FILL' 1;">star_rate</span>
+<span class="font-label-md text-label-md truncate">Mis Reseñas</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-inverse-surface mx-2 rounded-lg duration-200 ease-in-out hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all flex items-center gap-md px-md py-sm" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0">groups</span>
+<span class="font-label-md text-label-md truncate">Clientes</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-inverse-surface mx-2 rounded-lg duration-200 ease-in-out hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all flex items-center gap-md px-md py-sm" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0">description</span>
+<span class="font-label-md text-label-md truncate">Reportes</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-inverse-surface mx-2 rounded-lg duration-200 ease-in-out hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all flex items-center gap-md px-md py-sm" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0">tune</span>
+<span class="font-label-md text-label-md truncate">Ajustes</span>
+</a>
+</div>
+<!-- CTA & Footer -->
+<div class="px-lg pt-sm mt-auto border-t border-outline-variant/30 flex flex-col gap-md">
+<button class="w-full bg-primary-container text-on-primary-container rounded-lg py-sm px-md font-label-md text-label-md text-center hover:bg-[#002116] transition-colors border border-transparent focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 outline-none">
+                Ver Perfil Público
+            </button>
+<div class="flex flex-col gap-xs mt-sm">
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-inverse-surface -mx-md rounded-lg duration-200 ease-in-out hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all flex items-center gap-md px-md py-[6px]" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0 text-[20px]">help_outline</span>
+<span class="font-label-md text-label-md truncate">Ayuda</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant dark:hover:bg-inverse-surface -mx-md rounded-lg duration-200 ease-in-out hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all flex items-center gap-md px-md py-[6px]" href="#">
+<span aria-hidden="true" class="material-symbols-outlined shrink-0 text-[20px]">logout</span>
+<span class="font-label-md text-label-md truncate">Cerrar Sesión</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 h-full overflow-y-auto relative">
+<div class="max-w-screen-xl mx-auto px-4 md:px-lg lg:px-xl py-lg md:py-xl lg:py-xxl min-h-full flex flex-col gap-xl">
+<!-- 1. Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b border-outline-variant/30 pb-lg">
+<div class="max-w-2xl">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-sm">Reseñas y Reputación</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        Gestiona la retroalimentación de tus clientes. Un buen servicio se refleja aquí; responde de manera profesional para construir confianza y atraer más oportunidades de trabajo local.
+                    </p>
+</div>
+</header>
+<!-- 2. Rating Summary Card (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-base md:gap-lg">
+<!-- Aggregate Score -->
+<div class="md:col-span-4 bg-white border border-[#DCE4DE] rounded-xl p-lg flex flex-col items-center justify-center text-center">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">Calificación Promedio</h3>
+<div class="flex items-baseline gap-xs mb-xs">
+<span class="font-numeric-display text-[64px] leading-none text-primary">4.9</span>
+<span class="font-title-md text-title-md text-outline-variant">/5</span>
+</div>
+<div aria-label="4.9 de 5 estrellas" class="flex items-center gap-[2px] mb-md">
+<span class="material-symbols-outlined star-filled text-[28px]">star</span>
+<span class="material-symbols-outlined star-filled text-[28px]">star</span>
+<span class="material-symbols-outlined star-filled text-[28px]">star</span>
+<span class="material-symbols-outlined star-filled text-[28px]">star</span>
+<!-- Partial star representation using standard empty for simplicity in this context, normally would use SVG clip or similar for exact .9 -->
+<span class="material-symbols-outlined star-filled text-[28px]">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Basado en <strong class="text-on-surface font-semibold">128</strong> reseñas verificadas</p>
+</div>
+<!-- Distribution Chart -->
+<div class="md:col-span-8 bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-lg flex flex-col justify-center">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-lg">Distribución de Calificaciones</h3>
+<div class="flex flex-col gap-sm w-full max-w-lg mx-auto">
+<!-- 5 Stars -->
+<div class="flex items-center gap-md">
+<span class="w-12 text-right font-label-md text-label-md text-on-surface flex items-center justify-end gap-xs">5 <span class="material-symbols-outlined text-[16px] text-[#E3A600] star-filled">star</span></span>
+<div class="flex-1 h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 85%;"></div>
+</div>
+<span class="w-10 text-right font-label-sm text-label-sm text-on-surface-variant">109</span>
+</div>
+<!-- 4 Stars -->
+<div class="flex items-center gap-md">
+<span class="w-12 text-right font-label-md text-label-md text-on-surface flex items-center justify-end gap-xs">4 <span class="material-symbols-outlined text-[16px] text-[#E3A600] star-filled">star</span></span>
+<div class="flex-1 h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/80 rounded-full" style="width: 10%;"></div>
+</div>
+<span class="w-10 text-right font-label-sm text-label-sm text-on-surface-variant">13</span>
+</div>
+<!-- 3 Stars -->
+<div class="flex items-center gap-md">
+<span class="w-12 text-right font-label-md text-label-md text-on-surface flex items-center justify-end gap-xs">3 <span class="material-symbols-outlined text-[16px] text-[#E3A600] star-filled">star</span></span>
+<div class="flex-1 h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/60 rounded-full" style="width: 3%;"></div>
+</div>
+<span class="w-10 text-right font-label-sm text-label-sm text-on-surface-variant">4</span>
+</div>
+<!-- 2 Stars -->
+<div class="flex items-center gap-md">
+<span class="w-12 text-right font-label-md text-label-md text-on-surface flex items-center justify-end gap-xs">2 <span class="material-symbols-outlined text-[16px] text-[#E3A600] star-filled">star</span></span>
+<div class="flex-1 h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/40 rounded-full" style="width: 1%;"></div>
+</div>
+<span class="w-10 text-right font-label-sm text-label-sm text-on-surface-variant">1</span>
+</div>
+<!-- 1 Star -->
+<div class="flex items-center gap-md">
+<span class="w-12 text-right font-label-md text-label-md text-on-surface flex items-center justify-end gap-xs">1 <span class="material-symbols-outlined text-[16px] text-[#E3A600] star-filled">star</span></span>
+<div class="flex-1 h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/20 rounded-full" style="width: 1%;"></div>
+</div>
+<span class="w-10 text-right font-label-sm text-label-sm text-on-surface-variant">1</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Review Filter Bar -->
+<section class="sticky top-0 bg-[#FFFCF7]/95 backdrop-blur-sm py-md z-30 border-b border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-md -mx-4 px-4 md:mx-0 md:px-0">
+<div class="flex overflow-x-auto hide-scrollbar gap-sm pb-2 md:pb-0">
+<button class="shrink-0 bg-primary-container text-white px-md py-[6px] rounded-full font-label-md text-label-md border border-transparent focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 outline-none transition-colors">
+                        Todas
+                    </button>
+<button class="shrink-0 bg-[#F7F1E7] text-on-surface px-md py-[6px] rounded-full font-label-md text-label-md border border-[#DCE4DE] hover:bg-surface-variant focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 outline-none transition-colors">
+                        Nuevas
+                    </button>
+<button class="shrink-0 bg-[#F7F1E7] text-on-surface px-md py-[6px] rounded-full font-label-md text-label-md border border-[#DCE4DE] hover:bg-surface-variant focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 outline-none transition-colors flex items-center gap-xs">
+                        Sin respuesta
+                        <span class="bg-error text-white text-[10px] font-bold px-[6px] py-[2px] rounded-full leading-none">3</span>
+</button>
+</div>
+<div class="relative shrink-0 w-full md:w-auto">
+<select class="w-full md:w-48 appearance-none bg-white border border-[#DCE4DE] text-on-surface font-body-md text-body-md rounded-lg py-sm pl-md pr-xl focus:border-primary-container focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-0 outline-none transition-all cursor-pointer">
+<option value="all">Cualquier Calificación</option>
+<option value="5">5 Estrellas</option>
+<option value="4">4 Estrellas</option>
+<option value="3">3 Estrellas</option>
+<option value="1-2">1 - 2 Estrellas</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</section>
+<!-- 4. Review List -->
+<section class="flex flex-col gap-lg pb-giant">
+<!-- Review Card 1 (Needs Response, Has Photos) -->
+<article class="bg-white border border-[#DCE4DE] rounded-xl p-md md:p-lg flex flex-col gap-md" style="box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);">
+<header class="flex items-start justify-between gap-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shrink-0">
+<img alt="Fotografía del cliente" class="w-full h-full object-cover" data-alt="A candid portrait of a local resident in Tepic, Mexico, standing outside their home. Natural daylight, documentary style photography, warm tones. The person looks satisfied and relaxed, embodying trust in local craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC91KDKTaGId-hvrcUHFUqea2Oq33NgHGF5ntfkDjqn8KDu23zTY-0IfkT9ePJbM2JOp3HmKoYJsUSa8_5jbBNqrgTMNQvuXhiSS90kysvQ2lfEttu0Ryo798f4S5QU_1GD6LNnJyMyGjYY4ijLzAZ9zvOXojF4xbm3aTD4lniWObYYT6S1Gb8dNm17T9_hXCO1DN6STCkJgkBNy8toU27W_Ny6ogBuSpczjSVEraOYJ7X9nuXUWSPZ"/>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">María Guadalupe R.</h4>
+<div class="flex items-center gap-sm mt-xs">
+<div class="flex gap-[2px]">
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hace 2 días</span>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center rounded-full bg-secondary-container px-sm py-[2px] font-label-sm text-label-sm text-on-secondary-container">
+                            Servicio Verificado
+                        </span>
+</header>
+<div class="mt-sm">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                            "Excelente trabajo en la reparación de la fuga, muy profesional y limpio. Llegó a tiempo y me explicó exactamente cuál era el problema antes de arreglarlo. El precio me pareció justo para la calidad del trabajo. Definitivamente lo volveré a contactar para futuros mantenimientos."
+                        </p>
+</div>
+<!-- Attached Photos -->
+<div class="flex gap-sm overflow-x-auto hide-scrollbar py-xs mt-xs">
+<img alt="Foto adjunta por el cliente de la reparación" class="w-24 h-24 object-cover rounded-lg border border-outline-variant/50 shrink-0" data-alt="Close up of a newly repaired copper pipe under a kitchen sink. The repair looks clean and professional. The lighting is artificial but highlights the shiny new solder joint against the older pipe. Documentary style, shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFJXCgSfOjM5eGgSNm4Yn6kdwsbkI__A89PSjctsdUNdhXm_DyeDCflNFXJCBsDOaP_0Xx9Tj_HPffKvs15kKt3028w682avNCBnzh3oUk8G8S853OeNfZ-ol-HPHp0LTWcmHXhyBBp1s7iamx2cqyqAOnezYdL7ZXLRQIxSP54keG3-obgWK4CJZZQeCFVTWyLahA-O162uljlgqMSa-xJOiut8jZpml-wZCynUYJTEbhK_wPSOnK"/>
+<img alt="Foto del área limpia tras el trabajo" class="w-24 h-24 object-cover rounded-lg border border-outline-variant/50 shrink-0" data-alt="A wider shot showing a clean area under a sink after a plumbing repair. Tools are neatly packed away in the background. The scene conveys tidiness and respect for the client's home. Warm indoor lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGam9rT5MAr_ZyxYYllmETlhHE26ShwJLExkjz8m_cKTngQ7HDSg6rsPAMljbEUH8hcd_x9U-bor8FI13ZCMVVluSkKidYk3NAIo7ixBceFL-rexTzAExtiTc-8m2gTmg2c7gwKkcfMfh_wmaTgh5o9f9qDAMdk54QDf2EtbpytLv4TqRPjn_L3IOP4KulnbOyqn1qbxR6afRl6mRad0nguzMzc5JTEp6Ydv4vqdtco1GzfSICjIYf"/>
+</div>
+<footer class="mt-md pt-md border-t border-outline-variant/30 flex justify-end">
+<button class="bg-primary-container text-white px-lg py-sm rounded-lg font-label-md text-label-md hover:bg-[#002116] transition-colors border border-transparent focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 outline-none flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">reply</span>
+                            Responder Públicamente
+                        </button>
+</footer>
+</article>
+<!-- Review Card 2 (Responded, Lower Rating) -->
+<article class="bg-white border border-[#DCE4DE] rounded-xl p-md md:p-lg flex flex-col gap-md" style="box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);">
+<header class="flex items-start justify-between gap-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shrink-0 flex items-center justify-center font-title-md text-on-surface-variant">
+                                JC
+                            </div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Juan Carlos T.</h4>
+<div class="flex items-center gap-sm mt-xs">
+<div class="flex gap-[2px]">
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-filled">star</span>
+<span class="material-symbols-outlined text-[16px] star-empty">star</span>
+<span class="material-symbols-outlined text-[16px] star-empty">star</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hace 1 semana</span>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center rounded-full bg-surface-variant px-sm py-[2px] font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] mr-1">check</span> Respondida
+                        </span>
+</header>
+<div class="mt-sm">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                            "El trabajo quedó bien y parece resistente, pero llegó casi una hora tarde a la cita acordada sin avisar previamente. Fuera de eso, el servicio fue aceptable."
+                        </p>
+</div>
+<!-- Provider Response -->
+<div class="mt-md bg-[#F7F1E7] p-md rounded-lg border-l-4 border-primary-container">
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-primary-container text-[18px]">storefront</span>
+<span class="font-label-sm text-label-sm text-primary-container uppercase tracking-wide">Tu Respuesta</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">
+                            "Hola Juan Carlos, agradezco tu honestidad. Te pido una disculpa sincera por la demora, hubo un imprevisto complicado en el trabajo anterior. Tomo nota para mejorar mi comunicación y avisar con tiempo si hay retrasos. Me alegra saber que el trabajo cumplió su función. ¡Saludos!"
+                        </p>
+</div>
+</article>
+</section>
+</div>
+</main>
+<style>
+        /* Utility for hiding scrollbar but keeping functionality */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

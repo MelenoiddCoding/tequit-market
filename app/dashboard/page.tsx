@@ -1,4 +1,20 @@
 import Link from "next/link";
-import { Eye, MessageCircle, Star, ClipboardList } from "lucide-react";
-const metrics=[[Eye,"Vistas del perfil","284","+18%"],[MessageCircle,"Clics a WhatsApp","47","+12%"],[ClipboardList,"Solicitudes","8","3 nuevas"],[Star,"Rating","4.8","23 reseñas"]] as const;
-export default function DashboardPage(){return <main><p className="eyebrow">Últimos 30 días</p><h1 style={{fontSize:"clamp(2.3rem,6vw,4rem)"}}>Hola, Juan</h1><p className="muted">Este es el movimiento reciente de tu perfil.</p><div className="metrics">{metrics.map(([Icon,label,value,note])=><div className="metric" key={label}><Icon size={20} className="verified"/><span className="muted">{label}</span><strong>{value}</strong><span className="help">{note}</span></div>)}</div><section className="section"><div className="section-head"><div><p className="eyebrow">Por atender</p><h2>Últimas solicitudes</h2></div><Link className="btn btn-secondary" href="/dashboard/solicitudes">Ver todas</Link></div><div className="lead-card"><div><span className="status">Nueva</span><h3 className="card-title">Concreto estampado</h3><p className="muted">Ciudad del Valle · Esta semana · Recibida hoy</p></div><Link className="btn btn-dark" href="/dashboard/solicitudes">Abrir solicitud</Link></div><div className="lead-card"><div><span className="status">Vista</span><h3 className="card-title">Reparar humedad en muro</h3><p className="muted">Centro · Este mes · Ayer</p></div><Link className="btn btn-secondary" href="/dashboard/solicitudes">Ver detalle</Link></div></section></main>}
+import { ClipboardList, Eye, MessageCircle, MousePointerClick } from "lucide-react";
+import { CompletionAlert, DashboardPageHeader, DashboardSection, MetricGrid, MetricItem, StatusBadge, dashboardStyles as styles } from "@/components/dashboard-components";
+import { DashboardContent } from "@/components/dashboard-shell";
+
+const leads = [
+  { title: "Concreto estampado", zone: "Ciudad del Valle", timing: "Esta semana", received: "Hoy, 10:42", status: "Nueva" },
+  { title: "Reparar humedad en muro", zone: "Centro", timing: "Este mes", received: "Ayer", status: "Vista" },
+];
+
+export default function DashboardPage() {
+  return <DashboardContent>
+    <DashboardPageHeader eyebrow="Últimos 30 días" title="Hola, Juan" description="Revisa el movimiento reciente de tu perfil y lo que necesita atención." />
+    <CompletionAlert title="Tu portafolio puede generar más confianza" description="Agrega al menos dos trabajos recientes para que las personas conozcan la calidad de tu oficio." action={<Link className={styles.primary} href="/dashboard/trabajos">Agregar trabajo</Link>} />
+    <MetricGrid><MetricItem icon={Eye} label="Vistas del perfil" value="284" note="18% más que el periodo anterior" /><MetricItem icon={MessageCircle} label="WhatsApp" value="47" note="Contactos iniciados desde Tequit" /><MetricItem icon={ClipboardList} label="Solicitudes" value="8" note="3 nuevas por atender" /><MetricItem icon={MousePointerClick} label="Conversión" value="16.5%" note="Vistas que llegaron a WhatsApp" /></MetricGrid>
+    <DashboardSection title="Por atender" description="Solicitudes recientes que requieren una decisión." action={<Link className={styles.ghost} href="/dashboard/solicitudes">Ver todas</Link>}>
+      <div className={styles.list}>{leads.map((lead) => <article className={styles.listRow} key={lead.title}><div><StatusBadge tone={lead.status === "Nueva" ? "default" : "muted"}>{lead.status}</StatusBadge><h3>{lead.title}</h3><div className={styles.meta}><span>{lead.zone}</span><span>{lead.timing}</span><span>{lead.received}</span></div></div><Link className={styles.secondary} href="/dashboard/solicitudes">Abrir solicitud</Link></article>)}</div>
+    </DashboardSection>
+  </DashboardContent>;
+}

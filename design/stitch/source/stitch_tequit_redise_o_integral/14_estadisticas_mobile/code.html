@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Estadísticas - Tequit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#420c00",
+                        "primary-container": "#123c2e",
+                        "on-tertiary-container": "#f47b57",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "surface-container-highest": "#d8e6dc",
+                        "surface-container-low": "#e9f7ed",
+                        "on-background": "#121e18",
+                        "primary": "#00251a",
+                        "on-primary-container": "#7da794",
+                        "outline-variant": "#c1c8c3",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#121e18",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e3f1e7",
+                        "on-secondary-fixed": "#002115",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#414844",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-bright": "#effdf3",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "secondary-container": "#aceece",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "inverse-primary": "#a4d0bc",
+                        "surface-container-high": "#ddece2",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#3e6656",
+                        "surface-variant": "#d8e6dc",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "background": "#effdf3",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "primary-fixed": "#c0ecd8",
+                        "inverse-on-surface": "#e6f4ea",
+                        "inverse-surface": "#27332d",
+                        "outline": "#717974",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "surface": "#effdf3",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "surface-dim": "#cfddd4",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "tertiary-container": "#671800",
+                        "on-secondary-container": "#2f6e55",
+                        "error-container": "#ffdad6",
+                        "secondary": "#2a6951",
+                        "secondary-fixed": "#aff0d1",
+                        "on-error": "#ffffff",
+                        "gold": "#E3A600",
+                        "paper": "#FFFCF7",
+                        "cream": "#F7F1E7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "btn": "10px",
+                        "card": "16px"
+                    },
+                    "spacing": {
+                        "base": "16px",
+                        "giant": "96px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "xxl": "48px",
+                        "xl": "32px",
+                        "huge": "64px",
+                        "md": "12px",
+                        "lg": "24px",
+                        "nav-height": "64px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope", "sans-serif"],
+                        "display-lg": ["Fraunces", "serif"],
+                        "title-md": ["Fraunces", "serif"],
+                        "headline-lg-mobile": ["Fraunces", "serif"],
+                        "label-md": ["Manrope", "sans-serif"],
+                        "body-md": ["Manrope", "sans-serif"],
+                        "numeric-display": ["Fraunces", "serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Fraunces", "serif"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    },
+                    "boxShadow": {
+                        "soft": "0 4px 12px rgba(23, 35, 29, 0.05)"
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#FFFCF7] text-on-surface font-body-md min-h-screen flex flex-col pb-nav-height antialiased md:bg-surface-container-highest md:justify-center md:items-center">
+<!-- Mobile Container (to simulate mobile view on desktop for testing) -->
+<div class="w-full md:max-w-md md:h-[850px] md:overflow-hidden md:relative md:bg-[#FFFCF7] md:rounded-[40px] md:shadow-2xl md:border-8 md:border-gray-900 flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-surface-container-high docked full-width top-0 fixed top-0 left-0 w-full z-40 flex justify-between items-center px-base h-16 md:absolute">
+<div class="flex items-center gap-sm">
+<!-- Back Button placeholder -->
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">Estadísticas</h1>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-outline-variant rounded-full py-2 pl-4 pr-10 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent">
+<option>Este mes</option>
+<option>Semana pasada</option>
+<option>Este año</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto pt-20 px-base pb-6 md:pb-24">
+<!-- KPI Summary Cards (Horizontal Scroll) -->
+<section class="mb-xl">
+<div class="flex overflow-x-auto hide-scrollbar gap-base -mx-base px-base pb-4 snap-x">
+<!-- Card 1: Ingresos -->
+<div class="snap-start shrink-0 w-64 bg-[#F7F1E7] border border-[#DCE4DE] rounded-card p-lg shadow-soft flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Ingresos</span>
+<span class="material-symbols-outlined text-primary-container" data-icon="payments">payments</span>
+</div>
+<h2 class="font-numeric-display text-numeric-display text-primary mt-auto">$12,450</h2>
+<div class="flex items-center gap-xs mt-sm text-secondary">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+<span class="font-label-sm text-label-sm">+15% vs mes ant.</span>
+</div>
+</div>
+<!-- Card 2: Alcance -->
+<div class="snap-start shrink-0 w-64 bg-white border border-[#DCE4DE] rounded-card p-lg shadow-soft flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Alcance</span>
+<span class="material-symbols-outlined text-primary-container" data-icon="visibility">visibility</span>
+</div>
+<h2 class="font-numeric-display text-numeric-display text-primary mt-auto">1,204</h2>
+<div class="flex items-center gap-xs mt-sm text-secondary">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+<span class="font-label-sm text-label-sm">+5% vistas perfil</span>
+</div>
+</div>
+<!-- Card 3: Tasa de Respuesta -->
+<div class="snap-start shrink-0 w-64 bg-white border border-[#DCE4DE] rounded-card p-lg shadow-soft flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Tasa de Respuesta</span>
+<span class="material-symbols-outlined text-primary-container" data-icon="forum">forum</span>
+</div>
+<h2 class="font-numeric-display text-numeric-display text-primary mt-auto">98%</h2>
+<div class="flex items-center gap-xs mt-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+<span class="font-label-sm text-label-sm">Tiem. prom. 15m</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Chart Section: Rendimiento semanal -->
+<section class="mb-xl bg-white border border-[#DCE4DE] rounded-card p-base shadow-soft">
+<h3 class="font-title-md text-title-md text-primary mb-md">Rendimiento semanal</h3>
+<!-- Simplified Bar Chart (CSS based for UI mockup) -->
+<div class="h-48 flex items-end justify-between gap-2 pt-4 border-b border-[#DCE4DE] pb-2">
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-sm h-[40%]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">L</span>
+</div>
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-sm h-[60%]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">M</span>
+</div>
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-container rounded-t-sm h-[90%] relative group">
+<!-- Tooltip hint -->
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-inverse text-inverse-on-surface font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">Hoy</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">M</span>
+</div>
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-sm h-[50%]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">J</span>
+</div>
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-sm h-[80%]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">V</span>
+</div>
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-sm h-[30%]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">S</span>
+</div>
+<div class="w-1/7 flex flex-col items-center gap-2 h-full justify-end">
+<div class="w-full bg-primary-fixed-dim rounded-t-sm h-[10%]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">D</span>
+</div>
+</div>
+</section>
+<!-- Grid Layout for remaining content -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-base">
+<!-- Sentiment Score -->
+<section class="bg-[#123C2E] text-white rounded-card p-base flex flex-col justify-center items-center shadow-soft relative overflow-hidden">
+<!-- Decorative background element -->
+<div class="absolute -right-8 -top-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="workspace_premium" data-weight="fill">workspace_premium</span>
+</div>
+<h3 class="font-label-md text-label-md text-primary-fixed opacity-90 mb-xs">Satisfacción del Cliente</h3>
+<div class="flex items-baseline gap-xs">
+<span class="font-numeric-display text-display-lg font-bold">4.9</span>
+<span class="font-label-md text-label-md opacity-70">/5</span>
+</div>
+<div class="flex text-gold mt-2 mb-4">
+<span class="material-symbols-outlined" data-icon="star" data-weight="fill">star</span>
+<span class="material-symbols-outlined" data-icon="star" data-weight="fill">star</span>
+<span class="material-symbols-outlined" data-icon="star" data-weight="fill">star</span>
+<span class="material-symbols-outlined" data-icon="star" data-weight="fill">star</span>
+<span class="material-symbols-outlined" data-icon="star_half" data-weight="fill">star_half</span>
+</div>
+<div class="bg-surface-container-highest/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed" data-icon="thumb_up">thumb_up</span>
+<span class="font-label-sm text-label-sm text-white uppercase tracking-wider">Muy Bien</span>
+</div>
+</section>
+<!-- Popular Services List -->
+<section class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-card p-base shadow-soft">
+<h3 class="font-title-md text-title-md text-primary mb-md">Tus servicios populares</h3>
+<ul class="space-y-3">
+<li class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-[#DCE4DE]">
+<div class="flex items-center gap-3">
+<div class="bg-primary-container/10 p-2 rounded-full text-primary-container">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Reparación Fuga</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Plomería</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">42 <span class="text-on-surface-variant font-normal text-xs">solicitudes</span></span>
+</li>
+<li class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-[#DCE4DE]">
+<div class="flex items-center gap-3">
+<div class="bg-primary-container/10 p-2 rounded-full text-primary-container">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Revisión Tablero</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Electricidad</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">28 <span class="text-on-surface-variant font-normal text-xs">solicitudes</span></span>
+</li>
+</ul>
+<button class="w-full mt-4 py-2 font-label-md text-label-md text-primary-container border border-primary-container rounded-btn hover:bg-primary-container hover:text-white transition-colors">
+                        Ver todos
+                    </button>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 bg-surface dark:bg-surface-container-lowest shadow-[0_-1px_0_0_rgba(193,200,195,0.5)] docked full-width h-16 md:absolute">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-secondary-container/10 p-2 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-secondary-container/10 p-2 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100" data-icon="work">work</span>
+<span class="font-label-sm text-label-sm mt-1">Jobs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-secondary-container/10 p-2 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100" data-icon="mail">mail</span>
+<span class="font-label-sm text-label-sm mt-1">Chat</span>
+</a>
+<!-- Active State Navigation Item based on context (Statistics/Finance) -->
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold hover:bg-secondary-container/10 p-2 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100" data-icon="receipt_long" data-weight="fill">receipt_long</span>
+<span class="font-label-sm text-label-sm mt-1">Money</span>
+</a>
+</nav>
+</div>
+</body></html>

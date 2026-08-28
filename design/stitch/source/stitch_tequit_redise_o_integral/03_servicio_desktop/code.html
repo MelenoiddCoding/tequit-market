@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plomería en Tepic | Tequit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&amp;family=Manrope:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#121e18",
+                    "on-surface": "#121e18",
+                    "background": "#effdf3",
+                    "surface-container-high": "#ddece2",
+                    "tertiary-fixed": "#ffdbd1",
+                    "primary-container": "#123c2e",
+                    "outline": "#717974",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "inverse-on-surface": "#e6f4ea",
+                    "on-error": "#ffffff",
+                    "primary": "#00251a",
+                    "inverse-surface": "#27332d",
+                    "surface-container": "#e3f1e7",
+                    "secondary": "#2a6951",
+                    "tertiary": "#420c00",
+                    "secondary-container": "#aceece",
+                    "on-tertiary-fixed": "#3b0a00",
+                    "surface-variant": "#d8e6dc",
+                    "on-primary-container": "#7da794",
+                    "secondary-fixed": "#aff0d1",
+                    "on-primary": "#ffffff",
+                    "surface": "#effdf3",
+                    "on-tertiary-fixed-variant": "#822709",
+                    "secondary-fixed-dim": "#94d4b6",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#2f6e55",
+                    "surface-container-low": "#e9f7ed",
+                    "on-primary-fixed-variant": "#264e3f",
+                    "surface-dim": "#cfddd4",
+                    "surface-container-highest": "#d8e6dc",
+                    "on-secondary-fixed-variant": "#09513a",
+                    "primary-fixed-dim": "#a4d0bc",
+                    "on-secondary-fixed": "#002115",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#002116",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#a4d0bc",
+                    "on-tertiary-container": "#f47b57",
+                    "primary-fixed": "#c0ecd8",
+                    "outline-variant": "#c1c8c3",
+                    "tertiary-container": "#671800",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#3e6656",
+                    "on-surface-variant": "#414844",
+                    "surface-bright": "#effdf3",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "base": "16px",
+                    "sm": "8px",
+                    "giant": "96px",
+                    "lg": "24px",
+                    "md": "12px",
+                    "xxl": "48px",
+                    "xl": "32px",
+                    "huge": "64px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Fraunces"
+                    ],
+                    "numeric-display": [
+                            "Fraunces"
+                    ],
+                    "label-sm": [
+                            "Manrope"
+                    ],
+                    "body-lg": [
+                            "Manrope"
+                    ],
+                    "body-md": [
+                            "Manrope"
+                    ],
+                    "label-md": [
+                            "Manrope"
+                    ],
+                    "headline-lg-mobile": [
+                            "Fraunces"
+                    ],
+                    "display-lg": [
+                            "Fraunces"
+                    ],
+                    "title-md": [
+                            "Fraunces"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "numeric-display": [
+                            "24px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.03em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "title-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-base h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-md cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed">Tequit</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-lg items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Inicio</a>
+<a class="font-label-md text-label-md text-primary font-bold hover:text-primary transition-colors" href="#">Buscar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Negocios</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Guardados</a>
+</nav>
+<div class="flex items-center gap-md cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<a class="hidden md:flex font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cuenta</a>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 pb-giant px-base md:px-lg max-w-7xl mx-auto min-h-screen">
+<!-- Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="mb-xl">
+<ol class="flex items-center space-x-2 font-label-md text-label-md text-outline">
+<li><a class="hover:text-primary transition-colors" href="#">Inicio</a></li>
+<li><span class="material-symbols-outlined text-sm">chevron_right</span></li>
+<li><a class="hover:text-primary transition-colors" href="#">Servicios</a></li>
+<li><span class="material-symbols-outlined text-sm">chevron_right</span></li>
+<li aria-current="page" class="text-on-surface font-semibold">Plomería</li>
+</ol>
+</nav>
+<!-- Hero Section -->
+<section class="mb-xxl max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-md">Plomería en Tepic</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">Compara reputación, trabajos y verificaciones antes de contactar.</p>
+<!-- Compact Search -->
+<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-full p-2 shadow-sm max-w-md focus-within:border-primary focus-within:ring-2 focus-within:ring-[#E3A600]/20 transition-all">
+<span class="material-symbols-outlined text-outline ml-3">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md px-3 text-on-surface placeholder:text-outline-variant" placeholder="Buscar por especialidad o nombre..." type="text"/>
+<button class="bg-primary-container text-on-primary h-10 px-6 rounded-full font-label-md text-label-md hover:bg-primary transition-colors">Buscar</button>
+</div>
+</section>
+<!-- Filters / Chips -->
+<div class="flex gap-sm mb-xl overflow-x-auto pb-4 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-primary-container text-on-primary font-label-md text-label-md border border-transparent">Todos</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Reparaciones Urgentes</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Instalaciones</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Destape de Tuberías</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Negocios</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Independientes</button>
+</div>
+<!-- Results Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Canonical Person Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-[16px] overflow-hidden hover:shadow-[0_4px_12px_rgba(23,35,29,0.05)] transition-shadow flex flex-col cursor-pointer group">
+<div class="relative h-48 w-full">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A documentary-style portrait of a Mexican plumber in his 40s wearing a clean work uniform, standing confidently in front of a well-organized service van in Tepic. Warm natural light illuminates his face, conveying trust and experience. The aesthetic is modern editorial, emphasizing human craft over generic stock photography, adhering to a grounded, tactile visual language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC7Yy9ZgWsOZq0C9klqV5z94DfXaskohiQ0kqNr_LKDchPY36tNlXjnUAT2lqVVeisytmvhVot9NSb83sprd1sRM1H5SbMrdxBoIkog7MBJan1pvqBrlhXQZHZc6vsasD0pF6QeTGs5uWiNxphljmWt1pSp5CVGMl99b_JF6uGDNDI9qC7hC1-p54xFdE210S2th9y7KtQPRNoigL2AFAX2Ks966eMdX_8Px-wRJlxbPudaMVvhkma"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-md flex items-center gap-1 border border-outline-variant/30">
+<span class="material-symbols-outlined icon-filled text-[#E3A600] text-sm" data-icon="star">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.9</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">(120)</span>
+</div>
+</div>
+<div class="p-lg flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">Juan Carlos Mendoza</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Plomero Especialista</p>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+</div>
+<p class="font-body-md text-body-md text-outline mb-md line-clamp-2">Especialista en detección de fugas sin romper y reparación de calentadores solares.</p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<span class="font-label-md text-label-md text-on-surface-variant">15 años de exp.</span>
+<button class="bg-[#08783E] text-white px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-[#065C30] transition-colors focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:ring-offset-surface-container-lowest">
+<span class="material-symbols-outlined text-sm" data-icon="forum">forum</span> Contactar
+                        </button>
+</div>
+</div>
+</article>
+<!-- Canonical Business Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-[16px] overflow-hidden hover:shadow-[0_4px_12px_rgba(23,35,29,0.05)] transition-shadow flex flex-col cursor-pointer group">
+<div class="relative h-48 w-full">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A documentary-style shot of a specialized plumbing service storefront in Tepic, featuring clean signage and a well-lit interior showcasing fixtures. The image is captured with a modern editorial approach, using warm, natural sunlight that casts soft shadows. The overall mood is professional, reliable, and grounded in the local community aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrOVFCs9g9ymQNrlbUkyc0rcDiO8YfnFMboIUnvNEQTxXkr3rgCVlrFe0kORNc07q5HQLSAyoCoRQrE2f8t9SYhuKxDN7fxHajztJOd5FvMGIqb_-3hahTdPbcBHg6dLqIkMN3rqQhg-QLsUb_rYAQUVlbp-vVbTPjPO6y8mLpYffwxtKSLEPfeTMGkPN61PY70MDH7361wjdl7aZb6Z41nsvnC-sKbzvE0NBNV98H5xwM5bGpMWrX"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-md flex items-center gap-1 border border-outline-variant/30">
+<span class="material-symbols-outlined icon-filled text-[#E3A600] text-sm" data-icon="star">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.7</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">(85)</span>
+</div>
+<div class="absolute top-3 right-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-md border border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface">Negocio</span>
+</div>
+</div>
+<div class="p-lg flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">Plomería Integral Tepic</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Servicio Residencial y Comercial</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-outline mb-md line-clamp-2">Equipo de plomeros certificados. Atención 24/7 para emergencias residenciales.</p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<span class="font-label-md text-label-md text-on-surface-variant">Factura disponible</span>
+<button class="bg-[#08783E] text-white px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-[#065C30] transition-colors focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:ring-offset-surface-container-lowest">
+<span class="material-symbols-outlined text-sm" data-icon="forum">forum</span> Contactar
+                        </button>
+</div>
+</div>
+</article>
+<!-- Canonical Person Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-[16px] overflow-hidden hover:shadow-[0_4px_12px_rgba(23,35,29,0.05)] transition-shadow flex flex-col cursor-pointer group">
+<div class="relative h-48 w-full">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up documentary photograph of a plumber's hands expertly adjusting a modern brass pipe fitting. The focus is on the human craft and the texture of the tools and materials. The lighting is bright and modern, creating a clean, professional editorial aesthetic with a warm, tactile feel typical of high-quality service imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeFaDwlatiqgsguxZU6sq4tdKNolug7AbC3UdSPq6mUDdlcIzBZMBFYz4xGl7vOrU0sWwpu-n1nHp-G8aq4ZuoSD8ObeS3Lk8pDbhRIL_04_v5raVUKlA1cSOrng1sWufrN7dMd_d-f3oCIGdWeLEchfVN9OizEAvD0REHVt_T-J31iXHhCXx2q1SE18EnL3GwkcQLi6C0odb7-9ev6lWH7P6Rvzt-EZuXojoXhlsll9xsCF4nNaqK"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur px-2 py-1 rounded-md flex items-center gap-1 border border-outline-variant/30">
+<span class="material-symbols-outlined icon-filled text-[#E3A600] text-sm" data-icon="star">star</span>
+<span class="font-label-md text-label-md text-on-surface">5.0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">(42)</span>
+</div>
+</div>
+<div class="p-lg flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">Roberto Silva</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Maestro Fontanero</p>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+</div>
+<p class="font-body-md text-body-md text-outline mb-md line-clamp-2">Instalación de tuberías de cobre, CPVC y mantenimiento preventivo para el hogar.</p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<span class="font-label-md text-label-md text-on-surface-variant">8 años de exp.</span>
+<button class="bg-[#08783E] text-white px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-[#065C30] transition-colors focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:ring-offset-surface-container-lowest">
+<span class="material-symbols-outlined text-sm" data-icon="forum">forum</span> Contactar
+                        </button>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-huge px-base flex flex-col md:flex-row justify-between gap-xl bg-surface-container-high dark:bg-surface-container border-t border-outline-variant">
+<div class="flex flex-col gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">Tequit</span>
+<span class="font-body-md text-body-md text-on-surface-variant">© 2024 Tequit - Oficio Humano</span>
+</div>
+<div class="flex flex-wrap gap-lg md:justify-end">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Nosotros</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Servicios</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contacto</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Ayuda</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Términos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Facebook</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Instagram</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">WhatsApp</a>
+</div>
+</footer>
+</body></html>

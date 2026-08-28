@@ -1,0 +1,91 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import {
+  BarChart3, BriefcaseBusiness, ClipboardList, ExternalLink, Images,
+  LayoutDashboard, Menu, MessageSquareText, ShieldCheck, UserRound, Wrench, X,
+} from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
+import { LogoutButton } from "@/components/logout-button";
+import styles from "@/components/dashboard-redesign.module.css";
+import { cn } from "@/lib/cn";
+
+const navigation = [
+  ["/dashboard", LayoutDashboard, "Resumen"],
+  ["/dashboard/perfil", UserRound, "Mi perfil"],
+  ["/dashboard/servicios", Wrench, "Servicios"],
+  ["/dashboard/trabajos", Images, "Trabajos"],
+  ["/dashboard/solicitudes", ClipboardList, "Solicitudes"],
+  ["/dashboard/resenas", MessageSquareText, "Reseñas"],
+  ["/dashboard/estadisticas", BarChart3, "Estadísticas"],
+  ["/dashboard/negocios", BriefcaseBusiness, "Negocios"],
+  ["/dashboard/plan", ShieldCheck, "Plan"],
+] as const;
+
+function DashboardNavigation({ onNavigate }: { onNavigate?: () => void }) {
+  const pathname = usePathname();
+  return <nav className={styles.nav} aria-label="Panel de prestador">
+    {navigation.map(([href, Icon, label]) => {
+      const active = href === "/dashboard" ? pathname === href : pathname.startsWith(href);
+      return <Link className={cn(styles.navLink, active && styles.navLinkActive)} href={href} key={href} aria-current={active ? "page" : undefined} onClick={onNavigate}>
+        <Icon size={18} aria-hidden="true" />{label}
+      </Link>;
+    })}
+  </nav>;
+}
+
+function Identity() {
+  return <div className={styles.identity}><span className={styles.avatar} aria-hidden="true">JP</span><div><strong>Juan Pérez</strong><span>Albañil · Plan Free</span></div></div>;
+}
+
+function FooterLinks() {
+  return <div className={styles.sidebarFooter}>
+    <Link className={styles.utilityLink} href="/p/juan-perez"><ExternalLink size={17} aria-hidden="true" />Ver perfil público</Link>
+    <LogoutButton className={cn(styles.utilityLink, styles.logout)} />
+  </div>;
+}
+
+export function DashboardFrame({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const drawer = drawerRef.current;
+    const trigger = menuButtonRef.current;
+    const focusable = () => Array.from(drawer?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []);
+    focusable()[0]?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setOpen(false); return; }
+      if (event.key !== "Tab") return;
+      const items = focusable(); const first = items[0]; const last = items.at(-1);
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => { document.removeEventListener("keydown", handleKey); trigger?.focus(); };
+  }, [open]);
+  return <div className={styles.frame}>
+    <aside className={styles.sidebar}>
+      <Link className={styles.brand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" priority /><span className={styles.brandCopy}>Panel de prestador</span></Link>
+      <Identity /><DashboardNavigation /><FooterLinks />
+    </aside>
+    <header className={styles.mobileHeader}>
+      <Link className={styles.mobileBrand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" /></Link>
+      <button ref={menuButtonRef} className={styles.menuButton} type="button" onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}><Menu size={21} /></button>
+    </header>
+    {open && <div className={styles.drawerOverlay} role="presentation" onMouseDown={(event) => event.currentTarget === event.target && setOpen(false)}>
+      <aside ref={drawerRef} className={styles.drawer} role="dialog" aria-modal="true" aria-label="Navegación del panel">
+        <div className={styles.drawerTop}><BrandLogo variant="horizontal" /><button className={styles.menuButton} type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={21} /></button></div>
+        <Identity /><DashboardNavigation onNavigate={() => setOpen(false)} /><FooterLinks />
+      </aside>
+    </div>}
+    <div className={styles.main}>{children}</div>
+  </div>;
+}
+
+export function DashboardContent({ children }: { children: React.ReactNode }) {
+  return <main className={styles.content}><div className={styles.stack}>{children}</div></main>;
+}

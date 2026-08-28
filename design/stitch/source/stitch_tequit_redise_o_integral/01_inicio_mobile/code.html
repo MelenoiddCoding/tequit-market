@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tequit - Inicio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#414844",
+                        "on-primary": "#ffffff",
+                        "surface": "#effdf3",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#d8e6dc",
+                        "on-background": "#121e18",
+                        "primary": "#00251a",
+                        "tertiary-container": "#671800",
+                        "error": "#ba1a1a",
+                        "primary-container": "#123c2e",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "background": "#effdf3",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#cfddd4",
+                        "tertiary-fixed": "#ffdbd1",
+                        "on-surface": "#121e18",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#2a6951",
+                        "outline": "#717974",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a4d0bc",
+                        "tertiary": "#420c00",
+                        "surface-container-high": "#ddece2",
+                        "inverse-on-surface": "#e6f4ea",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "inverse-surface": "#27332d",
+                        "on-tertiary-container": "#f47b57",
+                        "on-primary-fixed": "#002116",
+                        "on-primary-container": "#7da794",
+                        "on-secondary-container": "#2f6e55",
+                        "surface-tint": "#3e6656",
+                        "surface-container-low": "#e9f7ed",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "surface-variant": "#d8e6dc",
+                        "secondary-fixed": "#aff0d1",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#e3f1e7",
+                        "surface-bright": "#effdf3",
+                        "outline-variant": "#c1c8c3",
+                        "secondary-container": "#aceece",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#c0ecd8",
+                        "on-secondary-fixed": "#002115"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "huge": "64px",
+                        "xxl": "48px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "base": "16px",
+                        "sm": "8px",
+                        "giant": "96px",
+                        "xs": "4px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Fraunces"],
+                        "numeric-display": ["Fraunces"],
+                        "label-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "title-md": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "body-lg": ["Manrope"],
+                        "headline-lg-mobile": ["Fraunces"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FFFCF7; }
+        .focus-ring:focus-within { outline: 2px solid #E3A600; outline-offset: 2px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface pb-huge font-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-base h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-md transition-colors duration-300" id="top-nav">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">location_on</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed">Tequit</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:opacity-80">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-16 px-base md:hidden flex flex-col gap-xl">
+<!-- Hero Section -->
+<section class="mt-lg">
+<div class="relative w-full h-[320px] rounded-xl overflow-hidden mb-lg">
+<img class="w-full h-full object-cover" data-alt="A warm, documentary-style photograph of a skilled carpenter actively working on a piece of wood in a workshop in Tepic, Nayarit. Natural light illuminating dust particles, emphasizing human craft, tactile textures, and local authenticity. Sharp focus on hands and tools." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9qyyOl__zQFWkDI1fX0SER1GhhaFahnTGUR_YggC8hveY01NjH6Xf71lFt3ZP5QowKCxnizV-Ymt0fxY20DqaY0GcoRp6N_xk57TqJHSV5u88dhHSGOvX6yOdoWO5K2lnOrcxkjfcr4YWPQsFw_VLU-nwxSjIvSeQQZYmHoB7yt_sCe1PzM-Z35jlF1c6SVwgE0ldDXJdpd84e5Gw7_hggZd0oWlf0DbyRGPtEXguRgnSfxP76ePE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-sm">Encuentra quién le sabe.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl">
+                Personas y negocios que pueden hacer el trabajo que necesitas. Revisa sus trabajos, reputación y verificaciones; contáctalos directamente.
+            </p>
+<!-- Hero Search -->
+<div class="bg-surface-container-lowest rounded-[24px] border border-outline-variant p-sm flex items-center shadow-[0_4px_12px_rgba(23,35,29,0.05)] focus-ring">
+<span class="material-symbols-outlined text-on-surface-variant ml-md mr-sm">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md placeholder:text-outline-variant text-on-surface p-0" placeholder="¿Qué necesitas resolver?" type="text"/>
+<button class="bg-primary-container text-on-primary px-lg py-sm rounded-xl font-label-md text-label-md ml-sm flex-shrink-0">
+                    Buscar
+                </button>
+</div>
+<div class="flex flex-col gap-sm mt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Perfiles con señales de confianza</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Busca como lo dirías normalmente</span>
+</div>
+</div>
+</section>
+<!-- Accesos rápidos -->
+<section>
+<div class="flex overflow-x-auto gap-sm pb-sm -mx-base px-base snap-x hide-scrollbar" style="scrollbar-width: none; -ms-overflow-style: none;">
+<style>::-webkit-scrollbar { display: none; }</style>
+<button class="snap-start flex flex-col items-center gap-xs min-w-[72px] group">
+<div class="w-12 h-12 rounded-full bg-[#F7F1E7] border border-[#DCE4DE] flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">construction</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Albañilería</span>
+</button>
+<button class="snap-start flex flex-col items-center gap-xs min-w-[72px] group">
+<div class="w-12 h-12 rounded-full bg-[#F7F1E7] border border-[#DCE4DE] flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">plumbing</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Plomería</span>
+</button>
+<button class="snap-start flex flex-col items-center gap-xs min-w-[72px] group">
+<div class="w-12 h-12 rounded-full bg-[#F7F1E7] border border-[#DCE4DE] flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">electric_bolt</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Electricidad</span>
+</button>
+<button class="snap-start flex flex-col items-center gap-xs min-w-[72px] group">
+<div class="w-12 h-12 rounded-full bg-[#F7F1E7] border border-[#DCE4DE] flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pisos</span>
+</button>
+<button class="snap-start flex flex-col items-center gap-xs min-w-[72px] group">
+<div class="w-12 h-12 rounded-full bg-[#F7F1E7] border border-[#DCE4DE] flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">kitchen</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Electro</span>
+</button>
+</div>
+</section>
+<!-- Prestadores verificados -->
+<section>
+<div class="flex justify-between items-end mb-md">
+<h2 class="font-title-md text-title-md text-primary">Prestadores verificados</h2>
+</div>
+<div class="flex overflow-x-auto gap-base pb-sm -mx-base px-base snap-x">
+<!-- Card 1 -->
+<div class="snap-start min-w-[280px] bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl overflow-hidden p-md">
+<div class="flex items-center gap-md">
+<img class="w-16 h-16 rounded-full object-cover" data-alt="Close up documentary style portrait of a male construction worker (Albañil) in Tepic, Nayarit. Warm lighting, showing experience and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjMJkSbFTezaCBwx4tqQ4E0NL_RQUm11VqW1X5G81rh3vU82SWWVV4N-f_iU4tyDoaz-5yxESRM2Kd1GWY4dcPQtG9N604y_ShoZeIppJ8DdV29c-n-Zseb_5m-xWELzYx_MYfb93_MlL6679h7-ja5uE1F5eS7NBUwtEVnWRqv-PSPfXA4w-RSWGVxhddZFScyOakJKCSGikoEIdaMvN-rPuCW44gNvjX5WEH6gXHFsadUVWvbg_y"/>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Juan Pérez</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Albañil • Tepic</p>
+<div class="flex items-center gap-xs mt-xs text-[#E3A600]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.8</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="snap-start min-w-[280px] bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl overflow-hidden p-md">
+<div class="flex items-center gap-md">
+<img class="w-16 h-16 rounded-full object-cover" data-alt="Close up documentary style portrait of a female electrician in Tepic, Nayarit. Focused, professional, warm natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgkGm2CX7SEPRujWBxlkWT8kVhn4R3ueZPwlkLaUxUC9zo5YMR9g9TW4JFJsWCcnh1r_WPlO-XiYqN877CG_gM2w3yfDJjMSRAS3COnpw-ik__PY8-NIdLSgzBf9yr2APnlIiP6YYWsGJwht84k2pdLurj8gVhmxIh8c-ZSFkn4ImAD0k6jFwiw-OKCA0faYoWxDTF2MEI0l_x8NgKrbKQsGUjj7cdR1y5Dx672T2t-JoL23oJwtdJ"/>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">María Sánchez</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Electricista • Xalisco</p>
+<div class="flex items-center gap-xs mt-xs text-[#E3A600]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.9</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Final -->
+<section class="bg-surface-container-low rounded-xl p-xl border border-outline-variant flex flex-col items-center text-center">
+<h2 class="font-title-md text-title-md text-primary mb-md">Haz que te encuentren cuando alguien necesite lo que tú sabes hacer.</h2>
+<button class="bg-primary-container text-on-primary px-xl py-md rounded-lg font-label-md text-label-md w-full">
+                Crear mi perfil
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-16 flex justify-around items-center px-4 bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant md:hidden">
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold bg-secondary-container rounded-xl px-3 py-1 scale-95 duration-150 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Inicio</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all rounded-xl px-3 py-1">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Buscar</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all rounded-xl px-3 py-1">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm">Negocios</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all rounded-xl px-3 py-1">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-sm text-label-sm">Guardados</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all rounded-xl px-3 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Cuenta</span>
+</button>
+</nav>
+<script>
+        // Simple scroll effect for Top Nav
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('top-nav');
+            if (window.scrollY > 10) {
+                nav.classList.add('bg-[#F7F1E7]', 'shadow-sm');
+                nav.classList.remove('bg-surface/80', 'backdrop-blur-md');
+            } else {
+                nav.classList.remove('bg-[#F7F1E7]', 'shadow-sm');
+                nav.classList.add('bg-surface/80', 'backdrop-blur-md');
+            }
+        });
+    </script>
+</body></html>

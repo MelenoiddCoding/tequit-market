@@ -1,2 +1,7 @@
 import { ServiceManager } from "@/components/service-manager";
-export default function ServicesDashboard(){return <main><p className="eyebrow">Catálogo público</p><h1 style={{fontSize:"clamp(2.3rem,6vw,4rem)"}}>Servicios</h1><ServiceManager/></main>}
+import { DashboardPageHeader } from "@/components/dashboard-components";
+import { DashboardContent } from "@/components/dashboard-shell";
+
+export default function ServicesDashboard() {
+  return <DashboardContent><DashboardPageHeader eyebrow="Catálogo público" title="Servicios" description="Define con precisión qué trabajos realizas y cuáles aparecen en búsqueda." /><ServiceManager /></DashboardContent>;
+}

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panel de Juan - Resumen</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface": "#effdf3",
+                "surface-variant": "#d8e6dc",
+                "on-error-container": "#93000a",
+                "secondary": "#2a6951",
+                "secondary-fixed": "#aff0d1",
+                "surface-container-highest": "#d8e6dc",
+                "primary-container": "#123c2e",
+                "on-tertiary": "#ffffff",
+                "tertiary": "#420c00",
+                "tertiary-fixed": "#ffdbd1",
+                "on-secondary-fixed-variant": "#09513a",
+                "on-tertiary-fixed": "#3b0a00",
+                "on-secondary-fixed": "#002115",
+                "tertiary-fixed-dim": "#ffb5a0",
+                "surface-dim": "#cfddd4",
+                "error": "#ba1a1a",
+                "inverse-surface": "#27332d",
+                "surface-container-lowest": "#ffffff",
+                "on-background": "#121e18",
+                "on-primary-fixed": "#002116",
+                "inverse-primary": "#a4d0bc",
+                "primary-fixed-dim": "#a4d0bc",
+                "background": "#effdf3",
+                "outline-variant": "#c1c8c3",
+                "primary": "#00251a",
+                "on-secondary-container": "#2f6e55",
+                "inverse-on-surface": "#e6f4ea",
+                "on-primary-fixed-variant": "#264e3f",
+                "on-primary-container": "#7da794",
+                "on-secondary": "#ffffff",
+                "surface-bright": "#effdf3",
+                "primary-fixed": "#c0ecd8",
+                "surface-container-low": "#e9f7ed",
+                "on-tertiary-container": "#f47b57",
+                "on-tertiary-fixed-variant": "#822709",
+                "on-primary": "#ffffff",
+                "on-surface": "#121e18",
+                "surface-container": "#e3f1e7",
+                "surface-container-high": "#ddece2",
+                "secondary-container": "#aceece",
+                "secondary-fixed-dim": "#94d4b6",
+                "surface-tint": "#3e6656",
+                "on-surface-variant": "#414844",
+                "tertiary-container": "#671800",
+                "error-container": "#ffdad6",
+                "on-error": "#ffffff",
+                "outline": "#717974"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xxl": "48px",
+                "xs": "4px",
+                "base": "16px",
+                "md": "12px",
+                "sm": "8px",
+                "lg": "24px",
+                "huge": "64px",
+                "giant": "96px",
+                "xl": "32px"
+        },
+        "fontFamily": {
+                "body-md": [
+                        "Manrope"
+                ],
+                "display-lg": [
+                        "Fraunces"
+                ],
+                "numeric-display": [
+                        "Fraunces"
+                ],
+                "headline-lg": [
+                        "Fraunces"
+                ],
+                "headline-lg-mobile": [
+                        "Fraunces"
+                ],
+                "label-sm": [
+                        "Manrope"
+                ],
+                "body-lg": [
+                        "Manrope"
+                ],
+                "title-md": [
+                        "Fraunces"
+                ],
+                "label-md": [
+                        "Manrope"
+                ]
+        },
+        "fontSize": {
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "numeric-display": [
+                        "24px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.03em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "title-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #FFFCF7; /* Level 0 (Floor) Base background */
+  }
+</style>
+</head>
+<body class="antialiased text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container overflow-x-hidden">
+<!-- NavigationDrawer (Mobile) -->
+<div class="fixed inset-0 z-50 pointer-events-none md:hidden flex justify-start" id="nav-drawer">
+<div class="absolute inset-0 bg-inverse-surface/40 opacity-0 transition-opacity duration-300 pointer-events-none" id="nav-drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="h-full w-4/5 fixed left-0 top-0 z-50 md:hidden bg-surface-container-low shadow-xl flex flex-col h-full overflow-y-auto px-base py-lg transform -translate-x-full transition-transform duration-300 ease-in-out pointer-events-auto flex flex-col justify-between" id="nav-drawer-content">
+<div>
+<div class="flex items-center gap-md mb-xl">
+<img alt="Juan's Profile Picture" class="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="A candid, documentary-style portrait of a skilled male local artisan in his late 30s with short dark hair, wearing a clean canvas apron over a textured white cotton shirt. He is looking off-camera with a subtle, warm expression. The lighting is soft and natural, emphasizing the texture of the fabric and a modern, high-end editorial aesthetic. The background is slightly out of focus, showing a neat, bright workspace with earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCXsFgSt5v9l0Q62tto7AEB42PO3chtG1pYuvmhfgCNQ3EYpx4XbLrCq-eHdzZhvS3bDAhhV2urMzKsOxv2EG-sxw7vTg5lAVsPMWi9ySGLc-TLzb7SbLaHU1pOsLf6Jz3ktnq_gaoKKDSDa013Y55RxDAKdUARgbKwVLp-U6eaDKwdWrva-S_oT2bAvZolYJW99klx1dA4J9_W_sh4By4OUbDLgFlZQCWCOssZ-RVV-o6qaLeAR1J"/>
+<div>
+<h2 class="font-title-md text-title-md text-primary">Panel de Juan</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Local Expert</p>
+</div>
+</div>
+<nav class="flex flex-col gap-sm">
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Resumen</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Mi perfil</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span class="font-label-md text-label-md">Servicios</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="handyman">handyman</span>
+<span class="font-label-md text-label-md">Trabajos</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="inbox">inbox</span>
+<span class="font-label-md text-label-md">Solicitudes</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="grade">grade</span>
+<span class="font-label-md text-label-md">Reseñas</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">Estadísticas</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Negocios</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="font-label-md text-label-md">Plan</span>
+</a>
+</nav>
+</div>
+<div class="border-t border-outline-variant pt-md mt-md">
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span class="font-label-md text-label-md">Ver perfil público</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md hover:bg-surface-variant/30 Tap: opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Cerrar sesión</span>
+</a>
+</div>
+</aside>
+</div>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-base h-16 md:hidden docked full-width top-0 md:hidden bg-surface border-b border-outline-variant z-40 relative">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">Tequit</div>
+<div class="flex items-center gap-md">
+<button class="p-sm text-primary hover:bg-surface-container-high rounded-full transition-colors Active: scale-95 duration-100 flex items-center justify-center" onclick="toggleDrawer()">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<img alt="Juan's Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A candid, documentary-style portrait of a skilled male local artisan in his late 30s with short dark hair, wearing a clean canvas apron over a textured white cotton shirt. He is looking off-camera with a subtle, warm expression. The lighting is soft and natural, emphasizing the texture of the fabric and a modern, high-end editorial aesthetic. The background is slightly out of focus, showing a neat, bright workspace with earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy3X2X3V8JxN9tORWq7dAwOrwe7vHwiFZcFravQTtCTeN17Qm-n1P99WprXYfqqIlBDc75crFfZWn7e-1vXU3UJBCKSXCQ5bgwxGDJE057s-x9e6a26lt9IGK_UFvQxdN_OYXZiIsHeF2Gh9W29RDN-zU-gRR16-bYYQyJlHUpIJPt_w017XMMhbSp21J87oqh2SWU1UD-3qUU6w01MQHQRNoUtsIa3KitonkykYIxfkk0P0pyHPno"/>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant flex flex-col h-full py-base justify-between">
+<div class="px-lg pt-md">
+<div class="flex items-center gap-md mb-xl">
+<img alt="Juan's Profile Picture" class="w-10 h-10 rounded-full object-cover shadow-sm border border-outline-variant" data-alt="A candid, documentary-style portrait of a skilled male local artisan in his late 30s with short dark hair, wearing a clean canvas apron over a textured white cotton shirt. He is looking off-camera with a subtle, warm expression. The lighting is soft and natural, emphasizing the texture of the fabric and a modern, high-end editorial aesthetic. The background is slightly out of focus, showing a neat, bright workspace with earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTqTIzswYo5MJv3aoLjdBzz3ZlgX16wd-wy4Pi8BCVTrF8wErOIPDBtGdg2GcmnaGJGND4psH1x8F2wF-4AYvgqa0oPExP1jM7gUJ9sud505pVYgoqZ-P-vOtYhPnKFsgKY5mko-flyrTO2iJaoS-o9DpwPeQA5ngtcetFrlG9hWYPE07-cdx-RrvQszQk6mvIV7K4A44q1Q-872gwPeWDQsD9HmB5ZXjtOpc8Ou7OvTi4WpzX42Hf"/>
+<div>
+<h2 class="font-title-md text-title-md text-primary">Panel de Juan</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Administrador</p>
+</div>
+</div>
+<a class="mb-lg flex items-center justify-center w-full bg-surface border border-outline-variant text-on-surface font-label-md text-label-md py-sm rounded-lg hover:bg-surface-variant/50 transition-colors shadow-sm" href="#">Ver perfil público</a>
+<nav class="flex flex-col gap-xs">
+<a class="flex items-center gap-md text-primary font-bold border-r-4 border-primary bg-surface-variant/30 py-md px-md rounded-l-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Resumen</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Mi perfil</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span class="font-label-md text-label-md">Servicios</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="handyman">handyman</span>
+<span class="font-label-md text-label-md">Trabajos</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="inbox">inbox</span>
+<span class="font-label-md text-label-md flex-1">Solicitudes</span>
+<span class="bg-primary text-on-primary font-label-sm text-label-sm rounded-full px-2 py-0.5">8</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="grade">grade</span>
+<span class="font-label-md text-label-md">Reseñas</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">Estadísticas</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Negocios</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="font-label-md text-label-md">Plan</span>
+</a>
+</nav>
+</div>
+<div class="px-lg pb-md border-t border-outline-variant pt-md">
+<a class="flex items-center gap-md text-on-surface-variant hover:text-primary py-md px-md rounded-lg hover:bg-surface-variant/50 transition-colors Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Cerrar sesión</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 p-base md:p-lg lg:p-xl max-w-7xl mx-auto flex flex-col gap-lg pb-24 md:pb-lg">
+<!-- Welcome Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b border-outline-variant pb-md">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary-container tracking-tight">Hola, Juan</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-sm">Aquí está el resumen de tu actividad.</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container px-md py-sm rounded-full border border-outline-variant text-on-surface font-label-md text-label-md w-fit">
+<span class="material-symbols-outlined text-outline" data-icon="calendar_today" style="font-size: 18px;">calendar_today</span>
+        Últimos 30 días
+      </div>
+</header>
+<!-- Profile Alert -->
+<section class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-md md:p-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-md relative overflow-hidden shadow-[0_4px_12px_rgba(23,35,29,0.05)]">
+<div class="absolute -right-4 -top-4 text-primary-container/5 pointer-events-none">
+<span class="material-symbols-outlined" data-icon="photo_camera" style="font-size: 120px;">photo_camera</span>
+</div>
+<div class="relative z-10 flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-icon="error">error</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Completa tu portafolio</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Los perfiles con fotos reciben un 40% más de contactos.</p>
+</div>
+</div>
+<button class="relative z-10 w-full sm:w-auto bg-primary-container text-white font-label-md text-label-md py-sm px-lg rounded-[10px] hover:bg-primary transition-colors whitespace-nowrap">
+            Subir fotos
+        </button>
+</section>
+<!-- Metrics Bento Grid -->
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-md md:gap-lg">
+<!-- Vistas -->
+<div class="bg-white border border-[#DCE4DE] rounded-xl p-md md:p-lg flex flex-col justify-between h-32 md:h-40 shadow-[0_4px_12px_rgba(23,35,29,0.05)] group hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Vistas</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary-container transition-colors" data-icon="visibility">visibility</span>
+</div>
+<div class="flex items-baseline gap-sm">
+<span class="font-numeric-display text-numeric-display text-primary-container md:text-[32px] md:leading-[40px]">284</span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center">
+<span class="material-symbols-outlined" data-icon="arrow_upward" style="font-size: 14px;">arrow_upward</span>
+                    12%
+                </span>
+</div>
+</div>
+<!-- WhatsApp -->
+<div class="bg-white border border-[#DCE4DE] rounded-xl p-md md:p-lg flex flex-col justify-between h-32 md:h-40 shadow-[0_4px_12px_rgba(23,35,29,0.05)] group hover:border-[#08783E] transition-colors relative overflow-hidden">
+<div class="absolute -right-2 -bottom-2 text-[#08783E]/5 pointer-events-none">
+<svg fill="none" height="80" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="80" xmlns="http://www.w3.org/2000/svg"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+</div>
+<div class="flex items-center justify-between relative z-10">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">WhatsApp</span>
+<svg class="text-outline group-hover:text-[#08783E] transition-colors" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+</div>
+<div class="flex items-baseline gap-sm relative z-10">
+<span class="font-numeric-display text-numeric-display text-primary-container md:text-[32px] md:leading-[40px]">47</span>
+</div>
+</div>
+<!-- Solicitudes -->
+<div class="bg-white border border-[#DCE4DE] rounded-xl p-md md:p-lg flex flex-col justify-between h-32 md:h-40 shadow-[0_4px_12px_rgba(23,35,29,0.05)] group hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Solicitudes</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary-container transition-colors" data-icon="inbox">inbox</span>
+</div>
+<div class="flex items-baseline gap-sm">
+<span class="font-numeric-display text-numeric-display text-primary-container md:text-[32px] md:leading-[40px]">8</span>
+<span class="font-label-sm text-label-sm text-outline flex items-center">
+<span class="material-symbols-outlined" data-icon="remove" style="font-size: 14px;">remove</span>
+                    0%
+                </span>
+</div>
+</div>
+<!-- Conversión -->
+<div class="bg-primary-container text-white rounded-xl p-md md:p-lg flex flex-col justify-between h-32 md:h-40 shadow-[0_4px_12px_rgba(23,35,29,0.15)] relative overflow-hidden">
+<!-- Abstract pattern -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 16px 16px;"></div>
+<div class="flex items-center justify-between relative z-10">
+<span class="font-label-sm text-label-sm text-inverse-primary uppercase tracking-wider">Conversión</span>
+<span class="material-symbols-outlined text-inverse-primary" data-icon="percent">percent</span>
+</div>
+<div class="flex items-baseline gap-sm relative z-10">
+<span class="font-numeric-display text-numeric-display text-white md:text-[32px] md:leading-[40px]">16.5%</span>
+</div>
+</div>
+</section>
+<!-- Priority Section: Por atender -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center justify-between border-b border-outline-variant pb-sm">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="priority_high" data-weight="fill" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+                Por atender
+            </h2>
+<a class="font-label-md text-label-md text-secondary hover:text-primary-container transition-colors flex items-center gap-xs" href="#">
+                Ver todas <span class="material-symbols-outlined" data-icon="arrow_forward" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Card 1 (Nueva) -->
+<div class="bg-white border-l-4 border-l-secondary border border-r-[#DCE4DE] border-y-[#DCE4DE] rounded-r-xl p-md flex flex-col gap-md shadow-[0_4px_12px_rgba(23,35,29,0.05)] cursor-pointer hover:bg-[#F7F1E7]/50 transition-colors">
+<div class="flex justify-between items-start">
+<div>
+<span class="inline-block bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-0.5 rounded-full mb-xs">Nueva</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Concreto estampado</h3>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Hace 2h</span>
+</div>
+<div class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-outline" data-icon="location_on" style="font-size: 18px;">location_on</span>
+                    Centro, Tepic
+                </div>
+</div>
+<!-- Card 2 (Vista) -->
+<div class="bg-white border border-[#DCE4DE] rounded-xl p-md flex flex-col gap-md shadow-[0_4px_12px_rgba(23,35,29,0.05)] cursor-pointer hover:bg-[#F7F1E7]/50 transition-colors opacity-80">
+<div class="flex justify-between items-start">
+<div>
+<span class="inline-block bg-surface-variant text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full mb-xs">Vista</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Reparar humedad en muro</h3>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Ayer</span>
+</div>
+<div class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-outline" data-icon="location_on" style="font-size: 18px;">location_on</span>
+                    Col. Los Fresnos
+                </div>
+</div>
+</div>
+</section>
+</main>
+<script>
+    function toggleDrawer() {
+      const drawer = document.getElementById('nav-drawer');
+      const overlay = document.getElementById('nav-drawer-overlay');
+      const content = document.getElementById('nav-drawer-content');
+      
+      const isOpen = !content.classList.contains('-translate-x-full');
+      
+      if (isOpen) {
+        // Close
+        content.classList.add('-translate-x-full');
+        overlay.classList.remove('opacity-100');
+        overlay.classList.add('opacity-0');
+        setTimeout(() => {
+          drawer.classList.add('pointer-events-none');
+          overlay.classList.add('pointer-events-none');
+        }, 300);
+      } else {
+        // Open
+        drawer.classList.remove('pointer-events-none');
+        overlay.classList.remove('pointer-events-none');
+        // trigger reflow
+        void drawer.offsetWidth;
+        content.classList.remove('-translate-x-full');
+        overlay.classList.remove('opacity-0');
+        overlay.classList.add('opacity-100');
+      }
+    }
+  </script>
+</body></html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Estadísticas y Rendimiento - Tequit</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#420c00",
+                        "primary-container": "#123c2e",
+                        "on-tertiary-container": "#f47b57",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "surface-container-highest": "#d8e6dc",
+                        "surface-container-low": "#e9f7ed",
+                        "on-background": "#121e18",
+                        "primary": "#00251a",
+                        "on-primary-container": "#7da794",
+                        "outline-variant": "#c1c8c3",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#121e18",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e3f1e7",
+                        "on-secondary-fixed": "#002115",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#414844",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-bright": "#effdf3",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "secondary-container": "#aceece",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "inverse-primary": "#a4d0bc",
+                        "surface-container-high": "#ddece2",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#3e6656",
+                        "surface-variant": "#d8e6dc",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "background": "#effdf3",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "primary-fixed": "#c0ecd8",
+                        "inverse-on-surface": "#e6f4ea",
+                        "inverse-surface": "#27332d",
+                        "outline": "#717974",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "surface": "#effdf3",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "surface-dim": "#cfddd4",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "tertiary-container": "#671800",
+                        "on-secondary-container": "#2f6e55",
+                        "error-container": "#ffdad6",
+                        "secondary": "#2a6951",
+                        "secondary-fixed": "#aff0d1",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "16px",
+                        "giant": "96px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "xxl": "48px",
+                        "xl": "32px",
+                        "huge": "64px",
+                        "md": "12px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "display-lg": ["Fraunces"],
+                        "title-md": ["Fraunces"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "label-md": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "numeric-display": ["Fraunces"],
+                        "body-lg": ["Manrope"],
+                        "headline-lg": ["Fraunces"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "numeric-display": ["24px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FFFCF7; }
+        .tequit-card { background-color: #F7F1E7; border: 1px solid #DCE4DE; }
+        .gold-focus { ring-color: #E3A600; }
+        .forest-green-bg { background-color: #123C2E; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased flex bg-surface">
+<!-- SideNavBar -->
+<nav class="hidden lg:flex flex-col h-screen p-base border-r border-outline-variant bg-surface-container-low w-64 fixed left-0 top-0">
+<div class="mb-xl">
+<h1 class="font-display-lg text-headline-lg text-primary">Tequit</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Professional Trades</p>
+</div>
+<div class="flex-1 space-y-sm">
+<a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handyman">handyman</span>
+<span class="font-label-md text-label-md">Jobs</span>
+</a>
+<a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="font-label-md text-label-md">Messages</span>
+</a>
+<a class="flex items-center gap-md p-md rounded-lg text-primary font-bold border-r-4 border-primary bg-surface-container-highest/50 translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Finances</span>
+</a>
+<a class="flex items-center gap-md p-md rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<button class="mt-auto w-full py-md px-lg forest-green-bg text-on-primary rounded-[10px] font-label-md text-label-md hover:opacity-90 transition-opacity">
+            New Quote
+        </button>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 lg:ml-64 p-base lg:p-huge overflow-y-auto">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:justify-between md:items-end mb-xl gap-base">
+<div>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-sm">Estadísticas y Rendimiento</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Hola, Juan. Aquí tienes un resumen de tu actividad.</p>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container tequit-card rounded-[10px] py-md pl-md pr-xl font-label-md text-label-md text-primary focus:ring-2 gold-focus focus:outline-none focus:border-primary-container cursor-pointer w-full md:w-auto">
+<option value="3m">Últimos 3 meses</option>
+<option value="6m">Últimos 6 meses</option>
+<option value="1y">Último año</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-primary" data-icon="expand_more">expand_more</span>
+</div>
+</header>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-base md:gap-lg mb-huge">
+<!-- Card 1 -->
+<div class="tequit-card p-lg rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Ingresos estimulados</h3>
+<span class="material-symbols-outlined text-secondary bg-secondary-container p-xs rounded-full" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="font-numeric-display text-numeric-display text-primary mb-xs">$12,400 MXN</p>
+<p class="font-label-sm text-label-sm text-secondary">+15% vs periodo anterior</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="tequit-card p-lg rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Alcance del perfil</h3>
+<span class="material-symbols-outlined text-primary bg-surface-container-highest p-xs rounded-full" data-icon="visibility">visibility</span>
+</div>
+<div>
+<p class="font-numeric-display text-numeric-display text-primary mb-xs">1,240</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">personas</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="tequit-card p-lg rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Tasa de respuesta</h3>
+<span class="material-symbols-outlined text-[#E3A600] bg-[#F7F1E7] border border-[#DCE4DE] p-xs rounded-full" data-icon="bolt">bolt</span>
+</div>
+<div>
+<p class="font-numeric-display text-numeric-display text-primary mb-xs">98%</p>
+<p class="font-label-sm text-label-sm text-[#E3A600]">Excelente</p>
+</div>
+</div>
+</div>
+<!-- Charts Section (Bento Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-base md:gap-lg mb-huge">
+<!-- Line Chart Area -->
+<div class="lg:col-span-2 tequit-card p-lg rounded-xl h-96 flex flex-col">
+<h3 class="font-title-md text-title-md text-primary mb-base">Crecimiento de contactos</h3>
+<div class="flex-1 relative w-full h-full border-b border-l border-outline-variant/30 flex items-end pt-lg">
+<!-- Faux Bar Chart for structural representation -->
+<div class="w-full flex justify-between items-end h-full px-4 gap-2">
+<div class="w-1/6 bg-primary-fixed-dim/50 rounded-t-sm h-[30%] hover:bg-primary-container transition-colors cursor-pointer group relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm text-primary transition-opacity">45</span>
+</div>
+<div class="w-1/6 bg-primary-fixed-dim/50 rounded-t-sm h-[45%] hover:bg-primary-container transition-colors cursor-pointer group relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm text-primary transition-opacity">62</span>
+</div>
+<div class="w-1/6 bg-primary-fixed-dim/50 rounded-t-sm h-[40%] hover:bg-primary-container transition-colors cursor-pointer group relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm text-primary transition-opacity">58</span>
+</div>
+<div class="w-1/6 bg-primary-fixed-dim/50 rounded-t-sm h-[70%] hover:bg-primary-container transition-colors cursor-pointer group relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm text-primary transition-opacity">95</span>
+</div>
+<div class="w-1/6 bg-primary-fixed-dim/50 rounded-t-sm h-[85%] hover:bg-primary-container transition-colors cursor-pointer group relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm text-primary transition-opacity">112</span>
+</div>
+<div class="w-1/6 bg-primary-container rounded-t-sm h-[100%] cursor-pointer group relative shadow-[0_0_15px_rgba(18,60,46,0.2)]">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 font-label-sm text-label-sm text-primary">134</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-sm text-on-surface-variant font-label-sm text-label-sm px-4">
+<span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span>
+</div>
+</div>
+<!-- Services List -->
+<div class="tequit-card p-lg rounded-xl flex flex-col">
+<h3 class="font-title-md text-title-md text-primary mb-base">Servicios más buscados</h3>
+<ul class="space-y-md flex-1 overflow-y-auto">
+<li class="flex items-center justify-between p-md bg-surface-bright rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="plumbing">plumbing</span>
+<span class="font-label-md text-label-md text-on-surface">Plomería General</span>
+</div>
+<span class="font-numeric-display text-lg text-primary">42%</span>
+</li>
+<li class="flex items-center justify-between p-md bg-surface-bright rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span>
+<span class="font-label-md text-label-md text-on-surface">Reparación de fugas</span>
+</div>
+<span class="font-numeric-display text-lg text-primary">28%</span>
+</li>
+<li class="flex items-center justify-between p-md bg-surface-bright rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="heat_pump">heat_pump</span>
+<span class="font-label-md text-label-md text-on-surface">Instalación de bombas</span>
+</div>
+<span class="font-numeric-display text-lg text-primary">15%</span>
+</li>
+<li class="flex items-center justify-between p-md bg-surface-bright rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="build">build</span>
+<span class="font-label-md text-label-md text-on-surface">Mantenimiento</span>
+</div>
+<span class="font-numeric-display text-lg text-primary">10%</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Customer Feedback -->
+<section>
+<h2 class="font-title-md text-title-md text-primary mb-lg">Resumen de Opiniones</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-base">
+<!-- Sentiment Summary -->
+<div class="md:col-span-4 tequit-card p-lg rounded-xl flex flex-col items-center justify-center text-center">
+<div class="relative w-32 h-32 mb-md flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+<path class="text-secondary stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="95, 100" stroke-width="3"></path>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-numeric-display text-title-md text-primary">95%</span>
+</div>
+</div>
+<p class="font-label-md text-label-md text-primary mb-xs">Sentimiento Positivo</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Basado en 142 reseñas recientes</p>
+</div>
+<!-- Review Highlights -->
+<div class="md:col-span-8 tequit-card p-lg rounded-xl overflow-hidden relative">
+<h3 class="font-label-md text-label-md text-primary mb-md">Aspectos Destacados</h3>
+<div class="space-y-md relative z-10">
+<div class="bg-surface p-md rounded-lg shadow-sm border border-outline-variant/20 flex gap-md">
+<div class="flex text-[#E3A600] mt-1 shrink-0">
+<span class="material-symbols-outlined text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface italic">"Muy puntual y profesional. Explicó el problema claramente antes de arreglarlo."</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">- María G.</p>
+</div>
+</div>
+<div class="bg-surface p-md rounded-lg shadow-sm border border-outline-variant/20 flex gap-md">
+<div class="flex text-[#E3A600] mt-1 shrink-0">
+<span class="material-symbols-outlined text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface italic">"Excelente servicio. La fuga quedó reparada el mismo día que lo contacté. Precios justos."</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">- Carlos V.</p>
+</div>
+</div>
+</div>
+<!-- Decorative subtle icon -->
+<span class="material-symbols-outlined absolute -bottom-8 -right-8 text-[120px] text-surface-container-highest opacity-50 pointer-events-none select-none" data-icon="format_quote">format_quote</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 bg-surface dark:bg-surface-container-lowest shadow-[0_-1px_0_0_rgba(193,200,195,0.5)] h-16">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline w-full h-full hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline w-full h-full hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="font-label-sm text-label-sm">Jobs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline w-full h-full hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold w-full h-full hover:bg-secondary-container/10 transition-colors scale-95 duration-100" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Money</span>
+</a>
+</nav>
+</body></html>

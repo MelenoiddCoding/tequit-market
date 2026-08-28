@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tus guardados - Tequit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#002116",
+                        "secondary-fixed-dim": "#94d4b6",
+                        "on-tertiary-container": "#f47b57",
+                        "secondary-container": "#aceece",
+                        "surface-bright": "#effdf3",
+                        "background": "#effdf3",
+                        "tertiary-fixed": "#ffdbd1",
+                        "secondary": "#2a6951",
+                        "inverse-on-surface": "#e6f4ea",
+                        "outline-variant": "#c1c8c3",
+                        "on-tertiary-fixed": "#3b0a00",
+                        "primary": "#00251a",
+                        "surface-tint": "#3e6656",
+                        "on-background": "#121e18",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c0ecd8",
+                        "tertiary-container": "#671800",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#ddece2",
+                        "surface-variant": "#d8e6dc",
+                        "on-secondary-fixed-variant": "#09513a",
+                        "on-primary-fixed-variant": "#264e3f",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#effdf3",
+                        "surface-container": "#e3f1e7",
+                        "on-secondary-container": "#2f6e55",
+                        "on-secondary": "#ffffff",
+                        "outline": "#717974",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#420c00",
+                        "surface-container-highest": "#d8e6dc",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aff0d1",
+                        "on-surface-variant": "#414844",
+                        "surface-container-low": "#e9f7ed",
+                        "on-surface": "#121e18",
+                        "on-secondary-fixed": "#002115",
+                        "on-tertiary-fixed-variant": "#822709",
+                        "inverse-primary": "#a4d0bc",
+                        "on-primary-container": "#7da794",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#a4d0bc",
+                        "primary-container": "#123c2e",
+                        "surface-dim": "#cfddd4",
+                        "inverse-surface": "#27332d",
+                        "gold": "#E3A600",
+                        "paper": "#FFFCF7",
+                        "cream": "#F7F1E7",
+                        "border-color": "#DCE4DE"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "input": "10px",
+                        "card": "16px"
+                    },
+                    spacing: {
+                        "lg": "24px",
+                        "huge": "64px",
+                        "base": "16px",
+                        "sm": "8px",
+                        "giant": "96px",
+                        "md": "12px",
+                        "xxl": "48px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "label-sm": ["Manrope", "sans-serif"],
+                        "numeric-display": ["Fraunces", "serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "label-md": ["Manrope", "sans-serif"],
+                        "display-lg": ["Fraunces", "serif"],
+                        "headline-lg-mobile": ["Fraunces", "serif"],
+                        "title-md": ["Fraunces", "serif"],
+                        "headline-lg": ["Fraunces", "serif"],
+                        "body-md": ["Manrope", "sans-serif"]
+                    },
+                    fontSize: {
+                        "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "700" }],
+                        "numeric-display": ["24px", { lineHeight: "24px", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "600" }],
+                        "title-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FFFCF7; /* Level 0 (Floor) Base background */
+            color: #121e18;
+        }
+        
+        .shadow-diffused {
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);
+        }
+
+        .focus-ring:focus-within {
+            outline: 2px solid #E3A600;
+            outline-offset: 2px;
+        }
+        
+        .nav-scrolled {
+            background-color: #FFFCF7 !important; /* Switch to paper on scroll */
+            box-shadow: 0 1px 0 0 rgba(220, 228, 222, 1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 transition-colors duration-300 bg-surface/90 dark:bg-surface/90 backdrop-blur-md" id="top-nav">
+<div class="bg-surface/95 dark:bg-surface-dim/95">
+<div class="flex justify-between items-center px-lg py-base max-w-7xl mx-auto w-full flat no shadows">
+<!-- Brand Logo -->
+<a class="font-display-lg text-display-lg text-primary dark:text-primary-fixed" href="/">Tequit</a>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-lg items-center">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="/negocios">Negocios</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="/publicar">Publicar necesidad</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="/prestador">Soy prestador</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-on-tertiary-container pb-1 hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="/guardados">Guardados</a>
+</nav>
+<!-- Trailing Action -->
+<button class="hidden md:block bg-primary-container text-on-primary rounded-input px-lg py-sm font-label-md hover:bg-secondary transition-colors duration-200">Buscar</button>
+<!-- Mobile Menu Toggle (Decorative for this desktop-focused view) -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[120px] pb-giant px-gutter max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<header class="mb-xxl">
+<div class="flex items-center gap-sm mb-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-background">Tus guardados</h1>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-cream border border-border-color text-label-sm font-label-sm text-surface-tint">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="devices">devices</span>
+                    En este dispositivo
+                </span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Se conservan en este navegador y no se sincronizan con otros dispositivos.
+            </p>
+</header>
+<!-- Content Grid (Bento style arrangement) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Personas Section (Spans 8 cols on desktop) -->
+<section class="md:col-span-8">
+<h2 class="font-title-md text-title-md text-on-background mb-lg flex items-center gap-sm border-b border-border-color pb-sm">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                    Personas
+                </h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-base">
+<!-- Provider Card 1 -->
+<article class="bg-cream border border-border-color rounded-card p-base flex gap-base shadow-diffused hover:border-primary-container transition-colors relative group">
+<button aria-label="Remove saved item" class="absolute top-sm right-sm text-gold hover:text-outline transition-colors p-1" onclick="removeCard(this)">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up documentary style portrait of a middle-aged Mexican plumber with weathered hands holding a wrench. Soft natural light, shallow depth of field, warm earthy tones. The setting is a subtle workshop background out of focus. Editorial quality photography, paper and clay aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvIVCX3GX7yd3CK921zLI9c3tMPppOe6vfuVGY1NEpWpjA0ue3XrD5G1svBiDHV3fmYSdNZZKdpHqY5WYyupSY2DWp7RZPCM1iR8pewdpJDWoWcd5CgHUTV4bNGjCOTAud0vHU80fd9SBOboUD73CnmGyHRWW1mt9r4kN3w02Uzdm6IvAu0egN_y8HF1SWubJrhcwYvpnweJgdvGwn3lrPXcx62Hl9gDdeJTHOHbUi4L4LQxhdqVrn"/>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-background mb-xs pr-6">Juan Pérez</h3>
+<p class="font-label-sm text-label-sm text-surface-tint">Plomero • 15 años exp.</p>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-gold text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.9</span>
+</div>
+</div>
+</article>
+<!-- Provider Card 2 -->
+<article class="bg-cream border border-border-color rounded-card p-base flex gap-base shadow-diffused hover:border-primary-container transition-colors relative group">
+<button aria-label="Remove saved item" class="absolute top-sm right-sm text-gold hover:text-outline transition-colors p-1" onclick="removeCard(this)">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Documentary portrait of a young female electrician in Nayarit, wearing safety gear. Focused expression, holding a wire stripper. The background shows a residential construction site with warm, natural sunlight filtering through framing. High-end editorial lighting, crisp details, paper and clay aesthetic palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqbBfNmBwTc3ty0vwyfAPjeZiVr5UpjF7wO0KOPsjZXR2O12YffkcZ-2RUIBqMZAcen33y_-23GlBsiggwO6FYJO46Oapc-g24ateLyP3CwRNhOIncGeHsW0RZhK8ll_9ZN6vEGF7S7OS4siG2tvNGLzN5MtWNS0mEtFo0WvqiAJWpZMoXJYi8poRyh5KRRS5jAgPres1Br01-kBK4EcHUnN8Gv6lPc-JxkUcZQ9fGKeRDh98LMSpt"/>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-background mb-xs pr-6">María García</h3>
+<p class="font-label-sm text-label-sm text-surface-tint">Electricista • 8 años exp.</p>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-gold text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.8</span>
+</div>
+</div>
+</article>
+<!-- Provider Card 3 -->
+<article class="bg-cream border border-border-color rounded-card p-base flex gap-base shadow-diffused hover:border-primary-container transition-colors relative group">
+<button aria-label="Remove saved item" class="absolute top-sm right-sm text-gold hover:text-outline transition-colors p-1" onclick="removeCard(this)">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of an older carpenter in his dusty workshop, carefully inspecting a piece of carved wood. Documentary style photography, warm side lighting highlighting the sawdust in the air and the texture of the wood. Cinematic composition, editorial feel with deep greens and warm ochres." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2EO1TuXQOYe2WgHjgG_roAdL6mJJNwHmVL4hLEVAQrmmJfvv6FFL9-dlj6teLZdSuHGug_GudduaV_eW1EERSE3kK1-ovMuCEhokDxZM1tz3TRvIwOj9wCgU_biXDaUlSbtNrYtGFKX7b2MBaErRcDmHmQC3iizXpl3Rsxd2Htm7GnQg4I1QMemlScoqWAY1m9Uox2Kk67eFBPGPf-jFA5Qz1no3s6aEONVwCxSNw3EADgZsYsdL9"/>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-background mb-xs pr-6">Don Carlos</h3>
+<p class="font-label-sm text-label-sm text-surface-tint">Carpintero • 30 años exp.</p>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-gold text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">5.0</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Negocios Section (Spans 4 cols on desktop) -->
+<section class="md:col-span-4 mt-xxl md:mt-0">
+<h2 class="font-title-md text-title-md text-on-background mb-lg flex items-center gap-sm border-b border-border-color pb-sm">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+                    Negocios
+                </h2>
+<div class="flex flex-col gap-base">
+<!-- Business Card 1 -->
+<article class="bg-white border border-border-color rounded-card overflow-hidden shadow-diffused relative">
+<button aria-label="Remove saved item" class="absolute top-sm right-sm z-10 text-gold hover:text-white bg-black/20 rounded-full p-1 backdrop-blur-sm transition-colors" onclick="removeCard(this)">
+<span class="material-symbols-outlined drop-shadow-md" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="aspect-[3/2] w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Exterior shot of a traditional Mexican bakery in Tepic, Nayarit. A beautifully rustic storefront with freshly baked bread visible through the window. Warm morning light hitting the textured stucco walls. High quality documentary photography, editorial composition, matching the paper and clay minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBa_pzta_fork91VMDi3SGBvnZBE0HuCkplAPEdV6_xVQC0phTRx2bkZOF6KpSe4elucPCZAkiBXBwN1_Rgx13X41S96EgnSrgZ0h35hTzpoUCJb5ncjC-QgE69NgLXeW2seImHy2qCyVyx3xjUUV5sW161-AnZGYbz2pid_XCtmLeMTVvLO9Ts6osdkV2sl1rHIQbvd0oYBPDbgWpzv3e5CUPH-znwNthN75fRni0zM_8ZieMH-fU"/>
+</div>
+<div class="p-base">
+<h3 class="font-title-md text-title-md text-on-background mb-xs">Panadería La Tradición</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2">Pan artesanal horneado a la leña todos los días. Especialidad en pan dulce local.</p>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-gold text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.7</span>
+<span class="text-outline-variant mx-1">•</span>
+<span class="font-label-sm text-label-sm text-surface-tint">Centro, Tepic</span>
+</div>
+</div>
+</article>
+<!-- Business Card 2 -->
+<article class="bg-white border border-border-color rounded-card overflow-hidden shadow-diffused relative">
+<button aria-label="Remove saved item" class="absolute top-sm right-sm z-10 text-gold hover:text-white bg-black/20 rounded-full p-1 backdrop-blur-sm transition-colors" onclick="removeCard(this)">
+<span class="material-symbols-outlined drop-shadow-md" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="aspect-[3/2] w-full overflow-hidden bg-cream flex items-center justify-center">
+<!-- Empty state illustration for missing image -->
+<div class="text-center opacity-50">
+<span class="material-symbols-outlined text-[48px] text-primary-container mb-2" data-icon="restaurant">restaurant</span>
+<p class="font-label-sm text-label-sm text-primary-container">Cenaduría Doña Rosa</p>
+</div>
+</div>
+<div class="p-base">
+<h3 class="font-title-md text-title-md text-on-background mb-xs">Cenaduría Doña Rosa</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2">Antojitos mexicanos tradicionales. Pozole estilo Nayarit los fines de semana.</p>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-gold text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.9</span>
+<span class="text-outline-variant mx-1">•</span>
+<span class="font-label-sm text-label-sm text-surface-tint">Xalisco</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-lowest mt-auto border-t border-surface-container-low dark:border-surface-container-lowest">
+<div class="w-full py-huge px-lg grid grid-cols-1 md:grid-cols-3 gap-lg max-w-7xl mx-auto flat no shadows">
+<div>
+<span class="font-display-lg text-display-lg text-primary">Tequit</span>
+<p class="mt-4 font-body-md text-body-md text-on-surface-variant">© 2024 Tequit Marketplace - Tepic, Nayarit</p>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-label-md text-label-md text-on-background mb-2">Plataforma</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary-container dark:hover:text-tertiary-fixed-dim transition-colors" href="#">Explorar Negocios</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary-container dark:hover:text-tertiary-fixed-dim transition-colors" href="#">Registro de Prestadores</a>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-label-md text-label-md text-on-background mb-2">Legal</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary-container dark:hover:text-tertiary-fixed-dim transition-colors" href="#">Términos de Servicio</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary-container dark:hover:text-tertiary-fixed-dim transition-colors" href="#">Privacidad</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary-container dark:hover:text-tertiary-fixed-dim transition-colors" href="#">Contacto</a>
+</div>
+</div>
+</footer>
+<!-- Snackbar for Undo Action -->
+<div class="fixed bottom-lg left-1/2 transform -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-lg py-md rounded-lg shadow-lg flex items-center gap-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50" id="snackbar">
+<span class="font-body-md text-body-md">Elemento eliminado de guardados.</span>
+<button class="text-inverse-primary font-label-md hover:underline" onclick="undoRemove()">Deshacer</button>
+</div>
+<script>
+        // Scroll effect for TopNavBar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('top-nav');
+            if (window.scrollY > 10) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Simulating remove action and snackbar
+        let lastRemovedElement = null;
+        let lastRemovedParent = null;
+        const snackbar = document.getElementById('snackbar');
+        let snackbarTimeout;
+
+        function removeCard(btn) {
+            const card = btn.closest('article');
+            lastRemovedElement = card;
+            lastRemovedParent = card.parentNode;
+            
+            // Visual removal
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            card.style.transition = 'all 0.2s ease-out';
+            
+            setTimeout(() => {
+                card.style.display = 'none';
+                showSnackbar();
+            }, 200);
+        }
+
+        function showSnackbar() {
+            snackbar.classList.remove('opacity-0', 'pointer-events-none');
+            snackbar.classList.add('opacity-100');
+            
+            clearTimeout(snackbarTimeout);
+            snackbarTimeout = setTimeout(() => {
+                hideSnackbar();
+            }, 4000);
+        }
+
+        function hideSnackbar() {
+            snackbar.classList.remove('opacity-100');
+            snackbar.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function undoRemove() {
+            if (lastRemovedElement && lastRemovedParent) {
+                lastRemovedElement.style.display = '';
+                // slight delay to allow display:block to apply before animating opacity
+                requestAnimationFrame(() => {
+                    lastRemovedElement.style.opacity = '1';
+                    lastRemovedElement.style.transform = 'scale(1)';
+                });
+                hideSnackbar();
+            }
+        }
+    </script>
+</body></html>

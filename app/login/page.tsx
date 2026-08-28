@@ -1,3 +1,46 @@
+import Link from "next/link";
+import { BadgeCheck, Heart, Search } from "lucide-react";
 import { LoginForm } from "@/components/login-form";
-export const metadata={title:"Iniciar sesión"};
-export default async function LoginPage({searchParams}:{searchParams:Promise<{next?:string}>}){const{next}=await searchParams;return <main className="page"><div className="container"><div className="form-card"><p className="eyebrow">Cuenta de prestador o negocio</p><h1 style={{fontSize:"clamp(2.4rem,7vw,4.5rem)"}}>Bienvenido de vuelta</h1><p className="muted">En local puedes usar las credenciales demo precargadas.</p><LoginForm next={next}/><div className="empty" style={{marginTop:24}}><strong>Usuarios demo</strong><p className="help">provider@tequit.local · business@tequit.local · admin@tequit.local<br/>Contraseña: Tequit123!</p></div></div></div></main>}
+import { SiteContainer } from "@/components/layout-primitives";
+import styles from "@/components/identity-redesign.module.css";
+
+export const metadata = {
+  title: "Iniciar sesión",
+  description: "Acceso para prestadores y negocios publicados en Tequit.",
+};
+
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; reason?: string }> }) {
+  const { next, reason } = await searchParams;
+  const safeNext = next?.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
+  const demo = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+
+  return <main className={styles.authPage}>
+    <SiteContainer className={styles.authShell}>
+      <div className={styles.authMain}>
+        <header className={styles.authHeader}>
+          <p className="eyebrow">Cuenta de prestador o negocio</p>
+          <h1>Bienvenido de vuelta</h1>
+          <p>Administra tu perfil, servicios y solicitudes. Quien busca un servicio no necesita iniciar sesión.</p>
+        </header>
+        <div className={styles.formSurface}>
+          <LoginForm next={safeNext} demo={demo} sessionExpired={reason === "expired"} />
+          {demo && <div className={styles.demoBox}><strong>Modo demo</strong><br />Prestador: provider@tequit.local<br />Negocio: business@tequit.local<br />Administración: admin@tequit.local<br />Contraseña: Tequit123!</div>}
+          <div className={styles.exploreBox}>
+            <p>¿Todavía no publicas en Tequit?</p>
+            <Link className="btn btn-secondary" href="/registro">Crear perfil</Link>
+          </div>
+        </div>
+        <p className={styles.authFooterLink}>¿Sólo buscas ayuda? <Link className="text-link" href="/buscar">Explora sin cuenta</Link></p>
+      </div>
+      <aside className={styles.authAside} aria-label="Tequit sin cuenta">
+        <Search size={30} color="var(--verified)" aria-hidden />
+        <h2>Buscar no pide registro</h2>
+        <ul className={styles.benefitList}>
+          <li><Search size={20} aria-hidden /><span>Explora personas y negocios de Tepic.</span></li>
+          <li><Heart size={20} aria-hidden /><span>Guarda opciones en este dispositivo.</span></li>
+          <li><BadgeCheck size={20} aria-hidden /><span>Compara verificaciones y reseñas antes de contactar.</span></li>
+        </ul>
+      </aside>
+    </SiteContainer>
+  </main>;
+}

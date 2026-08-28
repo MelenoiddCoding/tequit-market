@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Perfil Público - Juan Pérez | Tequit Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "outline": "#717974",
+                            "on-primary-fixed": "#002116",
+                            "on-secondary-container": "#2f6e55",
+                            "on-primary-container": "#7da794",
+                            "on-tertiary-container": "#f47b57",
+                            "secondary-fixed": "#aff0d1",
+                            "secondary-fixed-dim": "#94d4b6",
+                            "surface-bright": "#effdf3",
+                            "primary-fixed": "#c0ecd8",
+                            "on-background": "#121e18",
+                            "outline-variant": "#c1c8c3",
+                            "surface": "#effdf3",
+                            "on-primary-fixed-variant": "#264e3f",
+                            "on-error-container": "#93000a",
+                            "on-secondary-fixed": "#002115",
+                            "surface-container-low": "#e9f7ed",
+                            "tertiary-fixed": "#ffdbd1",
+                            "on-tertiary-fixed-variant": "#822709",
+                            "surface-container-highest": "#d8e6dc",
+                            "on-error": "#ffffff",
+                            "error": "#ba1a1a",
+                            "inverse-on-surface": "#e6f4ea",
+                            "surface-container": "#e3f1e7",
+                            "surface-container-lowest": "#ffffff",
+                            "tertiary-fixed-dim": "#ffb5a0",
+                            "on-surface": "#121e18",
+                            "on-surface-variant": "#414844",
+                            "tertiary-container": "#671800",
+                            "error-container": "#ffdad6",
+                            "background": "#effdf3",
+                            "on-primary": "#ffffff",
+                            "on-secondary": "#ffffff",
+                            "on-tertiary-fixed": "#3b0a00",
+                            "primary-fixed-dim": "#a4d0bc",
+                            "surface-tint": "#3e6656",
+                            "surface-dim": "#cfddd4",
+                            "primary": "#00251a",
+                            "on-tertiary": "#ffffff",
+                            "secondary-container": "#aceece",
+                            "on-secondary-fixed-variant": "#09513a",
+                            "primary-container": "#123c2e",
+                            "secondary": "#2a6951",
+                            "inverse-primary": "#a4d0bc",
+                            "surface-container-high": "#ddece2",
+                            "inverse-surface": "#27332d",
+                            "tertiary": "#420c00",
+                            "surface-variant": "#d8e6dc"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "xxl": "48px",
+                            "huge": "64px",
+                            "giant": "96px",
+                            "base": "16px",
+                            "xl": "32px",
+                            "xs": "4px",
+                            "sm": "8px",
+                            "lg": "24px",
+                            "md": "12px"
+                    },
+                    "fontFamily": {
+                            "headline-lg-mobile": ["Fraunces"],
+                            "headline-lg": ["Fraunces"],
+                            "label-sm": ["Manrope"],
+                            "numeric-display": ["Fraunces"],
+                            "label-md": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                            "display-lg": ["Fraunces"],
+                            "title-md": ["Fraunces"],
+                            "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700"}],
+                            "numeric-display": ["24px", {"lineHeight": "24px", "fontWeight": "700"}],
+                            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "title-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        /* Custom overrides for specific non-standard design system needs if required, otherwise stick to Tailwind utilities */
+        .text-gold { color: #E3A600; }
+        .bg-gold { background-color: #E3A600; }
+        .ring-gold { --tw-ring-color: #E3A600; }
+        
+        .whatsapp-bg { background-color: #08783E; }
+        .whatsapp-text { color: #08783E; }
+    </style>
+</head>
+<body class="bg-[#FFFCF7] text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary">
+<!-- TopNavBar (Shared Component) -->
+<nav class="bg-surface/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 hidden md:flex justify-between items-center px-lg h-16 w-full">
+<div class="flex items-center gap-lg">
+<span class="font-title-md text-title-md text-primary">Tequit Marketplace</span>
+<div class="hidden md:flex gap-md items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-md py-sm rounded-lg" href="#">Explorar</a>
+<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Servicios</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-md py-sm rounded-lg" href="#">Cómo funciona</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<!-- trailing_primary_action -->
+<button class="font-label-md text-label-md text-primary hover:bg-surface-container-low transition-all active:scale-95 duration-200 border border-primary px-4 py-2 rounded-lg">Publicar servicio</button>
+<!-- trailing_icon_actions -->
+<button aria-label="Profile" class="p-2 hover:bg-surface-container-low rounded-full transition-all text-primary active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</nav>
+<div class="h-16 w-full hidden md:block"></div> <!-- Spacer for fixed nav -->
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[1440px] mx-auto pb-giant md:pb-0 px-base md:px-lg mt-xl md:mt-xxl">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg md:gap-xl w-full">
+<!-- Left Column: Sticky Profile Card (Bento/Glassmorphism style) -->
+<aside class="col-span-1 md:col-span-4 lg:col-span-3 flex flex-col gap-lg">
+<div class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-2xl p-lg sticky top-24 shadow-[0_4px_12px_rgba(23,35,29,0.05)]">
+<div class="flex flex-col items-center text-center">
+<!-- Avatar -->
+<div class="relative w-32 h-32 mb-md">
+<img class="w-full h-full object-cover rounded-full border-4 border-[#FFFCF7] shadow-sm" data-alt="A high-quality, professional documentary-style portrait of a Mexican construction worker (albañil) named Juan. He is wearing a clean work shirt, looking reliably and confidently at the camera. The lighting is warm and natural, set against a blurred background of a tidy construction site. High-end editorial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfy0vXYG6WtfXsWLRmcotjtP-Du9TeLn1Fwoe2zYIDBKMpx9dlG0ORh9oVWB4ZzdcMJcCVj0ar4FBQI4PagkaIxUmbcS3oMgrEwwW1NepRoj0hef92IacLZ1GsmaXqYgljkh5iKijHIADJJcOfHm_p7dz0sm5wR3MVu8JHcnT_lwGX7-XwW8v6P82qevtbr-8ig9UGxOA1vd3VrfRzKXTMNtldO10ZEDZXwopaDkmPA1hMt3yO5lVR"/>
+<button aria-label="Guardar" class="absolute bottom-0 right-0 bg-surface rounded-full p-2 border border-outline-variant shadow-sm hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-outline" data-icon="favorite">favorite</span>
+</button>
+</div>
+<!-- Name & Profession -->
+<h1 class="font-headline-lg text-headline-lg text-primary mb-xs">Juan Pérez</h1>
+<p class="font-body-lg text-body-lg text-secondary mb-sm">Albañil Especializado</p>
+<!-- Location -->
+<div class="flex items-center gap-xs text-on-surface-variant font-body-md text-body-md mb-md">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+                            Tepic y Xalisco
+                        </div>
+<!-- Rating summary -->
+<div class="flex items-center gap-sm mb-lg">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-gold text-lg" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-numeric-display text-numeric-display text-on-background">4.8</span>
+<a class="font-body-md text-body-md text-on-surface-variant underline hover:text-primary transition-colors" href="#reseñas">(19 reseñas)</a>
+</div>
+<!-- Badges -->
+<div class="flex flex-wrap justify-center gap-sm mb-xl w-full">
+<span class="inline-flex items-center gap-xs px-3 py-1 bg-surface-bright border border-outline-variant rounded-full font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-base text-secondary" data-icon="verified">verified</span>
+                                Identidad confirmada
+                            </span>
+</div>
+<!-- CTAs -->
+<div class="w-full flex flex-col gap-sm">
+<button class="whatsapp-bg text-on-primary w-full py-3 rounded-[10px] font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 transition-opacity active:scale-95 duration-200">
+<svg class="lucide lucide-message-circle" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+                                Contactar por WhatsApp
+                            </button>
+<button class="bg-transparent text-primary-container border-2 border-primary-container w-full py-3 rounded-[10px] font-label-md text-label-md hover:bg-surface-container-low transition-colors active:scale-95 duration-200">
+                                Solicitar trabajo
+                            </button>
+</div>
+</div>
+<div class="mt-lg pt-lg border-t border-[#DCE4DE]">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Afiliación</h3>
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary mt-1" data-icon="corporate_fare">corporate_fare</span>
+<div>
+<p class="font-body-md text-body-md text-on-background font-semibold">Integrante de Concretos Estampados de Nayarit</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Nota: La reputación mostrada es independiente y pertenece exclusivamente a Juan Pérez.</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Column: Details & Content -->
+<div class="col-span-1 md:col-span-8 lg:col-span-9 flex flex-col gap-huge pb-huge">
+<!-- Bio & Areas -->
+<section class="flex flex-col gap-md">
+<h2 class="font-title-md text-title-md text-primary border-b border-[#DCE4DE] pb-sm">Sobre mí</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Con más de 15 años de experiencia en el oficio de la construcción, me especializo en acabados finos y obra negra. Mi compromiso es entregar trabajos duraderos, limpios y a tiempo. Trabajo principalmente en la zona metropolitana de Tepic y Xalisco, ofreciendo un trato directo, honesto y presupuestos claros sin sorpresas.
+                    </p>
+</section>
+<!-- Verifications Panel (Horizontal Bento) -->
+<section>
+<h2 class="font-title-md text-title-md text-primary border-b border-[#DCE4DE] pb-sm mb-lg">Verificaciones de Confianza</h2>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
+<div class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-md flex flex-col items-center text-center gap-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background">Identidad</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">INE verificada</p>
+</div>
+<div class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-md flex flex-col items-center text-center gap-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="home_pin">home_pin</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background">Domicilio</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Comprobante validado</p>
+</div>
+<div class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-md flex flex-col items-center text-center gap-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background">Herramienta</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Equipo propio confirmado</p>
+</div>
+</div>
+</section>
+<!-- Services List (Chips/Tags) -->
+<section>
+<h2 class="font-title-md text-title-md text-primary border-b border-[#DCE4DE] pb-sm mb-lg">Especialidades</h2>
+<div class="flex flex-wrap gap-md">
+<span class="px-4 py-2 bg-[#F7F1E7] border border-[#DCE4DE] rounded-full font-body-md text-body-md text-on-background hover:border-primary transition-colors cursor-default">Pegado de piso</span>
+<span class="px-4 py-2 bg-[#F7F1E7] border border-[#DCE4DE] rounded-full font-body-md text-body-md text-on-background hover:border-primary transition-colors cursor-default">Enjarre</span>
+<span class="px-4 py-2 bg-[#F7F1E7] border border-[#DCE4DE] rounded-full font-body-md text-body-md text-on-background hover:border-primary transition-colors cursor-default">Construcción de muros</span>
+<span class="px-4 py-2 bg-[#F7F1E7] border border-[#DCE4DE] rounded-full font-body-md text-body-md text-on-background hover:border-primary transition-colors cursor-default">Banquetas</span>
+<span class="px-4 py-2 bg-[#F7F1E7] border border-[#DCE4DE] rounded-full font-body-md text-body-md text-on-background hover:border-primary transition-colors cursor-default">Impermeabilización</span>
+</div>
+</section>
+<!-- Gallery -->
+<section>
+<h2 class="font-title-md text-title-md text-primary border-b border-[#DCE4DE] pb-sm mb-lg">Trabajos Realizados</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md">
+<div class="aspect-square rounded-xl overflow-hidden border border-[#DCE4DE]">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="A close-up documentary photograph of freshly laid rustic floor tiles being carefully aligned by a worker's hands. Warm, natural sunlight illuminating the texture of the clay and grout. High-end, authentic craftsmanship aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApB56OsxTme4aSWeB5GV0QelSKAJ9D1ObudiQo1P9fH1MCnYTwfkgvg_orzV2W8EHOS6ZqF2xWesOIHDyVDvoRU2MtNWhJG6Y6A9lHTrJ6Ag3oXPrfUoKCcn5m3eKBT21fu0hHLX5a_vsAontazITih8MbMhCm43XN2n3uUweUQSuMqjCTNfbPQKOWgc_HF1THthpQmxsu9bQtEOng02lDnEahY2g7yMqOTtdOuP1vgigqBfyMup7T"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden border border-[#DCE4DE]">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="A wide shot of a beautifully finished concrete sidewalk (banqueta) outside a modern Mexican home. The concrete has a clean, stamped texture. Strong architectural lines, bright daylight, conveying durability and professional execution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBosjx9fcQIGvbY6aHtX6z7fGT5duagdwEQcOvVDeZIOjuMROWWU_mb0e3-CBga3voObXEYuBsVByUERWCoWISwfpKQIHMo7mjzcYycsBAyCD0qmZBFr-19BfM7SmFkSSNKDVRPGtg-_hEIs0F3pemu-jqj5hwBRE5BcSvlvjWBcH0QVjPBSwrALRfTE9ukZot23RVentl7bGzsHV9ERM46hsdp2Br5hUDrYCzVxJFotyGk_6Rh8Z_-"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden border border-[#DCE4DE]">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="Documentary style photo of a perfectly smooth plastered wall (enjarre) corner in a sunlit room. The texture is subtle and masterful, showing the high quality of the masonry work. Clean, minimalist lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFREhUgXxFQTOQUMFBIdXSJ0wKCJTr9r-wjSG_JEW5Tv8lrmWXzq6A-uUzexwCAhS_H2S17jWsAL2zCjauhtxZyg8abss4fgEnrjQBPAff8w1O_AgAmUf884MqYclfSbl2QJiA440Z_5DT2HDLB8pZ-sLX0nZ-4QrEeCoC6YGsl_5zSv1I8LePHUiGChwKcZBaMGUNCuE8RTQlv3zGYacS1wGhop0QPBLqvMNhtvOhCVh50MNJ21Xu"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden border border-[#DCE4DE]">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="A worker's tools resting on a freshly built brick wall. A trowel, a level, and some mortar. The focus is sharp on the tools, with a shallow depth of field blurring the background. Warm color palette emphasizing hard work and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq5--O9ipl_JQMmuYnnvA9hjCvL9qjLwDJ4cj9dZBwjNMkBZz1vUGaxbsPbGzdQ850FzbIacsgKOhBIgtbBWNZTQhZ53eboEM7k9X24dMHHISvLR9FOBWhk-mWzKETgExNvKJaEckN7uqd0kViuhYX_rnCCNlR5BGuVp5pxLBwedzYGC__IZa_WO_PkdzM6qjBVCHRDD391e3bAAyWFEJeEK9CSaLXkh9l2YzKYRfJqXrNTCMLhLb5"/>
+</div>
+</div>
+</section>
+<!-- Reviews -->
+<section id="reseñas">
+<div class="flex items-center justify-between border-b border-[#DCE4DE] pb-sm mb-lg">
+<h2 class="font-title-md text-title-md text-primary">Reseñas</h2>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-gold" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-on-background font-bold">4.8</span>
+<span class="font-label-md text-label-md text-on-surface-variant">(19)</span>
+</div>
+</div>
+<div class="flex flex-col gap-lg">
+<!-- Review Item 1 -->
+<article class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-lg">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h4 class="font-label-md text-label-md text-on-background font-bold">María Domínguez</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Hace 2 semanas</p>
+</div>
+<div class="flex gap-1 text-gold">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Excelente trabajo con el vitropiso de mi cocina. Muy limpio y respetuoso. Cumplió con el tiempo acordado y el presupuesto fue el que me dio desde el principio. Lo recomiendo ampliamente.
+                            </p>
+</article>
+<!-- Review Item 2 -->
+<article class="bg-[#F7F1E7] border border-[#DCE4DE] rounded-xl p-lg">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h4 class="font-label-md text-label-md text-on-background font-bold">Carlos R.</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Hace 1 mes</p>
+</div>
+<div class="flex gap-1 text-gold">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star_half" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Buen albañil, nos levantó una barda perimetral rápido. Un pequeño detalle con los escombros al final, pero se solucionó pronto. Es de confianza.
+                            </p>
+</article>
+</div>
+</section>
+<!-- Request Form -->
+<section class="bg-surface-bright border border-[#DCE4DE] rounded-2xl p-xl shadow-sm">
+<h2 class="font-title-md text-title-md text-primary mb-md">¿Necesitas un presupuesto?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Describe brevemente lo que necesitas y Juan se pondrá en contacto contigo.</p>
+<form class="flex flex-col gap-md">
+<div>
+<label class="block font-label-md text-label-md text-on-background mb-xs">¿Qué servicio necesitas?</label>
+<select class="w-full bg-[#FFFCF7] border border-[#DCE4DE] rounded-[10px] p-3 font-body-md text-body-md focus:border-primary focus:ring-2 focus:ring-gold focus:outline-none transition-colors">
+<option>Selecciona una opción</option>
+<option>Pegado de piso</option>
+<option>Enjarre</option>
+<option>Construcción de muros</option>
+<option>Banquetas</option>
+<option>Impermeabilización</option>
+<option>Otro</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-background mb-xs">Detalles del trabajo</label>
+<textarea class="w-full bg-[#FFFCF7] border border-[#DCE4DE] rounded-[10px] p-3 font-body-md text-body-md focus:border-primary focus:ring-2 focus:ring-gold focus:outline-none transition-colors" placeholder="Ej. Necesito impermeabilizar mi azotea de aprox 40m2..." rows="4"></textarea>
+</div>
+<button class="bg-primary-container text-on-primary w-full md:w-auto self-start px-lg py-3 rounded-[10px] font-label-md text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-200 mt-sm" type="submit">
+                            Enviar Solicitud a Juan
+                        </button>
+</form>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) - Mobile Only -->
+<nav class="bg-surface shadow-[0_-4px_12px_rgba(23,35,29,0.05)] fixed bottom-0 w-full z-50 h-16 md:hidden flex justify-around items-center w-full px-base pb-safe border-t border-outline-variant/10">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:bg-surface-container-high transition-transform duration-200 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold active:bg-surface-container-high transition-transform duration-200 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="search" data-weight="fill" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="font-label-sm text-label-sm">Buscar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:bg-surface-container-high transition-transform duration-200 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-label-sm">Mis Pedidos</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:bg-surface-container-high transition-transform duration-200 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<div class="h-16 w-full md:hidden"></div> <!-- Spacer for mobile nav -->
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-highest w-full py-huge mt-giant border-t border-outline-variant flex flex-col md:flex-row justify-between items-center px-lg max-w-7xl mx-auto gap-lg">
+<div class="flex flex-col items-center md:items-start gap-sm">
+<span class="font-title-md text-title-md text-on-surface">Tequit Marketplace</span>
+<span class="font-body-md text-body-md text-on-surface">© 2024 Tequit Marketplace - Hecho en Tepic</span>
+</div>
+<div class="flex flex-wrap justify-center gap-md md:gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity hover:opacity-80" href="#">Privacidad</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity hover:opacity-80" href="#">Términos</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity hover:opacity-80" href="#">Contacto</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity hover:opacity-80" href="#">Preguntas Frecuentes</a>
+</div>
+</footer>
+</body></html>

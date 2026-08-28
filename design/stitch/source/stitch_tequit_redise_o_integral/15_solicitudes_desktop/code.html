@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panel de Juan - Solicitudes</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#00251a",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#2f6e55",
+                    "primary-fixed-dim": "#a4d0bc",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#264e3f",
+                    "on-tertiary-fixed": "#3b0a00",
+                    "surface": "#effdf3",
+                    "on-surface-variant": "#414844",
+                    "surface-container-highest": "#d8e6dc",
+                    "tertiary": "#420c00",
+                    "background": "#effdf3",
+                    "surface-bright": "#effdf3",
+                    "on-tertiary-container": "#f47b57",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c1c8c3",
+                    "secondary-container": "#aceece",
+                    "on-secondary-fixed-variant": "#09513a",
+                    "on-tertiary-fixed-variant": "#822709",
+                    "surface-variant": "#d8e6dc",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#e6f4ea",
+                    "surface-tint": "#3e6656",
+                    "on-background": "#121e18",
+                    "on-error-container": "#93000a",
+                    "secondary": "#2a6951",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#e3f1e7",
+                    "inverse-surface": "#27332d",
+                    "tertiary-fixed": "#ffdbd1",
+                    "primary-fixed": "#c0ecd8",
+                    "on-primary-fixed": "#002116",
+                    "secondary-fixed-dim": "#94d4b6",
+                    "secondary-fixed": "#aff0d1",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "on-secondary-fixed": "#002115",
+                    "inverse-primary": "#a4d0bc",
+                    "surface-dim": "#cfddd4",
+                    "outline": "#717974",
+                    "surface-container-high": "#ddece2",
+                    "on-surface": "#121e18",
+                    "primary-container": "#123c2e",
+                    "on-primary-container": "#7da794",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#671800",
+                    "surface-container-low": "#e9f7ed"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "giant": "96px",
+                    "xl": "32px",
+                    "xxl": "48px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "md": "12px",
+                    "xs": "4px",
+                    "base": "16px",
+                    "huge": "64px"
+            },
+            "fontFamily": {
+                    "display-lg": [
+                            "Fraunces"
+                    ],
+                    "body-lg": [
+                            "Manrope"
+                    ],
+                    "headline-lg": [
+                            "Fraunces"
+                    ],
+                    "headline-lg-mobile": [
+                            "Fraunces"
+                    ],
+                    "title-md": [
+                            "Fraunces"
+                    ],
+                    "body-md": [
+                            "Manrope"
+                    ],
+                    "label-md": [
+                            "Manrope"
+                    ],
+                    "numeric-display": [
+                            "Fraunces"
+                    ],
+                    "label-sm": [
+                            "Manrope"
+                    ]
+            },
+            "fontSize": {
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "numeric-display": [
+                            "24px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.03em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden">
+<!-- Shell Layout -->
+<div class="flex h-screen w-full">
+<!-- SideNavBar (Shared Component) -->
+<nav class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant py-base z-10">
+<!-- Header -->
+<div class="px-base mb-xl">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant flex items-center justify-center shrink-0">
+<img class="w-full h-full object-cover" data-alt="A documentary style close-up portrait of a local craftsman named Juan. He is looking directly at the camera with a subtle, professional expression. Soft natural lighting highlights the texture of his skin and the simple, durable fabric of his work shirt. The background is slightly blurred but suggests an active workshop environment with tools. Authentic and unedited feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGLPp5S588DZ6mQkumOLlri1G-g4BISuN68Kgx3OzWg-GKRJJfyCtnbCOqQXntGIfwtPeG5K8Psgme46eizPBuLM6CY-Dckyj_hjnvYqYIiPK1QRQMwFkzUT8pyXlEywMRIRQOPWWBYMXeVQdsuUwPX7r_v2c75UjkdjMgRzMR4tf9i60IQy548PHghWo6RbULaKm7snslGTo0gWtlW92gmBxRBmpzBlr0uHkJbgcpKNzHDaijAQm-"/>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary">Panel de Juan</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Administrador</p>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<ul class="flex-1 overflow-y-auto w-full">
+<!-- Resumen -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                        Resumen
+                    </a>
+</li>
+<!-- Mi perfil -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">person</span>
+                        Mi perfil
+                    </a>
+</li>
+<!-- Servicios -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">construction</span>
+                        Servicios
+                    </a>
+</li>
+<!-- Trabajos -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">handyman</span>
+                        Trabajos
+                    </a>
+</li>
+<!-- Solicitudes (ACTIVE) -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-primary font-bold border-r-4 border-primary bg-surface-variant/20 opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined icon-filled">inbox</span>
+                        Solicitudes
+                    </a>
+</li>
+<!-- Reseñas -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">grade</span>
+                        Reseñas
+                    </a>
+</li>
+<!-- Estadísticas -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+                        Estadísticas
+                    </a>
+</li>
+<!-- Negocios -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">storefront</span>
+                        Negocios
+                    </a>
+</li>
+<!-- Plan -->
+<li>
+<a class="flex items-center gap-md px-base py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+                        Plan
+                    </a>
+</li>
+</ul>
+<!-- Footer / CTA -->
+<div class="px-base mt-auto pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md py-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors opacity-80 duration-150 w-full font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Cerrar sesión
+                </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 p-lg h-screen box-border flex flex-col">
+<header class="mb-lg flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Solicitudes</h1>
+<p class="text-on-surface-variant mt-xs">Gestiona los contactos de potenciales clientes.</p>
+</div>
+</header>
+<!-- Inbox Pattern Layout (Master-Detail) -->
+<div class="grid grid-cols-12 gap-lg flex-1 min-h-0">
+<!-- Master List (Left) -->
+<section class="col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col overflow-hidden shadow-sm">
+<!-- Filters/Search area -->
+<div class="p-md border-b border-outline-variant bg-surface-container-low flex gap-sm items-center">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/70 p-0" placeholder="Buscar solicitudes..." type="text"/>
+</div>
+<!-- List -->
+<div class="flex-1 overflow-y-auto">
+<!-- Active Item -->
+<div class="p-lg bg-surface-container-highest border-l-4 border-primary cursor-pointer transition-colors relative">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-primary text-on-primary px-sm py-xs rounded text-label-sm font-label-sm">Nueva</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Hoy 10:30am</span>
+</div>
+<h3 class="font-title-md text-[18px] leading-snug text-primary mb-xs">Concreto estampado</h3>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Cochera de 35 m2, Ciudad del Valle...</p>
+<p class="font-label-md text-label-md text-on-surface mt-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">person</span> Mariana López
+                            </p>
+</div>
+<!-- Inactive Item 1 -->
+<div class="p-lg border-b border-outline-variant hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-surface-variant text-on-surface-variant px-sm py-xs rounded text-label-sm font-label-sm border border-outline-variant">Contactado</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Ayer</span>
+</div>
+<h3 class="font-title-md text-[18px] leading-snug text-on-surface mb-xs">Reparación de muro</h3>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Muro perimetral presenta grietas severas...</p>
+</div>
+<!-- Inactive Item 2 -->
+<div class="p-lg border-b border-outline-variant hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-surface-variant text-on-surface-variant px-sm py-xs rounded text-label-sm font-label-sm border border-outline-variant">Cerrada</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Lun 14</span>
+</div>
+<h3 class="font-title-md text-[18px] leading-snug text-on-surface mb-xs">Cimientos para anexo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Busco presupuesto para cimientos de 4x4...</p>
+</div>
+</div>
+</section>
+<!-- Detail View (Right) -->
+<section class="col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col overflow-hidden shadow-sm relative">
+<!-- Detail Header Area -->
+<div class="p-xl border-b border-outline-variant bg-surface">
+<div class="flex justify-between items-start mb-md">
+<h2 class="font-display-lg text-display-lg text-primary">Concreto estampado</h2>
+<span class="bg-primary text-on-primary px-md py-sm rounded-lg text-label-md font-label-md shadow-sm">Nueva</span>
+</div>
+<!-- Timeline / Status Selector -->
+<div class="mt-lg pt-lg border-t border-outline-variant flex items-center justify-between w-full">
+<!-- Step 1 (Active) -->
+<div class="flex flex-col items-center gap-xs z-10 w-24">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md shadow-sm ring-4 ring-surface">1</div>
+<span class="font-label-sm text-label-sm text-primary text-center">Nueva</span>
+</div>
+<div class="h-1 flex-1 bg-outline-variant -mx-6 mt-[-20px]"></div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-xs z-10 w-24">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant flex items-center justify-center font-label-md ring-4 ring-surface cursor-pointer hover:bg-outline-variant transition-colors">2</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center">Vista</span>
+</div>
+<div class="h-1 flex-1 bg-outline-variant -mx-6 mt-[-20px]"></div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-xs z-10 w-24">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant flex items-center justify-center font-label-md ring-4 ring-surface cursor-pointer hover:bg-outline-variant transition-colors">3</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center leading-tight">Me<br/>interesa</span>
+</div>
+<div class="h-1 flex-1 bg-outline-variant -mx-6 mt-[-20px]"></div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-xs z-10 w-24">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant flex items-center justify-center font-label-md ring-4 ring-surface cursor-pointer hover:bg-outline-variant transition-colors">4</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center leading-tight">Contactado</span>
+</div>
+<div class="h-1 flex-1 bg-outline-variant -mx-6 mt-[-20px]"></div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center gap-xs z-10 w-24">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant flex items-center justify-center font-label-md ring-4 ring-surface cursor-pointer hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center">Cerrada</span>
+</div>
+</div>
+</div>
+<!-- Detail Body -->
+<div class="p-xl flex-1 overflow-y-auto">
+<!-- Client Info & Disclaimer -->
+<div class="bg-surface-container-low rounded-xl p-lg border border-outline-variant mb-xl flex items-start justify-between">
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Datos del Cliente</h4>
+<p class="font-title-md text-[20px] text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">account_circle</span>
+                                    Mariana López
+                                </p>
+</div>
+<!-- Primary CTA inside client area -->
+<button class="text-white font-label-md text-label-md px-lg py-md rounded-[10px] flex items-center gap-sm hover:opacity-90 transition-opacity shadow-sm" style="background-color: #08783E;">
+<svg class="lucide lucide-message-circle" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+                                Contactar al cliente
+                            </button>
+</div>
+<!-- Privacy Warning -->
+<div class="flex items-start gap-md bg-surface-container-highest p-md rounded-lg border border-outline-variant mb-xl">
+<span class="material-symbols-outlined text-on-surface-variant mt-xs">lock</span>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
+<strong>Privacidad:</strong> Las fotos y datos del cliente sólo son visibles para ti y el equipo administrador. No compartas esta información con terceros no autorizados.
+                            </p>
+</div>
+<!-- Description -->
+<div class="mb-xl">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-sm">Descripción del Trabajo</h4>
+<p class="font-body-md text-body-lg text-on-surface leading-relaxed max-w-3xl">
+                                "Cochera de 35 m2, Ciudad del Valle, Esta semana. Necesito cotización para preparar el terreno y aplicar concreto estampado simulando piedra natural. El área actualmente tiene tierra suelta."
+                            </p>
+</div>
+<!-- Photos Grid -->
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">photo_library</span> Fotos adjuntas (Privadas)
+                            </h4>
+<div class="grid grid-cols-3 gap-md">
+<!-- Photo 1 -->
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Documentary style photograph showing a dirt driveway area in front of a modern suburban house. The ground is uneven and clearly needs preparation. Natural, slightly overcast daylight provides even lighting. The mood is realistic and unpolished, capturing the 'before' state of a construction project. High detail on soil texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWI_5oBaUZ4i1p1p4gIhe9R5jN-Oh2F0kfJLlzrbDUhjZOOmy8McvvNIcGzRB7amV_JRm8_T2Y__vdatbQUxtxUfKwq6K1K6zlKF3eDSHOhuVv_s374Dfuduftfr9pk-gGCP2KC6n42j9yOy6Eg6tenRcglW0piWx9eZdBlbQ0Y-dstd_3Yq5q3C030O4m6qBLggAN9d_o8HCeGN56iSDpdSVEpjQ1sWswUnIldCLPJodh1czOvvOV"/>
+</div>
+<!-- Photo 2 -->
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up documentary shot of a measuring tape stretched across a dusty patch of ground next to a brick wall. The focus is sharp on the numbers of the tape, blurring slightly towards the edges. The lighting is harsh afternoon sun casting strong shadows, highlighting the gritty reality of site measurement. Warm earth tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClXEnjzTsd2IfL3_B-c_qcWCv6YsQOxrpYzCFadL61RagxIG4v4290XB7v39aRr6wR-TwhwNhnWbFKcIUhvNYDn7dEx6G3uZKxCvg1_wcOQFbO3RgjXC-uYG71Qme1_E4qSHZBze0hYLl8o7ZfbsorVBX1t9rrg8wnGb8hQBecadHUsuU5pkZbQ1iyG3GRzf9FywjOzMyz_KJW0bmqo1LoY2mDiImeOF4TJSMPMgHiBWDix-Cm1y4h"/>
+</div>
+<!-- Photo 3 -->
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A documentary style photo looking down a residential street with a marked off area for construction. Wooden stakes and string line delineate a rectangular space on the ground. A wheelbarrow is partially visible in the corner. Authentic, unstaged aesthetic typical of local contracting work. The color palette features natural greens from nearby plants contrasting with dry earth colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_ovDj0XxAOiVJnjl2mtFJnrSGiSgB3xtkdhRCxpCxcZzTLuKiu3zYzE8PC4Irar44nNezsiYeMbbg4eNNww83MdmqGj5x_T9IUx2D_S8NZVfx6S5y7YB4WweuVLq-BpiQYe0tyM5Qa09GBRlDKV8NN-QZzz_zFAhBOtFmv_4G-ZdeCb8sfm6xe4I87Sw8OqUpCStsDQoSuzDw8j6lHE2X-z6mN4HGXkDi9_PICMeo6eSd5Kjwf5pc"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar Bottom -->
+<div class="p-lg border-t border-outline-variant bg-surface-container-low flex justify-end gap-md">
+<button class="px-lg py-md rounded-[10px] border border-outline-variant text-on-surface-variant font-label-md hover:bg-surface-variant transition-colors">
+                            No hago este trabajo
+                        </button>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

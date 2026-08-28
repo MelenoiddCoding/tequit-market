@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oficio Humano - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#d8e6dc",
+                    "surface-container-high": "#ddece2",
+                    "on-tertiary-fixed": "#3b0a00",
+                    "inverse-primary": "#a4d0bc",
+                    "inverse-surface": "#27332d",
+                    "primary-fixed-dim": "#a4d0bc",
+                    "secondary-fixed-dim": "#94d4b6",
+                    "on-primary-fixed": "#002116",
+                    "tertiary": "#420c00",
+                    "primary": "#00251a",
+                    "surface-container-low": "#e9f7ed",
+                    "primary-container": "#123c2e",
+                    "surface-tint": "#3e6656",
+                    "on-secondary-fixed-variant": "#09513a",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#2a6951",
+                    "on-tertiary-container": "#f47b57",
+                    "on-primary": "#ffffff",
+                    "outline": "#717974",
+                    "background": "#effdf3",
+                    "on-primary-container": "#7da794",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#cfddd4",
+                    "on-surface": "#121e18",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#effdf3",
+                    "secondary-container": "#aceece",
+                    "inverse-on-surface": "#e6f4ea",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "on-primary-fixed-variant": "#264e3f",
+                    "surface": "#effdf3",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#414844",
+                    "tertiary-container": "#671800",
+                    "primary-fixed": "#c0ecd8",
+                    "tertiary-fixed": "#ffdbd1",
+                    "outline-variant": "#c1c8c3",
+                    "on-secondary-container": "#2f6e55",
+                    "secondary-fixed": "#aff0d1",
+                    "surface-container-highest": "#d8e6dc",
+                    "on-tertiary-fixed-variant": "#822709",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container": "#e3f1e7",
+                    "on-background": "#121e18",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#002115"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "huge": "64px",
+                    "xxl": "48px",
+                    "giant": "96px",
+                    "base": "16px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "md": "12px",
+                    "xs": "4px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Fraunces"
+                    ],
+                    "numeric-display": [
+                            "Fraunces"
+                    ],
+                    "title-md": [
+                            "Fraunces"
+                    ],
+                    "display-lg": [
+                            "Fraunces"
+                    ],
+                    "headline-lg-mobile": [
+                            "Fraunces"
+                    ],
+                    "label-md": [
+                            "Manrope"
+                    ],
+                    "label-sm": [
+                            "Manrope"
+                    ],
+                    "body-lg": [
+                            "Manrope"
+                    ],
+                    "body-md": [
+                            "Manrope"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "numeric-display": [
+                            "24px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "title-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.03em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low fixed left-0 top-0 h-full w-64 hidden md:flex flex-col border-r border-outline-variant p-lg gap-sm z-50">
+<div class="mb-huge">
+<h1 class="font-headline-lg text-headline-lg text-primary">Oficio Humano</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Provider Panel</p>
+</div>
+<div class="flex-1 overflow-y-auto pr-sm custom-scrollbar">
+<ul class="flex flex-col gap-xs font-label-md text-label-md">
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>Summary</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="person_book">person_book</span>Profile</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="handyman">handyman</span>Services</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="photo_library">photo_library</span>Portfolio</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="mail">mail</span>Requests</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>Statistics</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="business_center">business_center</span>Business</a></li>
+<li><a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest transition-all rounded-lg" href="#"><span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>Plan</a></li>
+<li><a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container rounded-lg font-bold hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined" data-icon="settings">settings</span>Settings</a></li>
+</ul>
+</div>
+<div class="mt-auto pt-lg border-t border-outline-variant flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up documentary-style portrait of a Mexican artisan in Tepic, warm lighting, natural textures, confident gaze." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxu-bLk3jVPDQ2160jZCAJ_neWVuP7wmWlZ9koyR16rF2RCg2Gg2vlMyJTDq08aOrYzq09XTReTVhzdw9Jvove9k1FF3_JWJPDaR3D05_OyG407tCa37b5Mfbnf1M0X5yP8zPAUugvcydEqQnogB4KWkqiIIP3ig07XZ1-2puKq2jk3IdbCCbCe3QpvMh-noFZMrzwsXV8uy5ZQrGFCRLI3-nPUzXJvGjUSx-oOp4gA0ETfPMqtjjH"/>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">Carlos M.</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Carpenter</p>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 bg-background min-h-screen">
+<!-- Top App Bar (Mobile) -->
+<header class="bg-surface fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md md:hidden flex justify-between items-center px-4 h-16 border-b border-outline-variant/30">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Oficio Humano</h1>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-primary hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-150"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 text-primary hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-150"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-base md:px-lg pt-24 md:pt-huge pb-giant">
+<header class="mb-xxl">
+<h2 class="font-display-lg text-display-lg text-primary mb-sm">Settings</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Manage your account preferences, security settings, and provider profile details.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+<!-- Settings Tabs/Navigation (Desktop Bento Style) -->
+<div class="lg:col-span-3 flex flex-col gap-xs sticky top-huge">
+<button class="text-left px-md py-sm rounded-lg font-label-md text-label-md bg-surface-container-high text-primary font-bold transition-colors">
+                        Cuenta
+                    </button>
+<button class="text-left px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                        Notificaciones
+                    </button>
+<button class="text-left px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                        Seguridad
+                    </button>
+<button class="text-left px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                        Ayuda
+                    </button>
+</div>
+<!-- Settings Content Area -->
+<div class="lg:col-span-9 space-y-xl">
+<!-- Account Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg md:p-xl shadow-[0_4px_12px_rgba(23,35,29,0.02)]">
+<h3 class="font-title-md text-title-md text-primary mb-lg pb-sm border-b border-outline-variant/50">Personal Information</h3>
+<div class="flex flex-col md:flex-row gap-lg mb-lg items-start">
+<div class="w-24 h-24 rounded-full bg-surface-variant overflow-hidden border-2 border-surface-container-highest shrink-0 relative group">
+<img class="w-full h-full object-cover" data-alt="Close-up documentary-style portrait of a Mexican artisan in Tepic, warm lighting, natural textures, confident gaze." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxDS9yHyaw2BnbN8WVb36yaV2gXSyxKRGkYFOLsJrbNl5w6qu2qTnSmelBE0HlHLz8iBSYajPZhzNUjLYv4IgQAM3dKCuDrfWvz4HjJ-Sc5KfqZw3e83M2D0S7tMEx7YyavjxsFnGvkJsjDw4SEQH0CShnrZ07uLuvfJ5fNbeBUx93bMz7Oq8w5TsiDtOFx9zI_AYn99nA8wQamKDCjZRgRCrH4C1R5mhsDnlTs5BNEbsPlioeLw3X"/>
+<div class="absolute inset-0 bg-primary/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-white" data-icon="edit">edit</span>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-md w-full">
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">First Name</label>
+<input class="w-full bg-transparent border border-outline-variant rounded-[10px] px-md py-sm font-body-md focus:border-primary focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:outline-none transition-all" type="text" value="Carlos"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Last Name</label>
+<input class="w-full bg-transparent border border-outline-variant rounded-[10px] px-md py-sm font-body-md focus:border-primary focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:outline-none transition-all" type="text" value="Martinez"/>
+</div>
+<div class="space-y-xs md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Email Address</label>
+<input class="w-full bg-transparent border border-outline-variant rounded-[10px] px-md py-sm font-body-md focus:border-primary focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 focus:outline-none transition-all" readonly="" type="email" value="carlos.carpinteria@tepic.local"/>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">To change your email, contact support.</p>
+</div>
+</div>
+</div>
+<div class="flex justify-end mt-lg">
+<button class="bg-[#123C2E] text-white font-label-md text-label-md px-lg py-sm rounded-[10px] hover:bg-primary transition-colors focus:ring-2 focus:ring-[#E3A600] focus:ring-offset-2 outline-none">Save Changes</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="bg-surface-container-lowest fixed bottom-0 w-full h-16 z-50 md:hidden border-t border-outline-variant shadow-sm flex justify-around items-center px-2 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors w-16 h-full" href="#"><span class="material-symbols-outlined mb-1" data-icon="home">home</span><span class="font-label-sm text-label-sm text-[10px]">Home</span></a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors w-16 h-full" href="#"><span class="material-symbols-outlined mb-1" data-icon="mail">mail</span><span class="font-label-sm text-label-sm text-[10px]">Requests</span></a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors w-16 h-full" href="#"><span class="material-symbols-outlined mb-1" data-icon="photo_library">photo_library</span><span class="font-label-sm text-label-sm text-[10px]">Portfolio</span></a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors w-16 h-full" href="#"><span class="material-symbols-outlined mb-1" data-icon="monitoring">monitoring</span><span class="font-label-sm text-label-sm text-[10px]">Stats</span></a>
+<a class="flex flex-col items-center justify-center text-primary font-bold hover:text-primary transition-colors w-16 h-full" href="#"><span class="material-symbols-outlined mb-1" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span><span class="font-label-sm text-label-sm text-[10px]">Settings</span></a>
+</nav>
+</body></html>

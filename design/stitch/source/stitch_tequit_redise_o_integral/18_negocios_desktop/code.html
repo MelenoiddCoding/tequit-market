@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tequit - Mis Negocios</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&amp;family=Manrope:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#3e6656",
+                    "on-surface-variant": "#414844",
+                    "outline-variant": "#c1c8c3",
+                    "on-secondary-container": "#2f6e55",
+                    "on-tertiary-fixed": "#3b0a00",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#a4d0bc",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#e9f7ed",
+                    "primary-container": "#123c2e",
+                    "surface-bright": "#effdf3",
+                    "inverse-surface": "#27332d",
+                    "inverse-on-surface": "#e6f4ea",
+                    "on-primary-fixed": "#002116",
+                    "surface-container": "#e3f1e7",
+                    "on-secondary-fixed": "#002115",
+                    "tertiary-container": "#671800",
+                    "surface": "#effdf3",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "on-surface": "#121e18",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#d8e6dc",
+                    "on-tertiary-container": "#f47b57",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#94d4b6",
+                    "outline": "#717974",
+                    "on-secondary-fixed-variant": "#09513a",
+                    "secondary-fixed": "#aff0d1",
+                    "inverse-primary": "#a4d0bc",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#7da794",
+                    "background": "#effdf3",
+                    "secondary": "#2a6951",
+                    "surface-variant": "#d8e6dc",
+                    "on-primary-fixed-variant": "#264e3f",
+                    "primary": "#00251a",
+                    "secondary-container": "#aceece",
+                    "surface-container-high": "#ddece2",
+                    "primary-fixed": "#c0ecd8",
+                    "tertiary-fixed": "#ffdbd1",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#420c00",
+                    "surface-dim": "#cfddd4",
+                    "on-background": "#121e18",
+                    "on-tertiary-fixed-variant": "#822709"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xxl": "48px",
+                    "lg": "24px",
+                    "giant": "96px",
+                    "base": "16px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "12px",
+                    "huge": "64px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Fraunces"
+                    ],
+                    "title-md": [
+                            "Fraunces"
+                    ],
+                    "display-lg": [
+                            "Fraunces"
+                    ],
+                    "headline-lg-mobile": [
+                            "Fraunces"
+                    ],
+                    "body-md": [
+                            "Manrope"
+                    ],
+                    "numeric-display": [
+                            "Fraunces"
+                    ],
+                    "body-lg": [
+                            "Manrope"
+                    ],
+                    "label-md": [
+                            "Manrope"
+                    ],
+                    "label-sm": [
+                            "Manrope"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "numeric-display": [
+                            "24px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.03em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FFFCF7; /* Level 0 (Floor) Base background */
+            color: #121e18;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05); /* Level 2 (Interactive/Floating) */
+        }
+    </style>
+</head>
+<body class="antialiased font-body-md text-body-md flex min-h-screen">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden w-full top-0 sticky z-40 bg-surface dark:bg-surface flex justify-between items-center px-4 py-md border-b border-outline-variant dark:border-outline flat no shadows">
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">
+            Tequit
+        </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed active:scale-95 duration-150 transition-transform cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed active:scale-95 duration-150 transition-transform cursor-pointer" data-icon="settings">settings</span>
+<img alt="Juan Pérez profile photo" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A detailed headshot portrait of a local business owner in Tepic, Nayarit, smiling warmly. Natural, documentary-style lighting, emphasizing authenticity and trust. Minimalist paper-textured background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyYTsl4fGx2rGEerXPoE92hEmS_M6yULLt6Zta49jkOqhSLQIwGKNr1FQ5ssiyWIQWlb5V9wkqhoRkyUY7y9BBB2APW6wlOwXwSUMFB2qscFAC8bJrf92g38hjbM-H_XPh1zltkkzsc0UadRkmIz4GBtyzYgk9Eyktn3m4B1Sucz1zQMG1EeSx5IkByevBRwuOjJw23kxQvlexOleyD66-ro8jxw7wwfxvzlH2O15kJOUwJ8OuGUXx"/>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex flex-col w-64 bg-surface dark:bg-surface border-r border-outline-variant h-screen sticky top-0 py-lg px-md z-40">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim mb-huge px-sm">
+            Tequit
+        </div>
+<nav class="flex-1 flex flex-col gap-sm">
+<!-- Active: Mis Negocios -->
+<a class="flex items-center gap-md px-md py-sm rounded-lg bg-secondary-container/30 text-secondary dark:text-on-secondary-container font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="storefront">storefront</span>
+                Mis Negocios
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Estadísticas
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+                Mensajes
+            </a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-lg">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                Perfil
+            </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col pb-huge md:pb-0">
+<!-- Desktop Header Area (Search/Profile) - Hidden on Mobile since it's in TopNavBar -->
+<div class="hidden md:flex justify-end items-center px-lg py-md border-b border-outline-variant bg-surface sticky top-0 z-30">
+<div class="flex gap-6 items-center">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-icon="notifications">notifications</span>
+<img alt="Juan Pérez profile photo" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A close-up documentary portrait of an authentic artisan from Nayarit, showing signs of honest hard work. Soft, diffused lighting, clean minimalist environment. High quality editorial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNXC5nVJSLJTOqy5KBLWDRbLMddZlCglT0fhFPTi_OTv3wTUWuyw8x4278IFSBxwif7dR_-mV4fALjCIE5ZzkRJ2NZT6yuuoSP835u4m3_MXFvMWe-HWpTTKwPZZLMBSWdzT8SV0uvSua1oC--Gks-n16FVbHAbDz4WMtq0ILoL2JPtbSql250L7UgZFX5XAvY5gWIZ56r2zpANbvJcbKkCHWso356fEgsokk_0wjTlSGbmKJcKfH6"/>
+</div>
+</div>
+<div class="p-4 md:p-lg max-w-7xl mx-auto w-full flex-1">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-xl">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">Mis Negocios</h1>
+<button class="bg-primary-container text-on-primary hover:bg-primary transition-colors px-lg py-sm rounded-[10px] font-label-md text-label-md flex items-center justify-center gap-2 w-full sm:w-auto">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Registrar nuevo negocio
+                </button>
+</div>
+<!-- Business Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Card 1: Active Business -->
+<div class="bg-white border border-outline-variant rounded-xl card-shadow overflow-hidden flex flex-col">
+<div class="h-48 w-full relative">
+<img alt="Carpintería Juan" class="w-full h-full object-cover" data-alt="A beautifully composed documentary photo of a traditional carpentry workshop in Tepic. Warm wood tones, sawdust in the air, natural sunlight streaming through a window. Premium editorial quality, minimalist composition emphasizing craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLIiIAomSttAF8Lqqyr4NtEEuyWDg6u4gGXkm4PH68RS6ch8uYNKxVB68IbAk7FWWqlw5HOe2z8tCugEXvjC0EErD2JZfrblC6X-nvp7n1g_mqMyhdA3IRlBkU-kdTez1lw4Uukffk3DZhUOGNKxl80kYzyGhuBn2pCzWsfmwZngwhLJXg24kyOaSVnhQp43G_BVdyGFGp0c2mudDpS2vqHhiZjQEhWtqS2_XPBSDF8yXJHNuET3gU"/>
+<div class="absolute top-4 right-4 bg-surface-bright/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface">Activo</span>
+</div>
+</div>
+<div class="p-lg flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-title-md text-title-md text-primary">Carpintería Juan</h2>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#E3A600] icon-fill text-sm" data-icon="star">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.8</span>
+</div>
+</div>
+<div class="flex items-center gap-4 mb-6 text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-lg" data-icon="handyman">handyman</span>
+<span>Carpintería</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+<span>Centro, Tepic</span>
+</div>
+</div>
+<div class="mt-auto grid grid-cols-1 sm:grid-cols-3 gap-2">
+<button class="border border-outline-variant hover:border-primary text-primary px-4 py-2 rounded-[10px] font-label-md text-label-md transition-colors text-center">
+                                Gestionar
+                            </button>
+<button class="border border-outline-variant hover:border-primary text-primary px-4 py-2 rounded-[10px] font-label-md text-label-md transition-colors text-center">
+                                Ver perfil
+                            </button>
+<button class="bg-surface-container-low hover:bg-surface-container text-primary px-4 py-2 rounded-[10px] font-label-md text-label-md transition-colors text-center flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="bar_chart">bar_chart</span>
+                                Datos
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 2: Pending Business -->
+<div class="bg-[#F7F1E7] border border-outline-variant rounded-xl card-shadow overflow-hidden flex flex-col relative">
+<!-- Pending Overlay pattern -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#123C2E 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="h-48 w-full relative bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline opacity-50" data-icon="image">image</span>
+<div class="absolute top-4 right-4 bg-surface-bright/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#E3A600]"></span>
+<span class="font-label-sm text-label-sm text-on-surface">En revisión</span>
+</div>
+</div>
+<div class="p-lg flex flex-col flex-1 relative z-10">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-title-md text-title-md text-primary">Mantenimiento Express</h2>
+</div>
+<div class="flex items-center gap-4 mb-6 text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-lg" data-icon="plumbing">plumbing</span>
+<span>Mantenimiento</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+<span>Xalisco</span>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<div class="bg-surface-container px-3 py-2 rounded-lg flex items-start gap-2 text-on-surface-variant font-label-sm text-label-sm mb-2">
+<span class="material-symbols-outlined text-sm mt-0.5" data-icon="info">info</span>
+<p>Tu negocio está siendo verificado por nuestro equipo. Te notificaremos cuando esté público.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+<button class="border border-outline-variant hover:border-primary text-primary px-4 py-2 rounded-[10px] font-label-md text-label-md transition-colors text-center">
+                                    Editar datos
+                                </button>
+<button class="border border-outline-variant text-outline px-4 py-2 rounded-[10px] font-label-md text-label-md cursor-not-allowed text-center opacity-50">
+                                    Ver perfil público
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 h-16 bg-surface dark:bg-surface-container-lowest border-t border-outline-variant shadow-sm flex justify-around items-center px-2 pb-safe">
+<!-- Active: Mis Negocios -->
+<a class="flex flex-col items-center justify-center text-secondary dark:text-on-secondary-container bg-secondary-container/30 rounded-xl px-3 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="storefront">storefront</span>
+<span class="font-label-sm text-label-sm">Mis Negocios</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200 px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm">Estadísticas</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200 px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Mensajes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-all duration-200 px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+</body></html>

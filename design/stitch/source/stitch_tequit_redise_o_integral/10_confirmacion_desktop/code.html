@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>¡Todo listo! - Tequit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#e9f7ed",
+                      "primary": "#00251a",
+                      "surface-variant": "#d8e6dc",
+                      "tertiary-container": "#671800",
+                      "on-primary-fixed": "#002116",
+                      "on-tertiary-fixed": "#3b0a00",
+                      "secondary-fixed-dim": "#94d4b6",
+                      "outline": "#717974",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#a4d0bc",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#cfddd4",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#3e6656",
+                      "primary-fixed": "#c0ecd8",
+                      "surface-container-highest": "#d8e6dc",
+                      "on-primary": "#ffffff",
+                      "secondary": "#2a6951",
+                      "outline-variant": "#c1c8c3",
+                      "on-tertiary-fixed-variant": "#822709",
+                      "background": "#effdf3",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#2f6e55",
+                      "tertiary-fixed": "#ffdbd1",
+                      "on-tertiary-container": "#f47b57",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#264e3f",
+                      "primary-fixed-dim": "#a4d0bc",
+                      "on-secondary-fixed-variant": "#09513a",
+                      "surface-container-high": "#ddece2",
+                      "on-surface-variant": "#414844",
+                      "on-background": "#121e18",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#aceece",
+                      "inverse-on-surface": "#e6f4ea",
+                      "surface-bright": "#effdf3",
+                      "surface-container": "#e3f1e7",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#27332d",
+                      "secondary-fixed": "#aff0d1",
+                      "on-primary-container": "#7da794",
+                      "on-secondary-fixed": "#002115",
+                      "on-surface": "#121e18",
+                      "surface": "#effdf3",
+                      "primary-container": "#123c2e",
+                      "tertiary": "#420c00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "giant": "96px",
+                      "xl": "32px",
+                      "xxl": "48px",
+                      "base": "16px",
+                      "huge": "64px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "sm": "8px",
+                      "md": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "label-sm": [
+                              "Manrope"
+                      ],
+                      "title-md": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "numeric-display": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "numeric-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 1,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .outline-subtle {
+            border: 1px solid #DCE4DE;
+        }
+        .focus-ring {
+            outline: 2px solid #E3A600;
+            outline-offset: 2px;
+        }
+        .tonal-shadow {
+            box-shadow: 0 4px 12px rgba(23, 35, 29, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar: Suppressed because this is a transactional success/confirmation screen -->
+<main class="flex-grow flex flex-col items-center justify-center py-giant px-base">
+<div class="max-w-4xl w-full mx-auto space-y-xl">
+<!-- Hero Section -->
+<div class="text-center space-y-lg">
+<div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary-container text-on-primary-container mb-md tonal-shadow">
+<span aria-hidden="true" class="material-symbols-outlined text-[48px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary">¡Todo listo, Juan!</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    Tu cuenta como Profesional Independiente ha sido activada. Estás a un paso de conectar con clientes en Tepic.
+                </p>
+</div>
+<!-- Recommended Actions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg pt-xl">
+<!-- Left Card: Perfil y Galería -->
+<div class="bg-surface-container-lowest outline-subtle rounded-xl p-lg flex flex-col tonal-shadow transition-transform hover:-translate-y-1 duration-300">
+<div class="mb-base text-secondary">
+<span aria-hidden="true" class="material-symbols-outlined text-[32px]" data-icon="photo_library" data-weight="fill">photo_library</span>
+</div>
+<h2 class="font-title-md text-title-md text-primary mb-sm">Perfil y Galería</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl flex-grow">
+                        Sube fotos de tu trabajo y completa tu información para destacar entre los mejores profesionales.
+                    </p>
+<button class="bg-primary-container text-on-primary rounded-lg px-lg py-md font-label-md text-label-md hover:bg-primary transition-colors focus:focus-ring self-start">
+                        Configurar ahora
+                    </button>
+</div>
+<!-- Right Card: Verificación de Seguridad -->
+<div class="bg-surface-container-low outline-subtle rounded-xl p-lg flex flex-col tonal-shadow transition-transform hover:-translate-y-1 duration-300">
+<div class="mb-base text-secondary">
+<span aria-hidden="true" class="material-symbols-outlined text-[32px]" data-icon="verified_user" data-weight="fill">verified_user</span>
+</div>
+<h2 class="font-title-md text-title-md text-primary mb-sm">Verificación de Seguridad</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl flex-grow">
+                        Valida tu identidad para obtener el distintivo de confianza que los clientes buscan.
+                    </p>
+<button class="bg-transparent border border-outline text-primary rounded-lg px-lg py-md font-label-md text-label-md hover:bg-surface-variant transition-colors focus:focus-ring self-start">
+                        Iniciar validación
+                    </button>
+</div>
+</div>
+<!-- Support Section -->
+<div class="pt-xxl text-center">
+<p class="font-body-md text-body-md text-on-surface-variant mb-base">
+                    ¿Necesitas ayuda para empezar? Contáctanos por WhatsApp
+                </p>
+<a class="inline-flex items-center gap-sm bg-[#08783E] text-on-primary rounded-lg px-lg py-md font-label-md text-label-md hover:opacity-90 transition-opacity focus:focus-ring" href="#">
+<!-- Simulating Lucide MessageCircle with Material Icon equivalent -->
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]" data-icon="forum">forum</span>
+                    Soporte Tequit
+                </a>
+</div>
+</div>
+</main>
+<!-- Footer: Suppressed as this is a transactional screen, overriding the prompt to follow the JSON instructions on suppression logic for focused journeys -->
+</body></html>

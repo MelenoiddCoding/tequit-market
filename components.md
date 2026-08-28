@@ -1,0 +1,450 @@
+# Tequit — contrato de componentes
+
+Documento autoritativo para cualquier agente que diseñe, implemente o revise interfaz en Tequit.
+
+## 1. Regla de autoridad
+
+Antes de modificar una pantalla, leer en este orden:
+
+1. `AGENTS.md` y la documentación local de Next.js aplicable.
+2. Este `components.md` para componentes, containers, tokens y shells.
+3. `docs/sections.md` para la composición y el orden de secciones de cada ruta.
+4. El comportamiento existente en `app/`, `components/`, APIs y modelo de datos.
+5. Las imágenes de Stitch como referencia de composición visual.
+6. Los HTML de Stitch sólo como referencia de medidas y estilo; nunca como arquitectura o lógica para copiar literalmente.
+
+Si dos pantallas de Stitch se contradicen, prevalecen este documento y `docs/sections.md`. No crear una segunda variante de navegación, card o container para igualar una captura aislada.
+
+## 2. Tesis
+
+### Tesis visual
+
+Oficio humano de Tepic tratado con calidez documental y precisión editorial: fotografía realista, papel cálido, verde de confianza, barro como acento y una interfaz sobria que deja respirar el contenido.
+
+### Tesis de contenido
+
+- Sitio público: descubrir → comparar → confiar → contactar/guardar.
+- Panel: estado → acción pendiente → administración → mejora.
+- Administración: supervisar → revisar → decidir.
+
+### Tesis de interacción
+
+1. El header público pasa de transparente/ligero a papel sólido al desplazarse.
+2. Guardar, abrir drawers y cambiar filtros usan transiciones de 120–220 ms con feedback inmediato.
+3. El hero puede entrar con una secuencia breve de imagen, título y buscador; los paneles operativos no usan animación editorial.
+
+Todas las animaciones se desactivan con `prefers-reduced-motion`.
+
+## 3. Marca y assets
+
+Los archivos de `tequit-svg-pack/` son la única fuente de verdad de la marca. No recrear el logo con texto, no cambiar paths, proporciones o colores y no aplicar sombras.
+
+| Asset | Uso canónico |
+| --- | --- |
+| `tequit-logo-horizontal.svg` | Header público y aplicaciones horizontales sobre fondos claros |
+| `tequit-symbol.svg` | Espacios compactos; marca, nunca icono funcional |
+| `tequit-wordmark.svg` | Sólo cuando el símbolo ya está presente en el contexto |
+| `tequit-app-icon-light.svg` | Launcher, favicon grande y previews sobre fondo claro |
+| `tequit-app-icon-dark.svg` | Launcher, footer y previews sobre superficies oscuras |
+
+Reglas:
+
+- Logo horizontal: proporción `696:193`; altura aproximada 32–38 px desktop y 28–32 px mobile.
+- Nunca usar el logo horizontal verde sobre fondo verde.
+- En footer oscuro usar `tequit-app-icon-dark.svg` y, si hace falta, el nombre accesible en texto blanco separado.
+- Mantener área libre mínima equivalente a la altura del acento barro del símbolo.
+- Todo `<Image>` decorativo usa `alt=""`; todo logo enlazado usa nombre accesible “Tequit — Inicio”.
+
+## 4. Tokens canónicos
+
+No tomar los tokens Material generados en cada HTML de Stitch: cambian entre archivos. Implementar una sola capa semántica.
+
+### Color
+
+| Token | Valor | Uso |
+| --- | --- | --- |
+| `--color-canvas` | `#FFF9F0` | Fondo general, marfil oficial |
+| `--color-surface` | `#FFFFFF` | Campos y superficies elevadas |
+| `--color-surface-muted` | `#F7F1E7` | Secciones y cards cálidas |
+| `--color-brand` | `#254432` | Verde oficial; navegación y primary |
+| `--color-brand-strong` | `#183225` | Hover/pressed sobre brand |
+| `--color-brand-soft` | `#E4F1E9` | Estado activo y fondos de confianza |
+| `--color-accent` | `#C75B3A` | Barro oficial; acento, no texto normal pequeño |
+| `--color-accent-soft` | `#F7DDD2` | Guardado y acento suave |
+| `--color-text` | `#17231D` | Texto principal |
+| `--color-text-muted` | `#5D6A64` | Texto secundario |
+| `--color-border` | `#DCE4DE` | Bordes/divisores |
+| `--color-whatsapp` | `#08783E` | Contacto WhatsApp exclusivamente |
+| `--color-verified` | `#2D7456` | Verificación y confianza |
+| `--color-success` | `#186A3B` | Confirmaciones |
+| `--color-warning` | `#8A5B00` | Pendiente/advertencia |
+| `--color-error` | `#A33A2B` | Error/destructivo |
+| `--color-star` | `#E3A600` | Rating y foco visible |
+
+El barro no es el botón primario por defecto. Usar `brand` para acciones normales y `whatsapp` únicamente para contacto. Verificar contraste AA en toda combinación.
+
+### Tipografía
+
+- Display: **Fraunces**, pesos 600–700.
+- UI/cuerpo: **Manrope**, pesos 400–750.
+- Máximo dos familias.
+- Escala: 12, 14, 16, 18, 22, 28, 36, 48 y 64 px.
+- Body base 16 px, line-height 1.5–1.65.
+- Paneles usan copy funcional; no hero de marketing.
+
+### Espacio, radio y elevación
+
+- Espaciado: 4, 8, 12, 16, 24, 32, 48, 64 y 96 px.
+- Radio control: 10 px.
+- Radio card: 16 px.
+- Radio editorial: 24 px.
+- Píldora: únicamente chips y estados.
+- Sombra flotante: `0 4px 12px rgba(23,35,29,.05)`.
+- La separación se consigue primero con espacio, fondo y divisores; no con cards anidadas.
+
+### Breakpoints
+
+| Nombre | Desde | Conducta |
+| --- | ---: | --- |
+| `mobile` | 0 | Una columna; bottom nav pública; drawers/sheets |
+| `sm` | 640 px | Grids de dos si el contenido lo permite |
+| `md` | 768 px | Transición tablet; formularios de hasta dos columnas |
+| `lg` | 1024 px | Header desktop, sidebar del panel, filtros laterales |
+| `xl` | 1280 px | Contenedor completo y grids de tres |
+
+Validar 320, 390, 768, 1024 y 1440 px y zoom del navegador al 200%.
+
+## 5. Containers reutilizables
+
+Los containers controlan geometría; no incluyen copy ni lógica de negocio.
+
+### `SiteContainer`
+
+Contenedor horizontal general.
+
+```ts
+type SiteContainerProps = {
+  as?: "div" | "section" | "main";
+  size?: "reading" | "content" | "wide";
+  bleedMobile?: boolean;
+  className?: string;
+  children: React.ReactNode;
+};
+```
+
+- `reading`: máximo 760 px.
+- `content`: máximo 1200 px; default.
+- `wide`: máximo 1360 px para workspace/tablas.
+- Gutter 16 px mobile, 24 px tablet, 32 px desktop.
+
+### `PageStack`
+
+Flujo vertical de una pantalla. Variantes `compact`, `default`, `editorial`; define únicamente separación vertical. No dibuja card.
+
+### `Section`
+
+Sección semántica con `tone="canvas|muted|brand"`, spacing vertical y `aria-labelledby`. Puede ser full-bleed y contener un `SiteContainer` interno.
+
+### `SectionHeader`
+
+Eyebrow opcional, título, descripción breve y una acción. En mobile la acción baja debajo del título; nunca desaparece sólo por falta de espacio.
+
+### `Cluster`
+
+Fila flexible para chips, metadata y acciones. Soporta wrap y alineación; sustituye grupos con estilos ad hoc.
+
+### `AutoGrid`
+
+Grid fluido de cards con `minItemWidth`. Variantes canónicas:
+
+- Provider/business desktop: mínimo 320 px, máximo tres columnas.
+- Métricas: mínimo 180 px, máximo cuatro.
+- Servicios: mínimo 260 px, máximo dos.
+
+### `SplitLayout`
+
+Contenido principal + aside. Variantes `filters` (240–280 px) y `detail` (320–360 px). El aside puede ser sticky sólo en desktop.
+
+### `DashboardFrame`
+
+Shell de panel con sidebar desktop y header/drawer mobile. El contenido usa `DashboardContent`; nunca hereda header/footer público.
+
+### `DashboardContent`
+
+Máximo 1280 px, padding 16 mobile / 32 desktop, `PageStack` interno. Todas las nueve pantallas del dashboard lo usan.
+
+### `FormContainer`
+
+Máximo 760 px. Puede usar superficie/borde sólo cuando el formulario necesita delimitarse. `FormGrid` cambia de una a dos columnas en `md`.
+
+### `MobileActionDock`
+
+Acciones críticas sticky/fixed en mobile. Debe respetar safe area, no coexistir encima de la bottom nav sin sumar ambas alturas y dejar padding final equivalente.
+
+## 6. Shells y navegación
+
+### `PublicShell`
+
+Compuesto por `PublicHeader`, contenido, `PublicFooter` y `PublicBottomNav` mobile.
+
+#### `PublicHeader`
+
+- Logo horizontal → `/`.
+- Desktop, en orden: Buscar → `/buscar`; Negocios → `/negocios`; Publicar necesidad → `/solicitar`; Soy prestador → `/dashboard`; ubicación “Tepic, Nayarit”.
+- Mobile: logo y ubicación compacta; sin hamburger.
+- No alternar entre “Tequit”, “Tequit Marketplace”, “Oficio Humano” o nombres similares.
+
+#### `PublicBottomNav`
+
+Exactamente cinco items:
+
+| Label | Icono Lucide | Ruta | Activo también en |
+| --- | --- | --- | --- |
+| Inicio | `Home` | `/` | sólo `/` |
+| Buscar | `Search` | `/buscar` | `/servicios/**`, `/p/**` |
+| Negocios | `Store` | `/negocios` | `/n/**` |
+| Guardados | `Heart` | `/guardados` | sólo `/guardados` |
+| Cuenta | `UserRound` | `/login` | `/registro` |
+
+En `/solicitar` ningún item queda activo. Altura visual 64–72 px más safe area. Label siempre visible.
+
+#### `PublicFooter`
+
+- Marca y texto: “Encuentra personas y negocios en Tepic que puedan hacer el trabajo que necesitas.”
+- Explora: Buscar servicios, Negocios locales, Guardados.
+- Para quien le sabe: Crear perfil, Iniciar sesión, Tequit Pro.
+- Nota legal: “Tequit facilita el contacto. No garantiza resultados ni participa en pagos o acuerdos.”
+
+### `DashboardShell`
+
+Nueve items, siempre el mismo orden y copy:
+
+1. Resumen — `/dashboard`
+2. Mi perfil — `/dashboard/perfil`
+3. Servicios — `/dashboard/servicios`
+4. Trabajos — `/dashboard/trabajos`
+5. Solicitudes — `/dashboard/solicitudes`
+6. Reseñas — `/dashboard/resenas`
+7. Estadísticas — `/dashboard/estadisticas`
+8. Negocios — `/dashboard/negocios`
+9. Plan — `/dashboard/plan`
+
+Desktop usa `DashboardSidebar`. Mobile usa `DashboardMobileHeader` + `DashboardDrawer`; nunca bottom nav de cuatro items ni nueve tabs horizontales. Acciones al final: Ver perfil público y Cerrar sesión.
+
+Usar marca Tequit. “Panel de Juan” es contexto, no otra marca. No usar “Oficio Humano”, “Taller de Oficios”, “Professional Trades” ni “Local Expert”. No llamar “Administrador” al prestador.
+
+### `AdminShell`
+
+Marca/contexto “Administración Tequit”. Secciones actuales en `/admin`: Resumen, Prestadores y planes, Moderación de reseñas, Taxonomía. Incluye Ver sitio público y Cerrar sesión. No inventar subrutas hasta que producto las defina.
+
+## 7. Primitives
+
+### `Button`
+
+Variantes: `primary`, `secondary`, `ghost`, `whatsapp`, `danger`. Tamaños `sm`, `md` (48 px) y `lg` (52–56 px). Estados default, hover, active, focus-visible, disabled y loading.
+
+Un botón ejecuta una acción; un enlace navega. `ButtonLink` conserva semántica de enlace.
+
+### `IconButton`
+
+Target mínimo 44 × 44 px. Siempre `aria-label` y tooltip desktop cuando el icono no tiene label visible.
+
+### Navegación textual y utilidades
+
+- `TextLink`: variantes `default`, `muted` y `danger`; siempre conserva semántica de enlace.
+- `Divider`: horizontal/vertical, sólo cuando el espacio o cambio tonal no bastan.
+- `Spinner`: indicador para acciones breves; pantallas y bloques usan `Skeleton`.
+- `Tooltip`: apoyo para iconos desktop; nunca contiene información esencial inaccesible en mobile.
+
+### Campos
+
+`TextField`, `TextAreaField`, `SelectField`, `RadioCardGroup`, `CheckboxField`, `FileDropzone` comparten `FieldShell`: label persistente, help, required/optional, error asociado y contador cuando aplica.
+
+### `Chip`
+
+Variantes `filter`, `tag`, `status`. Un chip filtro es interactivo; un tag no lo es. No usar pills como botones primarios.
+
+### `Badge`
+
+Variantes `verified`, `status`, `plan`, `count`. Siempre texto + color; no comunicar estado sólo con icono.
+
+### `Avatar`
+
+Variantes `provider`, `business`, `user`; fallback de iniciales. No usar fotografías distintas de la misma persona entre pantallas.
+
+### `BrandLogo`
+
+Props `variant="horizontal|symbol|wordmark|app-light|app-dark"` y tamaños definidos; resuelve siempre a un SVG del pack oficial.
+
+## 8. Componentes de navegación y feedback
+
+- `PublicHeader`
+- `PublicBottomNav`
+- `PublicFooter`
+- `DashboardSidebar`
+- `DashboardMobileHeader`
+- `DashboardDrawer`
+- `AdminSidebar`
+- `Breadcrumbs`
+- `Tabs` sólo para subcontextos reales, no para sustituir navegación global.
+- `Drawer` y `BottomSheet` comparten overlay, focus trap, Escape y restauración de foco.
+- `Dialog` comparte overlay/focus trap y se reserva para confirmaciones o decisiones bloqueantes.
+- `DropdownMenu` agrupa acciones secundarias; no oculta el CTA principal.
+- `Snackbar` para guardado/copiado; incluye Deshacer cuando la acción es reversible.
+- `InlineAlert` para mensajes persistentes.
+- `EmptyState`, `ErrorState`, `Skeleton` y `SuccessState` son componentes compartidos, no bloques distintos por pantalla.
+
+## 9. Componentes de marketplace
+
+### `MarketplaceSearch`
+
+Variantes `hero` y `compact`. Props mínimas: valor, placeholder, submit, loading y label accesible. La misma búsqueda se usa en Inicio, Buscar, Negocios y Servicio.
+
+### `FilterBar`
+
+Chips Todos/Personas/Negocios/Verificados. Desktop se complementa con `FilterSidebar`; mobile con `FilterSheet`. Los filtros que aún no funcionen no deben presentarse como activos en producción.
+
+### `ProviderCard`
+
+Contenido canónico: avatar/foto, profesión, nombre, rating + número de reseñas, máximo tres servicios, verificaciones, zona, guardar y enlace “Ver perfil”. Variantes `grid` y `list`; mismo componente y datos.
+
+### `BusinessCard`
+
+Contenido canónico: imagen/fallback, “Negocio local”, categoría, nombre, rating + reseñas, descripción breve, máximo tres servicios, zona, guardar y “Ver negocio”. No reutilizar `ProviderCard` cambiando sólo el label.
+
+### `SaveButton`
+
+Estados saved/unsaved, `aria-label` dinámico y snackbar. Persistencia actual en dispositivo; ningún componente sugiere cuenta o sincronización.
+
+### Confianza
+
+- `Rating`: valor, número de reseñas y estado sin reseñas.
+- `VerificationSummary`: número/resumen compacto.
+- `VerificationList`: tipo, explicación y fecha opcional; nunca “garantizado”.
+- `AffiliationNotice`: prestador ↔ negocio y aclaración de reputaciones independientes.
+
+### Detalle público
+
+- `EntityHero`: variante provider/business; identidad, zona, confianza, guardar y acciones.
+- `ServiceList`
+- `PortfolioGallery`
+- `ProductList`
+- `ReviewList`
+- `WhatsAppButton`
+- `RequestForm`
+
+`WhatsAppButton` usa `--color-whatsapp`, nombre accesible de la entidad y registra evento antes de abrir el enlace externo.
+
+## 10. Componentes de formularios
+
+### `RequestForm`
+
+Secciones fijas: Necesidad, Ubicación y tiempo, Evidencia, Contacto, Privacidad. Variantes general/provider/business sin duplicar markup. Estados editing, submitting, field-error, server-error y success con folio.
+
+### `RegistrationFlow`
+
+Un solo flujo `/registro` con pasos internos:
+
+1. `AccountTypeSelector`: Prestador/Negocio.
+2. `ProviderRegistrationForm` o `BusinessRegistrationForm`.
+3. `RegistrationSuccess`.
+
+La confirmación de Stitch no es una ruta 10 independiente. Login permanece `/login`.
+
+### `LoginForm`
+
+Correo, contraseña, error inline, loading y destino `next`. Copy aclara que explorar/guardar/solicitar no requiere cuenta.
+
+## 11. Componentes del panel
+
+- `DashboardPageHeader`: título, descripción funcional y acción opcional.
+- `MetricGrid` + `MetricItem`: datos reales, no mosaico ornamental.
+- `CompletionAlert`: acción concreta para completar perfil/portafolio.
+- `ServiceManager`: contador Free, lista, activar/desactivar y alta.
+- `PortfolioManager`: galería, carga, preview, progreso y errores.
+- `LeadInbox`: lista + detalle desktop; navegación lista/detalle mobile.
+- `LeadListItem`
+- `LeadDetail`
+- `LeadStatusControl`: Nueva, Vista, Me interesa, No hago este trabajo, Contactado, Cerrada.
+- `ReviewSummary`, `ReviewItem`, `ReviewInviteAction`.
+- `StatsPeriodSelector`, `MetricTrend`, `SearchTermsList`.
+- `AffiliationCard`, `BusinessOwnershipCard`.
+- `PlanComparison`, `PlanStatus`.
+- `ResponsiveDataTable` para administración; en mobile cambia a filas semánticas, no scroll ilegible.
+- `Pagination` sólo cuando el backend pagina; no simular paginación sobre arrays locales.
+
+Servicios y Trabajos son rutas/componentes separados. Solicitudes lista y detalle son estados del mismo módulo. Reseñas no se mezcla dentro de Estadísticas.
+
+## 12. Estados obligatorios
+
+Todo componente de datos contempla:
+
+- loading/skeleton;
+- contenido;
+- vacío con acción;
+- error con reintento;
+- contenido largo y datos parciales.
+
+Todo formulario contempla:
+
+- inicial;
+- validación inline sin perder datos;
+- submitting;
+- error de servidor/red;
+- éxito.
+
+Estados destructivos requieren confirmación; guardar cambios normales no.
+
+## 13. Convenciones de implementación
+
+Estructura objetivo sugerida:
+
+```text
+components/
+  ui/             # Button, fields, badge, chip, feedback
+  layout/         # containers, sections, shells
+  navigation/     # header, bottom nav, sidebars, drawers
+  marketplace/    # cards, search, filters, trust
+  profile/        # entity hero, services, portfolio, reviews
+  forms/          # request, registration, login
+  dashboard/      # metrics, leads, managers, plan
+```
+
+- Componentes de servidor por defecto; `"use client"` sólo para interacción/estado.
+- Props tipadas con datos del dominio; no leer demo-data dentro de componentes puramente visuales.
+- `className` es escape controlado, no API principal de variantes.
+- Variantes con nombres semánticos, no `green`, `rounded-big` o `screen-06`.
+- Lucide es el único set de iconos. No copiar Material Symbols de Stitch.
+- No copiar Tailwind CDN, scripts inline, dark mode generado ni URLs remotas de los HTML de Stitch.
+- No crear componentes por pantalla (`HomeProviderCard`, `SavedProviderCard`) si una variante resuelve la diferencia.
+
+## 14. QA para agentes
+
+Antes de declarar terminada una pantalla:
+
+- Usa el shell correcto y su navegación completa.
+- Coincide con la receta de `docs/sections.md`.
+- Usa logos del SVG pack.
+- Reutiliza containers y componentes existentes.
+- No introduce funciones futuras ni datos inventados.
+- Funciona en 390 y 1440 px, además de los breakpoints intermedios.
+- Mantiene labels, foco, teclado, contraste AA y target mínimo 44 px.
+- No oculta contenido detrás de nav/docks.
+- Incluye estados loading, vacío, error y éxito cuando corresponda.
+- Pasa lint, typecheck, tests y build aplicables.
+
+## 15. Hallazgos de Stitch que este contrato corrige
+
+- Navegaciones públicas en español e inglés y con contenidos distintos.
+- Bottom nav de 4 o 5 items, a veces con “Mis pedidos”, “Mensajes” o “Money”.
+- Marca alterna “Oficio Humano”, “Taller de Oficios” o “Tequit Marketplace”.
+- Prestador etiquetado como “Administrador”.
+- Servicios y Portafolio fusionados, aunque son rutas separadas.
+- Dos diseños de Solicitudes con shells diferentes.
+- Estadísticas con ingresos, finanzas y tasa de respuesta no existentes.
+- Configuración, notificaciones, seguridad, mensajes y facturación sin rutas/soporte actual.
+- Íconos Material mezclados con Lucide.
+- Tokens y colores Material diferentes entre HTML y `DESIGN.md`.
+- 42 HTML exportados contienen 41 configuraciones Tailwind distintas; ninguna configuración individual es canónica.
+
+La composición visual de Stitch se conserva donde aporta valor; estas inconsistencias no se trasladan al producto.
