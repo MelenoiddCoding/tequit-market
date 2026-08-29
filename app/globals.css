@@ -310,3 +310,9 @@ th { color: var(--muted); font-size: .75rem; letter-spacing: .08em; text-transfo
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+.account-provider-form { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 18px; }
+.account-provider-form > div { display: grid; gap: 7px; }
+.account-provider-form label { font-size: .82rem; font-weight: 800; }
+.account-provider-form textarea { min-height: 120px; resize: vertical; }
+.account-provider-wide { grid-column: 1/-1; }
+@media (max-width: 639px) { .account-provider-form { grid-template-columns: 1fr; } .account-provider-wide { grid-column: auto; } }

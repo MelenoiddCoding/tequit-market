@@ -5,8 +5,8 @@ import { SiteContainer } from "@/components/layout-primitives";
 import styles from "@/components/identity-redesign.module.css";
 
 export const metadata = {
-  title: "Crear perfil",
-  description: "Crea una cuenta para publicar tu trabajo o negocio en Tequit.",
+  title: "Crear cuenta",
+  description: "Crea tu cuenta de Tequit y añade un perfil de prestador cuando lo necesites.",
 };
 
 export default function RegisterPage() {
@@ -14,9 +14,9 @@ export default function RegisterPage() {
     <SiteContainer className={styles.authShell}>
       <div className={styles.authMain}>
         <header className={styles.authHeader}>
-          <p className="eyebrow">Haz que te encuentren</p>
-          <h1>Publica lo que sabes hacer</h1>
-          <p>Crea una cuenta para ofrecer tus servicios como prestador o negocio local. Explorar, guardar y solicitar sigue disponible sin cuenta.</p>
+          <p className="eyebrow">Tu cuenta Tequit</p>
+          <h1>Busca, guarda y solicita</h1>
+          <p>La cuenta de Usuario es el punto de partida. Si quieres promocionarte, puedes crear tu perfil de prestador ahora o después.</p>
         </header>
         <RegisterForm />
         <p className={styles.authFooterLink}>¿Ya tienes cuenta? <Link className="text-link" href="/login">Inicia sesión</Link></p>

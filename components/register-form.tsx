@@ -10,7 +10,7 @@ type AccountType = "customer" | "provider" | "business";
 
 export function RegisterForm() {
   const router=useRouter();
-  const [accountType, setAccountType] = useState<AccountType | null>(null);
+  const [accountType, setAccountType] = useState<AccountType | null>("customer");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error,setError]=useState("");
@@ -65,12 +65,13 @@ export function RegisterForm() {
           <label htmlFor="register-email">Correo</label>
           <input className={styles.field} id="register-email" name="email" type="email" autoComplete="email" required />
         </div>
-        {accountType !== "customer" && <div className={styles.fieldGroup}>
-          <label htmlFor="register-phone">WhatsApp</label>
-          <input className={styles.field} id="register-phone" name="phone" inputMode="tel" autoComplete="tel" placeholder="311 000 0000" required />
-        </div>}
         <div className={styles.fieldGroup}>
-          <label htmlFor="register-zone">Zona de atención</label>
+          <label htmlFor="register-phone">Número de celular</label>
+          <input className={styles.field} id="register-phone" name="phone" inputMode="tel" autoComplete="tel" placeholder="311 000 0000" required />
+          <p className={styles.fieldHelp}>Quedará asociado a tu cuenta. Por ahora iniciarás sesión con correo.</p>
+        </div>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="register-zone">{accountType==="customer"?"Tu zona":"Zona de atención"}</label>
           <input className={styles.field} id="register-zone" name="zone" placeholder="Ej. Tepic y Xalisco" required />
         </div>
         <div className={styles.fieldGroup}>
@@ -90,8 +91,8 @@ export function RegisterForm() {
         <input name="website" tabIndex={-1} autoComplete="off" aria-hidden hidden />
         {error&&<p className={styles.formError} role="alert">{error}</p>}
         <div className={styles.formActions}>
-          <button className="btn btn-ghost" type="button" onClick={() => setAccountType(null)}><ArrowLeft size={18} aria-hidden /> Cambiar tipo</button>
-          <button className="btn btn-primary" disabled={submitting} type="submit">{submitting ? <Loader2 className="animate-spin" aria-hidden /> : <ArrowRight size={18} aria-hidden />} {submitting ? "Creando perfil…" : "Crear cuenta y perfil"}</button>
+          <button className="btn btn-ghost" type="button" onClick={() => setAccountType(null)}><ArrowLeft size={18} aria-hidden /> Quiero promocionarme</button>
+          <button className="btn btn-primary" disabled={submitting} type="submit">{submitting ? <Loader2 className="animate-spin" aria-hidden /> : <ArrowRight size={18} aria-hidden />} {submitting ? "Creando cuenta…" : accountType==="customer"?"Crear cuenta":"Crear cuenta y perfil"}</button>
         </div>
       </form>}
 

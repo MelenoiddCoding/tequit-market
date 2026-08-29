@@ -4,7 +4,7 @@ import { allowRequest } from "@/lib/rate-limit";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
-const schema=z.object({accountType:z.enum(["customer","provider","business"]),name:z.string().trim().min(2).max(100),profession:z.string().trim().max(100).optional().default(""),email:z.string().email().max(254),phone:z.string().trim().max(30).optional().default(""),zone:z.string().trim().max(120).optional().default("Tepic, Nayarit"),password:z.string().min(8).max(128),bio:z.string().trim().max(1000).optional().default(""),firstService:z.string().trim().max(100).optional().default(""),website:z.string().max(0).optional()});
+const schema=z.object({accountType:z.enum(["customer","provider","business"]),name:z.string().trim().min(2).max(100),profession:z.string().trim().max(100).optional().default(""),email:z.string().email().max(254),phone:z.string().trim().regex(/^[\d\s+()-]{8,20}$/),zone:z.string().trim().max(120).optional().default("Tepic, Nayarit"),password:z.string().min(8).max(128),bio:z.string().trim().max(1000).optional().default(""),firstService:z.string().trim().max(100).optional().default(""),website:z.string().max(0).optional()});
 
 export async function POST(request:Request){
   if(!await allowRequest(request,"register",5,3600))return NextResponse.json({error:"Se alcanzó el límite de registros. Intenta más tarde."},{status:429});

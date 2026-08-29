@@ -16,20 +16,19 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   if (session) {
     if (session.profile?.must_change_password) redirect("/cuenta?password=required");
     if (session.roles.includes("admin")) redirect("/admin");
-    if (session.roles.includes("provider") || session.roles.includes("business_owner")) redirect("/dashboard");
     redirect("/cuenta");
   }
   const { next, reason } = await searchParams;
-  const safeNext = next?.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
+  const safeNext = next?.startsWith("/") && !next.startsWith("//") ? next : "/cuenta";
   const demo = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
   return <main className={styles.authPage}>
     <SiteContainer className={styles.authShell}>
       <div className={styles.authMain}>
         <header className={styles.authHeader}>
-          <p className="eyebrow">Cuenta de prestador o negocio</p>
+          <p className="eyebrow">Tu cuenta Tequit</p>
           <h1>Bienvenido de vuelta</h1>
-          <p>Administra tu perfil, servicios y solicitudes. Quien busca un servicio no necesita iniciar sesión.</p>
+          <p>Entra en modo Usuario. Si también eres prestador, podrás cambiar de modo desde Cuenta.</p>
         </header>
         <div className={styles.formSurface}>
           <LoginForm next={safeNext} demo={demo} sessionExpired={reason === "expired"} />

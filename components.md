@@ -167,7 +167,7 @@ Contenido principal + aside. Variantes `filters` (240–280 px) y `detail` (320�
 
 ### `DashboardFrame`
 
-Shell de panel con sidebar desktop. En mobile conserva el header y bottom nav públicos para mantener continuidad; un selector compacto de sección sustituye al drawer. El contenido usa `DashboardContent` y nunca muestra el footer público.
+Shell del modo Prestador. Desktop usa sidebar completo. Mobile usa avatar en la esquina superior izquierda para abrir el drawer desde ese mismo lado y una bottom nav operativa de cinco destinos: Dashboard, Servicios, Solicitudes, Herramientas y Cuenta. Comparte tokens, tipografía y componentes con el modo Usuario; no muestra el footer público.
 
 ### `DashboardContent`
 
@@ -229,7 +229,7 @@ Nueve items, siempre el mismo orden y copy:
 8. Negocios — `/dashboard/negocios`
 9. Plan — `/dashboard/plan`
 
-Desktop usa `DashboardSidebar`. Mobile conserva `PublicHeader` + `PublicBottomNav` con Cuenta activa y usa un selector compacto con las nueve rutas; nunca usa hamburger, drawer ni nueve tabs horizontales. El cierre de sesión permanece dentro de la cuenta y en el sidebar desktop.
+Desktop usa `DashboardSidebar`. Mobile usa `ProviderMobileHeader`, `ProviderDrawer` y `ProviderBottomNav`. El avatar abre el drawer desde la izquierda con las rutas completas. La bottom nav contiene sólo Dashboard, Servicios, Solicitudes, Herramientas y Cuenta. “Cambiar a modo Usuario” aparece en header/drawer y no cierra sesión.
 
 Usar marca Tequit. “Panel de Juan” es contexto, no otra marca. No usar “Oficio Humano”, “Taller de Oficios”, “Professional Trades” ni “Local Expert”. No llamar “Administrador” al prestador.
 
@@ -282,7 +282,9 @@ Props `variant="horizontal|symbol|wordmark|app-light|app-dark"` y tamaños defin
 - `PublicBottomNav`
 - `PublicFooter`
 - `DashboardSidebar`
-- `DashboardMobileSectionPicker`
+- `ProviderMobileHeader`
+- `ProviderDrawer`
+- `ProviderBottomNav`
 - `AdminSidebar`
 - `Breadcrumbs`
 - `Tabs` sólo para subcontextos reales, no para sustituir navegación global.

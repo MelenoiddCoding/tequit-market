@@ -19,7 +19,7 @@ export function LoginForm({ next = "/dashboard", demo = false, sessionExpired = 
       const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error ?? "No pudimos iniciar sesión.");
-      router.push(body.mustChangePassword ? "/cuenta?password=required" : body.role === "admin" ? "/admin" : body.role === "customer" ? "/cuenta" : next);
+      router.push(body.mustChangePassword ? "/cuenta?password=required" : body.role === "admin" ? "/admin" : next==="/admin"?"/cuenta":next==="/dashboard"?"/cuenta":next);
       router.refresh();
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "No pudimos iniciar sesión. Revisa tu conexión e inténtalo otra vez.");

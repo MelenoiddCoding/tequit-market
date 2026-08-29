@@ -138,9 +138,10 @@ No inventar licencia profesional, domicilio confirmado, horario o garantía.
 
 Estados internos, mismo URL:
 
-1. Selección Prestador/Negocio.
-2. Formulario específico del tipo.
-3. Éxito de registro.
+1. Cuenta Usuario seleccionada por defecto.
+2. Opción secundaria “Quiero promocionarme” para elegir Prestador/Negocio.
+3. Formulario específico del tipo; el celular es obligatorio como dato de cuenta.
+4. Éxito de registro.
 
 Shell y orden:
 
@@ -165,7 +166,7 @@ Credenciales demo sólo en modo demo.
 
 ## Panel de prestador
 
-Todas las rutas siguientes usan el mismo `DashboardShell` con nueve items completos. En mobile mantienen el chrome público y Cuenta activa; el cambio entre áreas ocurre mediante un selector compacto dentro del panel.
+Todas las rutas siguientes usan el mismo `DashboardShell` del modo Prestador. En mobile usan avatar + drawer izquierdo para el mapa completo y bottom nav con Dashboard, Servicios, Solicitudes, Herramientas y Cuenta. El modo Usuario conserva Inicio, Buscar, Negocios, Favoritos y Cuenta.
 
 ### 11. Resumen — `/dashboard` — DASHBOARD
 
@@ -217,7 +218,20 @@ Mobile:
 2. Detalle como estado interno con “Volver a Solicitudes”.
 3. `MobileActionDock` para contacto/estado.
 
-No crear `/mensajes`; la barra inferior es la navegación pública y Cuenta representa el dashboard.
+No crear `/mensajes`; la bottom nav de Prestador prioriza las cinco tareas definidas y el drawer conserva el mapa completo.
+
+### Herramientas — `/dashboard/herramientas` — DASHBOARD
+
+1. Header funcional.
+2. Utilidades previstas: cotizaciones, órdenes de trabajo y calculadoras.
+3. Estado “Próximamente” mientras no exista backend; ninguna acción simula funcionamiento.
+
+### Cuenta de prestador — `/dashboard/cuenta` — DASHBOARD
+
+1. Datos de la cuenta.
+2. Edición del perfil público.
+3. Seguridad.
+4. Cambio explícito a modo Usuario.
 
 ### 16. Reseñas — `/dashboard/resenas` — DASHBOARD
 
