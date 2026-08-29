@@ -42,7 +42,7 @@ Orden:
 6. Prestadores verificados con `ProviderCard`.
 7. Negocios locales con `BusinessCard`.
 8. CTA para crear perfil.
-9. `PublicFooter` y `PublicBottomNav` mobile.
+9. `PublicFooter` desktop y `PublicBottomNav` mobile; no se apilan ambos en celular.
 
 Desktop puede superponer texto/búsqueda sobre una imagen con zona tonal estable. Mobile apila imagen, promesa, buscador y señales; no elimina negocios ni footer del flujo completo.
 

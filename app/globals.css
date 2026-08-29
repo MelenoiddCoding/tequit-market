@@ -299,7 +299,7 @@ th { color: var(--muted); font-size: .75rem; letter-spacing: .08em; text-transfo
   .bottom-nav a.is-active { color: var(--brand); }
   .bottom-nav a.is-active svg { padding: 5px 12px; border-radius: 999px; background: #bcefd4; box-sizing: content-box; }
   .bottom-nav svg { width: 19px; height: 19px; }
-  .footer { padding-bottom: 112px; }
+  .footer { display: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 34px; }
   .footer-brand { grid-template-columns: auto 1fr; }
   .search-page-head { padding: 28px 0; }
@@ -315,4 +315,8 @@ th { color: var(--muted); font-size: .75rem; letter-spacing: .08em; text-transfo
 .account-provider-form label { font-size: .82rem; font-weight: 800; }
 .account-provider-form textarea { min-height: 120px; resize: vertical; }
 .account-provider-wide { grid-column: 1/-1; }
+.account-actions { display: grid; gap: 14px; }
+.account-actions form { display: grid; gap: 10px; }
+.account-actions form label { font-size: .82rem; font-weight: 800; }
+.account-actions .account-logout { width: 100%; }
 @media (max-width: 639px) { .account-provider-form { grid-template-columns: 1fr; } .account-provider-wide { grid-column: auto; } }

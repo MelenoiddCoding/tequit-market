@@ -185,7 +185,7 @@ Acciones críticas sticky/fixed en mobile. Debe respetar safe area, no coexistir
 
 ### `PublicShell`
 
-Compuesto por `PublicHeader`, contenido, `PublicFooter` y `PublicBottomNav` mobile.
+Compuesto por `PublicHeader`, contenido, `PublicFooter` desktop y `PublicBottomNav` mobile. En anchos mobile el footer se oculta porque la bottom nav es el cierre persistente de la app.
 
 #### `PublicHeader`
 
