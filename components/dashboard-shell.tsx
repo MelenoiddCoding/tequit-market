@@ -43,6 +43,7 @@ function Identity({name,subtitle}:{name:string;subtitle:string}) {
 
 function FooterLinks({publicHref}:{publicHref:string}) {
   return <div className={styles.sidebarFooter}>
+    <Link className={styles.utilityLink} href="/"><LayoutDashboard size={17} aria-hidden="true" />Ir al inicio</Link>
     <Link className={styles.utilityLink} href={publicHref}><ExternalLink size={17} aria-hidden="true" />Ver perfil público</Link>
     <LogoutButton className={cn(styles.utilityLink, styles.logout)} />
   </div>;
@@ -50,6 +51,7 @@ function FooterLinks({publicHref}:{publicHref:string}) {
 
 export function DashboardFrame({ children,name,subtitle,publicHref,contextLabel }: { children: React.ReactNode;name:string;subtitle:string;publicHref:string;contextLabel:string }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -65,9 +67,12 @@ export function DashboardFrame({ children,name,subtitle,publicHref,contextLabel 
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleKey);
-    return () => { document.removeEventListener("keydown", handleKey); trigger?.focus(); };
+    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener("keydown", handleKey); trigger?.focus(); };
   }, [open]);
+  const currentLabel=navigation.find(([href])=>href==="/dashboard"?pathname===href:pathname.startsWith(href))?.[2]??"Panel";
   return <div className={styles.frame}>
     <aside className={styles.sidebar}>
       <Link className={styles.brand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" priority /><span className={styles.brandCopy}>{contextLabel}</span></Link>
@@ -75,11 +80,12 @@ export function DashboardFrame({ children,name,subtitle,publicHref,contextLabel 
     </aside>
     <header className={styles.mobileHeader}>
       <Link className={styles.mobileBrand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" /></Link>
-      <button ref={menuButtonRef} className={styles.menuButton} type="button" onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}><Menu size={21} /></button>
+      <span className={styles.mobileContext}>{currentLabel}</span>
+      <button ref={menuButtonRef} className={styles.menuButton} type="button" onClick={() => setOpen(true)} aria-label="Abrir menú del panel" aria-expanded={open} aria-controls="dashboard-mobile-drawer"><span>Menú</span><Menu size={20} aria-hidden="true" /></button>
     </header>
     {open && <div className={styles.drawerOverlay} role="presentation" onMouseDown={(event) => event.currentTarget === event.target && setOpen(false)}>
-      <aside ref={drawerRef} className={styles.drawer} role="dialog" aria-modal="true" aria-label="Navegación del panel">
-        <div className={styles.drawerTop}><BrandLogo variant="horizontal" /><button className={styles.menuButton} type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={21} /></button></div>
+      <aside ref={drawerRef} id="dashboard-mobile-drawer" className={styles.drawer} role="dialog" aria-modal="true" aria-label="Navegación del panel">
+        <div className={styles.drawerTop}><div><BrandLogo variant="horizontal" /><span className={styles.drawerContext}>{contextLabel}</span></div><button className={styles.closeButton} type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={21} /></button></div>
         <Identity name={name} subtitle={subtitle}/><DashboardNavigation onNavigate={() => setOpen(false)} /><FooterLinks publicHref={publicHref}/>
       </aside>
     </div>}
