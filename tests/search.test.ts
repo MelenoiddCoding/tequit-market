@@ -5,4 +5,5 @@ describe("búsqueda cotidiana",()=>{
   it("normaliza acentos y puntuación",()=>expect(normalizeSearch("¡Plomería en Tepic!")).toBe("plomeria en tepic"));
   it("fontanero encuentra plomería",()=>{const results=searchMarketplaceData(providers,businesses,"fontanero");expect(results.some(r=>r.provider?.slug==="miguel-ibarra")).toBe(true)});
   it("concreto estampado encuentra el negocio y no lo publica Juan",()=>{const results=searchMarketplaceData(providers,businesses,"concreto estampado");expect(results.some(r=>r.business?.slug==="concretos-estampados-de-nayarit")).toBe(true);expect(results.some(r=>r.provider?.slug==="juan-perez")).toBe(false)});
+  it("encuentra trabajos del portafolio y no coincide sólo por preposiciones",()=>{const provider={...providers[0],portfolio:[...providers[0].portfolio,{id:"pump",title:"Mantenimiento de bombas de agua",description:"Servicio correctivo de bombas eléctricas",image:"/pump.jpg"}]};expect(searchMarketplaceData([provider],[],"bombas").some(result=>result.provider?.id===provider.id)).toBe(true);expect(searchMarketplaceData(providers,businesses,"servicio de unicornios")).toHaveLength(0)});
 });

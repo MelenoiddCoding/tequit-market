@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import type { Business, Provider, Review, Service, Verification } from "@/types";
 
 type CategoryRow = { name: string } | null;
-type CanonicalRow = { id: string; slug: string; name: string; service_categories: CategoryRow } | null;
+type CanonicalRow = { id: string; slug: string; name: string; service_categories: CategoryRow; service_aliases?: Array<{alias:string}> } | null;
 type ServiceRow = { id: string; title: string; active: boolean; canonical_services: CanonicalRow };
 type MediaRow = { id: string; title: string | null; description?: string | null; storage_path: string };
 type VerificationRow = { type: Verification["type"]; verified_at: string };
@@ -26,7 +26,7 @@ type BusinessRow = {
 };
 
 function storageUrl(bucket:string,path:string|null|undefined){const base=process.env.NEXT_PUBLIC_SUPABASE_URL;return base&&path?`${base}/storage/v1/object/public/${bucket}/${path}`:"/images/tequit-hero.png"}
-function mapService(row:ServiceRow):Service{const canonical=row.canonical_services;return{id:row.id,slug:canonical?.slug??row.id,name:row.title,category:canonical?.service_categories?.name??"Otro"}}
+function mapService(row:ServiceRow):Service{const canonical=row.canonical_services;return{id:row.id,slug:canonical?.slug??row.id,name:row.title,category:canonical?.service_categories?.name??"Otro",aliases:canonical?.service_aliases?.map((item)=>item.alias)??[]}}
 function mapReview(row:ReviewRow):Review{return{id:row.id,author:row.customer_name,rating:row.rating,comment:row.comment,date:row.created_at.slice(0,10),status:row.status,source:row.review_requests?.source??"invited_customer"}}
 function mapProvider(row:ProviderRow):Provider{const affiliation=row.provider_business_affiliations.find((item)=>item.status==="active")?.businesses;return{
   id:row.id,slug:row.slug,name:row.name,profession:row.profession,bio:row.bio,zone:row.zone,areas:row.provider_service_areas.flatMap((item)=>item.service_areas?.name?[item.service_areas.name]:[]),
@@ -43,8 +43,8 @@ function mapBusiness(row:BusinessRow):Business{return{
   providerSlugs:row.provider_business_affiliations.flatMap((item)=>item.status==="active"&&item.provider_profiles?.slug?[item.provider_profiles.slug]:[]),isDemo:row.is_demo,canContact:!row.is_demo,portfolio:row.business_media.map((item)=>({id:item.id,title:item.title??"Trabajo publicado",description:"",image:storageUrl("business-media",item.storage_path),path:item.storage_path})),
 }}
 
-const providerSelect=`id,slug,name,profession,bio,phone,zone,plan,status,rating,review_count,avatar_path,is_demo,provider_services(id,title,active,canonical_services(id,slug,name,service_categories(name))),provider_media(id,title,description,storage_path),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name))`;
-const businessSelect=`id,slug,name,description,phone,zone,address,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,active,canonical_services(id,slug,name,service_categories(name))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
+const providerSelect=`id,slug,name,profession,bio,phone,zone,plan,status,rating,review_count,avatar_path,is_demo,provider_services(id,title,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),provider_media(id,title,description,storage_path),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name))`;
+const businessSelect=`id,slug,name,description,phone,zone,address,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
 
 export async function getProviders(options:{includeInactive?:boolean}={}):Promise<Provider[]>{const client=createAdminClient();if(!client)return[];let query=client.from("provider_profiles").select(providerSelect).order("rating",{ascending:false});if(!options.includeInactive)query=query.eq("status","active");const{data,error}=await query;if(error){console.error("provider query",error.message);return[]}return(data as unknown as ProviderRow[]).map(mapProvider)}
 export async function getBusinesses(options:{includeInactive?:boolean}={}):Promise<Business[]>{const client=createAdminClient();if(!client)return[];let query=client.from("businesses").select(businessSelect).order("rating",{ascending:false});if(!options.includeInactive)query=query.eq("status","active");const{data,error}=await query;if(error){console.error("business query",error.message);return[]}return(data as unknown as BusinessRow[]).map(mapBusiness)}
