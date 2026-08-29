@@ -165,7 +165,7 @@ Credenciales demo sólo en modo demo.
 
 ## Panel de prestador
 
-Todas las rutas siguientes usan el mismo `DashboardShell` con nueve items completos.
+Todas las rutas siguientes usan el mismo `DashboardShell` con nueve items completos. En mobile mantienen el chrome público y Cuenta activa; el cambio entre áreas ocurre mediante un selector compacto dentro del panel.
 
 ### 11. Resumen — `/dashboard` — DASHBOARD
 
@@ -217,7 +217,7 @@ Mobile:
 2. Detalle como estado interno con “Volver a Solicitudes”.
 3. `MobileActionDock` para contacto/estado.
 
-No crear `/mensajes`; no bottom nav de dashboard.
+No crear `/mensajes`; la barra inferior es la navegación pública y Cuenta representa el dashboard.
 
 ### 16. Reseñas — `/dashboard/resenas` — DASHBOARD
 

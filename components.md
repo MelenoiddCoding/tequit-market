@@ -167,7 +167,7 @@ Contenido principal + aside. Variantes `filters` (240–280 px) y `detail` (320�
 
 ### `DashboardFrame`
 
-Shell de panel con sidebar desktop y header/drawer mobile. El contenido usa `DashboardContent`; nunca hereda header/footer público.
+Shell de panel con sidebar desktop. En mobile conserva el header y bottom nav públicos para mantener continuidad; un selector compacto de sección sustituye al drawer. El contenido usa `DashboardContent` y nunca muestra el footer público.
 
 ### `DashboardContent`
 
@@ -229,7 +229,7 @@ Nueve items, siempre el mismo orden y copy:
 8. Negocios — `/dashboard/negocios`
 9. Plan — `/dashboard/plan`
 
-Desktop usa `DashboardSidebar`. Mobile usa `DashboardMobileHeader` + `DashboardDrawer`; nunca bottom nav de cuatro items ni nueve tabs horizontales. Acciones al final: Ver perfil público y Cerrar sesión.
+Desktop usa `DashboardSidebar`. Mobile conserva `PublicHeader` + `PublicBottomNav` con Cuenta activa y usa un selector compacto con las nueve rutas; nunca usa hamburger, drawer ni nueve tabs horizontales. El cierre de sesión permanece dentro de la cuenta y en el sidebar desktop.
 
 Usar marca Tequit. “Panel de Juan” es contexto, no otra marca. No usar “Oficio Humano”, “Taller de Oficios”, “Professional Trades” ni “Local Expert”. No llamar “Administrador” al prestador.
 
@@ -282,8 +282,7 @@ Props `variant="horizontal|symbol|wordmark|app-light|app-dark"` y tamaños defin
 - `PublicBottomNav`
 - `PublicFooter`
 - `DashboardSidebar`
-- `DashboardMobileHeader`
-- `DashboardDrawer`
+- `DashboardMobileSectionPicker`
 - `AdminSidebar`
 - `Breadcrumbs`
 - `Tabs` sólo para subcontextos reales, no para sustituir navegación global.
