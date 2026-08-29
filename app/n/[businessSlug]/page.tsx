@@ -3,23 +3,19 @@ import { notFound } from "next/navigation";
 import { BusinessTeam, DetailSection, DirectedRequest, EntityHero, identityStyles, ProductList, ReviewList, ServiceList, VerificationPanel } from "@/components/identity-redesign";
 import { SiteContainer } from "@/components/layout-primitives";
 import { ViewTracker } from "@/components/view-tracker";
-import { businesses, providers } from "@/lib/demo-data";
-
-export function generateStaticParams() {
-  return businesses.map((business) => ({ businessSlug: business.slug }));
-}
+import { getBusinessBySlug, getProviders } from "@/lib/marketplace";
 
 export async function generateMetadata({ params }: { params: Promise<{ businessSlug: string }> }): Promise<Metadata> {
   const { businessSlug } = await params;
-  const business = businesses.find((item) => item.slug === businessSlug);
+  const business = await getBusinessBySlug(businessSlug);
   return business ? { title: business.name, description: business.description } : { title: "Negocio no encontrado" };
 }
 
 export default async function BusinessPage({ params }: { params: Promise<{ businessSlug: string }> }) {
   const { businessSlug } = await params;
-  const business = businesses.find((item) => item.slug === businessSlug && item.status === "active");
+  const business = await getBusinessBySlug(businessSlug);
   if (!business) notFound();
-  const team = providers.filter((provider) => business.providerSlugs.includes(provider.slug) && provider.status === "active");
+  const team = (await getProviders()).filter((provider) => business.providerSlugs.includes(provider.slug));
 
   return <main className={identityStyles.detailPage}>
     <ViewTracker type="business_view" target={business.slug} />
@@ -51,7 +47,7 @@ export default async function BusinessPage({ params }: { params: Promise<{ busin
         </DetailSection>
       </div>
       <aside className={identityStyles.aside} aria-label={`Confianza y contacto de ${business.name}`}>
-        <VerificationPanel verifications={business.verifications} phone={business.phone} name={business.name} />
+        <VerificationPanel verifications={business.verifications} phone={business.phone} name={business.name} slug={business.slug} kind="business" canContact={business.canContact} />
       </aside>
     </SiteContainer>
     <SiteContainer size="reading">

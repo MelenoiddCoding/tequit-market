@@ -36,18 +36,19 @@ function DashboardNavigation({ onNavigate }: { onNavigate?: () => void }) {
   </nav>;
 }
 
-function Identity() {
-  return <div className={styles.identity}><span className={styles.avatar} aria-hidden="true">JP</span><div><strong>Juan Pérez</strong><span>Albañil · Plan Free</span></div></div>;
+function Identity({name,subtitle}:{name:string;subtitle:string}) {
+  const initials=name.split(" ").slice(0,2).map((item)=>item[0]).join("");
+  return <div className={styles.identity}><span className={styles.avatar} aria-hidden="true">{initials}</span><div><strong>{name}</strong><span>{subtitle}</span></div></div>;
 }
 
-function FooterLinks() {
+function FooterLinks({publicHref}:{publicHref:string}) {
   return <div className={styles.sidebarFooter}>
-    <Link className={styles.utilityLink} href="/p/juan-perez"><ExternalLink size={17} aria-hidden="true" />Ver perfil público</Link>
+    <Link className={styles.utilityLink} href={publicHref}><ExternalLink size={17} aria-hidden="true" />Ver perfil público</Link>
     <LogoutButton className={cn(styles.utilityLink, styles.logout)} />
   </div>;
 }
 
-export function DashboardFrame({ children }: { children: React.ReactNode }) {
+export function DashboardFrame({ children,name,subtitle,publicHref,contextLabel }: { children: React.ReactNode;name:string;subtitle:string;publicHref:string;contextLabel:string }) {
   const [open, setOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
@@ -69,8 +70,8 @@ export function DashboardFrame({ children }: { children: React.ReactNode }) {
   }, [open]);
   return <div className={styles.frame}>
     <aside className={styles.sidebar}>
-      <Link className={styles.brand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" priority /><span className={styles.brandCopy}>Panel de prestador</span></Link>
-      <Identity /><DashboardNavigation /><FooterLinks />
+      <Link className={styles.brand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" priority /><span className={styles.brandCopy}>{contextLabel}</span></Link>
+      <Identity name={name} subtitle={subtitle}/><DashboardNavigation /><FooterLinks publicHref={publicHref}/>
     </aside>
     <header className={styles.mobileHeader}>
       <Link className={styles.mobileBrand} href="/" aria-label="Tequit — Inicio"><BrandLogo variant="horizontal" /></Link>
@@ -79,7 +80,7 @@ export function DashboardFrame({ children }: { children: React.ReactNode }) {
     {open && <div className={styles.drawerOverlay} role="presentation" onMouseDown={(event) => event.currentTarget === event.target && setOpen(false)}>
       <aside ref={drawerRef} className={styles.drawer} role="dialog" aria-modal="true" aria-label="Navegación del panel">
         <div className={styles.drawerTop}><BrandLogo variant="horizontal" /><button className={styles.menuButton} type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={21} /></button></div>
-        <Identity /><DashboardNavigation onNavigate={() => setOpen(false)} /><FooterLinks />
+        <Identity name={name} subtitle={subtitle}/><DashboardNavigation onNavigate={() => setOpen(false)} /><FooterLinks publicHref={publicHref}/>
       </aside>
     </div>}
     <div className={styles.main}>{children}</div>

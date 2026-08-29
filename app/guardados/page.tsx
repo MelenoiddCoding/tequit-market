@@ -1,6 +1,8 @@
 import { MonitorSmartphone } from "lucide-react";
 import { SiteContainer } from "@/components/layout-primitives";
 import { SavedList } from "@/components/saved-list";
+import { getMarketplace } from "@/lib/marketplace";
+export const dynamic="force-dynamic";
 import styles from "@/components/identity-redesign.module.css";
 
 export const metadata = {
@@ -8,7 +10,8 @@ export const metadata = {
   description: "Personas y negocios guardados en este dispositivo.",
 };
 
-export default function SavedPage() {
+export default async function SavedPage() {
+  const {providers,businesses}=await getMarketplace();
   return <main className={styles.savedPage}>
     <SiteContainer>
       <header className={styles.savedHeader}>
@@ -17,9 +20,9 @@ export default function SavedPage() {
           <h1>Tus guardados</h1>
           <span className={styles.deviceBadge}><MonitorSmartphone size={16} aria-hidden /> En este dispositivo</span>
         </div>
-        <p>Se conservan en este navegador y no se sincronizan con otros dispositivos. No necesitas crear una cuenta para guardar.</p>
+        <p>Sin cuenta se conservan en este navegador. Al iniciar sesión se sincronizan entre tus dispositivos.</p>
       </header>
-      <SavedList />
+      <SavedList providers={providers} businesses={businesses} />
     </SiteContainer>
   </main>;
 }

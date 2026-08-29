@@ -35,7 +35,7 @@ export function ProviderProfile({ provider }: { provider: Provider }) {
 
       </div>
       <aside className={identityStyles.aside} aria-label={`Confianza y contacto de ${provider.name}`}>
-        <VerificationPanel verifications={provider.verifications} phone={provider.phone} name={provider.name} />
+        <VerificationPanel verifications={provider.verifications} phone={provider.phone} name={provider.name} slug={provider.slug} kind="provider" canContact={provider.canContact} />
       </aside>
     </SiteContainer>
     <SiteContainer size="reading">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Heart, Store, UserRound } from "lucide-react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { BusinessCard, ProviderCard } from "@/components/cards";
-import { businesses, providers } from "@/lib/demo-data";
+import type { Business, Provider } from "@/types";
 import styles from "@/components/identity-redesign.module.css";
 
 const STORAGE_KEY = "tequit-saved";
@@ -36,7 +36,7 @@ function parseSaved(raw: string) {
   }
 }
 
-export function SavedList() {
+export function SavedList({providers,businesses}:{providers:Provider[];businesses:Business[]}) {
   const raw = useSyncExternalStore(subscribe, getSnapshot, () => "[]");
   const { values: saved, error } = parseSaved(raw);
   const people = providers.filter((provider) => saved.includes(`provider:${provider.slug}`));
@@ -44,6 +44,8 @@ export function SavedList() {
   const previousRaw = useRef(typeof window === "undefined" ? raw : getSnapshot());
   const suppressNotice = useRef(false);
   const [notice, setNotice] = useState<{ text: string; undoRaw: string } | null>(null);
+
+  useEffect(()=>{void fetch("/api/favorites").then((response)=>response.json()).then((data:{authenticated?:boolean;items?:string[]})=>{if(!data.authenticated||!Array.isArray(data.items))return;const merged=Array.from(new Set([...parseSaved(getSnapshot()).values,...data.items]));localStorage.setItem(STORAGE_KEY,JSON.stringify(merged));window.dispatchEvent(new Event("tequit-saved"))}).catch(()=>undefined)},[]);
 
   useEffect(() => {
     if (raw === previousRaw.current) return;

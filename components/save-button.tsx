@@ -47,6 +47,7 @@ export function SaveButton({ slug, type }: { slug: string; type: "provider" | "b
     const next = values.includes(key) ? values.filter((value) => value !== key) : [...values, key];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     window.dispatchEvent(new Event(SAVED_EVENT));
+    void fetch("/api/favorites",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,slug,saved:next.includes(key)})});
   }
 
   return (

@@ -4,13 +4,11 @@ Tequit es un marketplace/directorio local de servicios para Tepic, Nayarit. Ayud
 
 ## Entorno público de pruebas
 
-La versión desplegada está disponible en [https://tequit-market.vercel.app](https://tequit-market.vercel.app). Actualmente opera con `NEXT_PUBLIC_DEMO_MODE=true`: permite recorrer el producto completo sin depender de infraestructura externa y devuelve solicitudes demo no persistentes.
+La beta persistente está disponible en [https://tequit-market.vercel.app](https://tequit-market.vercel.app). Opera con Supabase Auth, PostgreSQL y Storage reales; `NEXT_PUBLIC_DEMO_MODE=false` en Preview y Production.
 
 ## Estado del MVP
 
-La aplicación incluye frontend público mobile-first, búsqueda, perfiles de prestadores, negocios con productos y servicios, guardados en el navegador, solicitudes sin cuenta, eventos de contacto, login demo, dashboard, límite Free/Pro, moderación administrativa, migraciones PostgreSQL, RLS, Storage y seed reproducible.
-
-En `NEXT_PUBLIC_DEMO_MODE=true` usa el catálogo incluido y permite recorrer todos los flujos sin Docker. Con Supabase configurado y Demo Mode desactivado, los endpoints de solicitudes y eventos escriben en PostgreSQL. La arquitectura de lectura está separada en `lib/` para migrarla por completo al repositorio Supabase cuando se publique el piloto.
+La aplicación incluye frontend público mobile-first, búsqueda, perfiles de prestadores y negocios, favoritos sincronizados, solicitudes anónimas o con cuenta, fotos privadas, eventos, sesiones SSR, dashboard, límites Free/Pro, reseñas moderadas, panel administrativo, RLS, Storage y seed reproducible. El catálogo inicial se conserva en Supabase como contenido de muestra claramente etiquetado y sin contacto.
 
 ## Stack
 
@@ -27,8 +25,8 @@ En `NEXT_PUBLIC_DEMO_MODE=true` usa el catálogo incluido y permite recorrer tod
 ```text
 app/                    App Router, páginas y API routes
 components/             UI pública, formularios y paneles interactivos
-lib/demo-data.ts        Adaptador de catálogo demo local
-lib/search.ts           Normalización, aliases y ranking reemplazable
+lib/marketplace.ts      Consultas tipadas y mapeo del catálogo Supabase
+lib/search.ts           Normalización, aliases y ranking de búsqueda
 lib/supabase/           Clientes browser/server/admin
 lib/plan.ts             Regla central Free/Pro
 lib/whatsapp.ts         Construcción central de URLs de WhatsApp
@@ -39,7 +37,7 @@ tests/                  Reglas y flujos críticos
 docs/                   Producto, datos, búsqueda, seguridad y deploy
 ```
 
-## Arranque inmediato (modo demo)
+## Arranque local
 
 Requisitos: Node.js 20+ y npm 10+.
 
@@ -49,7 +47,7 @@ copy .env.example .env.local
 npm run dev
 ```
 
-En macOS/Linux cambia `copy` por `cp`. La URL esperada es [http://localhost:3000](http://localhost:3000).
+En macOS/Linux cambia `copy` por `cp`. Completa las variables Supabase antes de iniciar. La URL esperada es [http://localhost:3000](http://localhost:3000).
 
 ## Supabase local completo
 
@@ -68,19 +66,7 @@ npm run seed:users
 npm run dev
 ```
 
-`supabase db reset` aplica `202608260001_initial_schema.sql` y `seed.sql`. `seed:users` crea 12 prestadores, 4 negocios y membresías mediante Admin API. La service role nunca debe llevar prefijo `NEXT_PUBLIC_`.
-
-## Usuarios demo
-
-Sólo para desarrollo local:
-
-| Rol | Correo | Contraseña |
-|---|---|---|
-| Prestador / Juan | `provider@tequit.local` | `Tequit123!` |
-| Dueño de negocio | `business@tequit.local` | `Tequit123!` |
-| Administrador | `admin@tequit.local` | `Tequit123!` |
-
-El login navegable usa una cookie demo `httpOnly`. En el entorno Supabase, los mismos usuarios se crean en Auth; antes de producción debe sustituirse el endpoint demo por la sesión SSR de Supabase.
+`supabase db reset` aplica las migraciones y `seed.sql`. `seed:users` crea el administrador y migra 12 prestadores y 4 negocios de muestra mediante Admin API. La service role nunca debe llevar prefijo `NEXT_PUBLIC_` ni guardarse en Git.
 
 ## Scripts
 
@@ -102,8 +88,8 @@ npm run seed:users
 5. `/dashboard/servicios` → intento de sexto servicio → rechazo 409 y upsell Pro.
 6. Buscar “concreto estampado” → Concretos Estampados de Nayarit → productos, servicios y equipo.
 7. Buscar “decoración de bodas” → Florería Rosario.
-8. Admin → moderar reseña y cambiar plan visualmente.
-9. Guardados sobreviven refresh en `localStorage`.
+8. Admin → moderar reseña, suspender publicación y cambiar plan persistentemente.
+9. Guardados se sincronizan en Supabase para clientes con cuenta.
 
 ## Modelo de datos
 
@@ -116,15 +102,15 @@ El modelo separa identidad, prestador, negocio, membresías, afiliaciones, capac
 - WhatsApp es el canal, Tequit no almacena conversaciones.
 - Solicitudes generales se guardan sin target y las revisa admin; una solicitud dirigida admite sólo un target.
 - Media pública y fotos privadas de leads viven en buckets distintos.
-- El modo demo permite enseñar el producto sin infraestructura, pero no finge persistencia: la respuesta del API marca `demo: true`.
+- Los perfiles sembrados son muestras, se etiquetan y no permiten contacto ni solicitudes dirigidas.
 
 ## No incluido
 
 Pagos, comisiones, chat interno, tracking, asignación automática, disponibilidad en tiempo real, calendario complejo, facturación y app nativa. El cambio de plan es administrativo; no hay checkout Pro.
 
-## Deploy futuro
+## Despliegue
 
-Consulta [docs/deployment.md](docs/deployment.md). En resumen: crear proyecto Supabase, aplicar migraciones, crear buckets/policies, configurar variables en Vercel, agregar callbacks de Auth y ejecutar `npm run build` antes del despliegue.
+Consulta [docs/deployment.md](docs/deployment.md) para infraestructura y [docs/beta-testing.md](docs/beta-testing.md) para el recorrido de aceptación.
 
 ## Asset visual generado
 

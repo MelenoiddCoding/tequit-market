@@ -10,13 +10,16 @@ export interface Provider {
   id: string; slug: string; name: string; profession: string; bio: string; zone: string; areas: string[];
   rating: number; reviewCount: number; plan: Plan; status: PublicationStatus; services: Service[];
   verifications: Verification[]; reviews: Review[]; businessSlug?: string; businessName?: string; phone: string;
-  featured?: boolean; portfolio: { id: string; title: string; description: string; image: string }[];
+  featured?: boolean; portfolio: { id: string; title: string; description: string; image: string; path?: string }[];
+  isDemo?: boolean; canContact?: boolean;
 }
 export interface Product { id: string; name: string; description: string }
 export interface Business {
   id: string; slug: string; name: string; category: string; description: string; zone: string; address: string;
   rating: number; reviewCount: number; status: PublicationStatus; phone: string; services: Service[]; products: Product[];
   verifications: Verification[]; reviews: Review[]; providerSlugs: string[]; featured?: boolean;
+  isDemo?: boolean; canContact?: boolean;
+  portfolio?: { id: string; title: string; description: string; image: string; path?: string }[];
 }
 export interface Lead {
   id: string; targetProviderSlug?: string; targetBusinessSlug?: string; requestedService: string; description: string;

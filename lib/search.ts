@@ -1,4 +1,3 @@
-import { businesses, providers } from "@/lib/demo-data";
 import type { Business, Provider, SearchResult } from "@/types";
 
 export function normalizeSearch(value: string) {
@@ -13,11 +12,11 @@ function entityText(entity: Provider | Business) {
   return normalizeSearch(common.join(" "));
 }
 
-export function searchMarketplace(query: string, type: "all" | "provider" | "business" = "all", verified = false): SearchResult[] {
+export function searchMarketplaceData(providersData: Provider[], businessesData: Business[], query: string, type: "all" | "provider" | "business" = "all", verified = false): SearchResult[] {
   const terms = normalizeSearch(query).split(" ").filter((t) => t.length > 1);
   const candidates: SearchResult[] = [
-    ...providers.filter((p) => p.status === "active").map((provider) => ({ type: "provider" as const, provider, score: score(entityText(provider), terms, provider.name) })),
-    ...businesses.filter((b) => b.status === "active").map((business) => ({ type: "business" as const, business, score: score(entityText(business), terms, business.name) })),
+    ...providersData.filter((p) => p.status === "active").map((provider) => ({ type: "provider" as const, provider, score: score(entityText(provider), terms, provider.name) })),
+    ...businessesData.filter((b) => b.status === "active").map((business) => ({ type: "business" as const, business, score: score(entityText(business), terms, business.name) })),
   ];
   return candidates.filter((r) => (type === "all" || r.type === type) && (!verified || Boolean((r.provider ?? r.business)?.verifications.length)) && (!terms.length || r.score > 0)).sort((a, b) => b.score - a.score || rating(b) - rating(a));
 }
@@ -28,9 +27,3 @@ function score(text: string, terms: string[], name: string) {
   return terms.reduce((total, term) => total + (normalizedName.includes(term) ? 8 : 0) + (text.includes(term) ? 3 : 0), 0);
 }
 const rating = (r: SearchResult) => (r.provider ?? r.business)?.rating ?? 0;
-
-export function relatedFor(query: string) {
-  const q = normalizeSearch(query);
-  const category = q.includes("piso") || q.includes("concreto") ? "Construcción" : q.includes("flor") || q.includes("boda") ? "Eventos" : "Hogar";
-  return providers.filter((p) => p.services.some((s) => s.category === category)).slice(0, 3);
-}

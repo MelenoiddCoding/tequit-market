@@ -47,7 +47,7 @@ export function EntityHero({ entity, kind }: { entity: Provider | Business; kind
         {isProvider ? initials(title) : <Building2 size={46} />}
       </div>
       <div>
-        <p className={styles.heroEyebrow}>{eyebrow}</p>
+        <p className={styles.heroEyebrow}>{entity.isDemo ? "Perfil de muestra · " : ""}{eyebrow}</p>
         <h1 id="entity-name" className={styles.heroTitle}>{title}</h1>
         <div className={styles.heroMeta}>
           <Rating value={entity.rating} count={entity.reviewCount} />
@@ -57,13 +57,15 @@ export function EntityHero({ entity, kind }: { entity: Provider | Business; kind
       </div>
       <div className={styles.heroActions}>
         <div className={styles.saveHero}><SaveButton slug={entity.slug} type={kind} /></div>
-        <WhatsAppButton
+        {entity.canContact !== false ? <WhatsAppButton
           phone={entity.phone}
           message={providerMessage(title, isProvider ? (entity as Provider).profession : "sus productos o servicios")}
           label={`Contactar a ${title} por WhatsApp`}
           className={`btn btn-block ${styles.whatsappButton}`}
-        />
-        <Link className="btn btn-secondary" href="#solicitar">Solicitar trabajo</Link>
+          targetSlug={entity.slug}
+          targetType={kind}
+        /> : <button className="btn btn-secondary" type="button" disabled>Contacto no disponible en muestras</button>}
+        {entity.canContact !== false && <Link className="btn btn-secondary" href="#solicitar">Solicitar trabajo</Link>}
       </div>
     </SiteContainer>
   </section>;
@@ -113,12 +115,14 @@ export function ProductList({ business }: { business: Business }) {
     {business.products.map((product) => <article className={styles.productItem} key={product.id}>
       <div className={styles.serviceTitle}><Package size={19} aria-hidden /><strong>{product.name}</strong></div>
       <p>{product.description}</p>
-      <WhatsAppButton
+      {business.canContact !== false ? <WhatsAppButton
         phone={business.phone}
         message={providerMessage(business.name, product.name)}
         label={`Preguntar por ${product.name} en WhatsApp`}
         className={`btn ${styles.whatsappButton}`}
-      />
+        targetSlug={business.slug}
+        targetType="business"
+      /> : <span className="help">Producto de muestra · contacto desactivado</span>}
     </article>)}
   </div>;
 }
@@ -141,7 +145,7 @@ export function ReviewList({ reviews }: { reviews: Review[] }) {
   </div>;
 }
 
-export function VerificationPanel({ verifications, phone, name }: { verifications: Verification[]; phone: string; name: string }) {
+export function VerificationPanel({ verifications, phone, name, slug, kind, canContact = true }: { verifications: Verification[]; phone: string; name: string; slug?:string; kind?:"provider"|"business"; canContact?: boolean }) {
   return <div className={styles.verificationPanel}>
     <ShieldCheck size={30} color="var(--verified)" aria-hidden />
     <h2>Verificaciones</h2>
@@ -155,7 +159,7 @@ export function VerificationPanel({ verifications, phone, name }: { verification
       })}
     </div>
     <p className={styles.verificationNote}>Estas señales confirman datos específicos; no garantizan el resultado de un trabajo ni sustituyen un acuerdo directo.</p>
-    <WhatsAppButton phone={phone} message={providerMessage(name)} label={`Contactar a ${name} por WhatsApp`} className={`btn btn-block ${styles.whatsappButton}`} />
+    {canContact ? <WhatsAppButton phone={phone} message={providerMessage(name)} label={`Contactar a ${name} por WhatsApp`} className={`btn btn-block ${styles.whatsappButton}`} targetSlug={slug} targetType={kind} /> : <p className="help">Este perfil es una muestra. El contacto está desactivado.</p>}
   </div>;
 }
 
@@ -167,6 +171,7 @@ export function AffiliationNotice({ businessSlug, businessName }: { businessSlug
 }
 
 export function DirectedRequest({ entity, kind }: { entity: Provider | Business; kind: "provider" | "business" }) {
+  if (entity.canContact === false) return <div className={styles.requestSurface}><p className="eyebrow">Perfil de muestra</p><h2>Solicitud no disponible</h2><p className="section-description">Explora un perfil real para enviar una solicitud y contactar directamente.</p><Link className="btn btn-primary" href="/buscar">Ver perfiles reales</Link></div>;
   return <div className={styles.requestSurface}>
     <p className="eyebrow">Solicitud directa</p>
     <h2>Cuéntale qué necesitas</h2>
