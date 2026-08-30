@@ -30,7 +30,7 @@ type BusinessRow = {
 
 function storageUrl(bucket:string,path:string|null|undefined){const base=process.env.NEXT_PUBLIC_SUPABASE_URL;return base&&path?`${base}/storage/v1/object/public/${bucket}/${path}`:"/images/tequit-hero.png"}
 function optionalStorageUrl(bucket:string,path:string|null|undefined){const base=process.env.NEXT_PUBLIC_SUPABASE_URL;return base&&path?`${base}/storage/v1/object/public/${bucket}/${path}`:undefined}
-function mapService(row:ServiceRow):Service{const canonical=row.canonical_services;return{id:row.id,slug:canonical?.slug??row.id,name:row.title,description:row.description,category:canonical?.service_categories?.name??"Otro",aliases:canonical?.service_aliases?.map((item)=>item.alias)??[]}}
+function mapService(row:ServiceRow):Service{const canonical=row.canonical_services;return{id:row.id,slug:canonical?.slug??`../buscar?q=${encodeURIComponent(row.title)}`,name:row.title,description:row.description,category:canonical?.service_categories?.name??"Otro",aliases:canonical?.service_aliases?.map((item)=>item.alias)??[]}}
 function mapReview(row:ReviewRow):Review{return{id:row.id,author:row.customer_name,rating:row.rating,comment:row.comment,date:row.created_at.slice(0,10),status:row.status,source:row.review_requests?.source??"invited_customer"}}
 function mapProvider(row:ProviderRow):Provider{const affiliation=row.provider_business_affiliations.find((item)=>item.status==="active")?.businesses;const settings=row.provider_site_settings;const provider={
   id:row.id,slug:row.slug,name:row.name,profession:row.profession,bio:row.bio,zone:row.zone,areas:row.provider_service_areas.flatMap((item)=>item.service_areas?.name?[item.service_areas.name]:[]),
