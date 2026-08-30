@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect,useRef,useState } from "react";
 import {
   BarChart3, BriefcaseBusiness, ClipboardList, ExternalLink, Images,
-  Hammer,Home,LayoutDashboard,MessageSquareText,ShieldCheck,UserRound,Wrench,X,
+  Globe2,Hammer,Home,LayoutDashboard,MessageSquareText,ShieldCheck,UserRound,Wrench,X,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { LogoutButton } from "@/components/logout-button";
@@ -15,6 +15,7 @@ import { cn } from "@/lib/cn";
 const navigation = [
   ["/dashboard", LayoutDashboard, "Resumen"],
   ["/dashboard/perfil", UserRound, "Mi perfil"],
+  ["/dashboard/sitio", Globe2, "Mi sitio"],
   ["/dashboard/servicios", Wrench, "Servicios"],
   ["/dashboard/trabajos", Images, "Trabajos"],
   ["/dashboard/solicitudes", ClipboardList, "Solicitudes"],

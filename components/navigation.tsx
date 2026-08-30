@@ -39,5 +39,6 @@ export function PublicChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   if(pathname.startsWith("/admin"))return children;
   if(pathname.startsWith("/dashboard"))return children;
+  if(pathname.startsWith("/p/"))return children;
   return <><Header />{children}<Footer /><BottomNavigation /></>;
 }

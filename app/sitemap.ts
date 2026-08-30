@@ -1,3 +1,4 @@
-import type { MetadataRoute } from "next";
-import { getMarketplace } from "@/lib/marketplace";
-export default async function sitemap():Promise<MetadataRoute.Sitemap>{const{providers,businesses,services}=await getMarketplace();const base=process.env.NEXT_PUBLIC_APP_URL??"http://localhost:3000";return["","/buscar","/negocios","/solicitar",...providers.map(p=>`/p/${p.slug}`),...businesses.map(b=>`/n/${b.slug}`),...services.map(s=>`/servicios/${s.slug}`)].map(path=>({url:`${base}${path}`,lastModified:new Date(),changeFrequency:path===""?"daily":"weekly"}))}
+import type {MetadataRoute} from "next";
+import {getMarketplace} from "@/lib/marketplace";
+import {APP_URL} from "@/lib/provider-site";
+export default async function sitemap():Promise<MetadataRoute.Sitemap>{const{providers,businesses,services}=await getMarketplace();return[...["","/buscar","/negocios","/solicitar"].map((path)=>({url:`${APP_URL}${path}`,changeFrequency:path===""?"daily" as const:"weekly" as const})),...providers.filter((provider)=>provider.seo.eligible&&!provider.isDemo).map((provider)=>({url:`${APP_URL}/p/${provider.slug}`,lastModified:new Date(provider.updatedAt),changeFrequency:"weekly" as const})),...businesses.map((business)=>({url:`${APP_URL}/n/${business.slug}`,changeFrequency:"weekly" as const})),...services.map((service)=>({url:`${APP_URL}/servicios/${service.slug}`,changeFrequency:"weekly" as const}))]}

@@ -171,7 +171,7 @@ Shell del modo Prestador. Desktop usa sidebar completo. Mobile usa avatar en la 
 
 ### `DashboardContent`
 
-Máximo 1280 px, padding 16 mobile / 32 desktop, `PageStack` interno. Todas las nueve pantallas del dashboard lo usan.
+Máximo 1280 px, padding 16 mobile / 32 desktop, `PageStack` interno. Todas las pantallas del dashboard lo usan.
 
 ### `FormContainer`
 
@@ -217,17 +217,19 @@ En `/solicitar` ningún item queda activo. Altura visual 64–72 px más safe ar
 
 ### `DashboardShell`
 
-Nueve items, siempre el mismo orden y copy:
+El drawer conserva el mapa completo del panel e incluye “Mi sitio” inmediatamente después de “Mi perfil”:
 
 1. Resumen — `/dashboard`
 2. Mi perfil — `/dashboard/perfil`
-3. Servicios — `/dashboard/servicios`
-4. Trabajos — `/dashboard/trabajos`
-5. Solicitudes — `/dashboard/solicitudes`
-6. Reseñas — `/dashboard/resenas`
-7. Estadísticas — `/dashboard/estadisticas`
-8. Negocios — `/dashboard/negocios`
-9. Plan — `/dashboard/plan`
+3. Mi sitio — `/dashboard/sitio`
+4. Servicios — `/dashboard/servicios`
+5. Trabajos — `/dashboard/trabajos`
+6. Solicitudes — `/dashboard/solicitudes`
+7. Reseñas — `/dashboard/resenas`
+8. Estadísticas — `/dashboard/estadisticas`
+9. Negocios — `/dashboard/negocios`
+10. Plan — `/dashboard/plan`
+11. Herramientas — `/dashboard/herramientas`
 
 Desktop usa `DashboardSidebar`. Mobile usa `ProviderMobileHeader`, `ProviderDrawer` y `ProviderBottomNav`. El avatar abre el drawer desde la izquierda con las rutas completas. La bottom nav contiene sólo Dashboard, Servicios, Solicitudes, Herramientas y Cuenta. “Cambiar a modo Usuario” aparece en header/drawer y no cierra sesión.
 

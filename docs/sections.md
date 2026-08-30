@@ -93,20 +93,21 @@ No usar información no disponible como abierto/cerrado u horarios inventados.
 
 No usar “Mis pedidos”, citas ni seguimiento con cuenta.
 
-### 06. Perfil de prestador — `/p/[providerSlug]` — PUBLIC
+### 06. Sitio público de prestador — `/p/[providerSlug]` — PROVIDER SITE
 
-1. Header.
-2. `EntityHero provider` con guardar, confianza y CTAs.
-3. `AffiliationNotice` opcional.
-4. Servicios.
-5. Portafolio.
-6. Sobre mí y zonas/capacidades.
-7. Reseñas aprobadas.
-8. Verificaciones explicadas en aside desktop/sección mobile.
-9. Solicitud dirigida.
-10. Footer/bottom nav; Buscar activo.
+Usa `ProviderSiteShell`, sin header, footer ni bottom nav del marketplace.
 
-Mobile conserva bio, reseñas y formulario aunque la captura de Stitch los omita. No usar nav con “Mis pedidos”.
+1. Portada, identidad, profesión, zona y WhatsApp.
+2. Rating, reseñas, verificaciones y experiencia.
+3. Servicios con descripción individual.
+4. Trabajos realizados.
+5. Presentación y zonas.
+6. Reseñas aprobadas.
+7. Preguntas frecuentes.
+8. Solicitud dirigida.
+9. Cierre con WhatsApp, compartir y dock móvil.
+
+Free conserva co-marca Tequit; Pro puede usar identidad propia con sello discreto. Los perfiles incompletos funcionan con `noindex`; demo no permite contacto y suspendido responde 404.
 
 ### 07. Ficha de negocio — `/n/[businessSlug]` — PUBLIC
 
@@ -185,6 +186,16 @@ Todas las rutas siguientes usan el mismo `DashboardShell` del modo Prestador. En
 5. Guardando/guardado/error.
 
 El patrón visual puede venir de Configuración de Stitch, pero no existen tabs de notificaciones, seguridad o soporte.
+
+### Mi sitio — `/dashboard/sitio` — DASHBOARD
+
+1. Estado y checklist exacto de indexación.
+2. URL pública, compartir y QR PNG/SVG.
+3. Identidad: frase, portada, avatar, presentación y experiencia.
+4. Descripción pública por servicio.
+5. Hasta seis preguntas frecuentes y enlaces sociales.
+6. Personalización visual disponible sólo en Pro.
+7. Vista previa y guardado con estados reales.
 
 ### 13. Servicios — `/dashboard/servicios` — DASHBOARD
 

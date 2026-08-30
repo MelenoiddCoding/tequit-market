@@ -315,8 +315,14 @@ th { color: var(--muted); font-size: .75rem; letter-spacing: .08em; text-transfo
 .account-provider-form label { font-size: .82rem; font-weight: 800; }
 .account-provider-form textarea { min-height: 120px; resize: vertical; }
 .account-provider-wide { grid-column: 1/-1; }
+.provider-share { display: flex; align-items: center; gap: 20px; margin-top: 18px; }
+.provider-share img { border-radius: 12px; background: #fff9f0; }
+.provider-share-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.provider-share-compact { justify-content: center; }
+.provider-share-compact .btn { border-color: rgba(255,255,255,.42); background: transparent; color: white; }
 .account-actions { display: grid; gap: 14px; }
 .account-actions form { display: grid; gap: 10px; }
 .account-actions form label { font-size: .82rem; font-weight: 800; }
 .account-actions .account-logout { width: 100%; }
 @media (max-width: 639px) { .account-provider-form { grid-template-columns: 1fr; } .account-provider-wide { grid-column: auto; } }
+@media (max-width: 639px) { .provider-share { align-items: stretch; flex-direction: column; } .provider-share-actions { display: grid; grid-template-columns: 1fr 1fr; } .provider-share-actions .btn { min-width: 0; padding-inline: 10px; } }

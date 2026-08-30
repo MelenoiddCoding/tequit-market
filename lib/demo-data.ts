@@ -36,6 +36,9 @@ const base = (id: string, name: string, profession: string, zone: string, offere
   areas: [profession, offered[0]?.category ?? "Hogar"], plan: "free", status: "active", phone: "5213110000000",
   verifications: [{ type: "phone" }, { type: "identity" }], reviews: reviews.slice(0, 2),
   portfolio: [{ id: `${id}-w1`, title: `Trabajo de ${offered[0]?.name}`, description: "Proyecto terminado en Tepic con materiales acordados con el cliente.", image: "/images/tequit-hero.png" }],
+  updatedAt: "2026-08-29T00:00:00.000Z", faqs: [],
+  site: { headline: `${profession} en ${zone}`, intro: `Trabajo en ${profession.toLowerCase()} con atención directa, presupuesto claro y experiencia en hogares de Tepic.`, theme: "tequit", accentColor: "#254432", whiteLabel: false, socialLinks: {} },
+  seo: { eligible: false, missing: ["Completa la presentación del sitio"], checks: { bio: false, phone: true, service: false, portfolio: true } },
 });
 
 export const providers: Provider[] = [
