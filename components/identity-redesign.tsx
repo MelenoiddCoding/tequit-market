@@ -21,7 +21,7 @@ import type { Business, Provider, Review, Service, Verification } from "@/types"
 import styles from "@/components/identity-redesign.module.css";
 
 const verificationLabels: Record<Verification["type"], { title: string; detail: string }> = {
-  phone: { title: "Teléfono verificado", detail: "El número de contacto fue confirmado." },
+  phone: { title: "WhatsApp de contacto revisado", detail: "Tequit revisó este medio de contacto. No equivale a verificar la identidad de la cuenta." },
   identity: { title: "Identidad verificada", detail: "La identidad fue revisada por Tequit." },
   references: { title: "Referencias revisadas", detail: "Se revisaron referencias proporcionadas." },
   visited_by_tequit: { title: "Visitado por Tequit", detail: "El equipo de Tequit realizó una visita." },

@@ -62,13 +62,14 @@ export function RegisterForm() {
           <input className={styles.field} id="register-profession" name="profession" placeholder={accountType === "provider" ? "Ej. Plomería" : "Ej. Ferretería"} required />
         </div>}
         <div className={styles.fieldGroup}>
-          <label htmlFor="register-email">Correo</label>
-          <input className={styles.field} id="register-email" name="email" type="email" autoComplete="email" required />
-        </div>
-        <div className={styles.fieldGroup}>
           <label htmlFor="register-phone">Número de celular</label>
           <input className={styles.field} id="register-phone" name="phone" inputMode="tel" autoComplete="tel" placeholder="311 000 0000" required />
-          <p className={styles.fieldHelp}>Quedará asociado a tu cuenta. Por ahora iniciarás sesión con correo.</p>
+          <p className={styles.fieldHelp}>Será tu número privado para iniciar sesión. Aún no se considerará verificado.</p>
+        </div>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="register-email">Correo de recuperación <span aria-hidden>(opcional)</span></label>
+          <input className={styles.field} id="register-email" name="recoveryEmail" type="email" autoComplete="email" />
+          <p className={styles.fieldHelp}>Te enviaremos un enlace para confirmarlo. No será tu identidad principal.</p>
         </div>
         <div className={styles.fieldGroup}>
           <label htmlFor="register-zone">{accountType==="customer"?"Tu zona":"Zona de atención"}</label>
@@ -100,7 +101,7 @@ export function RegisterForm() {
         <span className={styles.successIcon}><CheckCircle2 size={38} aria-hidden /></span>
         <p className="eyebrow">Registro completo</p>
         <h2>{accountType==="customer"?"Tu cuenta está lista":"Tu perfil ya está publicado"}</h2>
-        <p>{accountType==="customer"?"Ya puedes sincronizar guardados y consultar tus solicitudes.":"Tu cuenta inicia en el plan Free. Puedes administrar información, trabajos y solicitudes desde el panel."}</p>
+        <p>{accountType==="customer"?"Ya puedes sincronizar guardados y consultar tus solicitudes. Tu celular quedará pendiente de OTP durante la beta.":"Tu cuenta inicia en el plan Free. Tu celular permite entrar, pero quedará pendiente de OTP durante la beta."}</p>
         <Link className="btn btn-primary" href={accountType==="customer"?"/cuenta":"/dashboard"}>Continuar</Link>
       </div>}
     </div>

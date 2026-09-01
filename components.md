@@ -352,11 +352,20 @@ Un solo flujo `/registro` con pasos internos:
 2. `ProviderRegistrationForm` o `BusinessRegistrationForm`.
 3. `RegistrationSuccess`.
 
+La identidad principal es el celular mexicano normalizado a E.164 más contraseña. El correo es opcional, se confirma y se usa sólo para recuperación. El celular privado de la cuenta nunca se toma automáticamente del WhatsApp público.
+
 La confirmación de Stitch no es una ruta 10 independiente. Login permanece `/login`.
 
 ### `LoginForm`
 
-Correo, contraseña, error inline, loading y destino `next`. Copy aclara que explorar/guardar/solicitar no requiere cuenta.
+Celular, contraseña, error inline, loading y destino `next`. Acepta correo únicamente para migrar cuentas anteriores; después de asociar el celular ya no permite acceso público por correo. Administración usa su variante explícita por correo. Copy aclara que explorar no requiere cuenta.
+
+### Identidad telefónica
+
+- `phone_login_enabled_at` significa que el celular puede usarse para entrar; no significa que su propiedad fue verificada.
+- Sólo `phone_verified_at` después de OTP habilita el estado “Celular verificado”.
+- `profiles.phone_e164` es privado; `provider_profiles.phone` y `businesses.phone` son contactos públicos independientes.
+- Las cuentas anteriores usan una pantalla bloqueante, sobria y de una sola acción para activar celular.
 
 ## 11. Componentes del panel
 

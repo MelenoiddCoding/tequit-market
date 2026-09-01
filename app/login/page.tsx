@@ -8,7 +8,7 @@ import styles from "@/components/identity-redesign.module.css";
 
 export const metadata = {
   title: "Iniciar sesión",
-  description: "Acceso para prestadores y negocios publicados en Tequit.",
+  description: "Accede a Tequit con tu número de celular.",
 };
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; reason?: string }> }) {
@@ -28,7 +28,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         <header className={styles.authHeader}>
           <p className="eyebrow">Tu cuenta Tequit</p>
           <h1>Bienvenido de vuelta</h1>
-          <p>Entra en modo Usuario. Si también eres prestador, podrás cambiar de modo desde Cuenta.</p>
+          <p>Entra con tu celular y contraseña. Si tu cuenta todavía usaba correo, podrás migrarla al acceder.</p>
         </header>
         <div className={styles.formSurface}>
           <LoginForm next={safeNext} demo={demo} sessionExpired={reason === "expired"} />

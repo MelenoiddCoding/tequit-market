@@ -141,8 +141,9 @@ Estados internos, mismo URL:
 
 1. Cuenta Usuario seleccionada por defecto.
 2. Opción secundaria “Quiero promocionarme” para elegir Prestador/Negocio.
-3. Formulario específico del tipo; el celular es obligatorio como dato de cuenta.
-4. Éxito de registro.
+3. Formulario específico del tipo; celular privado y contraseña son la identidad de acceso.
+4. Correo de recuperación opcional con confirmación independiente.
+5. Éxito que aclara “celular pendiente de OTP”.
 
 Shell y orden:
 
@@ -157,13 +158,29 @@ Shell y orden:
 
 1. Header compacto/logo.
 2. Encabezado de cuenta de prestador/negocio.
-3. `LoginForm`.
+3. `LoginForm` con celular y contraseña; correo sólo para migración de cuentas anteriores.
 4. Error/loading/session expired.
 5. CTA a Registro.
 6. Nota y CTA para explorar sin cuenta.
 7. Footer/bottom nav; Cuenta activo.
 
 Credenciales demo sólo en modo demo.
+
+### Activar celular — `/cuenta/activar-celular` — PUBLIC AUTENTICADO
+
+1. Explicación breve de la migración obligatoria.
+2. Celular privado y contraseña actual.
+3. Aclaración de que no cambia el WhatsApp público y sigue pendiente de OTP.
+4. Error de duplicado con salida a soporte.
+5. Continuación al destino original.
+
+### Recuperar acceso — `/recuperar`, `/restablecer` — PUBLIC
+
+1. Solicitud con correo de recuperación confirmado.
+2. Respuesta neutra que no revela si existe la cuenta.
+3. Callback seguro y definición de contraseña nueva.
+4. Error de enlace inválido o expirado.
+5. La entrega a usuarios externos requiere configurar SMTP propio en Supabase; sin SMTP no se ofrece esta recuperación aunque el acceso por celular siga operativo.
 
 ## Panel de prestador
 
@@ -316,8 +333,8 @@ No reutilizar `DashboardShell`; usar `AdminShell`. En mobile, la tabla se transf
 ### 23. Reclamar perfil — `/reclamar/[token]` — PUBLIC
 
 1. Estado del enlace sin revelar datos privados.
-2. Crear cuenta o iniciar sesión.
-3. Confirmar últimos cuatro dígitos del teléfono publicado.
+2. Crear cuenta o iniciar sesión mediante celular y contraseña.
+3. Exigir coincidencia completa con el WhatsApp registrado en la ficha.
 4. Transferencia atómica y acceso al dashboard.
 5. Estados inválido, expirado, revocado, usado y error.
 

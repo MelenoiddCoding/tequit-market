@@ -13,7 +13,7 @@ export type AssistedInitial={id:string;entityId:string;slug:string;status:string
 
 type Props={kind:"provider"|"business";canonicalServices:{id:string;name:string;category:string}[];initial?:AssistedInitial};
 const steps=["Datos básicos","Servicios","Fotos","Perfil","Verificación","Confirmar"];
-const verificationLabels={phone:"Teléfono confirmado",identity:"Identidad revisada",references:"Referencias revisadas",visited_by_tequit:"Visitado por Tequit"};
+const verificationLabels={phone:"WhatsApp de contacto revisado",identity:"Identidad revisada",references:"Referencias revisadas",visited_by_tequit:"Visitado por Tequit"};
 
 export function AssistedOnboardingWizard({kind,canonicalServices,initial}:Props){
   const [step,setStep]=useState(initial?1:0);const [id,setId]=useState(initial?.id??"");

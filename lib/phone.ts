@@ -1,0 +1,2 @@
+export function normalizeMexicanPhone(value:string){const digits=value.replace(/\D/g,"");if(digits.length===10)return `+52${digits}`;if(digits.length===12&&digits.startsWith("52"))return `+${digits}`;if(digits.length===13&&digits.startsWith("521"))return `+52${digits.slice(-10)}`;return null}
+export function displayMexicanPhone(value:string|null|undefined){if(!value)return "Pendiente";const digits=value.replace(/\D/g,"").slice(-10);return digits.length===10?`${digits.slice(0,3)} ${digits.slice(3,6)} ${digits.slice(6)}`:value}
