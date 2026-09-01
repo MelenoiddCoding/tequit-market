@@ -1,0 +1,12 @@
+.git
+.next
+.playwright-cli
+.vercel
+node_modules
+output
+design
+exports
+tests
+supabase
+*.tsbuildinfo
+*.zip
