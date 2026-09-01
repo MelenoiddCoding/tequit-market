@@ -295,6 +295,32 @@ No facturación, método de pago, recibos ni checkout.
 
 No reutilizar `DashboardShell`; usar `AdminShell`. En mobile, la tabla se transforma en filas semánticas.
 
+### 21. Altas asistidas — `/admin/altas` — ADMIN
+
+1. Header y CTA separados para prestador y negocio.
+2. Cola ordenada por última actualización.
+3. Estado, origen y tipo de cada alta.
+4. Continuar borrador, abrir publicación y administrar enlace de reclamo.
+5. Empty/error/loading.
+
+### 22. Nueva alta — `/admin/prestadores/nuevo`, `/admin/negocios/nuevo` — ADMIN
+
+1. Datos básicos y detección de duplicados.
+2. Servicios canónicos con descripción pública.
+3. Avatar/logo, portada y trabajos.
+4. Presentación y zonas.
+5. Verificaciones con evidencia breve.
+6. Consentimiento explícito, revisión y publicación.
+7. Resultado con URL pública y enlace privado de reclamo.
+
+### 23. Reclamar perfil — `/reclamar/[token]` — PUBLIC
+
+1. Estado del enlace sin revelar datos privados.
+2. Crear cuenta o iniciar sesión.
+3. Confirmar últimos cuatro dígitos del teléfono publicado.
+4. Transferencia atómica y acceso al dashboard.
+5. Estados inválido, expirado, revocado, usado y error.
+
 ## Regla final de consistencia
 
 Una pantalla puede variar en layout entre mobile y desktop, pero siempre debe conservar:

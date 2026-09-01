@@ -451,3 +451,11 @@ Antes de declarar terminada una pantalla:
 - 42 HTML exportados contienen 41 configuraciones Tailwind distintas; ninguna configuración individual es canónica.
 
 La composición visual de Stitch se conserva donde aporta valor; estas inconsistencias no se trasladan al producto.
+
+## 16. Alta asistida administrativa
+
+- `AdminShell` es obligatorio en `/admin`, `/admin/altas` y `/admin/**/nuevo`.
+- `AssistedOnboardingWizard` usa una secuencia lineal de seis pasos: datos, servicios, fotos, perfil, verificación y confirmación.
+- En móvil conserva todas las acciones y utiliza una barra inferior de avance; el contexto lateral pasa arriba sin duplicar navegación.
+- Las fotos se capturan o eligen con el control nativo, se procesan antes de publicarse y nunca se muestran desde cuarentena.
+- El resultado de publicación separa el enlace público del enlace privado y de un solo uso para reclamar.

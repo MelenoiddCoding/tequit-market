@@ -1,0 +1,10 @@
+import {NextResponse} from "next/server";
+import {z} from "zod";
+import {allowRequest} from "@/lib/rate-limit";
+import {createClient} from "@/lib/supabase/server";
+
+const schema=z.object({mode:z.enum(["create","signin"]),token:z.string().min(30).max(200),phoneLast4:z.string().regex(/^\d{4}$/),email:z.string().email().max(254),password:z.string().min(8).max(128),name:z.string().trim().min(2).max(100).optional().default("")});
+export async function POST(request:Request){if(!await allowRequest(request,"managed_claim",10,900))return NextResponse.json({error:"Demasiados intentos. Espera unos minutos."},{status:429});const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:"Revisa correo, contraseña y los cuatro dígitos."},{status:400});const value=parsed.data;const supabase=await createClient();
+  if(value.mode==="create"){if(value.name.length<2)return NextResponse.json({error:"Escribe tu nombre."},{status:400});const{data,error}=await supabase.auth.signUp({email:value.email,password:value.password,options:{data:{display_name:value.name,role:"customer"}}});if(error||!data.user)return NextResponse.json({error:error?.message.toLowerCase().includes("already")?"Ese correo ya existe. Elige Iniciar sesión.":"No pudimos crear la cuenta."},{status:409});if(!data.session)return NextResponse.json({error:"La cuenta requiere confirmación antes de reclamar el perfil."},{status:409})}else{const{error}=await supabase.auth.signInWithPassword({email:value.email,password:value.password});if(error)return NextResponse.json({error:"Correo o contraseña incorrectos."},{status:401})}
+  const{data,error}=await supabase.rpc("claim_managed_entity",{p_token:value.token,p_phone_last4:value.phoneLast4});if(error)return NextResponse.json({error:error.message.includes("phone")?"Los últimos cuatro dígitos no coinciden.":error.message.includes("owned")?"Esta cuenta ya administra otro perfil de prestador.":"El enlace no es válido, expiró o ya fue utilizado."},{status:409});const claimed=Array.isArray(data)?data[0]:data;return NextResponse.json({destination:"/dashboard",kind:claimed?.kind,slug:claimed?.slug});
+}

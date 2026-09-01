@@ -1,0 +1,6 @@
+"use client";
+import {useState} from "react";
+import {Copy,RefreshCw,ShieldX} from "lucide-react";
+import {dashboardStyles as styles} from "@/components/dashboard-components";
+
+export function AssistedOnboardingActions({id,status}:{id:string;status:string}){const[busy,setBusy]=useState(false);const[message,setMessage]=useState("");async function act(action:"claim_regenerate"|"claim_revoke"){setBusy(true);setMessage("");const response=await fetch("/api/admin/onboardings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id})});const data=await response.json();setBusy(false);if(!response.ok){setMessage(data.error??"No se pudo completar.");return}if(data.claimUrl){await navigator.clipboard.writeText(data.claimUrl);setMessage("Nuevo enlace copiado.")}else setMessage("Enlace revocado.")}if(status!=="published")return null;return <div className={styles.tableActions}><button className={styles.secondary} disabled={busy} onClick={()=>act("claim_regenerate")}><RefreshCw size={15}/>Generar reclamo</button><button className={styles.ghost} disabled={busy} onClick={()=>act("claim_revoke")}><ShieldX size={15}/>Revocar</button>{message&&<small><Copy size={12}/>{message}</small>}</div>}
