@@ -336,6 +336,8 @@ En mobile, Admin conserva acceso persistente mediante bottom nav y drawer desde 
 
 Los seis pasos funcionan como navegación directa: el administrador puede inspeccionar o editar cualquier sección sin avanzar secuencialmente. Guardar persiste el formulario completo; publicar conserva las validaciones obligatorias.
 
+Fotos separa Cámara y Galería. Antes de subir muestra previews removibles; avatar/logo y portada incluyen ajuste de zoom y posición con salida 1:1 y 16:9, mientras los trabajos conservan el encuadre original. Al retomar un alta se muestran las imágenes ya guardadas.
+
 ### 23. Reclamar perfil — `/reclamar/[token]` — PUBLIC
 
 1. Estado del enlace sin revelar datos privados.

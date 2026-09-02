@@ -374,6 +374,7 @@ Celular, contraseña, error inline, loading y destino `next`. Acepta correo úni
 - `CompletionAlert`: acción concreta para completar perfil/portafolio.
 - `ServiceManager`: contador Free, lista, activar/desactivar y alta.
 - `PortfolioManager`: galería, carga, preview, progreso y errores.
+- `AssistedMediaEditor`: en altas administrativas separa Cámara y Galería, muestra selección y contenido guardado, permite quitar antes de subir y recorta avatar/logo en 1:1 y portada en 16:9. Los trabajos preservan su encuadre.
 - `LeadInbox`: lista + detalle desktop; navegación lista/detalle mobile.
 - `LeadListItem`
 - `LeadDetail`
