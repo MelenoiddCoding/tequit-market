@@ -1,5 +1,7 @@
 .marketplaceSearch {
   width: min(100%, 720px);
+  max-width: 100%;
+  min-width: 0;
   min-height: 64px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -50,11 +52,13 @@
 
 .listingHero { padding-block: clamp(44px, 7vw, 76px); background: var(--surface-muted); }
 .listingHeroInner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 560px); align-items: end; gap: 56px; }
+.listingHeroInner > * { min-width: 0; }
 .listingHero h1 { margin-bottom: 12px; font-size: clamp(2.7rem, 6vw, 4.6rem); }
 .listingHero p { max-width: 610px; margin-bottom: 0; color: var(--muted); line-height: 1.6; }
 .listingHero .marketplaceSearch { margin-top: 0; }
 .filterBar { display: flex; flex-wrap: wrap; gap: 9px; }
 .resultsShell { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; padding-block: 40px 96px; }
+.resultsShell > *, .resultsHeader > * { min-width: 0; }
 .filterSidebar { position: sticky; top: 104px; align-self: start; padding-top: 8px; }
 .filterSidebar h2 { margin-bottom: 20px; font-size: 1.4rem; }
 .filterSidebar .filterBar { align-items: stretch; flex-direction: column; }
@@ -66,6 +70,7 @@
 .resultsHeader p { margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
 .sortNote { color: var(--muted); font-size: .82rem; white-space: nowrap; }
 .resultList { display: grid; gap: 15px; }
+.resultList > * { min-width: 0; max-width: 100%; }
 .resultList :global(.entity-card-list) { padding: 22px; }
 .resultList :global(.business-card-visual) { height: 112px; }
 .resultList :global(.business-card-save) { top: 104px; }
@@ -144,7 +149,7 @@
   .finalCta { grid-template-columns: 1fr; align-items: start; padding: 30px 22px; text-align: center; }
   .finalCta :global(.btn) { width: 100%; }
   .listingHero { padding-block: 32px; }
-  .listingHero h1 { font-size: clamp(2.5rem, 13vw, 3.5rem); }
+  .listingHero h1 { font-size: clamp(2.5rem, 13vw, 3.5rem); overflow-wrap: anywhere; }
   .resultsShell { padding-block: 24px 76px; }
   .resultsHeader { align-items: flex-start; flex-direction: column; gap: 8px; }
   .sortNote { white-space: normal; }
