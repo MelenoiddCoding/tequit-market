@@ -237,7 +237,7 @@ Usar marca Tequit. “Panel de Juan” es contexto, no otra marca. No usar “Of
 
 ### `AdminShell`
 
-Marca/contexto “Administración Tequit”. Secciones actuales en `/admin`: Resumen, Prestadores y planes, Moderación de reseñas, Taxonomía. Incluye Ver sitio público y Cerrar sesión. No inventar subrutas hasta que producto las defina.
+Marca/contexto “Administración Tequit”. Desktop conserva navegación horizontal. Mobile usa avatar administrativo arriba a la izquierda, drawer completo desde ese lado y bottom nav con Resumen, Altas, Prestador y Negocio. El drawer incluye Ver sitio público y Cerrar sesión. Las altas publicadas permiten regenerar, copiar, compartir y revocar su enlace privado de reclamo; nunca se conserva el token original en texto plano.
 
 ## 7. Primitives
 

@@ -320,6 +320,8 @@ No reutilizar `DashboardShell`; usar `AdminShell`. En mobile, la tabla se transf
 4. Continuar borrador, abrir publicación y administrar enlace de reclamo.
 5. Empty/error/loading.
 
+En mobile, Admin conserva acceso persistente mediante bottom nav y drawer desde el avatar. En el detalle de un alta publicada se puede generar un enlace de reclamo nuevo, visualizarlo, copiarlo, compartirlo o revocarlo; regenerar invalida el anterior.
+
 ### 22. Nueva alta — `/admin/prestadores/nuevo`, `/admin/negocios/nuevo` — ADMIN
 
 1. Datos básicos y detección de duplicados.
@@ -329,6 +331,8 @@ No reutilizar `DashboardShell`; usar `AdminShell`. En mobile, la tabla se transf
 5. Verificaciones con evidencia breve.
 6. Consentimiento explícito, revisión y publicación.
 7. Resultado con URL pública y enlace privado de reclamo.
+
+Los seis pasos funcionan como navegación directa: el administrador puede inspeccionar o editar cualquier sección sin avanzar secuencialmente. Guardar persiste el formulario completo; publicar conserva las validaciones obligatorias.
 
 ### 23. Reclamar perfil — `/reclamar/[token]` — PUBLIC
 

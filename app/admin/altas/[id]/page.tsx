@@ -1,6 +1,7 @@
 import {notFound} from "next/navigation";
 import {AdminShell} from "@/components/admin-shell";
 import {AssistedInitial,AssistedOnboardingWizard} from "@/components/assisted-onboarding-wizard";
+import {AssistedOnboardingActions} from "@/components/assisted-onboarding-actions";
 import {requireRole} from "@/lib/auth";
 import {createAdminClient} from "@/lib/supabase/admin";
 
@@ -15,5 +16,5 @@ export default async function ResumeAssistedPage({params}:{params:Promise<{id:st
   ]);
   if(!entity)notFound();const row=entity as unknown as {name:string;phone:string;profession?:string;zone:string;bio?:string;address?:string;description?:string;slug:string;service_categories?:{name:string}[]};
   const initial:AssistedInitial={id:onboarding.id,entityId,slug:row.slug,status:onboarding.status,name:row.name,phone:row.phone,profession:kind==="provider"?row.profession??"":row.service_categories?.[0]?.name??"Servicios",zone:row.zone,address:row.address??"",source:onboarding.source,bio:kind==="provider"?row.bio??"":row.description??"",headline:site?.headline??"",yearsExperience:site?.years_experience??null,areas:(areaRows??[]).map(item=>item.service_areas?.[0]?.name).filter((value):value is string=>Boolean(value)),services:(serviceRows??[]).map(item=>({canonicalId:item.canonical_service_id,title:item.title,description:item.description})),verifications:(verificationRows??[]).map(item=>({type:item.type,note:item.note??"Confirmado durante el alta asistida"})),consentConfirmed:onboarding.consent_confirmed,consentNote:onboarding.consent_note??"",duplicateReviewed:onboarding.duplicate_reviewed,duplicateNote:onboarding.duplicate_note??""};
-  const services=(canonical??[]).map(item=>({id:item.id,name:item.name,category:item.service_categories?.[0]?.name??"Servicios"}));return <AdminShell><AssistedOnboardingWizard kind={kind} canonicalServices={services} initial={initial}/></AdminShell>;
+  const services=(canonical??[]).map(item=>({id:item.id,name:item.name,category:item.service_categories?.[0]?.name??"Servicios"}));return <AdminShell>{onboarding.status==="published"&&<AssistedOnboardingActions id={onboarding.id} status={onboarding.status} detail/>}<AssistedOnboardingWizard kind={kind} canonicalServices={services} initial={initial}/></AdminShell>;
 }
