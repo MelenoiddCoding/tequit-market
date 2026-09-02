@@ -310,6 +310,8 @@ No facturación, método de pago, recibos ni checkout.
 5. Taxonomía.
 6. Empty/loading/error/confirmaciones de acción.
 
+El directorio de Prestadores y planes se pagina en servidor y permite buscar por nombre, teléfono o correo administrativo. El filtro y la página viven en la URL; cambiar o limpiar la búsqueda vuelve a la primera página.
+
 No reutilizar `DashboardShell`; usar `AdminShell`. En mobile, la tabla se transforma en filas semánticas.
 
 ### 21. Altas asistidas — `/admin/altas` — ADMIN
