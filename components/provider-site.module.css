@@ -1,6 +1,7 @@
 .site {
   --provider-accent: #254432;
   min-height: 100svh;
+  padding-top: 76px;
   background: #fffaf3;
   color: #17231d;
 }
@@ -8,8 +9,10 @@
   text-decoration: none;
 }
 .siteHeader {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 60;
   display: grid;
   grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
@@ -515,6 +518,9 @@
   background: #fff;
 }
 @media (max-width: 760px) {
+  .site {
+    padding-top: 68px;
+  }
   .siteHeader {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px;
