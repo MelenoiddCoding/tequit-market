@@ -239,6 +239,10 @@ Usar marca Tequit. “Panel de Juan” es contexto, no otra marca. No usar “Of
 
 Marca/contexto “Administración Tequit”. Desktop conserva navegación horizontal. Mobile usa avatar administrativo arriba a la izquierda, drawer completo desde ese lado y bottom nav con Resumen, Altas, Prestador y Negocio. El drawer incluye Ver sitio público y Cerrar sesión. Las altas publicadas permiten regenerar, copiar, compartir y revocar su enlace privado de reclamo; nunca se conserva el token original en texto plano.
 
+### `ProviderSiteShell`
+
+`/p/**` permanece fuera de `PublicChrome`, pero usa navegación híbrida propia. El header sticky mantiene primero la identidad del prestador, ofrece anclas de sección en desktop y un control explícito `Explorar Tequit`. Este abre un drawer derecho con Inicio, Buscar, Negocios, Publicar necesidad, Favoritos y Cuenta. En mobile el único dock inferior sigue siendo WhatsApp. El footer cierra con co-marca y tres salidas controladas hacia Tequit.
+
 ## 7. Primitives
 
 ### `Button`

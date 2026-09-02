@@ -97,6 +97,8 @@ No usar “Mis pedidos”, citas ni seguimiento con cuenta.
 
 Usa `ProviderSiteShell`, sin header, footer ni bottom nav del marketplace.
 
+El shell incluye un header profesional sticky: identidad del prestador, anclas internas desktop y `Explorar Tequit`. En mobile, el control abre un drawer derecho hacia Inicio, Buscar, Negocios, Publicar necesidad, Favoritos y Cuenta; no sustituye el dock de WhatsApp. El footer co-marcado ofrece continuidad hacia Buscar, Negocios y Publicar necesidad.
+
 1. Portada, identidad, profesión, zona y WhatsApp.
 2. Rating, reseñas, verificaciones y experiencia.
 3. Servicios con descripción individual.
