@@ -4,7 +4,7 @@ Tequit es un marketplace/directorio local de servicios para Tepic, Nayarit. Ayud
 
 ## Entorno público de pruebas
 
-La beta persistente está disponible en [https://tequit-market.vercel.app](https://tequit-market.vercel.app). Opera con Supabase Auth, PostgreSQL y Storage reales; `NEXT_PUBLIC_DEMO_MODE=false` en Preview y Production.
+La beta persistente está disponible en [https://tequit.mx](https://tequit.mx). Opera con Supabase Auth, PostgreSQL y Storage reales; `NEXT_PUBLIC_DEMO_MODE=false` en Preview y Production.
 
 ## Estado del MVP
 

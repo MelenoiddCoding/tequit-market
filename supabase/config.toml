@@ -18,8 +18,8 @@ port = 54323
 
 [auth]
 enabled = true
-site_url = "https://tequit-market.vercel.app"
-additional_redirect_urls = ["http://127.0.0.1:3000/auth/callback", "http://localhost:3000/auth/callback", "https://tequit-market.vercel.app/auth/callback"]
+site_url = "https://tequit.mx"
+additional_redirect_urls = ["http://127.0.0.1:3000/auth/callback", "http://localhost:3000/auth/callback", "https://tequit.mx/auth/callback", "https://tequit-market.vercel.app/auth/callback"]
 enable_signup = true
 
 [auth.email]

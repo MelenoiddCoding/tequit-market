@@ -1,6 +1,6 @@
 # Despliegue Vercel + Supabase
 
-Entorno público actual: [https://tequit-market.vercel.app](https://tequit-market.vercel.app). La beta usa Supabase alojado y `NEXT_PUBLIC_DEMO_MODE=false`.
+Entorno público actual: [https://tequit.mx](https://tequit.mx). La beta usa Supabase alojado y `NEXT_PUBLIC_DEMO_MODE=false`.
 
 Proyecto activo de beta: `vgszdeymfipvuiziklpq` (`tequit-market-beta`). El proyecto anterior `cfbaxrtexvdfcxffwvla` permanece pausado y no se usa.
 

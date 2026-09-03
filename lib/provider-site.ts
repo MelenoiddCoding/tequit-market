@@ -1,6 +1,6 @@
 import type {Provider,ProviderSeoEligibility} from "@/types";
 
-export const APP_URL=(process.env.NEXT_PUBLIC_APP_URL??"https://tequit-market.vercel.app").replace(/\/$/,"");
+export const APP_URL=(process.env.NEXT_PUBLIC_APP_URL??"https://tequit.mx").replace(/\/$/,"");
 export function providerUrl(slug:string){return `${APP_URL}/p/${slug}`}
 export function providerSeoEligibility(provider:Pick<Provider,"bio"|"phone"|"services"|"portfolio"|"isDemo"|"status">):ProviderSeoEligibility{
   const checks={

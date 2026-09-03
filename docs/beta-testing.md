@@ -1,6 +1,6 @@
 # Guía de pruebas de la beta
 
-URL: [https://tequit-market.vercel.app](https://tequit-market.vercel.app)
+URL: [https://tequit.mx](https://tequit.mx)
 
 ## Qué probar
 
