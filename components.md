@@ -352,13 +352,14 @@ Secciones fijas: Necesidad, Ubicación y tiempo, Evidencia, Contacto, Privacidad
 
 Un solo flujo `/registro` con pasos internos:
 
-1. `AccountTypeSelector`: Prestador/Negocio.
-2. `ProviderRegistrationForm` o `BusinessRegistrationForm`.
-3. `RegistrationSuccess`.
+1. `AccountTypeSelector`: Usuario/Prestador/Negocio.
+2. Formulario específico del tipo de cuenta.
+3. `WhatsAppOtpVerification`: código de seis dígitos, vigencia de cinco minutos, reenvío limitado y opción para corregir el número.
+4. `RegistrationSuccess`, únicamente después de verificar el celular.
 
 La identidad principal es el celular mexicano normalizado a E.164 más contraseña. El correo es opcional, se confirma y se usa sólo para recuperación. El celular privado de la cuenta nunca se toma automáticamente del WhatsApp público.
 
-La confirmación de Stitch no es una ruta 10 independiente. Login permanece `/login`.
+La verificación conserva el contexto en la pestaña para sobrevivir una recarga y no es una ruta independiente. Login permanece `/login`.
 
 ### `LoginForm`
 
@@ -473,3 +474,11 @@ La composición visual de Stitch se conserva donde aporta valor; estas inconsist
 - En móvil conserva todas las acciones y utiliza una barra inferior de avance; el contexto lateral pasa arriba sin duplicar navegación.
 - Las fotos se capturan o eligen con el control nativo, se procesan antes de publicarse y nunca se muestran desde cuarentena.
 - El resultado de publicación separa el enlace público del enlace privado y de un solo uso para reclamar.
+
+## 17. Consentimiento y documentos legales
+
+- `LegalConsentFields` es un único bloque reutilizable en cualquier alta pública de cuenta. Contiene dos casillas independientes, desmarcadas y obligatorias, además de las versiones enviadas al servidor.
+- Los enlaces legales abren un `dialog` accesible sobre el formulario: conserva datos escritos, bloquea scroll de fondo, admite Escape y overlay, y devuelve el foco al disparador. Leer nunca acepta automáticamente.
+- `LegalDocumentContent` representa la fuente estructurada y versionada compartida por modal, `/terminos` y `/privacidad`; no se duplican textos en componentes.
+- En móvil el diálogo ocupa casi todo el viewport con controles fuera del área desplazable. En desktop permanece centrado y acotado.
+- Un error de consentimiento se muestra dentro del bloque legal antes de iniciar OTP o crear una cuenta de reclamación.

@@ -108,7 +108,7 @@ h3 { font-size: 1.35rem; line-height: 1.15; }
 .dashboard-public-mobile { display: none; }
 
 .footer { padding: 56px 0 100px; background: var(--brand-strong); color: rgba(255,255,255,.8); }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+.footer-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 40px; }
 .footer-brand { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 16px; }
 .footer-brand p { max-width: 440px; line-height: 1.65; }
 .footer nav { display: grid; align-content: start; gap: 11px; }

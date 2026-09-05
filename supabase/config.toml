@@ -28,10 +28,12 @@ enable_confirmations = true
 double_confirm_changes = false
 
 [auth.sms]
-# Beta: las cuentas telefonicas se crean en una ruta de servidor protegida. Activar
-# estas opciones solamente cuando exista el proveedor de OTP por WhatsApp.
-enable_signup = false
-enable_confirmations = false
+# Supabase owns the OTP; the Send SMS hook transports it through Bird WhatsApp.
+enable_signup = true
+enable_confirmations = true
+max_frequency = "60s"
+otp_expiry = 300
+otp_length = 6
 
 [db.seed]
 enabled = true

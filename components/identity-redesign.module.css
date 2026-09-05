@@ -525,7 +525,7 @@
 
 .progress {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 9px;
   margin-bottom: 30px;
 }
@@ -773,6 +773,60 @@
   margin: 0 auto 24px;
   color: var(--muted);
   line-height: 1.65;
+}
+
+.otpState {
+  max-width: 470px;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.otpIcon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  color: var(--verified);
+}
+
+.otpState h2,
+.otpState p {
+  margin: 0;
+}
+
+.otpState > p:not(.formError):not(:global(.eyebrow)) {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.otpField {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+  text-align: left;
+}
+
+.otpField label {
+  color: var(--brand-strong);
+  font-weight: 750;
+}
+
+.otpField input {
+  min-height: 62px;
+  text-align: center;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: .28em;
+}
+
+.otpState :global(.btn) {
+  width: 100%;
 }
 
 .demoBox {

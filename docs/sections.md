@@ -145,7 +145,9 @@ Estados internos, mismo URL:
 2. Opción secundaria “Quiero promocionarme” para elegir Prestador/Negocio.
 3. Formulario específico del tipo; celular privado y contraseña son la identidad de acceso.
 4. Correo de recuperación opcional con confirmación independiente.
-5. Éxito que aclara “celular pendiente de OTP”.
+5. Dos aceptaciones independientes y obligatorias para Términos y Privacidad; cada enlace abre un modal sin perder el formulario y conserva acceso a la página canónica.
+6. Verificación por WhatsApp con OTP de seis dígitos, vigencia de cinco minutos, reenvío y corrección de número.
+7. Éxito sólo después de comprobar el celular.
 
 Shell y orden:
 
@@ -343,10 +345,24 @@ Fotos separa Cámara y Galería. Antes de subir muestra previews removibles; ava
 ### 23. Reclamar perfil — `/reclamar/[token]` — PUBLIC
 
 1. Estado del enlace sin revelar datos privados.
-2. Crear cuenta o iniciar sesión mediante celular y contraseña.
+2. Crear cuenta o iniciar sesión mediante celular y contraseña. Crear cuenta exige aceptar Términos y Privacidad; iniciar con una cuenta existente no exige reaceptación en esta entrega.
 3. Exigir coincidencia completa con el WhatsApp registrado en la ficha.
 4. Transferencia atómica y acceso al dashboard.
 5. Estados inválido, expirado, revocado, usado y error.
+
+## Documentos legales
+
+### Términos — `/terminos` — PUBLIC
+
+1. Título, versión y fecha de vigencia.
+2. Texto completo proveniente de la misma fuente versionada usada por el modal de consentimiento.
+3. Footer y bottom nav públicos.
+
+### Privacidad — `/privacidad` — PUBLIC
+
+1. Título, versión y fecha de vigencia.
+2. Texto completo proveniente de la misma fuente versionada usada por el modal de consentimiento.
+3. Footer y bottom nav públicos.
 
 ## Regla final de consistencia
 
