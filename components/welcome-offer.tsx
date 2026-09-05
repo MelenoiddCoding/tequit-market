@@ -8,11 +8,19 @@ export function WelcomeOffer({
   endsAt,
   months,
   value,
+  planName,
+  maxServices,
+  maxPortfolioItems,
+  hasAdvancedAnalytics,
 }: {
   assignmentId: string;
   endsAt: string;
   months: number;
   value: number;
+  planName: string;
+  maxServices: number | null;
+  maxPortfolioItems: number | null;
+  hasAdvancedAnalytics: boolean;
 }) {
   useEffect(() => {
     void fetch("/api/dashboard/welcome", {
@@ -35,7 +43,7 @@ export function WelcomeOffer({
         <h1>
           Te regalamos
           <br />
-          {months} {months === 1 ? "mes" : "meses"} Pro
+          {months} {months === 1 ? "mes" : "meses"} {planName}
         </h1>
         <p className={styles.value}>
           Valor de referencia:{" "}
@@ -44,15 +52,21 @@ export function WelcomeOffer({
         <div className={styles.details}>
           <span>
             <Check />
-            15 servicios publicados
+            {maxServices === null
+              ? "Servicios ilimitados"
+              : `${maxServices} servicios publicados`}
           </span>
           <span>
             <Check />
-            10 trabajos en tu galería
+            {maxPortfolioItems === null
+              ? "Trabajos ilimitados"
+              : `${maxPortfolioItems} trabajos en tu galería`}
           </span>
           <span>
             <Check />
-            Solicitudes y analítica avanzada
+            {hasAdvancedAnalytics
+              ? "Solicitudes y analítica avanzada"
+              : "Métricas para conocer tu rendimiento"}
           </span>
         </div>
         <p className={styles.expiry}>

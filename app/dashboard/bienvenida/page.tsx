@@ -30,6 +30,12 @@ export default async function WelcomePage() {
       endsAt={assignment.endsAt}
       months={months}
       value={context.planDetails.price * months}
+      planName={context.planDetails.name}
+      maxServices={context.planDetails.entitlements.maxServices}
+      maxPortfolioItems={context.planDetails.entitlements.maxPortfolioItems}
+      hasAdvancedAnalytics={
+        context.planDetails.entitlements.analyticsLevel === "advanced"
+      }
     />
   );
 }

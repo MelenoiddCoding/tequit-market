@@ -57,7 +57,7 @@ export default async function PlanPage() {
             <Sparkles />
           </span>
           <div className={styles.alertCopy}>
-            <strong>Tienes Pro de regalo</strong>
+            <strong>Tienes {current.name} de regalo</strong>
             <p>
               Disponible hasta{" "}
               {new Intl.DateTimeFormat("es-MX", {
