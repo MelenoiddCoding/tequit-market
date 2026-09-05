@@ -1,7 +1,97 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-const createSchema=z.object({kind:z.enum(["provider","business"]),entityId:z.string().uuid(),path:z.string().min(10).max(300),title:z.string().trim().min(3).max(120),description:z.string().trim().max(500)});
-const deleteSchema=z.object({kind:z.enum(["provider","business"]),id:z.string().uuid(),path:z.string().min(10).max(300)});
-export async function POST(request:Request){const parsed=createSchema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:"Datos de imagen inválidos."},{status:400});const supabase=await createClient();const{data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json({error:"Tu sesión terminó."},{status:401});let data:{id:string}|null=null;let error;if(parsed.data.kind==="provider")({data,error}=await supabase.from("provider_media").insert({provider_id:parsed.data.entityId,storage_path:parsed.data.path,title:parsed.data.title,description:parsed.data.description,media_role:"portfolio"}).select("id").single());else({data,error}=await supabase.from("business_media").insert({business_id:parsed.data.entityId,storage_path:parsed.data.path,title:parsed.data.title}).select("id").single());if(error||!data)return NextResponse.json({error:"No pudimos publicar la imagen."},{status:403});return NextResponse.json({id:data.id},{status:201})}
-export async function DELETE(request:Request){const parsed=deleteSchema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:"Datos inválidos."},{status:400});const supabase=await createClient();const table=parsed.data.kind==="provider"?"provider_media":"business_media";const bucket=parsed.data.kind==="provider"?"provider-work":"business-media";const{error}=await supabase.from(table).delete().eq("id",parsed.data.id);if(error)return NextResponse.json({error:"No pudimos eliminar el trabajo."},{status:403});await supabase.storage.from(bucket).remove([parsed.data.path]);return NextResponse.json({ok:true})}
+import { getProviderPlan } from "@/lib/plans";
+const createSchema = z.object({
+  kind: z.enum(["provider", "business"]),
+  entityId: z.string().uuid(),
+  path: z.string().min(10).max(300),
+  title: z.string().trim().min(3).max(120),
+  description: z.string().trim().max(500),
+});
+const deleteSchema = z.object({
+  kind: z.enum(["provider", "business"]),
+  id: z.string().uuid(),
+  path: z.string().min(10).max(300),
+});
+export async function POST(request: Request) {
+  const parsed = createSchema.safeParse(await request.json());
+  if (!parsed.success)
+    return NextResponse.json(
+      { error: "Datos de imagen inválidos." },
+      { status: 400 },
+    );
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user)
+    return NextResponse.json({ error: "Tu sesión terminó." }, { status: 401 });
+  if (parsed.data.kind === "provider") {
+    const plan = await getProviderPlan(parsed.data.entityId);
+    const limit = plan.entitlements.maxPortfolioItems;
+    if (limit !== null) {
+      const { count } = await supabase
+        .from("provider_media")
+        .select("id", { count: "exact", head: true })
+        .eq("provider_id", parsed.data.entityId)
+        .is("archived_at", null);
+      if ((count ?? 0) >= limit)
+        return NextResponse.json(
+          { error: `Tu plan ${plan.name} permite hasta ${limit} trabajos.` },
+          { status: 409 },
+        );
+    }
+  }
+  let data: { id: string } | null = null;
+  let error;
+  if (parsed.data.kind === "provider")
+    ({ data, error } = await supabase
+      .from("provider_media")
+      .insert({
+        provider_id: parsed.data.entityId,
+        storage_path: parsed.data.path,
+        title: parsed.data.title,
+        description: parsed.data.description,
+        media_role: "portfolio",
+      })
+      .select("id")
+      .single());
+  else
+    ({ data, error } = await supabase
+      .from("business_media")
+      .insert({
+        business_id: parsed.data.entityId,
+        storage_path: parsed.data.path,
+        title: parsed.data.title,
+      })
+      .select("id")
+      .single());
+  if (error || !data)
+    return NextResponse.json(
+      { error: "No pudimos publicar la imagen." },
+      { status: 403 },
+    );
+  return NextResponse.json({ id: data.id }, { status: 201 });
+}
+export async function DELETE(request: Request) {
+  const parsed = deleteSchema.safeParse(await request.json());
+  if (!parsed.success)
+    return NextResponse.json({ error: "Datos inválidos." }, { status: 400 });
+  const supabase = await createClient();
+  const table =
+    parsed.data.kind === "provider" ? "provider_media" : "business_media";
+  const bucket =
+    parsed.data.kind === "provider" ? "provider-work" : "business-media";
+  const { error } = await supabase
+    .from(table)
+    .delete()
+    .eq("id", parsed.data.id);
+  if (error)
+    return NextResponse.json(
+      { error: "No pudimos eliminar el trabajo." },
+      { status: 403 },
+    );
+  await supabase.storage.from(bucket).remove([parsed.data.path]);
+  return NextResponse.json({ ok: true });
+}

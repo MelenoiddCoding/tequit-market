@@ -1,5 +1,85 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-const schema=z.discriminatedUnion("action",[z.object({action:z.literal("add"),name:z.string().trim().min(3).max(100),kind:z.enum(["provider","business"]),entityId:z.string().uuid()}),z.object({action:z.literal("toggle"),id:z.string().uuid(),active:z.boolean(),kind:z.enum(["provider","business"]),entityId:z.string().uuid()})]);
-export async function POST(request:Request){const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:"Datos inválidos"},{status:400});const supabase=await createClient();const{data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json({error:"Tu sesión terminó."},{status:401});const table=parsed.data.kind==="provider"?"provider_services":"business_services";const ownerColumn=parsed.data.kind==="provider"?"provider_id":"business_id";if(parsed.data.action==="toggle"){const{data,error}=await supabase.from(table).update({active:parsed.data.active}).eq("id",parsed.data.id).eq(ownerColumn,parsed.data.entityId).select("id,active").maybeSingle();if(error||!data)return NextResponse.json({error:"No pudimos actualizar el servicio."},{status:403});return NextResponse.json(data)}const{data:canonical}=await supabase.from("canonical_services").select("id").ilike("name",parsed.data.name).maybeSingle();const{data,error}=await supabase.from(table).insert({[ownerColumn]:parsed.data.entityId,canonical_service_id:canonical?.id,title:parsed.data.name,description:"",active:true}).select("id,title,active").single();if(error)return NextResponse.json({error:error.message.includes("5 active")?"Llegaste al límite de 5 servicios del plan Free.":"No pudimos agregar el servicio."},{status:409});return NextResponse.json({id:data.id,name:data.title,active:data.active},{status:201})}
+const schema = z.discriminatedUnion("action", [
+  z.object({
+    action: z.literal("add"),
+    name: z.string().trim().min(3).max(100),
+    kind: z.enum(["provider", "business"]),
+    entityId: z.string().uuid(),
+  }),
+  z.object({
+    action: z.literal("toggle"),
+    id: z.string().uuid(),
+    active: z.boolean(),
+    kind: z.enum(["provider", "business"]),
+    entityId: z.string().uuid(),
+  }),
+]);
+export async function POST(request: Request) {
+  const parsed = schema.safeParse(await request.json());
+  if (!parsed.success)
+    return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user)
+    return NextResponse.json({ error: "Tu sesión terminó." }, { status: 401 });
+  const table =
+    parsed.data.kind === "provider" ? "provider_services" : "business_services";
+  const ownerColumn =
+    parsed.data.kind === "provider" ? "provider_id" : "business_id";
+  if (parsed.data.action === "toggle") {
+    const { data, error } = await supabase
+      .from(table)
+      .update({ active: parsed.data.active })
+      .eq("id", parsed.data.id)
+      .eq(ownerColumn, parsed.data.entityId)
+      .select("id,active")
+      .maybeSingle();
+    if (error || !data) {
+      const limit = error?.message.match(/PLAN_SERVICE_LIMIT:(\d+)/)?.[1];
+      return NextResponse.json(
+        {
+          error: limit
+            ? `Tu plan permite hasta ${limit} servicios activos.`
+            : "No pudimos actualizar el servicio.",
+        },
+        { status: limit ? 409 : 403 },
+      );
+    }
+    return NextResponse.json(data);
+  }
+  const { data: canonical } = await supabase
+    .from("canonical_services")
+    .select("id")
+    .ilike("name", parsed.data.name)
+    .maybeSingle();
+  const { data, error } = await supabase
+    .from(table)
+    .insert({
+      [ownerColumn]: parsed.data.entityId,
+      canonical_service_id: canonical?.id,
+      title: parsed.data.name,
+      description: "",
+      active: true,
+    })
+    .select("id,title,active")
+    .single();
+  if (error) {
+    const limit = error.message.match(/PLAN_SERVICE_LIMIT:(\d+)/)?.[1];
+    return NextResponse.json(
+      {
+        error: limit
+          ? `Tu plan permite hasta ${limit} servicios activos.`
+          : "No pudimos agregar el servicio.",
+      },
+      { status: 409 },
+    );
+  }
+  return NextResponse.json(
+    { id: data.id, name: data.title, active: data.active },
+    { status: 201 },
+  );
+}

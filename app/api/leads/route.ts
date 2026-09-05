@@ -1,9 +1,146 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { randomBytes,createHash,randomUUID } from "node:crypto";
+import { randomBytes, createHash, randomUUID } from "node:crypto";
 import { allowRequest } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
-const fileSchema=z.object({name:z.string().min(1).max(180),type:z.enum(["image/jpeg","image/png","image/webp"]),size:z.number().int().positive().max(5*1024*1024)});
-const schema=z.object({requestedService:z.string().min(3).max(100),description:z.string().min(10).max(1500),zone:z.string().min(2).max(100),timing:z.string().max(80).optional(),customerName:z.string().min(2).max(100),customerPhone:z.string().regex(/^[\d\s+()-]{8,20}$/),customerEmail:z.union([z.string().email(),z.literal("")]).optional(),targetProvider:z.string().max(120).optional(),targetBusiness:z.string().max(120).optional(),files:z.array(fileSchema).max(4).default([]),website:z.string().max(0).optional()});
-export async function POST(request:Request){if(!await allowRequest(request,"lead",5,3600))return NextResponse.json({error:"Se alcanzó el límite de solicitudes. Intenta más tarde."},{status:429});const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:parsed.error.issues[0]?.message??"Datos inválidos"},{status:400});if(parsed.data.targetProvider&&parsed.data.targetBusiness)return NextResponse.json({error:"Elige una sola persona o negocio."},{status:400});const admin=createAdminClient();if(admin&&process.env.NEXT_PUBLIC_DEMO_MODE!=="true"){let providerId:string|undefined;let businessId:string|undefined;if(parsed.data.targetProvider){const target=(await admin.from("provider_profiles").select("id,is_demo").eq("slug",parsed.data.targetProvider).eq("status","active").maybeSingle()).data;if(!target||target.is_demo)return NextResponse.json({error:"Ese perfil no recibe solicitudes."},{status:409});providerId=target.id}if(parsed.data.targetBusiness){const target=(await admin.from("businesses").select("id,is_demo").eq("slug",parsed.data.targetBusiness).eq("status","active").maybeSingle()).data;if(!target||target.is_demo)return NextResponse.json({error:"Ese negocio no recibe solicitudes."},{status:409});businessId=target.id}const sessionClient=await createClient();const{data:{user}}=await sessionClient.auth.getUser();const uploadToken=randomBytes(24).toString("base64url");const{data,error}=await admin.from("leads").insert({target_provider_id:providerId,target_business_id:businessId,customer_profile_id:user?.id,requested_service_text:parsed.data.requestedService,description:parsed.data.description,customer_name:parsed.data.customerName,customer_phone:parsed.data.customerPhone,customer_email:parsed.data.customerEmail||null,zone:parsed.data.zone,desired_timing:parsed.data.timing,upload_token_hash:createHash("sha256").update(uploadToken).digest("hex")}).select("id,status").single();if(error)return NextResponse.json({error:"No pudimos guardar la solicitud."},{status:500});const uploads=[];for(const file of parsed.data.files){const extension=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";const path=`${data.id}/${randomUUID()}.${extension}`;const{data:signed,error:signedError}=await admin.storage.from("upload-quarantine").createSignedUploadUrl(path);if(!signedError&&signed)uploads.push({path,token:signed.token})}return NextResponse.json({...data,uploadToken,uploads},{status:201})}const id=`TQ-${Date.now().toString(36).toUpperCase()}`;return NextResponse.json({id,status:"nueva",demo:true,uploads:[]},{status:201})}
+const fileSchema = z.object({
+  name: z.string().min(1).max(180),
+  type: z.enum(["image/jpeg", "image/png", "image/webp"]),
+  size: z
+    .number()
+    .int()
+    .positive()
+    .max(5 * 1024 * 1024),
+});
+const schema = z.object({
+  requestedService: z.string().min(3).max(100),
+  description: z.string().min(10).max(1500),
+  zone: z.string().min(2).max(100),
+  timing: z.string().max(80).optional(),
+  customerName: z.string().min(2).max(100),
+  customerPhone: z.string().regex(/^[\d\s+()-]{8,20}$/),
+  customerEmail: z.union([z.string().email(), z.literal("")]).optional(),
+  targetProvider: z.string().max(120).optional(),
+  targetBusiness: z.string().max(120).optional(),
+  files: z.array(fileSchema).max(4).default([]),
+  website: z.string().max(0).optional(),
+});
+export async function POST(request: Request) {
+  if (!(await allowRequest(request, "lead", 5, 3600)))
+    return NextResponse.json(
+      { error: "Se alcanzó el límite de solicitudes. Intenta más tarde." },
+      { status: 429 },
+    );
+  const parsed = schema.safeParse(await request.json());
+  if (!parsed.success)
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Datos inválidos" },
+      { status: 400 },
+    );
+  if (parsed.data.targetProvider && parsed.data.targetBusiness)
+    return NextResponse.json(
+      { error: "Elige una sola persona o negocio." },
+      { status: 400 },
+    );
+  const admin = createAdminClient();
+  if (admin && process.env.NEXT_PUBLIC_DEMO_MODE !== "true") {
+    let providerId: string | undefined;
+    let businessId: string | undefined;
+    if (parsed.data.targetProvider) {
+      const target = (
+        await admin
+          .from("provider_profiles")
+          .select("id,is_demo")
+          .eq("slug", parsed.data.targetProvider)
+          .eq("status", "active")
+          .maybeSingle()
+      ).data;
+      if (!target || target.is_demo)
+        return NextResponse.json(
+          { error: "Ese perfil no recibe solicitudes." },
+          { status: 409 },
+        );
+      const { data: canReceiveRequest } = await admin.rpc(
+        "provider_entitlement",
+        { p_provider: target.id, p_feature: "directed_request_form" },
+      );
+      if (canReceiveRequest !== true)
+        return NextResponse.json(
+          {
+            error: "Ese perfil recibe contacto directo por WhatsApp o llamada.",
+          },
+          { status: 403 },
+        );
+      providerId = target.id;
+    }
+    if (parsed.data.targetBusiness) {
+      const target = (
+        await admin
+          .from("businesses")
+          .select("id,is_demo")
+          .eq("slug", parsed.data.targetBusiness)
+          .eq("status", "active")
+          .maybeSingle()
+      ).data;
+      if (!target || target.is_demo)
+        return NextResponse.json(
+          { error: "Ese negocio no recibe solicitudes." },
+          { status: 409 },
+        );
+      businessId = target.id;
+    }
+    const sessionClient = await createClient();
+    const {
+      data: { user },
+    } = await sessionClient.auth.getUser();
+    const uploadToken = randomBytes(24).toString("base64url");
+    const { data, error } = await admin
+      .from("leads")
+      .insert({
+        target_provider_id: providerId,
+        target_business_id: businessId,
+        customer_profile_id: user?.id,
+        requested_service_text: parsed.data.requestedService,
+        description: parsed.data.description,
+        customer_name: parsed.data.customerName,
+        customer_phone: parsed.data.customerPhone,
+        customer_email: parsed.data.customerEmail || null,
+        zone: parsed.data.zone,
+        desired_timing: parsed.data.timing,
+        upload_token_hash: createHash("sha256")
+          .update(uploadToken)
+          .digest("hex"),
+      })
+      .select("id,status")
+      .single();
+    if (error)
+      return NextResponse.json(
+        { error: "No pudimos guardar la solicitud." },
+        { status: 500 },
+      );
+    const uploads = [];
+    for (const file of parsed.data.files) {
+      const extension =
+        file.type === "image/png"
+          ? "png"
+          : file.type === "image/webp"
+            ? "webp"
+            : "jpg";
+      const path = `${data.id}/${randomUUID()}.${extension}`;
+      const { data: signed, error: signedError } = await admin.storage
+        .from("upload-quarantine")
+        .createSignedUploadUrl(path);
+      if (!signedError && signed) uploads.push({ path, token: signed.token });
+    }
+    return NextResponse.json(
+      { ...data, uploadToken, uploads },
+      { status: 201 },
+    );
+  }
+  const id = `TQ-${Date.now().toString(36).toUpperCase()}`;
+  return NextResponse.json(
+    { id, status: "nueva", demo: true, uploads: [] },
+    { status: 201 },
+  );
+}

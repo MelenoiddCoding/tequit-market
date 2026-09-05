@@ -482,3 +482,11 @@ La composición visual de Stitch se conserva donde aporta valor; estas inconsist
 - `LegalDocumentContent` representa la fuente estructurada y versionada compartida por modal, `/terminos` y `/privacidad`; no se duplican textos en componentes.
 - En móvil el diálogo ocupa casi todo el viewport con controles fuera del área desplazable. En desktop permanece centrado y acotado.
 - Un error de consentimiento se muestra dentro del bloque legal antes de iniciar OTP o crear una cuenta de reclamación.
+
+## 18. Planes y capacidades
+
+- La interfaz nunca decide acceso comparando sólo el nombre del plan; recibe capacidades resueltas por servidor.
+- `PlanStatus` muestra plan efectivo, origen, vigencia y bajada prevista. Los precios son referencia mientras no exista checkout.
+- `WelcomeOffer` es una composición de una sola acción, sin mosaico de cards: beneficio, valor, fecha y ausencia de tarjeta/renovación.
+- Free, Básico, Pro y Premium comparten componentes. Las funciones `coming_soon` se etiquetan y permanecen deshabilitadas.
+- `PlanAction` administrativo permite plan y duración; `WelcomeOfferSettings` controla únicamente altas futuras.

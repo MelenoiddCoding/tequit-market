@@ -1,0 +1,115 @@
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+  background: var(--canvas);
+}
+.poster {
+  width: min(720px, 100%);
+  text-align: center;
+  padding: clamp(36px, 8vw, 76px);
+  border-radius: 28px;
+  background: var(--brand-strong);
+  color: white;
+  box-shadow: var(--shadow-overlay);
+  animation: enter 0.45s ease both;
+}
+.mark {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: rotate(-6deg);
+}
+.mark svg {
+  width: 28px;
+}
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: #d7e8dd;
+}
+.poster h1 {
+  margin: 10px 0 14px;
+  color: white;
+  font-size: clamp(2.8rem, 9vw, 5.6rem);
+  line-height: 0.94;
+}
+.value {
+  font-size: 1.05rem;
+}
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 34px 0;
+  padding: 22px 0;
+  border-block: 1px solid rgba(255, 255, 255, 0.18);
+}
+.details span {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+.details svg {
+  color: #efb79f;
+}
+.expiry {
+  max-width: 520px;
+  margin: 0 auto 8px;
+  line-height: 1.6;
+}
+.noCard {
+  margin: 0 0 26px;
+  color: #d7e8dd;
+  font-size: 0.85rem;
+}
+.poster :global(.btn) {
+  background: white;
+  color: var(--brand-strong);
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 639px) {
+  .page {
+    padding: 0;
+    background: var(--brand-strong);
+  }
+  .poster {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .details {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .details span {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster {
+    animation: none;
+  }
+}

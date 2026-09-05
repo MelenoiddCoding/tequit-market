@@ -1,37 +1,431 @@
 import Link from "next/link";
-import { Building2,ChevronLeft,ChevronRight,ClipboardList,MessageSquareText,Plus,Search,Users,X } from "lucide-react";
-import { ModerationAction,PlanAction,PlanRequestAction,PublicationAction } from "@/components/admin-actions";
+import {
+  Building2,
+  ChevronLeft,
+  ChevronRight,
+  ClipboardList,
+  MessageSquareText,
+  Plus,
+  Search,
+  Users,
+  X,
+} from "lucide-react";
+import {
+  ModerationAction,
+  PlanAction,
+  PlanRequestAction,
+  PublicationAction,
+  WelcomeOfferSettings,
+} from "@/components/admin-actions";
 import { AdminShell } from "@/components/admin-shell";
-import { DashboardPageHeader,DashboardSection,MetricGrid,MetricItem,StatusBadge,dashboardStyles as styles } from "@/components/dashboard-components";
+import {
+  DashboardPageHeader,
+  DashboardSection,
+  MetricGrid,
+  MetricItem,
+  StatusBadge,
+  dashboardStyles as styles,
+} from "@/components/dashboard-components";
 import { requireRole } from "@/lib/auth";
 import { getBusinesses } from "@/lib/marketplace";
 import { createAdminClient } from "@/lib/supabase/admin";
 
-type ProviderAdminRow={id:string;slug:string;name:string;profession:string;phone:string;email:string;status:"draft"|"active"|"suspended";plan:"free"|"pro";is_demo:boolean;total_count:number|string};
-const PAGE_SIZE=15;
-function pageHref(page:number,query:string){const params=new URLSearchParams();if(query)params.set("q",query);if(page>1)params.set("page",String(page));return `/admin${params.size?`?${params}`:""}#prestadores`}
+type ProviderAdminRow = {
+  id: string;
+  slug: string;
+  name: string;
+  profession: string;
+  phone: string;
+  email: string;
+  status: "draft" | "active" | "suspended";
+  plan: "free" | "basic" | "pro" | "premium";
+  is_demo: boolean;
+  assignment_source: "welcome" | "admin" | "future_purchase" | "legacy" | null;
+  assignment_ends_at: string | null;
+  total_count: number | string;
+};
+const PAGE_SIZE = 15;
+function pageHref(page: number, query: string) {
+  const params = new URLSearchParams();
+  if (query) params.set("q", query);
+  if (page > 1) params.set("page", String(page));
+  return `/admin${params.size ? `?${params}` : ""}#prestadores`;
+}
 
-export default async function AdminPage({searchParams}:{searchParams:Promise<{q?:string|string[];page?:string|string[]}>}){
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[]; page?: string | string[] }>;
+}) {
   await requireRole(["admin"]);
-  const admin=createAdminClient()!;
-  const params=await searchParams;const providerQuery=(Array.isArray(params.q)?params.q[0]:params.q??"").trim().slice(0,120);const requestedPage=Number(Array.isArray(params.page)?params.page[0]:params.page??"1");const providerPage=Number.isSafeInteger(requestedPage)&&requestedPage>0?requestedPage:1;
-  const [{data:providerRows},{count:providerCount},businessesResult,{count:leadCount},{data:pendingReviews},{data:planRequests}]=await Promise.all([
-    admin.rpc("admin_search_providers",{p_query:providerQuery,p_limit:PAGE_SIZE,p_offset:(providerPage-1)*PAGE_SIZE}),
-    admin.from("provider_profiles").select("id",{count:"exact",head:true}),
-    getBusinesses({includeInactive:true}),
-    admin.from("leads").select("id",{count:"exact",head:true}),
-    admin.from("reviews").select("id,customer_name,rating,comment").eq("status","pending").order("created_at"),
-    admin.from("plan_requests").select("id,note,created_at,provider_profiles(name),businesses(name)").eq("status","pending").order("created_at"),
+  const admin = createAdminClient()!;
+  const params = await searchParams;
+  const providerQuery = (
+    Array.isArray(params.q) ? params.q[0] : (params.q ?? "")
+  )
+    .trim()
+    .slice(0, 120);
+  const requestedPage = Number(
+    Array.isArray(params.page) ? params.page[0] : (params.page ?? "1"),
+  );
+  const providerPage =
+    Number.isSafeInteger(requestedPage) && requestedPage > 0
+      ? requestedPage
+      : 1;
+  const [
+    { data: providerRows },
+    { count: providerCount },
+    businessesResult,
+    { count: leadCount },
+    { data: pendingReviews },
+    { data: planRequests },
+    { data: welcomeSettings },
+  ] = await Promise.all([
+    admin.rpc("admin_search_providers", {
+      p_query: providerQuery,
+      p_limit: PAGE_SIZE,
+      p_offset: (providerPage - 1) * PAGE_SIZE,
+    }),
+    admin
+      .from("provider_profiles")
+      .select("id", { count: "exact", head: true }),
+    getBusinesses({ includeInactive: true }),
+    admin.from("leads").select("id", { count: "exact", head: true }),
+    admin
+      .from("reviews")
+      .select("id,customer_name,rating,comment")
+      .eq("status", "pending")
+      .order("created_at"),
+    admin
+      .from("plan_requests")
+      .select(
+        "id,note,requested_plan,created_at,provider_profiles(name),businesses(name)",
+      )
+      .eq("status", "pending")
+      .order("created_at"),
+    admin
+      .from("welcome_offer_settings")
+      .select("enabled,plan_code,duration_months")
+      .eq("id", true)
+      .single(),
   ]);
-  const providers=(providerRows??[]) as ProviderAdminRow[];const businesses=businessesResult;const filteredCount=Number(providers[0]?.total_count??0);const pageCount=Math.max(1,Math.ceil(filteredCount/PAGE_SIZE));
-  const metrics=[{Icon:Users,label:"Prestadores",value:providerCount??0},{Icon:Building2,label:"Negocios",value:businesses.length},{Icon:ClipboardList,label:"Solicitudes",value:leadCount??0},{Icon:MessageSquareText,label:"Reseñas pendientes",value:pendingReviews?.length??0}];
-  return <AdminShell><div className={styles.stack}>
-      <DashboardPageHeader eyebrow="Operación Tequit" title="Panel administrativo" description="Supervisa publicaciones, planes, solicitudes Pro y reseñas pendientes." action={<Link className={styles.primary} href="/admin/prestadores/nuevo"><Plus size={17}/>Alta asistida</Link>}/>
-      <section id="resumen"><MetricGrid>{metrics.map(({Icon,label,value})=><MetricItem icon={Icon} label={label} value={value} key={label}/>)}</MetricGrid></section>
-      <DashboardSection title="Prestadores y planes" description="Busca cuentas y administra publicación o plan durante la beta." className={styles.surface}><div id="prestadores"><form className={styles.directorySearch} action="/admin" method="get"><label htmlFor="provider-search">Buscar prestador</label><div><Search size={18} aria-hidden/><input id="provider-search" name="q" type="search" defaultValue={providerQuery} placeholder="Nombre, teléfono o correo" maxLength={120}/>{providerQuery&&<Link href="/admin#prestadores" aria-label="Limpiar búsqueda"><X size={18}/></Link>}<button className={styles.primary} type="submit">Buscar</button></div></form><div className={styles.directorySummary}><span>{providerQuery?`${filteredCount} resultado${filteredCount===1?"":"s"}`:`${providerCount??0} prestadores`}</span>{filteredCount>0&&<span>Página {providerPage} de {pageCount}</span>}</div>{providers.length?<table className={styles.table}><thead><tr><th>Prestador</th><th>Contacto</th><th>Estado</th><th>Plan</th><th>Acción</th></tr></thead><tbody>{providers.map(provider=><tr key={provider.id}><td data-label="Prestador"><Link href={`/p/${provider.slug}`}>{provider.name}</Link><span className={styles.help}>{provider.profession}{provider.is_demo?" · Muestra":""}</span></td><td data-label="Contacto"><span>{provider.phone||"Sin teléfono"}</span><span className={styles.help}>{provider.email||"Sin correo"}</span></td><td data-label="Estado"><StatusBadge>{provider.status}</StatusBadge></td><td data-label="Plan"><PlanAction id={provider.id} initial={provider.plan}/></td><td data-label="Acción"><PublicationAction id={provider.id} kind="provider" initial={provider.status}/></td></tr>)}</tbody></table>:<div className={styles.directoryEmpty}><strong>No encontramos prestadores</strong><p>Prueba con otro nombre, teléfono o correo.</p>{providerQuery&&<Link className={styles.secondary} href="/admin#prestadores">Limpiar búsqueda</Link>}</div>}{pageCount>1&&<nav className={styles.pagination} aria-label="Páginas de prestadores"><Link className={providerPage<=1?styles.paginationDisabled:styles.secondary} href={providerPage<=1?pageHref(1,providerQuery):pageHref(providerPage-1,providerQuery)} aria-disabled={providerPage<=1} tabIndex={providerPage<=1?-1:undefined}><ChevronLeft size={17}/>Anterior</Link><span>{providerPage} / {pageCount}</span><Link className={providerPage>=pageCount?styles.paginationDisabled:styles.secondary} href={providerPage>=pageCount?pageHref(pageCount,providerQuery):pageHref(providerPage+1,providerQuery)} aria-disabled={providerPage>=pageCount} tabIndex={providerPage>=pageCount?-1:undefined}>Siguiente<ChevronRight size={17}/></Link></nav>}</div></DashboardSection>
-      <DashboardSection title="Negocios" description="Publicación y suspensión de fichas comerciales." className={styles.surface}><div id="negocios"><table className={styles.table}><thead><tr><th>Negocio</th><th>Estado</th><th>Acción</th></tr></thead><tbody>{businesses.map(business=><tr key={business.id}><td data-label="Negocio"><Link href={`/n/${business.slug}`}>{business.name}</Link><span className={styles.help}>{business.category}{business.isDemo?" · Muestra":""}</span></td><td data-label="Estado"><StatusBadge>{business.status}</StatusBadge></td><td data-label="Acción"><PublicationAction id={business.id} kind="business" initial={business.status}/></td></tr>)}</tbody></table></div></DashboardSection>
-      <DashboardSection title="Solicitudes Pro" description="No hay cobros: el administrador decide manualmente." className={styles.surface}>{planRequests?.length?planRequests.map(request=><article className={styles.listRow} key={request.id}><div><StatusBadge tone="warning">Pendiente</StatusBadge><h3>{request.provider_profiles?.[0]?.name??request.businesses?.[0]?.name??"Perfil"}</h3><p>{request.note||"Sin nota adicional."}</p></div><PlanRequestAction id={request.id}/></article>):<p className={styles.help}>No hay solicitudes Pro pendientes.</p>}</DashboardSection>
-      <DashboardSection title="Moderación de reseñas" description="Las reseñas pendientes no se muestran públicamente hasta tomar una decisión." className={styles.surface}><div id="moderacion">{pendingReviews?.length?pendingReviews.map(review=><article className={styles.listRow} key={review.id}><div><StatusBadge tone="warning">Pendiente</StatusBadge><h3>{review.customer_name} · {review.rating}/5</h3><p>{review.comment}</p></div><ModerationAction id={review.id}/></article>):<p className={styles.help}>No hay reseñas pendientes.</p>}</div></DashboardSection>
-      <DashboardSection title="Taxonomía" description="Categorías canónicas disponibles para servicios y búsqueda." className={styles.surface}><div id="taxonomia" className={styles.categoryList}>{["Construcción","Plomería","Electricidad","Electrodomésticos","Climatización","Hogar","Eventos"].map(category=><span className={styles.category} key={category}>{category}</span>)}</div></DashboardSection>
-    </div></AdminShell>;
+  const providers = (providerRows ?? []) as ProviderAdminRow[];
+  const businesses = businessesResult;
+  const filteredCount = Number(providers[0]?.total_count ?? 0);
+  const pageCount = Math.max(1, Math.ceil(filteredCount / PAGE_SIZE));
+  const metrics = [
+    { Icon: Users, label: "Prestadores", value: providerCount ?? 0 },
+    { Icon: Building2, label: "Negocios", value: businesses.length },
+    { Icon: ClipboardList, label: "Solicitudes", value: leadCount ?? 0 },
+    {
+      Icon: MessageSquareText,
+      label: "Reseñas pendientes",
+      value: pendingReviews?.length ?? 0,
+    },
+  ];
+  return (
+    <AdminShell>
+      <div className={styles.stack}>
+        <DashboardPageHeader
+          eyebrow="Operación Tequit"
+          title="Panel administrativo"
+          description="Supervisa publicaciones, planes, solicitudes Pro y reseñas pendientes."
+          action={
+            <Link className={styles.primary} href="/admin/prestadores/nuevo">
+              <Plus size={17} />
+              Alta asistida
+            </Link>
+          }
+        />
+        <section id="resumen">
+          <MetricGrid>
+            {metrics.map(({ Icon, label, value }) => (
+              <MetricItem icon={Icon} label={label} value={value} key={label} />
+            ))}
+          </MetricGrid>
+        </section>
+        <DashboardSection
+          title="Prestadores y planes"
+          description="Busca cuentas y administra publicación o plan durante la beta."
+          className={styles.surface}
+        >
+          <div id="prestadores">
+            <form
+              className={styles.directorySearch}
+              action="/admin"
+              method="get"
+            >
+              <label htmlFor="provider-search">Buscar prestador</label>
+              <div>
+                <Search size={18} aria-hidden />
+                <input
+                  id="provider-search"
+                  name="q"
+                  type="search"
+                  defaultValue={providerQuery}
+                  placeholder="Nombre, teléfono o correo"
+                  maxLength={120}
+                />
+                {providerQuery && (
+                  <Link href="/admin#prestadores" aria-label="Limpiar búsqueda">
+                    <X size={18} />
+                  </Link>
+                )}
+                <button className={styles.primary} type="submit">
+                  Buscar
+                </button>
+              </div>
+            </form>
+            <div className={styles.directorySummary}>
+              <span>
+                {providerQuery
+                  ? `${filteredCount} resultado${filteredCount === 1 ? "" : "s"}`
+                  : `${providerCount ?? 0} prestadores`}
+              </span>
+              {filteredCount > 0 && (
+                <span>
+                  Página {providerPage} de {pageCount}
+                </span>
+              )}
+            </div>
+            {providers.length ? (
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Prestador</th>
+                    <th>Contacto</th>
+                    <th>Estado</th>
+                    <th>Plan</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {providers.map((provider) => (
+                    <tr key={provider.id}>
+                      <td data-label="Prestador">
+                        <Link href={`/p/${provider.slug}`}>
+                          {provider.name}
+                        </Link>
+                        <span className={styles.help}>
+                          {provider.profession}
+                          {provider.is_demo ? " · Muestra" : ""}
+                        </span>
+                      </td>
+                      <td data-label="Contacto">
+                        <span>{provider.phone || "Sin teléfono"}</span>
+                        <span className={styles.help}>
+                          {provider.email || "Sin correo"}
+                        </span>
+                      </td>
+                      <td data-label="Estado">
+                        <StatusBadge>{provider.status}</StatusBadge>
+                      </td>
+                      <td data-label="Plan">
+                        <PlanAction id={provider.id} initial={provider.plan} />
+                        <span className={styles.help}>
+                          {provider.assignment_source
+                            ? `${provider.assignment_source === "welcome" ? "Regalo" : provider.assignment_source === "legacy" ? "Legado" : "Asignación admin"}${provider.assignment_ends_at ? ` · hasta ${new Intl.DateTimeFormat("es-MX").format(new Date(provider.assignment_ends_at))}` : " · sin vencimiento"}`
+                            : "Free por defecto"}
+                        </span>
+                      </td>
+                      <td data-label="Acción">
+                        <PublicationAction
+                          id={provider.id}
+                          kind="provider"
+                          initial={provider.status}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className={styles.directoryEmpty}>
+                <strong>No encontramos prestadores</strong>
+                <p>Prueba con otro nombre, teléfono o correo.</p>
+                {providerQuery && (
+                  <Link className={styles.secondary} href="/admin#prestadores">
+                    Limpiar búsqueda
+                  </Link>
+                )}
+              </div>
+            )}
+            {pageCount > 1 && (
+              <nav
+                className={styles.pagination}
+                aria-label="Páginas de prestadores"
+              >
+                <Link
+                  className={
+                    providerPage <= 1
+                      ? styles.paginationDisabled
+                      : styles.secondary
+                  }
+                  href={
+                    providerPage <= 1
+                      ? pageHref(1, providerQuery)
+                      : pageHref(providerPage - 1, providerQuery)
+                  }
+                  aria-disabled={providerPage <= 1}
+                  tabIndex={providerPage <= 1 ? -1 : undefined}
+                >
+                  <ChevronLeft size={17} />
+                  Anterior
+                </Link>
+                <span>
+                  {providerPage} / {pageCount}
+                </span>
+                <Link
+                  className={
+                    providerPage >= pageCount
+                      ? styles.paginationDisabled
+                      : styles.secondary
+                  }
+                  href={
+                    providerPage >= pageCount
+                      ? pageHref(pageCount, providerQuery)
+                      : pageHref(providerPage + 1, providerQuery)
+                  }
+                  aria-disabled={providerPage >= pageCount}
+                  tabIndex={providerPage >= pageCount ? -1 : undefined}
+                >
+                  Siguiente
+                  <ChevronRight size={17} />
+                </Link>
+              </nav>
+            )}
+          </div>
+        </DashboardSection>
+        <DashboardSection
+          title="Regalo de bienvenida"
+          description="Se aplica sólo a nuevos perfiles cuando obtienen propietario."
+          className={styles.surface}
+        >
+          <WelcomeOfferSettings
+            enabled={welcomeSettings?.enabled ?? true}
+            plan={
+              (welcomeSettings?.plan_code ?? "pro") as
+                "free" | "basic" | "pro" | "premium"
+            }
+            months={welcomeSettings?.duration_months ?? 3}
+          />
+        </DashboardSection>
+        <DashboardSection
+          title="Negocios"
+          description="Publicación y suspensión de fichas comerciales."
+          className={styles.surface}
+        >
+          <div id="negocios">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Negocio</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {businesses.map((business) => (
+                  <tr key={business.id}>
+                    <td data-label="Negocio">
+                      <Link href={`/n/${business.slug}`}>{business.name}</Link>
+                      <span className={styles.help}>
+                        {business.category}
+                        {business.isDemo ? " · Muestra" : ""}
+                      </span>
+                    </td>
+                    <td data-label="Estado">
+                      <StatusBadge>{business.status}</StatusBadge>
+                    </td>
+                    <td data-label="Acción">
+                      <PublicationAction
+                        id={business.id}
+                        kind="business"
+                        initial={business.status}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </DashboardSection>
+        <DashboardSection
+          title="Solicitudes Pro"
+          description="No hay cobros: el administrador decide manualmente."
+          className={styles.surface}
+        >
+          {planRequests?.length ? (
+            planRequests.map((request) => (
+              <article className={styles.listRow} key={request.id}>
+                <div>
+                  <StatusBadge tone="warning">Pendiente</StatusBadge>
+                  <h3>
+                    {request.provider_profiles?.[0]?.name ??
+                      request.businesses?.[0]?.name ??
+                      "Perfil"}
+                  </h3>
+                  <p>{request.note || "Sin nota adicional."}</p>
+                </div>
+                <PlanRequestAction
+                  id={request.id}
+                  requestedPlan={
+                    (request.requested_plan ?? "pro") as
+                      "basic" | "pro" | "premium"
+                  }
+                />
+              </article>
+            ))
+          ) : (
+            <p className={styles.help}>No hay solicitudes Pro pendientes.</p>
+          )}
+        </DashboardSection>
+        <DashboardSection
+          title="Moderación de reseñas"
+          description="Las reseñas pendientes no se muestran públicamente hasta tomar una decisión."
+          className={styles.surface}
+        >
+          <div id="moderacion">
+            {pendingReviews?.length ? (
+              pendingReviews.map((review) => (
+                <article className={styles.listRow} key={review.id}>
+                  <div>
+                    <StatusBadge tone="warning">Pendiente</StatusBadge>
+                    <h3>
+                      {review.customer_name} · {review.rating}/5
+                    </h3>
+                    <p>{review.comment}</p>
+                  </div>
+                  <ModerationAction id={review.id} />
+                </article>
+              ))
+            ) : (
+              <p className={styles.help}>No hay reseñas pendientes.</p>
+            )}
+          </div>
+        </DashboardSection>
+        <DashboardSection
+          title="Taxonomía"
+          description="Categorías canónicas disponibles para servicios y búsqueda."
+          className={styles.surface}
+        >
+          <div id="taxonomia" className={styles.categoryList}>
+            {[
+              "Construcción",
+              "Plomería",
+              "Electricidad",
+              "Electrodomésticos",
+              "Climatización",
+              "Hogar",
+              "Eventos",
+            ].map((category) => (
+              <span className={styles.category} key={category}>
+                {category}
+              </span>
+            ))}
+          </div>
+        </DashboardSection>
+      </div>
+    </AdminShell>
+  );
 }

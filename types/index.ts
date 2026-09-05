@@ -1,4 +1,4 @@
-export type Plan = "free" | "pro";
+export type Plan = "free" | "basic" | "pro" | "premium";
 export type PublicationStatus = "draft" | "active" | "suspended";
 export type LeadStatus = "nueva" | "vista" | "interesado" | "no_me_interesa" | "contactado" | "cerrada";
 export type VerificationType = "phone" | "identity" | "references" | "visited_by_tequit";
@@ -12,7 +12,7 @@ export interface Verification { type: VerificationType; date?: string }
 export interface Provider {
   id: string; slug: string; name: string; profession: string; bio: string; zone: string; areas: string[];
   rating: number; reviewCount: number; plan: Plan; status: PublicationStatus; services: Service[];
-  verifications: Verification[]; reviews: Review[]; businessSlug?: string; businessName?: string; phone: string;
+  verifications: Verification[]; reviews: Review[]; businessSlug?: string; businessName?: string; phone: string; showPhoneCall?:boolean;
   featured?: boolean; portfolio: { id: string; title: string; description: string; image: string; path?: string }[];
   isDemo?: boolean; canContact?: boolean;avatarImage?:string;avatarPath?:string;updatedAt:string;site:ProviderSiteSettings;faqs:ProviderFaq[];seo:ProviderSeoEligibility;
 }

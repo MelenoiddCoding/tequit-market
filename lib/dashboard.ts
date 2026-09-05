@@ -1,15 +1,167 @@
 import "server-only";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 import { requireRole } from "@/lib/auth";
-import {createAdminClient} from "@/lib/supabase/admin";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { Business, Provider, Service } from "@/types";
 import { getBusinesses, getProviders } from "@/lib/marketplace";
+import { getProviderPlan, type ProviderPlan } from "@/lib/plans";
 
-export type DashboardContext={kind:"provider";entity:Provider}|{kind:"business";entity:Business};
-export async function getDashboardContext():Promise<DashboardContext>{const session=await requireRole(["provider","business_owner","admin"]);const admin=createAdminClient();if(session.roles.includes("provider")){const{data}=admin?await admin.from("provider_profiles").select("slug").eq("owner_profile_id",session.user.id).maybeSingle():{data:null};const entity=(await getProviders({includeInactive:true})).find((item)=>item.slug===data?.slug);if(entity)return{kind:"provider",entity}}if(session.roles.includes("business_owner")){const{data:member}=admin?await admin.from("business_members").select("businesses(slug)").eq("profile_id",session.user.id).limit(1).maybeSingle():{data:null};const relation=member?.businesses as unknown as {slug:string}|null;const entity=(await getBusinesses({includeInactive:true})).find((item)=>item.slug===relation?.slug);if(entity)return{kind:"business",entity}}if(session.roles.includes("admin"))redirect("/admin");redirect("/cuenta")}
-export async function getDashboardLeads(context:DashboardContext){const supabase=await createClient();const column=context.kind==="provider"?"target_provider_id":"target_business_id";const{data}=await supabase.from("leads").select("id,requested_service_text,description,customer_name,customer_phone,customer_email,zone,desired_timing,status,created_at,lead_media(id,storage_path)").eq(column,context.entity.id).order("created_at",{ascending:false}).limit(50);return data??[]}
-export async function getDashboardMetrics(context:DashboardContext){const supabase=await createClient();const column=context.kind==="provider"?"provider_id":"business_id";const since=new Date(Date.now()-30*86400000).toISOString();const[{count:views},{count:whatsapp},{count:leads}]=await Promise.all([supabase.from("contact_events").select("id",{count:"exact",head:true}).eq(column,context.entity.id).eq("event_type",context.kind==="provider"?"profile_view":"business_view").gte("created_at",since),supabase.from("contact_events").select("id",{count:"exact",head:true}).eq(column,context.entity.id).eq("event_type","whatsapp_click").gte("created_at",since),supabase.from("leads").select("id",{count:"exact",head:true}).eq(context.kind==="provider"?"target_provider_id":"target_business_id",context.entity.id).gte("created_at",since)]);return{views:views??0,whatsapp:whatsapp??0,leads:leads??0,conversion:views?Math.round(((whatsapp??0)/views)*1000)/10:0}}
-export async function getDailyViews(context:DashboardContext){const supabase=await createClient();const column=context.kind==="provider"?"provider_id":"business_id";const since=new Date(Date.now()-11*86400000);since.setHours(0,0,0,0);const{data}=await supabase.from("contact_events").select("created_at").eq(column,context.entity.id).eq("event_type",context.kind==="provider"?"profile_view":"business_view").gte("created_at",since.toISOString());const counts=Array.from({length:12},()=>0);for(const row of data??[]){const index=Math.floor((new Date(row.created_at).setHours(0,0,0,0)-since.getTime())/86400000);if(index>=0&&index<counts.length)counts[index]++}const max=Math.max(...counts,1);return counts.map((count)=>Math.max(count?Math.round(count/max*100):4,4))}
-export async function getProviderSiteSources(context:DashboardContext){if(context.kind!=="provider")return{qr:0,shared:0,shares:0};const supabase=await createClient();const since=new Date(Date.now()-30*86400000).toISOString();const counts=await Promise.all(["qr_visit","shared_link_visit","share_action"].map((eventType)=>supabase.from("contact_events").select("id",{count:"exact",head:true}).eq("provider_id",context.entity.id).eq("event_type",eventType).gte("created_at",since)));return{qr:counts[0].count??0,shared:counts[1].count??0,shares:counts[2].count??0}}
-export function dashboardServices(context:DashboardContext):Service[]{return context.entity.services}
+export type DashboardContext =
+  | { kind: "provider"; entity: Provider; planDetails: ProviderPlan }
+  | { kind: "business"; entity: Business };
+export async function getDashboardContext(): Promise<DashboardContext> {
+  const session = await requireRole(["provider", "business_owner", "admin"]);
+  const admin = createAdminClient();
+  if (session.roles.includes("provider")) {
+    const { data } = admin
+      ? await admin
+          .from("provider_profiles")
+          .select("slug")
+          .eq("owner_profile_id", session.user.id)
+          .maybeSingle()
+      : { data: null };
+    const entity = (await getProviders({ includeInactive: true })).find(
+      (item) => item.slug === data?.slug,
+    );
+    if (entity)
+      return {
+        kind: "provider",
+        entity,
+        planDetails: await getProviderPlan(entity.id),
+      };
+  }
+  if (session.roles.includes("business_owner")) {
+    const { data: member } = admin
+      ? await admin
+          .from("business_members")
+          .select("businesses(slug)")
+          .eq("profile_id", session.user.id)
+          .limit(1)
+          .maybeSingle()
+      : { data: null };
+    const relation = member?.businesses as unknown as { slug: string } | null;
+    const entity = (await getBusinesses({ includeInactive: true })).find(
+      (item) => item.slug === relation?.slug,
+    );
+    if (entity) return { kind: "business", entity };
+  }
+  if (session.roles.includes("admin")) redirect("/admin");
+  redirect("/cuenta");
+}
+export async function getDashboardLeads(context: DashboardContext) {
+  const supabase = await createClient();
+  const column =
+    context.kind === "provider" ? "target_provider_id" : "target_business_id";
+  const { data } = await supabase
+    .from("leads")
+    .select(
+      "id,requested_service_text,description,customer_name,customer_phone,customer_email,zone,desired_timing,status,created_at,lead_media(id,storage_path)",
+    )
+    .eq(column, context.entity.id)
+    .order("created_at", { ascending: false })
+    .limit(50);
+  return data ?? [];
+}
+export async function getDashboardMetrics(context: DashboardContext) {
+  const supabase = await createClient();
+  const column = context.kind === "provider" ? "provider_id" : "business_id";
+  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const [
+    { count: views },
+    { count: whatsapp },
+    { count: phoneCalls },
+    { count: leads },
+  ] = await Promise.all([
+    supabase
+      .from("contact_events")
+      .select("id", { count: "exact", head: true })
+      .eq(column, context.entity.id)
+      .eq(
+        "event_type",
+        context.kind === "provider" ? "profile_view" : "business_view",
+      )
+      .gte("created_at", since),
+    supabase
+      .from("contact_events")
+      .select("id", { count: "exact", head: true })
+      .eq(column, context.entity.id)
+      .eq("event_type", "whatsapp_click")
+      .gte("created_at", since),
+    supabase
+      .from("contact_events")
+      .select("id", { count: "exact", head: true })
+      .eq(column, context.entity.id)
+      .eq("event_type", "phone_call_click")
+      .gte("created_at", since),
+    supabase
+      .from("leads")
+      .select("id", { count: "exact", head: true })
+      .eq(
+        context.kind === "provider"
+          ? "target_provider_id"
+          : "target_business_id",
+        context.entity.id,
+      )
+      .gte("created_at", since),
+  ]);
+  return {
+    views: views ?? 0,
+    whatsapp: whatsapp ?? 0,
+    phoneCalls: phoneCalls ?? 0,
+    leads: leads ?? 0,
+    conversion: views
+      ? Math.round((((whatsapp ?? 0) + (phoneCalls ?? 0)) / views) * 1000) / 10
+      : 0,
+  };
+}
+export async function getDailyViews(context: DashboardContext) {
+  const supabase = await createClient();
+  const column = context.kind === "provider" ? "provider_id" : "business_id";
+  const since = new Date(Date.now() - 11 * 86400000);
+  since.setHours(0, 0, 0, 0);
+  const { data } = await supabase
+    .from("contact_events")
+    .select("created_at")
+    .eq(column, context.entity.id)
+    .eq(
+      "event_type",
+      context.kind === "provider" ? "profile_view" : "business_view",
+    )
+    .gte("created_at", since.toISOString());
+  const counts = Array.from({ length: 12 }, () => 0);
+  for (const row of data ?? []) {
+    const index = Math.floor(
+      (new Date(row.created_at).setHours(0, 0, 0, 0) - since.getTime()) /
+        86400000,
+    );
+    if (index >= 0 && index < counts.length) counts[index]++;
+  }
+  const max = Math.max(...counts, 1);
+  return counts.map((count) =>
+    Math.max(count ? Math.round((count / max) * 100) : 4, 4),
+  );
+}
+export async function getProviderSiteSources(context: DashboardContext) {
+  if (context.kind !== "provider") return { qr: 0, shared: 0, shares: 0 };
+  const supabase = await createClient();
+  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const counts = await Promise.all(
+    ["qr_visit", "shared_link_visit", "share_action"].map((eventType) =>
+      supabase
+        .from("contact_events")
+        .select("id", { count: "exact", head: true })
+        .eq("provider_id", context.entity.id)
+        .eq("event_type", eventType)
+        .gte("created_at", since),
+    ),
+  );
+  return {
+    qr: counts[0].count ?? 0,
+    shared: counts[1].count ?? 0,
+    shares: counts[2].count ?? 0,
+  };
+}
+export function dashboardServices(context: DashboardContext): Service[] {
+  return context.entity.services;
+}

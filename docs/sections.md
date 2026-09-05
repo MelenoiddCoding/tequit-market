@@ -147,7 +147,7 @@ Estados internos, mismo URL:
 4. Correo de recuperación opcional con confirmación independiente.
 5. Dos aceptaciones independientes y obligatorias para Términos y Privacidad; cada enlace abre un modal sin perder el formulario y conserva acceso a la página canónica.
 6. Verificación por WhatsApp con OTP de seis dígitos, vigencia de cinco minutos, reenvío y corrección de número.
-7. Éxito sólo después de comprobar el celular.
+7. Éxito sólo después de comprobar el celular; Prestador continúa a la celebración del regalo de bienvenida cuando aplique.
 
 Shell y orden:
 
@@ -295,13 +295,20 @@ No asumir catálogo, ventas, mensajes o múltiples negocios administrables sin b
 
 ### 19. Plan — `/dashboard/plan` — DASHBOARD
 
-1. Header y plan actual.
-2. Comparación Free vs Pro futuro.
-3. Límites/beneficios verificables.
-4. CTA no transaccional “Solicitar Pro”.
-5. Estados enviado/error/Pro conceptual.
+1. Header, plan efectivo, origen y vigencia.
+2. Comparación Free, Básico, Pro y Premium con precios de referencia.
+3. Límites y beneficios actualmente verificables; WIP se marca explícitamente.
+4. CTA no transaccional para solicitar cambio.
+5. Estado del regalo, vencimiento y bajada automática a Free.
 
 No facturación, método de pago, recibos ni checkout.
+
+### Bienvenida Pro — `/dashboard/bienvenida` — DASHBOARD
+
+1. Celebración de una sola visualización por asignación de bienvenida.
+2. Tres meses Pro, valor de referencia, beneficios activos y fecha exacta de término.
+3. “Sin tarjeta” y “Sin renovación automática”.
+4. CTA único al dashboard.
 
 ## Administración
 
@@ -315,6 +322,8 @@ No facturación, método de pago, recibos ni checkout.
 6. Empty/loading/error/confirmaciones de acción.
 
 El directorio de Prestadores y planes se pagina en servidor y permite buscar por nombre, teléfono o correo administrativo. El filtro y la página viven en la URL; cambiar o limpiar la búsqueda vuelve a la primera página.
+
+Administración permite asignar los cuatro planes con o sin vencimiento y configurar el plan/duración de bienvenida para altas futuras. Todo cambio conserva historial y auditoría.
 
 No reutilizar `DashboardShell`; usar `AdminShell`. En mobile, la tabla se transforma en filas semánticas.
 
