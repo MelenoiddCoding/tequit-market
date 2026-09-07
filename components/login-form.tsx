@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Loader2, LogIn } from "lucide-react";
+import { Eye, EyeOff, Loader2, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "@/components/identity-redesign.module.css";
@@ -10,6 +10,7 @@ export function LoginForm({ next = "/dashboard", demo = false, sessionExpired = 
   const router = useRouter();
   const [error, setError] = useState(sessionExpired ? "Tu sesión terminó. Inicia sesión de nuevo para continuar." : "");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -28,21 +29,29 @@ export function LoginForm({ next = "/dashboard", demo = false, sessionExpired = 
     }
   }
 
-  return <form className={styles.formGrid} onSubmit={submit} aria-busy={loading}>
+  return <form className={styles.loginForm} onSubmit={submit} aria-busy={loading}>
     <div className={`${styles.fieldGroup} ${styles.fieldGroupFull}`}>
       <label htmlFor="login-identifier">{admin?"Correo administrativo":"Número de celular"}</label>
       <input className={styles.field} id="login-identifier" name="identifier" inputMode={admin?"email":"tel"} type={admin?"email":"text"} defaultValue={demo ? admin?"admin@tequit.local":"provider@tequit.local" : ""} autoComplete="username" placeholder={admin?"admin@tequit.mx":"311 000 0000"} required />
     </div>
     <div className={`${styles.fieldGroup} ${styles.fieldGroupFull}`}>
       <label htmlFor="login-password">Contraseña</label>
-      <input className={styles.field} id="login-password" name="password" type="password" defaultValue={demo ? "Tequit123!" : ""} autoComplete="current-password" required />
+      <div className={styles.passwordControl}>
+        <input className={styles.field} id="login-password" name="password" type={showPassword?"text":"password"} defaultValue={demo ? "Tequit123!" : ""} autoComplete="current-password" required />
+        <button type="button" onClick={()=>setShowPassword(value=>!value)} aria-label={showPassword?"Ocultar contraseña":"Mostrar contraseña"} aria-pressed={showPassword}>
+          {showPassword
+            ? <EyeOff size={20}/>
+            : <Eye size={20}/>
+          }
+        </button>
+      </div>
     </div>
     {error && <p className={styles.formError} role="alert">{error}</p>}
-    <button className={`btn btn-primary ${styles.fieldGroupFull}`} disabled={loading} type="submit">
+    <button className={`btn btn-primary ${styles.loginSubmit}`} disabled={loading} type="submit">
       {loading ? <Loader2 className="animate-spin" aria-hidden /> : <LogIn size={18} aria-hidden />}
       {loading ? "Iniciando sesión…" : "Entrar a mi cuenta"}
     </button>
-    {!admin&&<p className={styles.fieldHelp}>¿Tu cuenta todavía usaba correo? Escríbelo en el mismo campo; te pediremos activar tu celular al entrar.</p>}
-    <Link className={`text-link ${styles.fieldGroupFull}`} href="/recuperar">Olvidé mi contraseña</Link>
+    <Link className={styles.forgotLink} href="/recuperar">Olvidé mi contraseña</Link>
+    {!admin&&<p className={styles.loginMigration}>Si tu cuenta todavía usaba correo, escríbelo en el campo de celular.</p>}
   </form>;
 }
