@@ -2,6 +2,7 @@
 .consent legend{padding:0 6px;font-weight:850;color:var(--ink)}
 .consent label{display:grid;grid-template-columns:20px minmax(0,1fr);align-items:start;gap:10px;font-size:.92rem;line-height:1.5;color:var(--ink)}
 .consent input[type="checkbox"]{width:18px;height:18px;margin-top:2px;accent-color:var(--brand)}
+.consent input.checkboxError{outline:2px solid var(--color-error,#a33a2b);outline-offset:1px;border-radius:3px}
 .consent a,.modal a{color:var(--brand-strong);font-weight:800;text-decoration:underline;text-underline-offset:3px}
 .consentHelp{margin:0;color:var(--muted);font-size:.8rem;line-height:1.45}.consentError{margin:0;color:var(--danger,#a32929);font-size:.86rem;font-weight:750}
 .modal{width:min(820px,calc(100vw - 32px));max-height:min(88dvh,900px);padding:0;border:0;border-radius:20px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow-overlay)}
@@ -17,4 +18,5 @@
 .documentBody{display:grid;gap:30px;padding-top:34px}.documentBody section{display:grid;gap:10px}.documentBody h2{margin:0;font-size:1.35rem}.documentBody p,.documentBody ul{margin:0;color:var(--muted);line-height:1.75}.documentBody ul{padding-left:22px}.documentBody li+li{margin-top:8px}
 .documentCompact .documentBody{width:auto;padding:0;gap:24px}.documentCompact .documentBody h2{font-size:1.1rem}.documentCompact .documentBody p,.documentCompact .documentBody ul{font-size:.9rem;line-height:1.65}
 @media(max-width:639px){.consent{padding:15px}.modal{width:100vw;max-width:none;height:calc(100dvh - 12px);max-height:none;margin:12px 0 0;border-radius:18px 18px 0 0}.modalPanel{height:100%;max-height:none}.modalHeader{padding:18px}.modalScroll{padding:18px}.modalFooter{align-items:stretch;flex-direction:column;padding:14px 18px calc(14px + env(safe-area-inset-bottom))}.modalFooter :global(.btn){width:100%}.documentHeader,.documentBody{width:calc(100% - 32px)}}
+@media(max-width:639px){.consent{padding:12px;gap:10px}.consentHelp{display:none}}
 @media(prefers-reduced-motion:reduce){.modal::backdrop{backdrop-filter:none}}

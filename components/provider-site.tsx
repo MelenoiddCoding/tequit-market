@@ -6,7 +6,6 @@ import {
   CalendarDays,
   ChevronDown,
   MapPin,
-  MessageCircle,
   ShieldCheck,
   Star,
 } from "lucide-react";
@@ -24,6 +23,8 @@ import {
 } from "@/components/provider-site-navigation";
 import { ViewTracker } from "@/components/view-tracker";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { ProviderWhatsAppDock } from "@/components/provider-whatsapp-dock";
 import { providerMessage } from "@/lib/whatsapp";
 import type { Provider } from "@/types";
 import styles from "@/components/provider-site.module.css";
@@ -74,7 +75,7 @@ export function ProviderSite({
           <p className={styles.heroIntro}>
             {provider.site.intro || provider.bio}
           </p>
-          <div className={styles.heroActions}>
+          <div className={styles.heroActions} id="provider-hero-whatsapp">
             <WhatsAppButton
               phone={provider.phone}
               message={providerMessage(provider.name, provider.profession)}
@@ -205,7 +206,7 @@ export function ProviderSite({
           </section>
         )}
         <section className={styles.finalCta}>
-          <MessageCircle aria-hidden />
+          <WhatsAppIcon width={24} height={24} />
           <h2>¿Tienes un trabajo en mente?</h2>
           <p>
             Contacta directamente a {provider.name} y cuéntale qué necesitas.
@@ -265,16 +266,7 @@ export function ProviderSite({
           </ProviderMarketplaceLink>
         </nav>
       </footer>
-      <div className={styles.mobileDock}>
-        <WhatsAppButton
-          phone={provider.phone}
-          message={providerMessage(provider.name, provider.profession)}
-          label="WhatsApp"
-          className={styles.whatsapp}
-          targetSlug={provider.slug}
-          targetType="provider"
-        />
-      </div>
+      <ProviderWhatsAppDock heroId="provider-hero-whatsapp" phone={provider.phone} message={providerMessage(provider.name, provider.profession)} slug={provider.slug}/>
     </main>
   );
 }

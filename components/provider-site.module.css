@@ -639,10 +639,19 @@
     left: 0;
     z-index: 50;
     display: block;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100%);
+    transition: opacity 180ms ease, transform 180ms ease;
     padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid #dce4de;
     background: rgba(255, 250, 243, 0.96);
     backdrop-filter: blur(14px);
+  }
+  .mobileDockVisible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
   .mobileDock button {
     width: 100%;
@@ -655,6 +664,7 @@
   .providerNavDrawer {
     animation: none;
   }
+  .mobileDock { transition: none; }
 }
 @media (max-width: 760px) {
   .heroContent {

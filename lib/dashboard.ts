@@ -17,10 +17,11 @@ export async function getDashboardContext(): Promise<DashboardContext> {
     const { data } = admin
       ? await admin
           .from("provider_profiles")
-          .select("slug")
+          .select("slug,status")
           .eq("owner_profile_id", session.user.id)
           .maybeSingle()
       : { data: null };
+    if(data?.status==="draft")redirect("/cuenta?onboarding=provider");
     const entity = (await getProviders({ includeInactive: true })).find(
       (item) => item.slug === data?.slug,
     );
@@ -62,6 +63,16 @@ export async function getDashboardLeads(context: DashboardContext) {
     .order("created_at", { ascending: false })
     .limit(50);
   return data ?? [];
+}
+
+export async function isProviderProfileIncomplete(context: DashboardContext) {
+  if(context.kind!=="provider")return false;
+  const supabase=await createClient();
+  const[{data:profile},{data:site}]=await Promise.all([
+    supabase.from("provider_profiles").select("avatar_path,bio").eq("id",context.entity.id).maybeSingle(),
+    supabase.from("provider_site_settings").select("cover_path").eq("provider_id",context.entity.id).maybeSingle(),
+  ]);
+  return !profile?.avatar_path||!site?.cover_path||(profile.bio??"").trim().length<20||!context.entity.services.some(service=>(service.description??"").trim().length>=10);
 }
 export async function getDashboardMetrics(context: DashboardContext) {
   const supabase = await createClient();

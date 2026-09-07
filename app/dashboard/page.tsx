@@ -20,10 +20,12 @@ import {
   getDashboardContext,
   getDashboardLeads,
   getDashboardMetrics,
+  isProviderProfileIncomplete,
 } from "@/lib/dashboard";
 
 export default async function DashboardPage() {
   const context = await getDashboardContext();
+  const essentialIncomplete=await isProviderProfileIncomplete(context);
   const analytics =
     context.kind !== "provider" ||
     context.planDetails.entitlements.analyticsLevel !== "none";
@@ -40,7 +42,12 @@ export default async function DashboardPage() {
         title={`Hola, ${context.entity.name.split(" ")[0]}`}
         description="Revisa el movimiento reciente de tu perfil y lo que necesita atención."
       />
-      <CompletionAlert
+      {essentialIncomplete&&<CompletionAlert
+        title="Completa la información esencial de tu perfil"
+        description="Agrega las fotos y descripciones que faltan para que tu sitio genere más confianza."
+        action={<Link className={styles.primary} href="/dashboard/sitio">Completar perfil</Link>}
+      />}
+      {!essentialIncomplete&&<CompletionAlert
         title="Tu portafolio puede generar más confianza"
         description="Agrega al menos dos trabajos recientes para que las personas conozcan la calidad de tu oficio."
         action={
@@ -48,7 +55,7 @@ export default async function DashboardPage() {
             Agregar trabajo
           </Link>
         }
-      />
+      />}
       {analytics && metrics ? (
         <MetricGrid>
           <MetricItem

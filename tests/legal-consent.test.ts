@@ -42,7 +42,7 @@ describe("consentimiento legal", () => {
   });
   it("registra consentimiento en registro y creación por reclamación", () => {
     const register = fs.readFileSync(
-      path.join(process.cwd(), "app/api/auth/register/route.ts"),
+      path.join(process.cwd(), "app/api/auth/register/complete/route.ts"),
       "utf8",
     );
     const claim = fs.readFileSync(

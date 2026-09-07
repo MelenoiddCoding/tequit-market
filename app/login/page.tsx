@@ -35,7 +35,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           {demo && <div className={styles.demoBox}><strong>Modo demo</strong><br />Prestador: provider@tequit.local<br />Negocio: business@tequit.local<br />Administración: admin@tequit.local<br />Contraseña: Tequit123!</div>}
           <div className={styles.exploreBox}>
             <p>¿Todavía no publicas en Tequit?</p>
-            <Link className="btn btn-secondary" href="/registro">Crear perfil</Link>
+            <Link className="btn btn-secondary" href="/registro?tipo=prestador">Crear perfil</Link>
           </div>
         </div>
         <p className={styles.authFooterLink}>¿Sólo buscas ayuda? <Link className="text-link" href="/buscar">Explora sin cuenta</Link></p>

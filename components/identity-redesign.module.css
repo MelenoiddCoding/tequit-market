@@ -748,6 +748,9 @@
   text-align: center;
 }
 
+.registrationIntent{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5}
+.registrationSimple,.registrationDetails{display:grid;gap:18px;max-width:560px}.registrationCopy h1{margin:0 0 8px;font-size:clamp(2rem,5vw,3.15rem);line-height:1.08}.registrationCopy p{margin:0;color:var(--muted);line-height:1.6}.registrationField{display:grid;gap:8px;color:var(--brand-strong);font-weight:750}.registrationSimple :global(.btn){width:100%;justify-content:center}.registrationType{display:grid;justify-items:start;gap:10px;padding-top:8px}.registrationType>div{display:grid;gap:6px}.registrationType button{border:0;background:transparent;color:var(--brand);font:inherit;font-weight:800;text-align:left;cursor:pointer}.registrationType button[aria-pressed="true"]{color:var(--accent)}.registrationType p{margin:0;color:var(--muted);font-size:.82rem}.otpBoxes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.otpBoxes input{min-width:0;height:58px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:800 1.45rem/1 var(--font-sans);text-align:center}.otpBoxes input:focus{border-color:var(--brand);outline:3px solid rgba(227,166,0,.35);outline-offset:2px}.resendCopy{margin:2px 0 -12px;color:var(--muted);font-size:.9rem}.registrationSimple>.text-link{justify-self:start;border:0;background:transparent;cursor:pointer}.detailsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.detailsGrid label{display:grid;gap:7px;color:var(--brand-strong);font-weight:750}.detailsGrid label>span{color:var(--muted);font-size:.8rem;font-weight:500}.detailsFieldPassword{grid-column:1/-1}.passwordControl{position:relative}.passwordControl input{padding-right:54px}.passwordControl button{position:absolute;top:50%;right:4px;width:44px;height:44px;display:grid;place-items:center;transform:translateY(-50%);border:0;border-radius:8px;background:transparent;color:var(--muted);cursor:pointer}.passwordControl button:hover{color:var(--brand);background:var(--surface-muted)}.detailsFieldLegal{margin-top:4px}.detailsActions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}.mobileOnly{display:none}
+
 .successState {
   padding: clamp(16px, 3vw, 26px) 0;
   text-align: center;
@@ -1009,12 +1012,16 @@
   .accountSection :global(.btn){width:100%}
   .providerDetails summary{width:100%}
 
+  .authPage{height:calc(100svh - 132px - env(safe-area-inset-bottom));min-height:0;padding:0;overflow:hidden}.authHeader{display:none}.authShell{width:calc(100% - 40px);height:100%}.authMain{height:100%;display:grid;grid-template-rows:minmax(0,1fr) auto}.authFooterLink{margin:0;padding:4px 0 12px}.registrationSimple,.registrationDetails{height:100%;min-height:0;align-content:center;gap:clamp(14px,2.4vh,20px)}.registrationCopy h1{font-size:clamp(1.85rem,9vw,2.5rem)}.registrationDetails{align-content:center;padding:0 0 68px}.detailTitle{min-height:0}.detailsGrid{grid-template-columns:1fr}.registrationDetails .detailsGrid,.registrationDetails .detailsFieldLegal{display:none}.registrationDetails[data-mobile-step="0"] .detailsFieldName,.registrationDetails[data-mobile-step="1"] .detailsFieldLast,.registrationDetails[data-mobile-step="2"] .detailsFieldEmail,.registrationDetails[data-mobile-step="3"] .detailsFieldPassword,.registrationDetails[data-mobile-step="4"] .detailsFieldLegal{display:grid}.registrationDetails[data-mobile-step="4"] .detailsFieldLegal{align-self:start}.detailsActions{position:fixed;right:20px;bottom:calc(78px + env(safe-area-inset-bottom));left:20px;z-index:5;display:grid;grid-template-columns:1fr 1fr;padding-top:8px;background:var(--canvas)}.detailsActions :global(.btn){width:100%;justify-content:center}.mobileOnly{display:inline-flex}.registrationCopy .mobileOnly{display:block;margin-bottom:6px;color:var(--brand);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.desktopOnly{display:none}.otpBoxes{gap:7px}.otpBoxes input{height:52px}.registrationType{margin-top:0}
+
   .snackbar {
     right: 12px;
     bottom: calc(82px + env(safe-area-inset-bottom));
     left: 12px;
   }
 }
+
+@media (min-width:640px){.registrationDetails .detailTitle{display:none}.registrationDetails .registrationCopy p:not(.mobileOnly){display:none}}
 
 @media (prefers-reduced-motion: reduce) {
   .accountOption,

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BadgeCheck, HeartHandshake, MessagesSquare } from "lucide-react";
-import { RegisterForm } from "@/components/register-form";
+import { RegisterForm, type AccountType } from "@/components/register-form";
 import { SiteContainer } from "@/components/layout-primitives";
 import styles from "@/components/identity-redesign.module.css";
 
@@ -9,16 +9,18 @@ export const metadata = {
   description: "Crea tu cuenta de Tequit y añade un perfil de prestador cuando lo necesites.",
 };
 
-export default function RegisterPage() {
+export default async function RegisterPage({ searchParams }: PageProps<"/registro">) {
+  const params = await searchParams;
+  const initialAccountType: AccountType = params.tipo === "prestador" ? "provider" : params.tipo === "negocio" ? "business" : "customer";
   return <main className={styles.authPage}>
     <SiteContainer className={styles.authShell}>
       <div className={styles.authMain}>
         <header className={styles.authHeader}>
           <p className="eyebrow">Tu cuenta Tequit</p>
-          <h1>Busca, guarda y solicita</h1>
-          <p>La cuenta de Usuario es el punto de partida. Si quieres promocionarte, puedes crear tu perfil de prestador ahora o después.</p>
+          <h1>Crear cuenta</h1>
+          <p>{initialAccountType === "customer" ? "Crea tu cuenta para guardar opciones y consultar tus solicitudes." : "Primero crea y verifica tu cuenta. Después completarás los datos de tu perfil profesional."}</p>
         </header>
-        <RegisterForm />
+        <RegisterForm initialAccountType={initialAccountType} />
         <p className={styles.authFooterLink}>¿Ya tienes cuenta? <Link className="text-link" href="/login">Inicia sesión</Link></p>
       </div>
       <aside className={styles.authAside} aria-label="Lo que puedes hacer en Tequit">

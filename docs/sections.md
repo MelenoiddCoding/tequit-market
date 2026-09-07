@@ -141,13 +141,12 @@ No inventar licencia profesional, domicilio confirmado, horario o garantía.
 
 Estados internos, mismo URL:
 
-1. Cuenta Usuario seleccionada por defecto.
-2. Opción secundaria “Quiero promocionarme” para elegir Prestador/Negocio.
-3. Formulario específico del tipo; celular privado y contraseña son la identidad de acceso.
-4. Correo de recuperación opcional con confirmación independiente.
+1. Cuenta Usuario seleccionada por defecto; `/registro?tipo=prestador` y `/registro?tipo=negocio` seleccionan una intención profesional directa.
+2. Celular privado primero, con validación inmediata y envío de OTP por WhatsApp.
+3. Verificación por WhatsApp con OTP de seis dígitos, vigencia de cinco minutos, reenvío y corrección de número.
+4. Después del OTP: nombre, apellido, correo de recuperación opcional y contraseña.
 5. Dos aceptaciones independientes y obligatorias para Términos y Privacidad; cada enlace abre un modal sin perder el formulario y conserva acceso a la página canónica.
-6. Verificación por WhatsApp con OTP de seis dígitos, vigencia de cinco minutos, reenvío y corrección de número.
-7. Éxito sólo después de comprobar el celular; Prestador continúa a la celebración del regalo de bienvenida cuando aplique.
+6. La cuenta se crea sólo al finalizar los acuerdos. Prestador y Negocio continúan al onboarding existente; su ficha sólo se publica al terminarlo.
 
 Shell y orden:
 
