@@ -23,7 +23,22 @@ type ServiceRow = {
   title: string;
   description: string;
   active: boolean;
+  brands?: string[] | null;
+  price_from?: number | string | null;
+  quote_only?: boolean | null;
   canonical_services: CanonicalRow;
+};
+type ProviderCategoryRow = {
+  assignment_role: "primary" | "secondary";
+  canonical_provider_categories: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    requires_review: boolean;
+    active: boolean;
+    canonical_provider_category_aliases?: Array<{ alias: string }>;
+  } | null;
 };
 type MediaRow = {
   id: string;
@@ -96,6 +111,7 @@ type ProviderRow = {
   provider_site_settings: ProviderSiteRow;
   provider_faqs: ProviderFaqRow[];
   provider_plan_assignments: PlanAssignmentRow[];
+  provider_categories: ProviderCategoryRow[];
 };
 type ProductRow = {
   id: string;
@@ -143,15 +159,18 @@ function optionalStorageUrl(bucket: string, path: string | null | undefined) {
     ? `${base}/storage/v1/object/public/${bucket}/${path}`
     : undefined;
 }
-function mapService(row: ServiceRow): Service {
+function mapService(row: ServiceRow, categoryFallback = "Servicio"): Service {
   const canonical = row.canonical_services;
   return {
     id: row.id,
     slug: canonical?.slug ?? `../buscar?q=${encodeURIComponent(row.title)}`,
     name: row.title,
     description: row.description,
-    category: canonical?.service_categories?.name ?? "Otro",
+    category: canonical?.service_categories?.name ?? categoryFallback,
     aliases: canonical?.service_aliases?.map((item) => item.alias) ?? [],
+    brands: row.brands ?? [],
+    priceFrom: row.price_from == null ? undefined : Number(row.price_from),
+    quoteOnly: row.quote_only ?? true,
   };
 }
 function mapReview(row: ReviewRow): Review {
@@ -180,11 +199,24 @@ function mapProvider(row: ProviderRow): Provider {
     )
     .sort((a, b) => Date.parse(b.starts_at) - Date.parse(a.starts_at))[0];
   const effectivePlan = assignment?.plan_code ?? "free";
+  const categories = row.provider_categories
+    .flatMap((relation) => relation.canonical_provider_categories ? [{
+      id: relation.canonical_provider_categories.id,
+      slug: relation.canonical_provider_categories.slug,
+      name: relation.canonical_provider_categories.name,
+      description: relation.canonical_provider_categories.description,
+      requiresReview: relation.canonical_provider_categories.requires_review,
+      active: relation.canonical_provider_categories.active,
+      aliases: relation.canonical_provider_categories.canonical_provider_category_aliases?.map((item) => item.alias) ?? [],
+      role: relation.assignment_role,
+    }] : [])
+    .sort((a) => a.role === "primary" ? -1 : 1);
+  const primaryCategory = categories.find((category) => category.role === "primary");
   const provider = {
     id: row.id,
     slug: row.slug,
     name: row.name,
-    profession: row.profession,
+    profession: primaryCategory?.name ?? row.profession,
     bio: row.bio,
     zone: row.zone,
     areas: row.provider_service_areas.flatMap((item) =>
@@ -198,7 +230,9 @@ function mapProvider(row: ProviderRow): Provider {
     showPhoneCall: row.show_phone_call,
     services: row.provider_services
       .filter((item) => item.active)
-      .map(mapService),
+      .map((item) => mapService(item, primaryCategory?.name ?? row.profession)),
+    categories,
+    primaryCategory,
     verifications: row.provider_verifications.map((item) => ({
       type: item.type,
       date: item.verified_at.slice(0, 10),
@@ -261,7 +295,7 @@ function mapBusiness(row: BusinessRow): Business {
     status: row.status,
     services: row.business_services
       .filter((item) => item.active)
-      .map(mapService),
+      .map((item) => mapService(item)),
     products: row.business_products
       .filter((item) => item.active)
       .map((item) => ({
@@ -293,8 +327,8 @@ function mapBusiness(row: BusinessRow): Business {
   };
 }
 
-const providerSelect = `id,slug,name,profession,bio,phone,show_phone_call,zone,plan,status,rating,review_count,avatar_path,is_demo,updated_at,provider_services(id,title,description,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),provider_media(id,title,description,storage_path,archived_at),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name)),provider_site_settings(headline,intro,years_experience,cover_path,theme,accent_color,white_label,social_links),provider_faqs(id,question,answer,sort_order,active),provider_plan_assignments!provider_plan_assignments_provider_id_fkey(id,plan_code,starts_at,ends_at,revoked_at)`;
-const businessSelect = `id,slug,name,description,phone,zone,address,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
+const providerSelect = `id,slug,name,profession,bio,phone,show_phone_call,zone,plan,status,rating,review_count,avatar_path,is_demo,updated_at,provider_services(id,title,description,active,brands,price_from,quote_only,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),provider_categories(assignment_role,canonical_provider_categories(id,slug,name,description,requires_review,active,canonical_provider_category_aliases(alias))),provider_media(id,title,description,storage_path,archived_at),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name)),provider_site_settings(headline,intro,years_experience,cover_path,theme,accent_color,white_label,social_links),provider_faqs(id,question,answer,sort_order,active),provider_plan_assignments!provider_plan_assignments_provider_id_fkey(id,plan_code,starts_at,ends_at,revoked_at)`;
+const businessSelect = `id,slug,name,description,phone,zone,address,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,description,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
 
 export async function getProviders(
   options: { includeInactive?: boolean } = {},

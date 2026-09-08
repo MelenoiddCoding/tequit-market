@@ -17,6 +17,7 @@ import {
   PublicationAction,
   WelcomeOfferSettings,
 } from "@/components/admin-actions";
+import { TaxonomyManager } from "@/components/taxonomy-manager";
 import { AdminShell } from "@/components/admin-shell";
 import {
   DashboardPageHeader,
@@ -29,6 +30,7 @@ import {
 import { requireRole } from "@/lib/auth";
 import { getBusinesses } from "@/lib/marketplace";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getProviderTaxonomy } from "@/lib/taxonomy";
 
 type ProviderAdminRow = {
   id: string;
@@ -80,6 +82,8 @@ export default async function AdminPage({
     { data: pendingReviews },
     { data: planRequests },
     { data: welcomeSettings },
+    taxonomy,
+    { data: searchQueries },
   ] = await Promise.all([
     admin.rpc("admin_search_providers", {
       p_query: providerQuery,
@@ -108,7 +112,10 @@ export default async function AdminPage({
       .select("enabled,plan_code,duration_months")
       .eq("id", true)
       .single(),
+    getProviderTaxonomy({ includeInactive: true }),
+    admin.from("marketplace_search_queries").select("normalized_query,result_count,created_at").order("created_at", { ascending: false }).limit(200),
   ]);
+  const searchInsights = Object.values((searchQueries ?? []).reduce<Record<string,{query:string;count:number;zeroCount:number}>>((acc,row) => { const key=row.normalized_query; if(!key)return acc; const item=acc[key]??{query:key,count:0,zeroCount:0}; item.count+=1;if(row.result_count===0)item.zeroCount+=1;acc[key]=item;return acc;},{})).sort((a,b)=>b.zeroCount-a.zeroCount||b.count-a.count).slice(0,12);
   const providers = (providerRows ?? []) as ProviderAdminRow[];
   const businesses = businessesResult;
   const filteredCount = Number(providers[0]?.total_count ?? 0);
@@ -406,24 +413,10 @@ export default async function AdminPage({
         </DashboardSection>
         <DashboardSection
           title="Taxonomía"
-          description="Categorías canónicas disponibles para servicios y búsqueda."
+          description="Sectores principales, actividades canónicas y alias que organizan los perfiles."
           className={styles.surface}
         >
-          <div id="taxonomia" className={styles.categoryList}>
-            {[
-              "Construcción",
-              "Plomería",
-              "Electricidad",
-              "Electrodomésticos",
-              "Climatización",
-              "Hogar",
-              "Eventos",
-            ].map((category) => (
-              <span className={styles.category} key={category}>
-                {category}
-              </span>
-            ))}
-          </div>
+          <div id="taxonomia"><TaxonomyManager categories={taxonomy} searchInsights={searchInsights}/></div>
         </DashboardSection>
       </div>
     </AdminShell>

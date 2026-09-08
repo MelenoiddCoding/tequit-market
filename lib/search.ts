@@ -5,10 +5,10 @@ export function normalizeSearch(value: string) {
 }
 
 function entityText(entity: Provider | Business) {
-  const serviceText = entity.services.flatMap((s) => [s.name, s.category, ...(s.aliases ?? [])]);
+  const serviceText = entity.services.flatMap((s) => [s.name, s.category, s.description ?? "", ...(s.aliases ?? []), ...(s.brands ?? [])]);
   const portfolioText = (entity.portfolio ?? []).flatMap((work) => [work.title, work.description]);
   const common = [entity.name, entity.zone, ...serviceText, ...portfolioText];
-  if ("profession" in entity) common.push(entity.profession, entity.bio, ...entity.areas);
+  if ("profession" in entity) common.push(entity.profession, entity.bio, ...entity.areas, ...(entity.categories ?? []).flatMap((category) => [category.name, ...(category.aliases ?? [])]));
   else common.push(entity.category, ...entity.products.map((p) => p.name));
   return normalizeSearch(common.join(" "));
 }

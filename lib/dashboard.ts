@@ -68,11 +68,12 @@ export async function getDashboardLeads(context: DashboardContext) {
 export async function isProviderProfileIncomplete(context: DashboardContext) {
   if(context.kind!=="provider")return false;
   const supabase=await createClient();
-  const[{data:profile},{data:site}]=await Promise.all([
+  const[{data:profile},{data:site},{count:primaryCategories}]=await Promise.all([
     supabase.from("provider_profiles").select("avatar_path,bio").eq("id",context.entity.id).maybeSingle(),
     supabase.from("provider_site_settings").select("cover_path").eq("provider_id",context.entity.id).maybeSingle(),
+    supabase.from("provider_categories").select("provider_id",{count:"exact",head:true}).eq("provider_id",context.entity.id).eq("assignment_role","primary"),
   ]);
-  return !profile?.avatar_path||!site?.cover_path||(profile.bio??"").trim().length<20||!context.entity.services.some(service=>(service.description??"").trim().length>=10);
+  return !profile?.avatar_path||!site?.cover_path||!primaryCategories||(profile.bio??"").trim().length<20||!context.entity.services.some(service=>(service.description??"").trim().length>=10);
 }
 export async function getDashboardMetrics(context: DashboardContext) {
   const supabase = await createClient();

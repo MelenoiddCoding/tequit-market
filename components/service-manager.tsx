@@ -41,11 +41,17 @@ export function ServiceManager({
       return;
     }
     const form = event.currentTarget;
-    const name = String(new FormData(form).get("name") ?? "").trim();
+    const formData = new FormData(form);
+    const name = String(formData.get("name") ?? "").trim();
+    const description = String(formData.get("description") ?? "").trim();
+    const brands = String(formData.get("brands") ?? "").split(",").map((brand) => brand.trim()).filter(Boolean).slice(0, 10);
+    const quoteOnly = formData.get("quoteOnly") === "on";
+    const rawPrice = String(formData.get("priceFrom") ?? "").trim();
+    const priceFrom = rawPrice ? Number(rawPrice) : null;
     const response = await fetch("/api/provider/services", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "add", name, kind, entityId }),
+      body: JSON.stringify({ action: "add", name, description, brands, priceFrom, quoteOnly, kind, entityId }),
     });
     const body = await response.json();
     if (!response.ok) {
@@ -54,7 +60,7 @@ export function ServiceManager({
     }
     setItems([
       ...items,
-      { id: body.id, slug: body.id, name, category: "Otro", active: true },
+      { id: body.id, slug: body.id, name, description, category: kind === "provider" ? "Servicio libre" : "Otro", brands, priceFrom: priceFrom ?? undefined, quoteOnly, active: true },
     ]);
     form.reset();
   }
@@ -110,8 +116,11 @@ export function ServiceManager({
             <article className={styles.serviceRow} key={service.id}>
               <div>
                 <h3>{service.name}</h3>
+                {service.description && <p>{service.description}</p>}
                 <div className={styles.meta}>
                   <span>{service.category}</span>
+                  {service.brands?.length ? <span>Marcas: {service.brands.join(", ")}</span> : null}
+                  <span>{service.quoteOnly || service.priceFrom == null ? "Solicitar cotización" : `Desde $${service.priceFrom.toLocaleString("es-MX")} MXN`}</span>
                   <span>
                     {service.active
                       ? "Visible en búsqueda"
@@ -137,7 +146,7 @@ export function ServiceManager({
       </DashboardSection>
       <DashboardSection
         title="Agregar servicio"
-        description="Usa un nombre que una persona buscaría, por ejemplo “Concreto estampado”."
+        description="Escríbelo como quieres promocionarlo. El título, la descripción y las marcas también ayudan a encontrarte."
       >
         <form className={`${styles.surface} ${styles.form}`} onSubmit={add}>
           <div className={styles.fieldGroup}>
@@ -151,6 +160,14 @@ export function ServiceManager({
               required
             />
           </div>
+          <div className={styles.fieldGroup}>
+            <label htmlFor="service-description">Descripción</label>
+            <textarea className={styles.textarea} id="service-description" name="description" placeholder="Qué incluye, qué problemas resuelves y cómo trabajas." minLength={10} maxLength={500} required/>
+          </div>
+          {kind === "provider" && <>
+            <div className={styles.fieldGroup}><label htmlFor="service-brands">Marcas o equipos (opcional)</label><input className={styles.field} id="service-brands" name="brands" placeholder="Ej. Mabe, Whirlpool, Evans"/><span className={styles.help}>Separa cada marca con una coma.</span></div>
+            <div className={styles.formGrid}><div className={styles.fieldGroup}><label htmlFor="service-price">Precio desde (opcional)</label><input className={styles.field} id="service-price" name="priceFrom" type="number" min="0" step="1" placeholder="0"/></div><label className={styles.fieldGroup} htmlFor="service-quote"><span>Forma de cotizar</span><span><input id="service-quote" name="quoteOnly" type="checkbox" defaultChecked/> Solicitar cotización</span></label></div>
+          </>}
           <footer className={styles.formFooter}>
             <button className={styles.primary} type="submit">
               <Plus size={18} />

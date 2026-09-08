@@ -5,6 +5,10 @@ const schema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("add"),
     name: z.string().trim().min(3).max(100),
+    description: z.string().trim().min(10).max(500),
+    brands: z.array(z.string().trim().min(1).max(50)).max(10).default([]),
+    priceFrom: z.number().min(0).max(99999999).nullable().default(null),
+    quoteOnly: z.boolean().default(true),
     kind: z.enum(["provider", "business"]),
     entityId: z.string().uuid(),
   }),
@@ -51,21 +55,17 @@ export async function POST(request: Request) {
     }
     return NextResponse.json(data);
   }
-  const { data: canonical } = await supabase
-    .from("canonical_services")
-    .select("id")
-    .ilike("name", parsed.data.name)
-    .maybeSingle();
   const { data, error } = await supabase
     .from(table)
     .insert({
       [ownerColumn]: parsed.data.entityId,
-      canonical_service_id: canonical?.id,
+      canonical_service_id: null,
       title: parsed.data.name,
-      description: "",
+      description: parsed.data.description,
+      ...(parsed.data.kind === "provider" ? { brands: parsed.data.brands, price_from: parsed.data.quoteOnly ? null : parsed.data.priceFrom, quote_only: parsed.data.quoteOnly } : {}),
       active: true,
     })
-    .select("id,title,active")
+    .select("id,title,description,active")
     .single();
   if (error) {
     const limit = error.message.match(/PLAN_SERVICE_LIMIT:(\d+)/)?.[1];
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     );
   }
   return NextResponse.json(
-    { id: data.id, name: data.title, active: data.active },
+    { id: data.id, name: data.title, description: data.description, brands: parsed.data.brands, priceFrom: parsed.data.quoteOnly ? null : parsed.data.priceFrom, quoteOnly: parsed.data.quoteOnly, active: data.active },
     { status: 201 },
   );
 }

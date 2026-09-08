@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 
-const providerSchema=z.object({kind:z.literal("provider"),action:z.enum(["save","publish"]),step:z.number().int().min(1).max(4),name:z.string().trim().min(2).max(100),profession:z.string().trim().min(2).max(100),phone:z.string().regex(/^[\d\s+()-]{8,20}$/),zone:z.string().trim().min(2).max(120),bio:z.string().trim().max(1200),service:z.string().trim().max(100),serviceDescription:z.string().trim().max(500),avatarPath:z.string().max(300).nullable(),coverPath:z.string().max(300).nullable()});
+const providerSchema=z.object({kind:z.literal("provider"),action:z.enum(["save","publish"]),step:z.number().int().min(1).max(4),name:z.string().trim().min(2).max(100),profession:z.string().trim().min(2).max(100),primaryCategoryId:z.string().uuid(),secondaryCategoryIds:z.array(z.string().uuid()).max(2),phone:z.string().regex(/^[\d\s+()-]{8,20}$/),zone:z.string().trim().min(2).max(120),bio:z.string().trim().max(1200),service:z.string().trim().max(100),serviceDescription:z.string().trim().max(500),avatarPath:z.string().max(300).nullable(),coverPath:z.string().max(300).nullable()}).superRefine((value,context)=>{if(value.secondaryCategoryIds.includes(value.primaryCategoryId)||new Set(value.secondaryCategoryIds).size!==value.secondaryCategoryIds.length)context.addIssue({code:"custom",message:"Selecciona actividades diferentes."})});
 const businessSchema=z.object({kind:z.literal("business"),name:z.string().trim().min(2).max(100),profession:z.string().trim().min(2).max(100),phone:z.string().regex(/^[\d\s+()-]{8,20}$/),zone:z.string().trim().min(2).max(120),bio:z.string().trim().min(20).max(1000),firstService:z.string().trim().min(2).max(100)});
 
 export async function POST(request:Request){
@@ -21,6 +21,8 @@ export async function POST(request:Request){
   if(provider.status==="active")return NextResponse.json({destination:"/dashboard"});
   const{error:profileError}=await supabase.from("provider_profiles").update({name:value.name,profession:value.profession,phone:value.phone,zone:value.zone,bio:value.bio||"Perfil profesional en preparación.",avatar_path:value.avatarPath,onboarding_step:value.step}).eq("id",provider.id).eq("owner_profile_id",user.id);
   if(profileError)return NextResponse.json({error:"No pudimos guardar tu avance."},{status:403});
+  const{error:categoryError}=await supabase.rpc("set_provider_categories",{p_provider_id:provider.id,p_primary:value.primaryCategoryId,p_secondary:value.secondaryCategoryIds});
+  if(categoryError)return NextResponse.json({error:"No pudimos guardar las categorías seleccionadas."},{status:409});
   await supabase.from("provider_site_settings").upsert({provider_id:provider.id,headline:`${value.profession} en ${value.zone}`,intro:value.bio,cover_path:value.coverPath},{onConflict:"provider_id"});
   const{data:services}=await supabase.from("provider_services").select("id").eq("provider_id",provider.id).limit(1);
   if(value.service){if(services?.[0])await supabase.from("provider_services").update({title:value.service,description:value.serviceDescription,active:true}).eq("id",services[0].id);else await supabase.from("provider_services").insert({provider_id:provider.id,title:value.service,description:value.serviceDescription,active:true});}

@@ -1,11 +1,9 @@
 import {AdminShell} from "@/components/admin-shell";
 import {AssistedOnboardingWizard} from "@/components/assisted-onboarding-wizard";
 import {requireRole} from "@/lib/auth";
-import {createAdminClient} from "@/lib/supabase/admin";
+import {getProviderTaxonomy} from "@/lib/taxonomy";
 
 export default async function NewProviderPage(){
-  await requireRole(["admin"]);const admin=createAdminClient()!;
-  const{data}=await admin.from("canonical_services").select("id,name,service_categories(name)").eq("active",true).order("name");
-  const services=(data??[]).map(item=>({id:item.id,name:item.name,category:item.service_categories?.[0]?.name??"Servicios"}));
-  return <AdminShell><AssistedOnboardingWizard kind="provider" canonicalServices={services}/></AdminShell>;
+  await requireRole(["admin"]);const taxonomy=await getProviderTaxonomy();
+  return <AdminShell><AssistedOnboardingWizard kind="provider" canonicalServices={[]} providerCategories={taxonomy}/></AdminShell>;
 }
