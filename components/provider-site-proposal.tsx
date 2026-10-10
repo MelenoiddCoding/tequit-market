@@ -101,24 +101,26 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
             sizes="100vw"
           />
         )}
-        <div className={styles.heroContent}>
-          <div className={styles.heroIdentity}>
-            <ProviderLogo provider={provider} />
-            <p>{provider.name}</p>
-          </div>
-          <p className={styles.heroKicker}>Energía solar · electricidad · climatización</p>
-          <h1>{provider.site.headline}</h1>
-          <p className={styles.heroCopy}>Soluciones para casas y negocios, dimensionadas de acuerdo con tu consumo, espacio y necesidades.</p>
-          <div id="provider-proposal-whatsapp" className={styles.heroActions}>
-            <WhatsAppButton
-              phone={provider.phone}
-              message={message}
-              label="Cotizar por WhatsApp"
-              className={styles.primaryAction}
-              targetSlug={provider.slug}
-              targetType="provider"
-            />
-            <a className={styles.secondaryAction} href="#trabajos"><Camera aria-hidden /> Ver trabajos</a>
+        <div className={styles.heroBody}>
+          <div className={styles.heroContent}>
+            <div className={styles.heroIdentity}>
+              <ProviderLogo provider={provider} />
+              <p>{provider.name}</p>
+            </div>
+            <p className={styles.heroKicker}>Energía solar · electricidad · climatización</p>
+            <h1>{provider.site.headline}</h1>
+            <p className={styles.heroCopy}>Soluciones para casas y negocios, dimensionadas de acuerdo con tu consumo, espacio y necesidades.</p>
+            <div id="provider-proposal-whatsapp" className={styles.heroActions}>
+              <WhatsAppButton
+                phone={provider.phone}
+                message={message}
+                label="Cotizar por WhatsApp"
+                className={styles.primaryAction}
+                targetSlug={provider.slug}
+                targetType="provider"
+              />
+              <a className={styles.secondaryAction} href="#trabajos"><Camera aria-hidden /> Ver trabajos</a>
+            </div>
           </div>
         </div>
       </section>
