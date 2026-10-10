@@ -16,4 +16,9 @@ describe("descubrimiento por ubicación",()=>{
     expect(sql).toContain("candidate.distance_value<=cfg.free_radius_km*1000");
     expect(sql).toContain("candidate.distance_value<=cfg.basic_radius_km*1000");
   });
+  it("rechaza GPS fuera de las zonas configuradas",()=>{
+    const sql=fs.readFileSync(path.join(process.cwd(),"supabase/migrations/202610090004_reject_out_of_market_gps.sql"),"utf8");
+    expect(sql).toContain("st_dwithin(area.center,raw_input.gps_point,area.gps_match_radius_km*1000)");
+    expect(sql).toContain("OUT_OF_MARKET_GPS_MUST_NOT_RETURN_PROVIDERS");
+  });
 });

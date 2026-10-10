@@ -17,8 +17,9 @@ with cfg as (
     coalesce(raw_input.explicit_area_id,nearest.id) area_id
   from raw_input left join lateral (
     select area.id from public.service_areas area
-    where area.active and area.area_type='neighborhood' and raw_input.gps_point is not null
-    order by area.center <-> raw_input.gps_point limit 1
+    where area.active and raw_input.gps_point is not null
+      and st_dwithin(area.center,raw_input.gps_point,area.gps_match_radius_km*1000)
+    order by case when area.area_type='neighborhood' then 0 else 1 end,area.center <-> raw_input.gps_point limit 1
   ) nearest on true
 ), candidates as (
   select provider.id provider_id,public.current_provider_plan(provider.id) plan_code,location.point,

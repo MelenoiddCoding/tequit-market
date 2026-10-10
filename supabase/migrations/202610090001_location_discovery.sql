@@ -5,6 +5,7 @@ alter table public.service_areas
   add column if not exists slug text,
   add column if not exists area_type text not null default 'neighborhood',
   add column if not exists active boolean not null default true,
+  add column if not exists gps_match_radius_km numeric(5,2) not null default 8 check(gps_match_radius_km between .5 and 100),
   add column if not exists center extensions.geography(point,4326),
   add column if not exists updated_at timestamptz not null default now();
 
@@ -34,6 +35,7 @@ update public.service_areas set center=case
   when lower(city)='xalisco' then extensions.st_setsrid(extensions.st_makepoint(-104.8980,21.4517),4326)::extensions.geography
   else extensions.st_setsrid(extensions.st_makepoint(-104.8957,21.5095),4326)::extensions.geography
 end where center is null;
+update public.service_areas set gps_match_radius_km=case when area_type='municipality' then 25 else 6 end;
 
 create table public.provider_locations (
   provider_id uuid primary key references public.provider_profiles(id) on delete cascade,
@@ -149,8 +151,9 @@ with cfg as (
     coalesce(raw_input.explicit_area_id,nearest.id) area_id
   from raw_input left join lateral (
     select area.id from public.service_areas area
-    where area.active and area.area_type='neighborhood' and raw_input.gps_point is not null
-    order by area.center <-> raw_input.gps_point limit 1
+    where area.active and raw_input.gps_point is not null
+      and st_dwithin(area.center,raw_input.gps_point,area.gps_match_radius_km*1000)
+    order by case when area.area_type='neighborhood' then 0 else 1 end,area.center <-> raw_input.gps_point limit 1
   ) nearest on true
 ), candidates as (
   select provider.id provider_id,public.current_provider_plan(provider.id) plan_code,location.point,
