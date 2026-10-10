@@ -13,6 +13,7 @@ const fallbackAreas:DiscoveryArea[]=[
   {slug:"mololoa",name:"Mololoa",city:"Tepic",state:"Nayarit",type:"neighborhood"},
   {slug:"valle-de-matatipac",name:"Valle de Matatipac",city:"Tepic",state:"Nayarit",type:"neighborhood"},
   {slug:"xalisco",name:"Xalisco",city:"Xalisco",state:"Nayarit",type:"municipality"},
+  {slug:"uruapan",name:"Uruapan",city:"Uruapan",state:"Michoacán",type:"municipality"},
 ];
 
 export async function getDiscoveryLocation(areaSlug?: string) {
