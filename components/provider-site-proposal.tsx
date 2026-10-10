@@ -6,34 +6,43 @@ import {
   BadgeCheck,
   Bolt,
   Camera,
-  CheckCircle2,
-  ClipboardCheck,
-  FileText,
   Flame,
-  Home,
   MapPin,
-  MessageCircle,
-  ShieldCheck,
   Sparkles,
   Sun,
   Wrench,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { ProposalShareAction } from "@/components/provider-site-proposal-actions";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import type { Provider, Service } from "@/types";
 import styles from "@/components/provider-site-proposal.module.css";
 
 const serviceIcons = [Bolt, Sun, Flame, Sparkles, Wrench];
 
-function ProposalMark({ compact = false }: { compact?: boolean }) {
+const faqs = [
+  {
+    question: "¿Qué necesito para cotizar paneles solares?",
+    answer: "Ten a la mano tu recibo de CFE e indica si el proyecto es para casa o negocio. Así podemos dimensionar la solución según tu consumo.",
+  },
+  {
+    question: "¿También instalan calentadores solares?",
+    answer: "Sí. Realizamos suministro e instalación de calentadores solares para hogares y negocios.",
+  },
+  {
+    question: "¿Atienden fuera de Tepic?",
+    answer: "La cobertura principal es Tepic, Nayarit. Escríbenos para confirmar disponibilidad en otra localidad.",
+  },
+];
+
+function ProviderLogo({ provider, compact = false }: { provider: Provider; compact?: boolean }) {
   return (
-    <span className={compact ? styles.markCompact : styles.mark} aria-hidden>
-      <svg viewBox="0 0 64 64" role="img">
-        <path d="M12 34 32 14l20 20" />
-        <path d="M20 29v23h24V29" />
-        <path d="m36 24-10 15h8l-5 12 12-17h-8l3-10Z" />
-        <circle cx="49" cy="15" r="6" />
-      </svg>
+    <span className={compact ? styles.logoCompact : styles.logo}>
+      {provider.avatarImage ? (
+        <Image src={provider.avatarImage} alt={`Logo de ${provider.name}`} fill sizes={compact ? "44px" : "88px"} />
+      ) : (
+        <span aria-hidden>SH</span>
+      )}
     </span>
   );
 }
@@ -42,59 +51,42 @@ function ServiceItem({ service, index }: { service: Service; index: number }) {
   const Icon = serviceIcons[index % serviceIcons.length];
   return (
     <article className={styles.serviceItem}>
-      <span className={styles.serviceNumber}>0{index + 1}</span>
       <span className={styles.serviceIcon}><Icon aria-hidden /></span>
       <div>
         <h3>{service.name}</h3>
         <p>{service.description}</p>
-        <a href="#contacto">Cotizar este servicio <ArrowDown aria-hidden /></a>
+        <a href="#contacto">Solicitar cotización <ArrowDown aria-hidden /></a>
       </div>
     </article>
   );
 }
 
-const proposalFaqs = [
-  {
-    question: "¿Qué necesito para cotizar paneles solares?",
-    answer: "Ten a la mano tu recibo de CFE y cuéntanos si el proyecto es para casa o negocio. Con eso se puede preparar una propuesta según tu consumo.",
-  },
-  {
-    question: "¿También instalan calentadores solares?",
-    answer: "Sí. Soluciones Haro contempla suministro e instalación de calentadores solares para hogares y negocios.",
-  },
-  {
-    question: "¿Qué garantía y marcas manejan?",
-    answer: "Las marcas, garantías y condiciones se confirman en cada cotización. Pregunta por ellas antes de aprobar la instalación.",
-  },
-  {
-    question: "¿Atienden fuera de Tepic?",
-    answer: "La cobertura publicada es Tepic, Nayarit. Para otra localidad, confirma disponibilidad directamente al solicitar tu cotización.",
-  },
-];
-
 export function ProviderSiteProposal({ provider }: { provider: Provider }) {
   const services = provider.services.slice(0, 5);
   const works = provider.portfolio.slice(0, 5);
-  const projectCount = works.length;
+  const message = "Hola Soluciones Haro. Quiero cotizar una instalación. ¿Me pueden compartir información?";
 
   return (
     <main className={styles.site}>
       <header className={styles.header}>
-        <a className={styles.headerBrand} href="#inicio" aria-label="Soluciones Haro — inicio">
-          <ProposalMark compact />
-          <span><strong>Soluciones Haro</strong><small>Propuesta profesional</small></span>
+        <a className={styles.headerBrand} href="#inicio" aria-label={`${provider.name} — inicio`}>
+          <ProviderLogo provider={provider} compact />
+          <span><strong>{provider.name}</strong><small>Energía solar y soluciones eléctricas</small></span>
         </a>
         <nav className={styles.desktopNav} aria-label="Secciones del sitio">
           <a href="#servicios">Servicios</a>
           <a href="#trabajos">Trabajos</a>
-          <a href="#proceso">Proceso</a>
+          <a href="#nosotros">Nosotros</a>
           <a href="#preguntas">Preguntas</a>
         </nav>
-        <Link className={styles.tequitLink} href="/">
-          <BrandLogo variant="symbol" />
-          <span>Explorar Tequit</span>
-          <ArrowUpRight aria-hidden />
-        </Link>
+        <WhatsAppButton
+          phone={provider.phone}
+          message={message}
+          label="Cotizar por WhatsApp"
+          className={styles.headerCta}
+          targetSlug={provider.slug}
+          targetType="provider"
+        />
       </header>
 
       <section id="inicio" className={styles.hero}>
@@ -102,7 +94,7 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
           <Image
             className={styles.heroImage}
             src={provider.site.coverImage}
-            alt="Instalación de paneles solares realizada por Soluciones Haro"
+            alt={`Instalación realizada por ${provider.name}`}
             fill
             priority
             sizes="100vw"
@@ -110,33 +102,38 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
         )}
         <div className={styles.heroShade} />
         <div className={styles.heroContent}>
-          <div className={styles.proposalLabel}>Propuesta de diseño · datos de muestra</div>
           <div className={styles.heroIdentity}>
-            <ProposalMark />
-            <p>Soluciones Haro</p>
+            <ProviderLogo provider={provider} />
+            <p>{provider.name}</p>
           </div>
-          <h1>Paneles y calentadores solares en Tepic</h1>
-          <p className={styles.heroCopy}>Soluciones de energía y electricidad para casas y negocios, dimensionadas para las necesidades de cada proyecto.</p>
-          <div className={styles.heroActions}>
-            <a className={styles.primaryAction} href="#contacto"><MessageCircle aria-hidden /> Cotizar mi proyecto</a>
+          <p className={styles.heroKicker}>Energía solar · electricidad · climatización</p>
+          <h1>{provider.site.headline}</h1>
+          <p className={styles.heroCopy}>Soluciones para casas y negocios, dimensionadas de acuerdo con tu consumo, espacio y necesidades.</p>
+          <div id="provider-proposal-whatsapp" className={styles.heroActions}>
+            <WhatsAppButton
+              phone={provider.phone}
+              message={message}
+              label="Cotizar por WhatsApp"
+              className={styles.primaryAction}
+              targetSlug={provider.slug}
+              targetType="provider"
+            />
             <a className={styles.secondaryAction} href="#trabajos"><Camera aria-hidden /> Ver trabajos</a>
           </div>
-          <div className={styles.tequitTrust}><BrandLogo variant="symbol" /><span>Sitio profesional creado con Tequit</span></div>
         </div>
       </section>
 
       <section className={styles.trust} aria-label="Información principal">
-        <div><MapPin aria-hidden /><span><strong>Tepic, Nayarit</strong><small>Zona publicada</small></span></div>
-        <div><BadgeCheck aria-hidden /><span><strong>{services.length} servicios</strong><small>Con descripción</small></span></div>
-        <div><Camera aria-hidden /><span><strong>{projectCount} proyectos</strong><small>Trabajo documentado</small></span></div>
-        <div><MessageCircle aria-hidden /><span><strong>Cotización directa</strong><small>Por WhatsApp</small></span></div>
+        <div><MapPin aria-hidden /><span><strong>{provider.zone}</strong><small>Zona de atención</small></span></div>
+        <div><BadgeCheck aria-hidden /><span><strong>{services.length} servicios</strong><small>Soluciones disponibles</small></span></div>
+        <div><Camera aria-hidden /><span><strong>{works.length} proyectos</strong><small>Trabajos realizados</small></span></div>
       </section>
 
       <section id="servicios" className={styles.servicesSection}>
         <div className={styles.sectionIntro}>
           <p className={styles.eyebrow}>Servicios</p>
-          <h2>Una solución clara para cada proyecto</h2>
-          <p>Selecciona lo que necesitas y llega al contacto con el contexto correcto.</p>
+          <h2>Soluciones para ahorrar energía y mejorar tus espacios</h2>
+          <p>Instalación, adecuación y mantenimiento para proyectos residenciales y comerciales.</p>
         </div>
         <div className={styles.serviceList}>
           {services.map((service, index) => <ServiceItem key={service.id} service={service} index={index} />)}
@@ -146,19 +143,19 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
       {works.length > 0 && (
         <section id="trabajos" className={styles.workSection}>
           <div className={styles.sectionIntroLight}>
-            <p className={styles.eyebrow}>Trabajo real</p>
-            <h2>Proyectos que hablan por el equipo</h2>
-            <p>Fotografías y contexto para evaluar el tipo de instalaciones que realizan.</p>
+            <p className={styles.eyebrow}>Trabajos realizados</p>
+            <h2>Instalaciones hechas para durar</h2>
+            <p>Conoce algunos de nuestros proyectos de energía solar.</p>
           </div>
           <div className={styles.workGrid}>
             {works.map((work, index) => (
               <figure key={work.id} className={index === 0 ? styles.featuredWork : styles.workItem}>
                 <div className={styles.workImage}>
-                  <Image src={work.image} alt={work.title} fill sizes={index === 0 ? "(max-width: 760px) 100vw, 66vw" : "(max-width: 760px) 50vw, 33vw"} />
+                  <Image src={work.image} alt={work.title} width={1200} height={900} sizes={index === 0 ? "(max-width: 760px) 100vw, 66vw" : "(max-width: 760px) 50vw, 33vw"} />
                 </div>
                 <figcaption>
                   <span>{String(index + 1).padStart(2, "0")}</span>
-                  <div><h3>{work.title}</h3>{work.description && <p>{work.description}</p>}<a href="#contacto">Quiero algo similar <ArrowUpRight aria-hidden /></a></div>
+                  <div><h3>{work.title}</h3>{work.description && <p>{work.description}</p>}<a href="#contacto">Cotizar algo similar <ArrowUpRight aria-hidden /></a></div>
                 </figcaption>
               </figure>
             ))}
@@ -166,72 +163,65 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
         </section>
       )}
 
-      <section id="proceso" className={styles.processSection}>
-        <div className={styles.processIntro}>
-          <p className={styles.eyebrow}>Cómo empezar</p>
-          <h2>De tu recibo de CFE a una propuesta clara</h2>
-          <p>El sitio prepara mejor la conversación para evitar mensajes sin contexto y cotizaciones incompletas.</p>
-        </div>
-        <ol className={styles.steps}>
-          <li><span>01</span><FileText aria-hidden /><div><h3>Comparte tu consumo</h3><p>Ten a la mano tu recibo de CFE y explica si es casa o negocio.</p></div></li>
-          <li><span>02</span><Home aria-hidden /><div><h3>Describe el espacio</h3><p>Indica ubicación, tipo de techo y qué solución necesitas.</p></div></li>
-          <li><span>03</span><ClipboardCheck aria-hidden /><div><h3>Recibe una propuesta</h3><p>El proyecto se cotiza de acuerdo con consumo, espacio y alcance.</p></div></li>
-          <li><span>04</span><CheckCircle2 aria-hidden /><div><h3>Confirma condiciones</h3><p>Revisa equipos, garantía, tiempos y alcance antes de autorizar.</p></div></li>
-        </ol>
-      </section>
-
-      <section className={styles.aboutSection}>
+      <section id="nosotros" className={styles.aboutSection}>
         <div className={styles.aboutVisual}>
-          <div className={styles.proposalIdentityPanel}>
-            <ProposalMark />
-            <span>Soluciones</span>
-            <strong>Haro</strong>
-            <small>Energía solar y soluciones integrales</small>
-          </div>
+          <ProviderLogo provider={provider} />
+          <strong>{provider.name}</strong>
+          <span>Soluciones integrales de energía</span>
         </div>
         <div className={styles.aboutCopy}>
-          <p className={styles.eyebrow}>Experiencia local</p>
+          <p className={styles.eyebrow}>Quiénes somos</p>
           <h2>Energía solar y soluciones integrales</h2>
-          <p>{provider.site.intro || provider.bio}</p>
-          <div className={styles.coverage}><MapPin aria-hidden /><span><strong>Cobertura publicada</strong>Tepic, Nayarit</span></div>
-          <div className={styles.disclosure}><ShieldCheck aria-hidden /><p>La información y fotografías son proporcionadas por el prestador. Tequit facilita el contacto y no participa en pagos o acuerdos.</p></div>
+          <p>{provider.bio}</p>
+          <div className={styles.coverage}><MapPin aria-hidden /><span><strong>Atención en</strong>{provider.zone}</span></div>
         </div>
       </section>
 
       <section id="preguntas" className={styles.faqSection}>
         <div className={styles.sectionIntro}>
-          <p className={styles.eyebrow}>Antes de contactar</p>
-          <h2>Respuestas para tomar el siguiente paso</h2>
+          <p className={styles.eyebrow}>Preguntas frecuentes</p>
+          <h2>Lo que necesitas saber antes de cotizar</h2>
         </div>
         <div className={styles.faqs}>
-          {proposalFaqs.map((faq) => <details key={faq.question}><summary>{faq.question}<span>+</span></summary><p>{faq.answer}</p></details>)}
+          {faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<span>+</span></summary><p>{faq.answer}</p></details>)}
         </div>
       </section>
 
       <section id="contacto" className={styles.contactSection}>
+        <ProviderLogo provider={provider} />
         <div>
-          <p className={styles.eyebrow}>Contacto directo</p>
-          <h2>Cuéntanos qué quieres instalar</h2>
-          <p>El mensaje puede llegar preparado con el servicio elegido para que la conversación empiece con contexto.</p>
+          <p className={styles.eyebrow}>Cotiza tu proyecto</p>
+          <h2>Hablemos de lo que necesitas</h2>
+          <p>Escríbenos por WhatsApp para revisar tu proyecto de paneles, calentador solar, aire acondicionado, domótica o electricidad.</p>
         </div>
-        <div className={styles.messagePreview}>
-          <span>Mensaje sugerido</span>
-          <p>Hola Soluciones Haro, los encontré en Tequit. Busco instalar paneles y un calentador solar en mi casa. Tengo disponible mi recibo de CFE y quisiera solicitar una cotización.</p>
-        </div>
-        <button className={styles.disabledWhatsApp} type="button" disabled title="Contacto desactivado en esta propuesta">
-          <MessageCircle aria-hidden /> WhatsApp desactivado en esta propuesta
-        </button>
+        <WhatsAppButton
+          phone={provider.phone}
+          message={message}
+          label="Escribir por WhatsApp"
+          className={styles.contactWhatsApp}
+          targetSlug={provider.slug}
+          targetType="provider"
+        />
         <ProposalShareAction />
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.footerProvider}><ProposalMark compact /><span><strong>Soluciones Haro</strong><small>Paneles y calentadores solares en Tepic</small></span></div>
-        <div className={styles.footerTequit}><BrandLogo variant="app-dark" /><p>Propuesta demostrativa creada con Tequit. El perfil original permanece sin cambios.</p></div>
-        <nav aria-label="Continuar en Tequit"><Link href="/buscar">Buscar servicios</Link><Link href="/negocios">Ver negocios</Link><Link href="/solicitar">Publicar una necesidad</Link></nav>
+        <div className={styles.footerProvider}><ProviderLogo provider={provider} compact /><span><strong>{provider.name}</strong><small>Paneles y calentadores solares en Tepic</small></span></div>
+        <Link className={styles.tequitCredit} href="/" aria-label="Publicado con Tequit">
+          <BrandLogo variant="symbol" />
+          <span>Publicado con Tequit</span>
+        </Link>
       </footer>
 
       <div className={styles.mobileDock}>
-        <a href="#contacto"><MessageCircle aria-hidden /> Ver contacto</a>
+        <WhatsAppButton
+          phone={provider.phone}
+          message={message}
+          label="Cotizar por WhatsApp"
+          className={styles.dockWhatsApp}
+          targetSlug={provider.slug}
+          targetType="provider"
+        />
         <ProposalShareAction compact />
       </div>
     </main>

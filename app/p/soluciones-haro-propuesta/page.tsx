@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ProviderSiteProposal } from "@/components/provider-site-proposal";
 import type { Provider } from "@/types";
 
-const title = "Soluciones Haro · Propuesta de sitio profesional";
-const description = "Propuesta de experiencia móvil para un sitio de paneles solares, calentadores solares y soluciones eléctricas en Tepic.";
+const title = "Soluciones Haro · Energía solar en Tepic";
+const description = "Instalación de paneles solares, calentadores solares, aire acondicionado, domótica y soluciones eléctricas en Tepic, Nayarit.";
 
 export const metadata: Metadata = {
   title,
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: "https://tequit.mx/p/soluciones-haro-propuesta",
-    siteName: "Tequit",
+    siteName: "Soluciones Haro",
     locale: "es_MX",
     type: "website",
   },
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 const mediaBase = "https://vgszdeymfipvuiziklpq.supabase.co/storage/v1/object/public";
 
 const proposal: Provider = {
-  id: "soluciones-haro-proposal",
-  slug: "soluciones-haro-propuesta",
+  id: "786718a1-a89e-45d0-aa73-bc306736a511",
+  slug: "soluciones-haro",
   name: "Soluciones Haro",
   profession: "Instalador de energía solar",
   bio: "Paneles solares, aire acondicionado, calentadores solares, domótica y soluciones eléctricas para hogar y negocio. Cada proyecto se dimensiona de acuerdo con el consumo, el espacio y las necesidades del cliente.",
@@ -34,10 +34,10 @@ const proposal: Provider = {
   reviewCount: 0,
   plan: "pro",
   status: "active",
-  phone: "",
+  phone: "3113387174",
   showPhoneCall: false,
-  isDemo: true,
-  canContact: false,
+  isDemo: false,
+  canContact: true,
   updatedAt: "2026-10-10T00:00:00.000Z",
   avatarImage: `${mediaBase}/avatars/786718a1-a89e-45d0-aa73-bc306736a511/0a830c57-47ec-46a2-92a6-2ac47a03b076.webp`,
   services: [
@@ -66,9 +66,9 @@ const proposal: Provider = {
     whiteLabel: true,
     socialLinks: {},
   },
-  seo: { eligible: false, checks: { bio: true, phone: false, service: true, portfolio: true }, missing: ["Propuesta no indexable."] },
+  seo: { eligible: false, checks: { bio: true, phone: true, service: true, portfolio: true }, missing: [] },
 };
 
-export default function SolucionesCaroProposalPage() {
+export default function SolucionesHaroProposalPage() {
   return <ProviderSiteProposal provider={proposal} />;
 }

@@ -10,8 +10,8 @@ export function ProposalShareAction({ compact = false }: { compact?: boolean }) 
   async function share() {
     const url = window.location.href;
     const data = {
-      title: "Soluciones Haro · Propuesta de sitio",
-      text: "Conoce esta propuesta de sitio profesional creada con Tequit.",
+      title: "Soluciones Haro · Energía solar en Tepic",
+      text: "Paneles solares, calentadores solares y soluciones eléctricas en Tepic.",
       url,
     };
 
@@ -32,7 +32,7 @@ export function ProposalShareAction({ compact = false }: { compact?: boolean }) 
       onClick={share}
     >
       {copied ? <Check aria-hidden /> : compact ? <Share2 aria-hidden /> : <Copy aria-hidden />}
-      <span>{copied ? "Enlace copiado" : compact ? "Compartir" : "Compartir propuesta"}</span>
+      <span>{copied ? "Enlace copiado" : "Compartir"}</span>
     </button>
   );
 }
