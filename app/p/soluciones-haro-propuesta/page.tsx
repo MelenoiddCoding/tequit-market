@@ -6,7 +6,7 @@ const title = "Soluciones Haro · Energía solar en Tepic";
 const description = "Instalación de paneles solares, calentadores solares, aire acondicionado, domótica y soluciones eléctricas en Tepic, Nayarit.";
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
   robots: { index: false, follow: false },
   alternates: { canonical: "https://tequit.mx/p/soluciones-haro-propuesta" },
