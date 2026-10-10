@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import { ProviderSiteProposal } from "@/components/provider-site-proposal";
 import type { Provider } from "@/types";
 
-const title = "Soluciones Caro · Propuesta de sitio profesional";
+const title = "Soluciones Haro · Propuesta de sitio profesional";
 const description = "Propuesta de experiencia móvil para un sitio de paneles solares, calentadores solares y soluciones eléctricas en Tepic.";
 
 export const metadata: Metadata = {
   title,
   description,
   robots: { index: false, follow: false },
-  alternates: { canonical: "https://tequit.mx/p/soluciones-caro-propuesta" },
+  alternates: { canonical: "https://tequit.mx/p/soluciones-haro-propuesta" },
   openGraph: {
     title,
     description,
-    url: "https://tequit.mx/p/soluciones-caro-propuesta",
+    url: "https://tequit.mx/p/soluciones-haro-propuesta",
     siteName: "Tequit",
     locale: "es_MX",
     type: "website",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
 const mediaBase = "https://vgszdeymfipvuiziklpq.supabase.co/storage/v1/object/public";
 
 const proposal: Provider = {
-  id: "soluciones-caro-proposal",
-  slug: "soluciones-caro-propuesta",
-  name: "Soluciones Caro",
+  id: "soluciones-haro-proposal",
+  slug: "soluciones-haro-propuesta",
+  name: "Soluciones Haro",
   profession: "Instalador de energía solar",
   bio: "Paneles solares, aire acondicionado, calentadores solares, domótica y soluciones eléctricas para hogar y negocio. Cada proyecto se dimensiona de acuerdo con el consumo, el espacio y las necesidades del cliente.",
   zone: "Tepic, Nayarit",

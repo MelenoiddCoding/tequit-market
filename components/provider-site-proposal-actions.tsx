@@ -10,7 +10,7 @@ export function ProposalShareAction({ compact = false }: { compact?: boolean }) 
   async function share() {
     const url = window.location.href;
     const data = {
-      title: "Soluciones Caro · Propuesta de sitio",
+      title: "Soluciones Haro · Propuesta de sitio",
       text: "Conoce esta propuesta de sitio profesional creada con Tequit.",
       url,
     };

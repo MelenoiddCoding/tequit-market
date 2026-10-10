@@ -60,7 +60,7 @@ const proposalFaqs = [
   },
   {
     question: "¿También instalan calentadores solares?",
-    answer: "Sí. Soluciones Caro contempla suministro e instalación de calentadores solares para hogares y negocios.",
+    answer: "Sí. Soluciones Haro contempla suministro e instalación de calentadores solares para hogares y negocios.",
   },
   {
     question: "¿Qué garantía y marcas manejan?",
@@ -80,9 +80,9 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
   return (
     <main className={styles.site}>
       <header className={styles.header}>
-        <a className={styles.headerBrand} href="#inicio" aria-label="Soluciones Caro — inicio">
+        <a className={styles.headerBrand} href="#inicio" aria-label="Soluciones Haro — inicio">
           <ProposalMark compact />
-          <span><strong>Soluciones Caro</strong><small>Propuesta profesional</small></span>
+          <span><strong>Soluciones Haro</strong><small>Propuesta profesional</small></span>
         </a>
         <nav className={styles.desktopNav} aria-label="Secciones del sitio">
           <a href="#servicios">Servicios</a>
@@ -102,7 +102,7 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
           <Image
             className={styles.heroImage}
             src={provider.site.coverImage}
-            alt="Instalación de paneles solares realizada por Soluciones Caro"
+            alt="Instalación de paneles solares realizada por Soluciones Haro"
             fill
             priority
             sizes="100vw"
@@ -113,7 +113,7 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
           <div className={styles.proposalLabel}>Propuesta de diseño · datos de muestra</div>
           <div className={styles.heroIdentity}>
             <ProposalMark />
-            <p>Soluciones Caro</p>
+            <p>Soluciones Haro</p>
           </div>
           <h1>Paneles y calentadores solares en Tepic</h1>
           <p className={styles.heroCopy}>Soluciones de energía y electricidad para casas y negocios, dimensionadas para las necesidades de cada proyecto.</p>
@@ -185,7 +185,7 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
           <div className={styles.proposalIdentityPanel}>
             <ProposalMark />
             <span>Soluciones</span>
-            <strong>Caro</strong>
+            <strong>Haro</strong>
             <small>Energía solar y soluciones integrales</small>
           </div>
         </div>
@@ -216,7 +216,7 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
         </div>
         <div className={styles.messagePreview}>
           <span>Mensaje sugerido</span>
-          <p>Hola Soluciones Caro, los encontré en Tequit. Busco instalar paneles y un calentador solar en mi casa. Tengo disponible mi recibo de CFE y quisiera solicitar una cotización.</p>
+          <p>Hola Soluciones Haro, los encontré en Tequit. Busco instalar paneles y un calentador solar en mi casa. Tengo disponible mi recibo de CFE y quisiera solicitar una cotización.</p>
         </div>
         <button className={styles.disabledWhatsApp} type="button" disabled title="Contacto desactivado en esta propuesta">
           <MessageCircle aria-hidden /> WhatsApp desactivado en esta propuesta
@@ -225,7 +225,7 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.footerProvider}><ProposalMark compact /><span><strong>Soluciones Caro</strong><small>Paneles y calentadores solares en Tepic</small></span></div>
+        <div className={styles.footerProvider}><ProposalMark compact /><span><strong>Soluciones Haro</strong><small>Paneles y calentadores solares en Tepic</small></span></div>
         <div className={styles.footerTequit}><BrandLogo variant="app-dark" /><p>Propuesta demostrativa creada con Tequit. El perfil original permanece sin cambios.</p></div>
         <nav aria-label="Continuar en Tequit"><Link href="/buscar">Buscar servicios</Link><Link href="/negocios">Ver negocios</Link><Link href="/solicitar">Publicar una necesidad</Link></nav>
       </footer>
