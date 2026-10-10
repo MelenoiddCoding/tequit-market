@@ -95,12 +95,12 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
             className={styles.heroImage}
             src={provider.site.coverImage}
             alt={`Instalación realizada por ${provider.name}`}
-            fill
+            width={1280}
+            height={480}
             priority
             sizes="100vw"
           />
         )}
-        <div className={styles.heroShade} />
         <div className={styles.heroContent}>
           <div className={styles.heroIdentity}>
             <ProviderLogo provider={provider} />

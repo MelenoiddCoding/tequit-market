@@ -81,32 +81,17 @@
 .hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  min-height: 100svh;
-  align-items: flex-end;
+  display: block;
   background: var(--har-oil);
   color: #fff;
 }
 
 .heroImage {
-  z-index: -3;
-  object-fit: cover;
-  object-position: 58% center;
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   animation: heroScale 1s ease-out both;
-}
-
-.heroShade {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background: linear-gradient(180deg, rgba(10, 11, 12, .1) 0%, rgba(10, 11, 12, .48) 40%, rgba(10, 11, 12, .97) 100%);
-}
-
-.heroShade::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(10, 11, 12, .72), transparent 88%);
-  content: "";
 }
 
 .heroContent {
@@ -363,7 +348,6 @@
     text-decoration: none;
   }
   .headerCta svg { width: 18px; height: 18px; }
-  .hero { min-height: calc(100svh - 76px); }
   .heroContent { padding: 70px 30px 72px; }
   .heroCopy { font-size: 18px; }
   .servicesSection,

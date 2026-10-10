@@ -60,7 +60,7 @@ const proposal: Provider = {
   site: {
     headline: "Paneles y calentadores solares en Tepic",
     intro: "Paneles solares, aire acondicionado, calentadores solares, domótica y soluciones eléctricas para hogar y negocio.",
-    coverImage: `${mediaBase}/provider-work/786718a1-a89e-45d0-aa73-bc306736a511/81304ab1-4993-49a4-afda-cbf27d0038ca.webp`,
+    coverImage: "/providers/soluciones-haro/portada-horizontal.jpg",
     theme: "oscuro",
     accentColor: "#b22a2b",
     whiteLabel: true,
