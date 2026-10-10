@@ -50,25 +50,27 @@ Desktop puede superponer texto/búsqueda sobre una imagen con zona tonal estable
 
 1. Header + `DashboardPageHeader` adaptado a público con consulta.
 2. `MarketplaceSearch compact`.
-3. `FilterBar`.
-4. Desktop: `SplitLayout filters` con `FilterSidebar` + resultados.
-5. Mobile: botón y `FilterSheet` + resultados.
-6. Resumen de cantidad/orden.
-7. Lista mixta `ProviderCard list` / `BusinessCard list`.
-8. Empty/error/skeleton.
-9. Footer/bottom nav.
+3. `LocationDiscovery`: explica el uso, solicita geolocalización sólo después de una acción y ofrece municipio + colonia como alternativa.
+4. `FilterBar`.
+5. Desktop: `SplitLayout filters` con `FilterSidebar` + resultados.
+6. Mobile: botón y `FilterSheet` + resultados.
+7. Resumen de cantidad/orden según consulta, cercanía y reputación.
+8. Lista mixta `ProviderCard list` / `BusinessCard list`; el prestador indica `Cerca de ti` o `Atiende tu zona`, nunca distancia exacta.
+9. Empty/error/skeleton con acciones para cambiar ubicación o publicar necesidad.
+10. Footer/bottom nav.
 
-No usar nav en inglés ni afirmar geolocalización. Zona/categoría sólo se habilitan cuando filtran realmente.
+La ubicación exacta de prestadores y clientes es privada. Los negocios conservan su comportamiento actual; la cobertura por plan aplica sólo a prestadores.
 
 ### 03. Servicio — `/servicios/[slug]` — PUBLIC
 
 1. Header.
 2. `Breadcrumbs`.
 3. Encabezado “{Servicio} en Tepic”, descripción y búsqueda.
-4. Resumen de opciones.
-5. Resultados reutilizando cards de búsqueda.
-6. Empty o 404 con acciones.
-7. Footer/bottom nav; Buscar activo.
+4. Selector de ubicación compartido con búsqueda.
+5. Resumen de opciones con cobertura real.
+6. Resultados reutilizando cards de búsqueda.
+7. Empty o 404 con acciones.
+8. Footer/bottom nav; Buscar activo.
 
 ### 04. Negocios — `/negocios` — PUBLIC
 
@@ -106,10 +108,11 @@ El shell incluye un header profesional sticky: identidad del prestador, anclas i
 5. Presentación y zonas.
 6. Reseñas aprobadas.
 7. Preguntas frecuentes.
-8. Solicitud dirigida.
-9. Cierre con WhatsApp, compartir y dock móvil.
+8. Footer con horario y fila de iconos para enlaces sociales/sitio externo, seguido del cierre con WhatsApp, compartir y dock móvil.
 
-Free conserva co-marca Tequit; Pro puede usar identidad propia con sello discreto. Los perfiles incompletos funcionan con `noindex`; demo no permite contacto y suspendido responde 404.
+El sitio requiere acceso de publicación independiente de Pro. Conserva co-marca Tequit; la identidad, tema y acento están incluidos con el sitio activo. Los perfiles incompletos funcionan con `noindex`; demo no permite contacto y suspendido responde 404.
+
+La variante `esencial` de `/p/**` usa una composición breve: portada opcional → avatar/identidad/presentación/WhatsApp → servicios → trabajos → reseñas y FAQ con contenido → cierre de contacto → cobertura y enlaces a Tequit. Las páginas de prestadores no incluyen el formulario de solicitud dirigida del perfil gratuito. Contacto y navegación permanecen en el flujo, sin header sticky ni dock. La demostración y vista previa usan los mismos datos y orden con contacto deshabilitado.
 
 ### 07. Ficha de negocio — `/n/[businessSlug]` — PUBLIC
 
@@ -213,8 +216,8 @@ El patrón visual puede venir de Configuración de Stitch, pero no existen tabs 
 2. URL pública, compartir y QR PNG/SVG.
 3. Identidad: frase, portada, avatar, presentación y experiencia.
 4. Descripción pública por servicio.
-5. Hasta seis preguntas frecuentes y enlaces sociales.
-6. Personalización visual disponible sólo en Pro.
+5. Hasta tres preguntas frecuentes en plantillas beta (seis en sitios anteriores) y enlaces sociales.
+6. Diseño administrado por Tequit; el propietario edita únicamente datos y contenido. Pro no concede publicación ni elección de plantilla.
 7. Vista previa y guardado con estados reales.
 
 ### 13. Servicios — `/dashboard/servicios` — DASHBOARD
@@ -277,7 +280,7 @@ No crear `/mensajes`; la bottom nav de Prestador prioriza las cinco tareas defin
 1. Header + selector 7/30 días.
 2. Métricas Vistas, WhatsApp, Solicitudes, Conversión.
 3. Tendencia sólo con datos reales.
-4. Búsquedas que trajeron visitas.
+4. Origen externo, superficie de interacción y superficie de entrada, sin atribuir búsquedas de Google que no conocemos.
 5. Zero-data/skeleton/error.
 
 Eliminar ingresos, finanzas, tasa de respuesta, sentimientos y opiniones duplicadas del export Stitch.
@@ -383,3 +386,47 @@ Una pantalla puede variar en layout entre mobile y desktop, pero siempre debe co
 - los componentes y tokens de `components.md`.
 
 Si una captura de Stitch contradice esta matriz, se adapta la captura; no se adapta el producto a la inconsistencia.
+
+### Perfil gratuito — /u/[providerSlug] — PUBLIC
+1. EntityHero: identidad, zona, guardar y WhatsApp.
+2. Servicios y trabajos.
+3. Presentación, zonas y afiliación si existe.
+4. Reseñas y verificaciones.
+5. Solicitud dirigida si está habilitada.
+6. Compartir perfil, enlace Facebook y acceso al sitio si está vigente.
+
+### Antigua ruta comercial — `/tu-pagina`
+Redirige permanentemente a `/tu-pagina/ejemplos`. No hay página comercial ni contratación pública.
+
+### Páginas — `/admin/sitios` — ADMIN
+1. Nueva página y ejemplos de temas.
+2. Búsqueda por nombre y listado paginado: filtra muestras en servidor antes de paginar; incluye fichas en borrador.
+3. Cada fila abre directamente el espacio de trabajo de esa página.
+
+### Nueva página — `/admin/sitios/nuevo` — ADMIN
+1. Nombre público, WhatsApp, categoría, ciudad y origen de información.
+2. Revisión de posibles duplicados; permite abrir la ficha existente.
+3. Elegir uno de los once diseños, con enlace al ejemplo; Base es la selección inicial. Crear página guarda el diseño, genera su ficha en borrador y abre el espacio de trabajo sin visitar Altas.
+
+### Espacio de página — `/admin/sitios/[providerId]` — ADMIN
+1. Cabecera compacta: nombre, publicación, vigencia y regreso a Páginas.
+2. Navegación por secciones: Datos y servicios, Contenido y tema, Fotografías, Vista previa, Publicación y entrega.
+3. Datos y servicios: identidad, contacto, categorías, cobertura, servicios editables y autorización.
+4. Contenido y tema: selector compartido de once diseños, presentación, icono de cada servicio visible (sugerido por nombre y editable por el administrador), campos opcionales de contacto/aviso/dirección/horario, FAQ y redes; no vuelve a pedir las fotografías.
+5. Fotografías: muestra avatar, portada y trabajos existentes; carga, recorte y mantenimiento en el mismo espacio.
+6. Vista previa en su propia sección, sin contactos ni medición.
+7. Publicación y entrega: ficha del directorio, pago manual, vigencia, enlace público, reclamo y actividad.
+8. Protección de cambios pendientes al navegar. Cada formulario tiene guardado explícito; no hay editor de bloques ni borrador separado del contenido público.
+
+### Ejemplos de plantillas — `/tu-pagina/ejemplos` — DEMOSTRACIÓN
+1. Enlace a Tequit, aviso de contenido ilustrativo y navegación entre tres plantillas. El panel interno ofrece acceso para compartir los ejemplos.
+2. Alternar el ejemplo con fotografías o sin ellas mediante URL.
+3. Misma identidad, servicios y acciones en las tres composiciones; noindex, sin contactos activos ni medición de prestador.
+4. Sin PublicChrome ni navegación móvil persistente; un solo main contiene la vista previa.
+
+### Cotizaciones y remisiones — `/dashboard/herramientas/documentos` — PRESTADOR PRO
+1. Historial privado por folio, cliente, tipo, estado y total.
+2. Editor de cliente, conceptos, descuento y datos de cobro para remisiones.
+3. Cinco diseños con descarga PDF generada al momento; el archivo no se almacena.
+4. Una cotización final puede originar una remisión nueva sin alterar el original.
+5. Al vencer Pro conserva lectura y descarga, pero bloquea creación y edición.

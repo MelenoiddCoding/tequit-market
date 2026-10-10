@@ -23,7 +23,7 @@ export default async function ProviderAccountPage() {
       ? context.entity.bio
       : context.entity.description;
   const publicHref =
-    context.kind === "provider" ? `/p/${entity.slug}` : `/n/${entity.slug}`;
+    context.kind === "provider" ? `/u/${entity.slug}` : `/n/${entity.slug}`;
   return (
     <DashboardContent>
       <DashboardPageHeader

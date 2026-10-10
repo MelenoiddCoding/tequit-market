@@ -1,0 +1,50 @@
+-- Minimal pre-existing schema for exercising the new migrations in real PostgreSQL.
+create role anon; create role authenticated; create role service_role bypassrls;
+create table profiles(id uuid primary key);
+create table profile_roles(profile_id uuid references profiles(id),role text);
+create table provider_profiles(id uuid primary key default gen_random_uuid(),owner_profile_id uuid references profiles(id),status text not null default 'draft',is_demo boolean not null default false,plan text not null default 'free',bio text,avatar_path text);
+create function is_admin() returns boolean language sql stable as $$ select exists(select 1 from profile_roles where profile_id=nullif(current_setting('request.jwt.claim.sub',true),'')::uuid and role='admin') $$;
+create function owns_provider(p uuid) returns boolean language sql stable as $$ select exists(select 1 from provider_profiles where id=p and owner_profile_id=nullif(current_setting('request.jwt.claim.sub',true),'')::uuid) $$;
+create table provider_site_settings(provider_id uuid primary key references provider_profiles(id),headline text not null default '',intro text not null default '',years_experience smallint,cover_path text,theme text not null default 'tequit',accent_color text not null default '#254432',white_label boolean not null default false,social_links jsonb not null default '{}');
+create table provider_faqs(id uuid primary key default gen_random_uuid(),provider_id uuid references provider_profiles(id),question text check(length(question) between 8 and 160),answer text check(length(answer) between 12 and 600),sort_order smallint,active boolean);
+create table provider_services(id uuid primary key default gen_random_uuid(),provider_id uuid references provider_profiles(id),description text);
+create table admin_audit_logs(id uuid primary key default gen_random_uuid(),admin_profile_id uuid,action text,entity_type text,entity_id text,metadata jsonb);
+create table provider_plan_assignments(id uuid primary key default gen_random_uuid(),provider_id uuid references provider_profiles(id),plan_code text,starts_at timestamptz,ends_at timestamptz,source text,reason text,revoked_at timestamptz);
+create unique index one_plan on provider_plan_assignments(provider_id) where revoked_at is null;
+create table welcome_offer_settings(id boolean primary key,enabled boolean,plan_code text,duration_months integer);
+insert into welcome_offer_settings values(true,true,'pro',3);
+create function grant_provider_welcome_offer() returns trigger language plpgsql as $$ begin return new; end $$;
+create trigger provider_welcome_offer after insert or update of owner_profile_id on provider_profiles for each row execute function grant_provider_welcome_offer();
+create table contact_events(id uuid primary key default gen_random_uuid(),provider_id uuid references provider_profiles(id),event_type text,metadata jsonb not null default '{}',created_at timestamptz not null default now());
+alter table contact_events enable row level security;
+create policy "own events" on contact_events for select to authenticated using(owns_provider(provider_id) or is_admin());
+grant select on contact_events,profiles,profile_roles,provider_profiles to authenticated;
+insert into profiles values('10000000-0000-4000-8000-000000000001'),('10000000-0000-4000-8000-000000000002'),('10000000-0000-4000-8000-000000000003');
+insert into profile_roles values('10000000-0000-4000-8000-000000000001','admin');
+insert into provider_profiles(id,status) values('20000000-0000-4000-8000-000000000001','active');
+
+-- Maintenance dependencies; real business functions are loaded from migrations.
+alter table provider_profiles add column name text,add column profession text,add column phone text,add column zone text;
+alter table provider_services add column title text,add column canonical_service_id uuid,add column active boolean default true,add column created_at timestamptz default now();
+alter table provider_plan_assignments add column processed_at timestamptz;
+create table provider_media(id uuid primary key default gen_random_uuid(),provider_id uuid references provider_profiles(id),title text,description text,storage_path text,media_role text default 'portfolio',archived_at timestamptz,created_at timestamptz default now());
+create table businesses(id uuid primary key default gen_random_uuid(),name text,phone text,zone text,address text,description text,category_id uuid);
+create table business_services(id uuid primary key default gen_random_uuid(),business_id uuid references businesses(id),title text,description text,canonical_service_id uuid,active boolean default true);
+create table assisted_onboardings(id uuid primary key default gen_random_uuid(),provider_id uuid references provider_profiles(id),business_id uuid references businesses(id),kind text,status text default 'draft',source text,created_by uuid,created_at timestamptz default now(),consent_confirmed boolean default false,consent_at timestamptz,consent_note text,duplicate_reviewed boolean default false,duplicate_note text);
+create table canonical_provider_categories(id uuid primary key default gen_random_uuid(),name text,active boolean default true);
+create table provider_categories(provider_id uuid,canonical_category_id uuid,assignment_role text);
+create table service_categories(id uuid primary key default gen_random_uuid(),name text);
+create table service_areas(id uuid primary key default gen_random_uuid(),name text unique,city text,state text);
+create table provider_service_areas(provider_id uuid,area_id uuid);
+create table business_service_areas(business_id uuid,area_id uuid);
+create type verification_type as enum ('phone','identity','references','visited_by_tequit');
+create table provider_verifications(id uuid primary key default gen_random_uuid(),provider_id uuid,type verification_type,note text,verified_at timestamptz not null default now(),created_at timestamptz not null default now());
+create table business_verifications(id uuid primary key default gen_random_uuid(),business_id uuid,type verification_type,note text,verified_at timestamptz not null default now(),created_at timestamptz not null default now());
+alter table provider_site_settings enable row level security;
+create policy "owner manages settings" on provider_site_settings for all using(owns_provider(provider_id) or is_admin()) with check(owns_provider(provider_id) or is_admin());
+grant select,insert,update,delete on provider_site_settings,provider_faqs to authenticated;
+create function current_provider_plan(p uuid) returns text language sql stable as $$ select coalesce((select plan_code from provider_plan_assignments where provider_id=p and revoked_at is null and starts_at<=now() and (ends_at is null or ends_at>now()) limit 1),'free') $$;
+create function provider_entitlement(p uuid,k text) returns jsonb language sql stable as $$ select to_jsonb(case when current_provider_plan(p)='free' then 5 when k='max_services' then 15 else 10 end) $$;
+
+alter table provider_verifications add unique(provider_id,type);
+alter table business_verifications add unique(business_id,type);

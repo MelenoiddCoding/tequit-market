@@ -75,10 +75,10 @@ export async function isProviderProfileIncomplete(context: DashboardContext) {
   ]);
   return !profile?.avatar_path||!site?.cover_path||!primaryCategories||(profile.bio??"").trim().length<20||!context.entity.services.some(service=>(service.description??"").trim().length>=10);
 }
-export async function getDashboardMetrics(context: DashboardContext) {
+export async function getDashboardMetrics(context: DashboardContext, days: 7 | 30 = 30) {
   const supabase = await createClient();
   const column = context.kind === "provider" ? "provider_id" : "business_id";
-  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const since = new Date(Date.now() - days * 86400000).toISOString();
   const [
     { count: views },
     { count: whatsapp },
@@ -89,10 +89,7 @@ export async function getDashboardMetrics(context: DashboardContext) {
       .from("contact_events")
       .select("id", { count: "exact", head: true })
       .eq(column, context.entity.id)
-      .eq(
-        "event_type",
-        context.kind === "provider" ? "profile_view" : "business_view",
-      )
+      .in("event_type", context.kind === "provider" ? ["profile_view","website_view"] : ["business_view"])
       .gte("created_at", since),
     supabase
       .from("contact_events")
@@ -127,21 +124,18 @@ export async function getDashboardMetrics(context: DashboardContext) {
       : 0,
   };
 }
-export async function getDailyViews(context: DashboardContext) {
+export async function getDailyViews(context: DashboardContext, days: 7 | 30 = 30) {
   const supabase = await createClient();
   const column = context.kind === "provider" ? "provider_id" : "business_id";
-  const since = new Date(Date.now() - 11 * 86400000);
+  const since = new Date(Date.now() - (days - 1) * 86400000);
   since.setHours(0, 0, 0, 0);
   const { data } = await supabase
     .from("contact_events")
     .select("created_at")
     .eq(column, context.entity.id)
-    .eq(
-      "event_type",
-      context.kind === "provider" ? "profile_view" : "business_view",
-    )
+    .in("event_type", context.kind === "provider" ? ["profile_view","website_view"] : ["business_view"])
     .gte("created_at", since.toISOString());
-  const counts = Array.from({ length: 12 }, () => 0);
+  const counts = Array.from({ length: days }, () => 0);
   for (const row of data ?? []) {
     const index = Math.floor(
       (new Date(row.created_at).setHours(0, 0, 0, 0) - since.getTime()) /
@@ -154,10 +148,10 @@ export async function getDailyViews(context: DashboardContext) {
     Math.max(count ? Math.round((count / max) * 100) : 4, 4),
   );
 }
-export async function getProviderSiteSources(context: DashboardContext) {
+export async function getProviderSiteSources(context: DashboardContext, days: 7 | 30 = 30) {
   if (context.kind !== "provider") return { qr: 0, shared: 0, shares: 0 };
   const supabase = await createClient();
-  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const since = new Date(Date.now() - days * 86400000).toISOString();
   const counts = await Promise.all(
     ["qr_visit", "shared_link_visit", "share_action"].map((eventType) =>
       supabase

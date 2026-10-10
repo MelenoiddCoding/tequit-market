@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 
 export type PlanCode = "free" | "basic" | "pro" | "premium";
 export type AnalyticsLevel = "none" | "basic" | "advanced";
+export type DiscoveryMode = "radius" | "service_area";
 export type PlanEntitlements = {
   maxServices: number | null;
   maxPortfolioItems: number | null;
@@ -11,6 +12,10 @@ export type PlanEntitlements = {
   leadInbox: boolean;
   customSiteBranding: boolean;
   phoneContact: boolean;
+  quotes: boolean;
+  workOrdersPdf: boolean;
+  discoveryMode: DiscoveryMode;
+  discoveryRadiusKm: number | null;
 };
 export type PlanAssignment = {
   id: string;
@@ -52,6 +57,7 @@ const defaults: Record<PlanCode, PlanEntitlements> = {
     leadInbox: false,
     customSiteBranding: false,
     phoneContact: true,
+    quotes: false, workOrdersPdf: false, discoveryMode:"radius", discoveryRadiusKm:3,
   },
   basic: {
     maxServices: 5,
@@ -61,6 +67,7 @@ const defaults: Record<PlanCode, PlanEntitlements> = {
     leadInbox: false,
     customSiteBranding: false,
     phoneContact: true,
+    quotes: false, workOrdersPdf: false, discoveryMode:"radius", discoveryRadiusKm:5,
   },
   pro: {
     maxServices: 15,
@@ -70,6 +77,7 @@ const defaults: Record<PlanCode, PlanEntitlements> = {
     leadInbox: true,
     customSiteBranding: true,
     phoneContact: true,
+    quotes: true, workOrdersPdf: true, discoveryMode:"service_area", discoveryRadiusKm:null,
   },
   premium: {
     maxServices: null,
@@ -79,10 +87,11 @@ const defaults: Record<PlanCode, PlanEntitlements> = {
     leadInbox: true,
     customSiteBranding: true,
     phoneContact: true,
+    quotes: true, workOrdersPdf: true, discoveryMode:"service_area", discoveryRadiusKm:null,
   },
 };
 const descriptions: Record<PlanCode, string> = {
-  free: "Tu sitio profesional y contacto directo.",
+  free: "Tu perfil gratuito en Tequit y contacto directo.",
   basic: "Entiende cuántas personas ven y contactan tu perfil.",
   pro: "Más servicios, solicitudes y analítica completa.",
   premium: "Máxima capacidad para hacer crecer tu presencia.",
@@ -152,6 +161,10 @@ export async function getProviderPlan(
       result.entitlements.customSiteBranding = Boolean(row.value);
     if (row.feature_key === "phone_contact")
       result.entitlements.phoneContact = Boolean(row.value);
+    if (row.feature_key === "quotes") result.entitlements.quotes = Boolean(row.value);
+    if (row.feature_key === "work_orders_pdf") result.entitlements.workOrdersPdf = Boolean(row.value);
+    if (row.feature_key === "discovery_mode") result.entitlements.discoveryMode = row.value as DiscoveryMode;
+    if (row.feature_key === "discovery_radius_km") result.entitlements.discoveryRadiusKm = row.value == null ? null : Number(row.value);
   }
   return result;
 }

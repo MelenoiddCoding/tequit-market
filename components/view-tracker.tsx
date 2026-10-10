@@ -1,4 +1,34 @@
 "use client";
 import { useEffect } from "react";
-const WINDOW_MS=30*60*1000;
-export function ViewTracker({type,target,referrer}:{type:"profile_view"|"business_view"|"service_view";target:string;referrer?:string}){useEffect(()=>{const now=Date.now();const record=(eventType:string,key:string,extra:Record<string,string>={})=>{try{const previous=Number(localStorage.getItem(key)??0);if(now-previous<WINDOW_MS)return;localStorage.setItem(key,String(now))}catch{}void fetch("/api/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:eventType,target,...extra})})};record(type,`tequit:event:${type}:${target}`);if(referrer==="qr"||referrer==="share")record(referrer==="qr"?"qr_visit":"shared_link_visit",`tequit:event:${referrer}:${target}`,{targetType:"provider"})},[type,target,referrer]);return null}
+import { trackEvent } from "@/lib/traffic-client";
+export function ViewTracker({
+  type,
+  target,
+  referrer,
+  disabled = false,
+}: {
+  type:
+    | "profile_view"
+    | "website_view"
+    | "directory_view"
+    | "business_view"
+    | "service_view";
+  target: string;
+  referrer?: string;
+  disabled?: boolean;
+}) {
+  useEffect(() => {
+    if (disabled) return;
+    trackEvent({ type, target }, true);
+    if (referrer === "qr" || referrer === "share")
+      trackEvent(
+        {
+          type: referrer === "qr" ? "qr_visit" : "shared_link_visit",
+          target,
+          targetType: "provider",
+        },
+        true,
+      );
+  }, [type, target, referrer, disabled]);
+  return null;
+}

@@ -201,7 +201,7 @@ Exactamente cinco items:
 | Label | Icono Lucide | Ruta | Activo también en |
 | --- | --- | --- | --- |
 | Inicio | `Home` | `/` | sólo `/` |
-| Buscar | `Search` | `/buscar` | `/servicios/**`, `/p/**` |
+| Buscar | `Search` | `/buscar` | `/servicios/**`, `/u/**` |
 | Negocios | `Store` | `/negocios` | `/n/**` |
 | Guardados | `Heart` | `/guardados` | sólo `/guardados` |
 | Cuenta | `UserRound` | `/login` | `/registro` |
@@ -237,7 +237,7 @@ Usar marca Tequit. “Panel de Juan” es contexto, no otra marca. No usar “Of
 
 ### `AdminShell`
 
-Marca/contexto “Administración Tequit”. Desktop conserva navegación horizontal. Mobile usa avatar administrativo arriba a la izquierda, drawer completo desde ese lado y bottom nav con Resumen, Altas, Prestador y Negocio. El drawer incluye Ver sitio público y Cerrar sesión. Las altas publicadas permiten regenerar, copiar, compartir y revocar su enlace privado de reclamo; nunca se conserva el token original en texto plano.
+Marca/contexto “Administración Tequit”. Desktop conserva navegación horizontal. Mobile usa avatar administrativo arriba a la izquierda, drawer completo desde ese lado y bottom nav con Resumen, Altas, Páginas, Prestador y Negocio. El drawer incluye Ver sitio público y Cerrar sesión. Las altas publicadas permiten regenerar, copiar, compartir y revocar su enlace privado de reclamo; nunca se conserva el token original en texto plano.
 
 ### `ProviderSiteShell`
 
@@ -296,6 +296,7 @@ Props `variant="horizontal|symbol|wordmark|app-light|app-dark"` y tamaños defin
 - `Tabs` sólo para subcontextos reales, no para sustituir navegación global.
 - `Drawer` y `BottomSheet` comparten overlay, focus trap, Escape y restauración de foco.
 - `Dialog` comparte overlay/focus trap y se reserva para confirmaciones o decisiones bloqueantes.
+- `AdminUpdateToast` confirma guardados y publicaciones sin bloquear el panel. Tiene estados success/error/warning/info, cierre manual y desaparición automática; en mobile se coloca sobre la navegación inferior.
 - `DropdownMenu` agrupa acciones secundarias; no oculta el CTA principal.
 - `Snackbar` para guardado/copiado; incluye Deshacer cuando la acción es reversible.
 - `InlineAlert` para mensajes persistentes.
@@ -340,7 +341,7 @@ Estados saved/unsaved, `aria-label` dinámico y snackbar. Persistencia actual en
 - `WhatsAppButton`
 - `RequestForm`
 
-`WhatsAppButton` usa `--color-whatsapp`, nombre accesible de la entidad y registra evento antes de abrir el enlace externo.
+`WhatsAppButton` usa `--color-whatsapp`, nombre accesible de la entidad y envía el evento sin bloquear la apertura del enlace externo.
 
 ## 10. Componentes de formularios
 
@@ -486,7 +487,56 @@ La composición visual de Stitch se conserva donde aporta valor; estas inconsist
 ## 18. Planes y capacidades
 
 - La interfaz nunca decide acceso comparando sólo el nombre del plan; recibe capacidades resueltas por servidor.
-- `PlanStatus` muestra plan efectivo, origen, vigencia y bajada prevista. Los precios son referencia mientras no exista checkout.
+- `PlanStatus` muestra plan efectivo, origen, vigencia y bajada prevista. Los precios de planes son referencia; el sitio tiene pedidos manuales separados.
 - `WelcomeOffer` es una composición de una sola acción, sin mosaico de cards: beneficio, valor, fecha y ausencia de tarjeta/renovación.
 - Free, Básico, Pro y Premium comparten componentes. Las funciones `coming_soon` se etiquetan y permanecen deshabilitadas.
 - `PlanAction` administrativo permite plan y duración; `WelcomeOfferSettings` controla únicamente altas futuras.
+
+## Sitios y perfiles: contrato de la primera venta
+- /u/** usa PublicShell y ProviderProfile: identidad, servicios, trabajos, presentación, reseñas, confianza/contacto y compartir. Solicitudes dirigidas sólo según capacidad efectiva.
+- /p/** usa ProviderSiteShell con acceso de publicación independiente. Los servicios permanecen dentro del sitio. Contacto apunta al cierre común #contacto.
+- ProviderSiteEditor comparte campos de contenido. Sólo administración selecciona plantilla, tema, acento y marca; el propietario recibe únicamente campos de contenido. API y base de datos rechazan cambios de diseño no autorizados. El guardado es atómico.
+- La vista previa administrativa es un div dentro de AdminShell: no monta otro main, cabecera fija pública ni dock de contacto.
+- WebsiteOrderControls reutiliza formularios y estilos del panel. Pedido pendiente → pago confirmado → publicación. El texto de botones distingue cobro manual de activación.
+- TrafficReport usa tablas responsivas compartidas y cifras reales. Origen, superficie y entrada son perspectivas distintas, nunca métricas que se suman.
+- Google se detecta por referrer disponible; no se promete posición, indexación efectiva ni términos de búsqueda.
+
+
+## Beta de sitios asistidos — septiembre 2026
+
+- Oferta centralizada en `lib/website-offer.ts`: $699 MXN, 12 meses, renovación $499, cinco servicios, cinco trabajos, tres FAQ y una ronda. Pro de bienvenida: tres meses desde la primera publicación del perfil, sin reinicio.
+- Plantillas `tecnico`, `oficio`, `hogar`; `legacy` preserva sitios anteriores. Sólo administración cambia la plantilla. No hay editor de bloques, páginas adicionales ni carruseles.
+- Servicio técnico: sans para títulos, azul #214C70, servicios en filas. Taller y oficio: Fraunces, papel #F7F2E9, barro oscuro #794631 y fotografías verticales. Casa y mantenimiento: verde #254432, portada bajo presentación y fotografías horizontales.
+- Esos acentos son exclusivos del sitio del prestador; los shells, logo y panel de Tequit conservan sus tokens. Máximo dos familias tipográficas.
+- `ProviderSite` comparte secciones y datos; cambia composición con clases de plantilla. Identidad visible primero, subtítulo concreto, cobertura y contacto. Sin portada usa una composición compacta sin espacio reservado para una imagen ausente.
+- Las plantillas beta muestran los primeros cinco servicios activos y cinco trabajos no archivados en orden estable `created_at,id`, igual al orden conservado por el descenso de Pro a Free. Servicios adicionales de Pro permanecen en el perfil según su plan.
+- El administrador puede editar servicios y fotos después del reclamo. Guardar conserva el estado `claimed` o `published`; no genera enlaces de reclamo nuevos. Los servicios conservan sus IDs; retirarlos los desactiva.
+- El formulario indica que guardar modifica contenido público inmediatamente y comparte presentación/servicios/fotos con el perfil. No promete borradores editoriales.
+- `WebsitePortfolioMaintenance` administra títulos, descripciones y retiro de trabajos con confirmación. Las altas usan `AssistedMediaEditor` con límite efectivo del servidor.
+- `/tu-pagina/ejemplos` es una demostración aislada sin PublicChrome: navegación propia hacia Tequit y plantillas, `noindex`, contactos deshabilitados, sin compartir ni registrar visitas del prestador. Nunca se presenta como negocio real.
+- La vista previa administrativa permanece dentro de AdminShell y no monta otro main, footer de navegación, dock ni enlaces de contacto.
+
+## Espacio administrativo de páginas — septiembre 18
+- Páginas es un flujo propio de creación, edición y publicación. Reutiliza la ficha y APIs existentes para no duplicar identidad, medios, servicios ni consentimientos; no requiere navegar a Altas.
+- `website-workspace.module.css` controla cabecera operativa compacta, pestañas de sección, ancho de formulario y lista paginada. Sin títulos editoriales enormes ni vista previa apilada tras todos los formularios.
+- `WebsiteProfileForm`, `WebsiteMedia` y `ProviderSiteEditor` separan datos, medios y contenido. Los archivos guardados se muestran antes de ofrecer reemplazo.
+- CTA visible de contacto: “Escribir por WhatsApp”; no concatena nombres. La sección de cobertura separa el título y los chips con 20 px.
+- Sólo se muestran enlaces públicos cuando la superficie correspondiente está publicada. Cambios pendientes se protegen al cambiar de sección.
+
+## Documentos comerciales — septiembre 26
+- Cotizaciones y remisiones reutilizan el shell del panel. Desktop usa editor principal con resumen sticky; mobile conserva una columna y todas las acciones.
+- Los cinco PDF comparten información y sólo varían tema visual. Siempre muestran que no son factura ni CFDI.
+
+## Plantilla Esencial — septiembre 28
+- `ProviderSiteEssential` es la variante compacta de `ProviderSite`, basada en la referencia Servibombas. Usa datos compartidos y selección exclusiva del administrador.
+- Portada a sangre, avatar superpuesto si existe, identidad, presentación, WhatsApp, servicios en filas, trabajos en dos columnas, FAQ/reseñas sólo con contenido, contacto y cobertura. No repite la presentación.
+- Azul marino y acento cobre exclusivos de esta plantilla; WhatsApp conserva el verde funcional. Manrope, sin animación ornamental.
+- Esta variante sustituye header sticky y dock por contacto al inicio y al cierre y navegación al perfil/Tequit en el footer. Misma información y acciones en móvil y desktop. Preview desactiva contactos, enlaces externos y tracking.
+- Portada 16:9 en móvil y recorte panorámico en desktop; avatar 1:1; miniaturas de trabajos 4:3. Sin fotografía no reserva espacio vacío. No inventa domicilio, horarios, garantías ni promociones.
+
+## Catálogo de once diseños — septiembre 28
+- Base, Industrial, Editorial, Clásico, Técnico, Cercano, Profesional, Clean, Urbano, Digital y Catálogo son las opciones para crear páginas. Los IDs anteriores se conservan exclusivamente para mantener sitios existentes.
+- `WebsiteTemplatePicker` comparte selector, descripción y enlace de ejemplo entre creación y edición. Nueva página inicia en Base; la elección se persiste al crear el borrador.
+- `ProviderSiteCatalog` conserva la composición de las demos con datos del prestador: portada, identidad, presentación, aviso opcional, servicios, trabajos, contacto y ficha final. Reseñas y FAQ se muestran cuando existen.
+- CSS aislado bajo `.provider-sheet`; nunca altera el panel ni el marketplace. Dos familias como máximo por diseño, correspondientes a la demo aprobada. Lucide y acciones de contacto canónicas.
+- `details` contiene únicamente campos opcionales de contenido: contacto/cargo, aviso, introducciones, dirección y horario. Guardado atómico con el contenido existente; no editor de bloques. Ningún dato comercial o fotografía de la demo se usa como fallback.

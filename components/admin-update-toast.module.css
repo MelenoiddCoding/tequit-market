@@ -1,0 +1,15 @@
+.toast{position:fixed;right:24px;bottom:24px;z-index:80;box-sizing:border-box;display:flex;align-items:flex-start;gap:12px;width:min(400px,calc(100vw - 32px));padding:16px;border:1px solid var(--color-border);border-left:3px solid var(--color-success);border-radius:12px;background:var(--color-surface);box-shadow:0 12px 32px rgba(23,35,29,.14);color:var(--color-text)}
+.toast[data-mode="error"]{border-left-color:var(--color-error)}
+.toast[data-mode="warning"]{border-left-color:var(--color-warning)}
+.toast[data-mode="info"]{border-left-color:var(--color-brand)}
+.symbol{display:grid;place-items:center;flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:var(--color-brand-soft);color:var(--color-success)}
+.toast[data-mode="error"] .symbol{background:#f9eae7;color:var(--color-error)}
+.toast[data-mode="warning"] .symbol{background:#f9efd8;color:var(--color-warning)}
+.toast[data-mode="info"] .symbol{background:var(--color-surface-muted);color:var(--color-brand)}
+.copy{min-width:0;flex:1;padding-top:3px}.copy strong{display:block;font-size:14px;font-weight:800;line-height:1.35}.copy p{margin:4px 0 0;color:var(--color-text-muted);font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.action{margin:8px 0 0;padding:0;border:0;background:none;color:var(--color-brand);font:inherit;font-size:13px;font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.close{display:grid;place-items:center;flex:0 0 auto;width:36px;height:36px;margin:-3px -5px -3px 0;border:0;border-radius:8px;background:transparent;color:var(--color-text-muted);cursor:pointer}.close:hover{background:var(--color-surface-muted);color:var(--color-text)}
+.toast button:focus-visible{outline:3px solid var(--color-star);outline-offset:2px}
+@media(max-width:1023px){.toast{right:16px;bottom:calc(84px + env(safe-area-inset-bottom))}}
+@media(max-width:480px){.toast{left:16px;right:16px;width:auto;padding:14px}}
+@media(prefers-reduced-motion:no-preference){.toast{animation:toastIn .18s ease-out}@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}

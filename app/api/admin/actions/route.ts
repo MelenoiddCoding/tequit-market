@@ -22,6 +22,7 @@ const schema = z.discriminatedUnion("action", [
     plan: planCode,
     durationMonths: z.number().int().min(1).max(24),
   }),
+  z.object({action:z.literal("discovery_settings"),enabled:z.boolean(),freeRadiusKm:z.number().min(.5).max(100),basicRadiusKm:z.number().min(.5).max(100)}),
   z.object({
     action: z.literal("status"),
     kind: z.enum(["provider", "business"]),
@@ -89,6 +90,10 @@ export async function POST(request: Request) {
         updated_at: new Date().toISOString(),
       })
       .eq("id", true));
+  if(value.action==="discovery_settings") {
+    ({error}=await admin.from("marketplace_discovery_settings").update({enabled:value.enabled,free_radius_km:value.freeRadiusKm,basic_radius_km:value.basicRadiusKm,updated_by:session.user.id,updated_at:new Date().toISOString()}).eq("id",true));
+    if(!error) await Promise.all([admin.from("plan_entitlements").update({value:value.freeRadiusKm}).eq("plan_code","free").eq("feature_key","discovery_radius_km"),admin.from("plan_entitlements").update({value:value.basicRadiusKm}).eq("plan_code","basic").eq("feature_key","discovery_radius_km")]);
+  }
   if (value.action === "status")
     ({ error } = await admin
       .from(value.kind === "provider" ? "provider_profiles" : "businesses")

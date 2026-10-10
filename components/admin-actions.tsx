@@ -1,12 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import {useAdminUpdate} from "@/components/admin-update-toast";
 import {
   dashboardStyles as styles,
   StatusBadge,
 } from "@/components/dashboard-components";
 
+async function postAdminAction(value: Record<string, unknown>) {
+  try {
+    const response = await fetch("/api/admin/actions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(value),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 export function ModerationAction({ id }: { id: string }) {
+  const showUpdate = useAdminUpdate();
   const [state, setState] = useState<"pending" | "approved" | "rejected">(
     "pending",
   );
@@ -17,12 +32,9 @@ export function ModerationAction({ id }: { id: string }) {
       </StatusBadge>
     );
   async function update(status: "approved" | "rejected") {
-    const response = await fetch("/api/admin/actions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "review", id, status }),
-    });
-    if (response.ok) setState(status);
+    const saved = await postAdminAction({ action: "review", id, status });
+    if (saved) {setState(status);showUpdate({mode:"success",title:status==="approved"?"Reseña aprobada":"Reseña rechazada"});}
+    else showUpdate({mode:"error",title:"No se actualizó la reseña",message:"Inténtalo de nuevo."});
   }
   return (
     <div className={styles.tableActions}>
@@ -51,24 +63,19 @@ export function PlanAction({
   id: string;
   initial: "free" | "basic" | "pro" | "premium";
 }) {
+  const showUpdate = useAdminUpdate();
   const [plan, setPlan] = useState(initial);
   const [busy, setBusy] = useState(false);
   const [months, setMonths] = useState("3");
   async function change(next: typeof plan) {
     setBusy(true);
-    const response = await fetch("/api/admin/actions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "plan",
-        id,
-        plan: next,
-        durationMonths:
-          next === "free" || months === "0" ? null : Number(months),
-        reason: "Asignación desde el directorio",
-      }),
+    const saved = await postAdminAction({
+      action: "plan", id, plan: next,
+      durationMonths: next === "free" || months === "0" ? null : Number(months),
+      reason: "Asignación desde el directorio",
     });
-    if (response.ok) setPlan(next);
+    if (saved) {setPlan(next);showUpdate({mode:"success",title:"Plan actualizado",message:"La asignación del prestador ya está guardada."});}
+    else showUpdate({mode:"error",title:"No se actualizó el plan",message:"Inténtalo de nuevo."});
     setBusy(false);
   }
   return (
@@ -109,23 +116,15 @@ export function WelcomeOfferSettings({
   plan: "free" | "basic" | "pro" | "premium";
   months: number;
 }) {
+  const showUpdate = useAdminUpdate();
   const [enabled, setEnabled] = useState(initialEnabled),
     [plan, setPlan] = useState(initialPlan),
-    [months, setMonths] = useState(String(initialMonths)),
-    [message, setMessage] = useState("");
+    [months, setMonths] = useState(String(initialMonths));
   async function save() {
-    setMessage("Guardando…");
-    const response = await fetch("/api/admin/actions", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        action: "welcome_settings",
-        enabled,
-        plan,
-        durationMonths: Number(months),
-      }),
+    const saved = await postAdminAction({
+      action: "welcome_settings", enabled, plan, durationMonths: Number(months),
     });
-    setMessage(response.ok ? "Configuración guardada." : "No pudimos guardar.");
+    showUpdate(saved?{mode:"success",title:"Configuración guardada",message:"La oferta de bienvenida ya está actualizada."}:{mode:"error",title:"No se guardó la configuración",message:"Inténtalo de nuevo."});
   }
   return (
     <div className={styles.tableActions}>
@@ -156,9 +155,14 @@ export function WelcomeOfferSettings({
       <button className={styles.primary} type="button" onClick={save}>
         Guardar
       </button>
-      <span role="status">{message}</span>
     </div>
   );
+}
+
+export function DiscoverySettings({enabled:initialEnabled,freeRadius:initialFree,basicRadius:initialBasic}:{enabled:boolean;freeRadius:number;basicRadius:number}) {
+  const showUpdate=useAdminUpdate();const[enabled,setEnabled]=useState(initialEnabled);const[freeRadius,setFreeRadius]=useState(String(initialFree));const[basicRadius,setBasicRadius]=useState(String(initialBasic));const[busy,setBusy]=useState(false);
+  async function save(){setBusy(true);const saved=await postAdminAction({action:"discovery_settings",enabled,freeRadiusKm:Number(freeRadius),basicRadiusKm:Number(basicRadius)});showUpdate(saved?{mode:"success",title:"Cobertura actualizada",message:"Los radios ya se aplican al descubrimiento."}:{mode:"error",title:"No se guardó la cobertura",message:"Revisa los valores e inténtalo de nuevo."});setBusy(false)}
+  return <div className={styles.form}><label><input type="checkbox" checked={enabled} onChange={(event)=>setEnabled(event.target.checked)}/> Descubrimiento por ubicación activo</label><div className={styles.formGrid}><div className={styles.fieldGroup}><label htmlFor="free-radius">Radio Free (km)</label><input className={styles.field} id="free-radius" type="number" min="0.5" max="100" step="0.5" value={freeRadius} onChange={(event)=>setFreeRadius(event.target.value)}/></div><div className={styles.fieldGroup}><label htmlFor="basic-radius">Radio Básico (km)</label><input className={styles.field} id="basic-radius" type="number" min="0.5" max="100" step="0.5" value={basicRadius} onChange={(event)=>setBasicRadius(event.target.value)}/></div></div><p className={styles.help}>Pro y Premium se muestran por zonas declaradas. El plan no altera artificialmente el orden dentro de una cobertura válida.</p><div><button className={styles.primary} type="button" onClick={save} disabled={busy}>{busy?"Guardando…":"Guardar cobertura"}</button></div></div>
 }
 
 export function PublicationAction({
@@ -170,15 +174,13 @@ export function PublicationAction({
   kind: "provider" | "business";
   initial: "draft" | "active" | "suspended";
 }) {
+  const showUpdate = useAdminUpdate();
   const [status, setStatus] = useState(initial);
   async function change() {
     const next = status === "active" ? "suspended" : "active";
-    const response = await fetch("/api/admin/actions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "status", kind, id, status: next }),
-    });
-    if (response.ok) setStatus(next);
+    const saved = await postAdminAction({ action: "status", kind, id, status: next });
+    if (saved) {setStatus(next);showUpdate({mode:"success",title:next==="active"?"Ficha reactivada":"Ficha suspendida"});}
+    else showUpdate({mode:"error",title:"No se actualizó la ficha",message:"Inténtalo de nuevo."});
   }
   return (
     <button
@@ -198,6 +200,7 @@ export function PlanRequestAction({
   id: string;
   requestedPlan?: "basic" | "pro" | "premium";
 }) {
+  const showUpdate = useAdminUpdate();
   const [status, setStatus] = useState<"pending" | "approved" | "rejected">(
     "pending",
   );
@@ -208,12 +211,9 @@ export function PlanRequestAction({
       </StatusBadge>
     );
   async function update(next: "approved" | "rejected") {
-    const response = await fetch("/api/admin/actions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "plan_request", id, status: next }),
-    });
-    if (response.ok) setStatus(next);
+    const saved = await postAdminAction({ action: "plan_request", id, status: next });
+    if (saved) {setStatus(next);showUpdate({mode:"success",title:next==="approved"?"Solicitud aprobada":"Solicitud rechazada"});}
+    else showUpdate({mode:"error",title:"No se actualizó la solicitud",message:"Inténtalo de nuevo."});
   }
   return (
     <div className={styles.tableActions}>

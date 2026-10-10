@@ -1,0 +1,6 @@
+export const DOCUMENT_TEMPLATES=["classic","modern","compact","editorial","technical"] as const;
+export type DocumentTemplate=typeof DOCUMENT_TEMPLATES[number];
+export type CommercialItem={id?:string;description:string;quantity:number;unit:string;unitPrice:number};
+export type CommercialDocument={id:string;document_type:"quote"|"remission";status:"draft"|"final";folio_number:number;template_id:DocumentTemplate;source_document_id:string|null;issuer_name:string;issuer_profession:string;issuer_phone:string;issuer_email:string;issuer_address:string;issuer_logo_path:string|null;customer_name:string;customer_phone:string;customer_address:string;issue_date:string;valid_until:string|null;notes:string;subtotal_mxn:number;discount_mxn:number;total_mxn:number;paid_mxn:number;payment_method:string|null;payment_date:string|null;created_at:string;commercial_document_items:Array<{id:string;description:string;quantity:number;unit:string;unit_price_mxn:number;sort_order:number}>};
+export function folio(type:"quote"|"remission",value:number){return `${type==="quote"?"COT":"REM"}-${String(value).padStart(4,"0")}`}
+export function money(value:number){return new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(value)}

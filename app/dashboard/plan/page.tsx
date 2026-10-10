@@ -22,7 +22,7 @@ const features = {
   pro: [
     "15 servicios y 10 trabajos",
     "Solicitudes dirigidas",
-    "Analítica avanzada y personalización",
+    "Analítica avanzada y solicitudes",
   ],
   premium: [
     "Servicios ilimitados",

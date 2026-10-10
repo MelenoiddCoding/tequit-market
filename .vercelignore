@@ -1,11 +1,16 @@
 /.git
 /.next
 /.playwright-cli
+/.playwright-mcp
+/.codex-remote-attachments
+/tmp
 /.vercel
 /node_modules
 /output
 /design
 /exports
+/work
+/.env*
 /tests
 /supabase
 *.tsbuildinfo

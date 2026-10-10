@@ -1,5 +1,7 @@
 "use client";
 
+import { trackEvent } from "@/lib/traffic-client";
+import { FacebookShare } from "@/components/facebook-share";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Check, Copy, Download, QrCode, Share2 } from "lucide-react";
@@ -94,13 +96,15 @@ export function ProviderShareTools({
   name,
   subtitle = "Servicios profesionales",
   compact = false,
+  surface = "website",
 }: {
   slug: string;
   name: string;
   subtitle?: string;
   compact?: boolean;
+  surface?: "profile" | "website";
 }) {
-  const url = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://tequit.mx"}/p/${slug}`;
+  const url = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://tequit.mx"}/${surface === "profile" ? "u" : "p"}/${slug}`;
   const qrUrl = `${url}?ref=qr`;
   const shareUrl = `${url}?ref=share`;
   const [card, setCard] = useState("");
@@ -109,21 +113,13 @@ export function ProviderShareTools({
     let active = true;
     createShareCard(qrUrl, name, subtitle).then((canvas) => {
       if (active) setCard(canvas.toDataURL("image/png", 0.9));
-    });
+    }).catch(() => { if (active) setCard(""); });
     return () => {
       active = false;
     };
   }, [qrUrl, name, subtitle]);
   async function track() {
-    await fetch("/api/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "share_action",
-        target: slug,
-        targetType: "provider",
-      }),
-    });
+    trackEvent({ type: "share_action", target: slug, targetType: "provider" });
   }
   async function copy() {
     await navigator.clipboard.writeText(shareUrl);
@@ -223,6 +219,6 @@ export function ProviderShareTools({
           </>
         )}
       </div>
-    </div>
+    <FacebookShare path={url} /></div>
   );
 }

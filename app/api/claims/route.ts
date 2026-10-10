@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { normalizeMexicanPhone } from "@/lib/phone";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recordLegalAcceptances } from "@/lib/legal-consent";
-import { LEGAL_VERSION } from "@/lib/legal-documents";
+import { PRIVACY_VERSION, TERMS_VERSION } from "@/lib/legal-documents";
 
 const schema = z.object({
   mode: z.enum(["create", "signin"]),
@@ -58,8 +58,8 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     if (
-      value.termsVersion !== LEGAL_VERSION ||
-      value.privacyVersion !== LEGAL_VERSION
+      value.termsVersion !== TERMS_VERSION ||
+      value.privacyVersion !== PRIVACY_VERSION
     )
       return NextResponse.json(
         {

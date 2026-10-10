@@ -4,7 +4,7 @@ import { allowRequest } from "@/lib/rate-limit";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { recordLegalAcceptances } from "@/lib/legal-consent";
-import { LEGAL_VERSION } from "@/lib/legal-documents";
+import { PRIVACY_VERSION, TERMS_VERSION } from "@/lib/legal-documents";
 
 const schema = z.object({
   registrationId: z.string().uuid(),
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   if (!parsed.success) return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Revisa los datos del registro." }, { status: 400 });
   const value = parsed.data;
   if (!value.acceptTerms || !value.acceptPrivacy) return NextResponse.json({ error: "Debes aceptar los Términos y la Política de Privacidad." }, { status: 400 });
-  if (value.termsVersion !== LEGAL_VERSION || value.privacyVersion !== LEGAL_VERSION) return NextResponse.json({ error: "Los documentos legales cambiaron. Recarga la página para revisar la versión vigente." }, { status: 409 });
+  if (value.termsVersion !== TERMS_VERSION || value.privacyVersion !== PRIVACY_VERSION) return NextResponse.json({ error: "Los documentos legales cambiaron. Recarga la página para revisar la versión vigente." }, { status: 409 });
   const admin = createAdminClient();
   if (!admin) return NextResponse.json({ error: "Servicio temporalmente no disponible." }, { status: 503 });
   const { data: pending } = await admin.from("pending_registrations").select("*").eq("id", value.registrationId).maybeSingle();

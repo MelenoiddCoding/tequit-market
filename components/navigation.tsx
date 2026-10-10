@@ -1,5 +1,6 @@
 "use client";
 
+import { DirectoryTracker } from "@/components/directory-tracker";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BriefcaseBusiness, Heart, Home, MapPin, Search, Store, UserRound } from "lucide-react";
@@ -15,7 +16,7 @@ const publicLinks = [
 
 const bottomItems = [
   { href: "/", Icon: Home, label: "Inicio", matches: (path: string) => path === "/" },
-  { href: "/buscar", Icon: Search, label: "Buscar", matches: (path: string) => path.startsWith("/buscar") || path.startsWith("/servicios/") || path.startsWith("/p/") },
+  { href: "/buscar", Icon: Search, label: "Buscar", matches: (path: string) => path.startsWith("/buscar") || path.startsWith("/servicios/") || path.startsWith("/u/") },
   { href: "/negocios", Icon: Store, label: "Negocios", matches: (path: string) => path.startsWith("/negocios") || path.startsWith("/n/") },
   { href: "/guardados", Icon: Heart, label: "Favoritos", matches: (path: string) => path.startsWith("/guardados") },
 ] as const;
@@ -32,13 +33,13 @@ export function BottomNavigation({ accountHref="/cuenta",dashboard=false }: { ac
 }
 
 export function Footer() {
-  return <footer className="footer"><div className="site-container site-container-content"><div className="footer-grid"><div className="footer-brand"><Link href="/" aria-label="Tequit — Inicio"><BrandLogo variant="app-dark" /></Link><p>Encuentra personas y negocios en Tepic que puedan hacer el trabajo que necesitas.</p></div><nav aria-label="Explora"><strong>Explora</strong><Link href="/buscar">Buscar servicios</Link><Link href="/negocios">Negocios locales</Link><Link href="/guardados">Guardados</Link></nav><nav aria-label="Para quien le sabe"><strong>Para quien le sabe</strong><Link href="/registro?tipo=prestador">Crear perfil</Link><Link href="/login">Iniciar sesión</Link><Link href="/dashboard/plan">Tequit Pro</Link></nav><nav aria-label="Información legal"><strong>Legal</strong><Link href="/terminos">Términos y Condiciones</Link><Link href="/privacidad">Privacidad</Link></nav></div><div className="footer-note"><BriefcaseBusiness size={16} aria-hidden /> Tequit facilita el contacto. No garantiza resultados ni participa en pagos o acuerdos.</div></div></footer>;
+  return <footer className="footer"><div className="site-container site-container-content"><div className="footer-grid"><div className="footer-brand"><Link href="/" aria-label="Tequit — Inicio"><BrandLogo variant="app-dark" /></Link><p>Encuentra personas y negocios en Tepic que puedan hacer el trabajo que necesitas.</p></div><nav aria-label="Explora"><strong>Explora</strong><Link href="/buscar">Buscar servicios</Link><Link href="/negocios">Negocios locales</Link><Link href="/guardados">Guardados</Link></nav><nav aria-label="Para quien le sabe"><strong>Para quien le sabe</strong><Link href="/registro?tipo=prestador">Crear perfil</Link><Link href="/login">Iniciar sesión</Link><Link href="/dashboard/plan">Tequit Pro</Link></nav><nav aria-label="Información legal"><strong>Legal</strong><Link href="/terminos">Términos y Condiciones</Link><Link href="/privacidad">Privacidad</Link></nav></div><div className="footer-note"><BriefcaseBusiness size={16} aria-hidden /> Tequit facilita el contacto. No garantiza resultados ni participa en pagos o acuerdos entre clientes y prestadores.</div></div></footer>;
 }
 
 export function PublicChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   if(pathname.startsWith("/admin"))return children;
   if(pathname.startsWith("/dashboard"))return children;
-  if(pathname.startsWith("/p/"))return children;
-  return <><Header />{children}<Footer /><BottomNavigation /></>;
+  if(pathname.startsWith("/p/") || pathname === "/tu-pagina/ejemplos")return children;
+  return <><DirectoryTracker /><Header />{children}<Footer /><BottomNavigation /></>;
 }

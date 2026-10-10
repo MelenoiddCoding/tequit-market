@@ -74,6 +74,21 @@
 .resultList :global(.entity-card-list) { padding: 22px; }
 .resultList :global(.business-card-visual) { height: 112px; }
 .resultList :global(.business-card-save) { top: 104px; }
+.locationPanel { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 14px 24px; margin-bottom: 24px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--brand-soft); }
+.locationPanelCompact { margin-bottom: 22px; }
+.locationPanelLead { min-width: 0; display: flex; align-items: flex-start; gap: 11px; }
+.locationPanelLead > svg { flex: 0 0 auto; margin-top: 2px; color: var(--accent); }
+.locationPanelLead strong { color: var(--brand-strong); }
+.locationPanelLead p { margin: 4px 0 0; color: var(--muted); font-size: .86rem; line-height: 1.45; }
+.locationActions { display: flex; align-items: center; gap: 8px; }
+.locationActions :global(.btn) { min-height: 42px; white-space: nowrap; }
+.locationClear { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--muted); }
+.locationChooser { grid-column: 1 / -1; display: grid; grid-template-columns: auto auto minmax(220px,1fr); align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(37,68,50,.14); }
+.locationChooser > span { color: var(--muted); font-size: .82rem; text-align: center; }
+.locationChooser select { width: 100%; min-height: 46px; padding: 9px 36px 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; }
+.locationMessage { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: .84rem; }
+.homeLocationEmpty { margin-top: 18px; padding: 28px; border: 1px dashed #aebdb4; border-radius: 14px; background: var(--surface-muted); text-align: center; }
+.homeLocationEmpty p { margin: 6px 0 0; color: var(--muted); }
 .emptyState { padding: clamp(26px, 5vw, 46px); border: 1px dashed #aebdb4; border-radius: var(--radius-card); background: var(--surface-muted); }
 .emptyState > svg { margin-bottom: 18px; color: var(--accent); }
 .emptyState h2 { margin-bottom: 12px; }
@@ -165,6 +180,10 @@
   .requestIntro { text-align: left; }
   .requestIntro h1 { font-size: 2.8rem; }
   .requestPanel { padding: 20px 16px; border-radius: 18px; }
+  .locationPanel { grid-template-columns: 1fr; align-items: stretch; padding: 16px; }
+  .locationActions :global(.btn) { flex: 1; }
+  .locationChooser { grid-template-columns: 1fr; }
+  .locationChooser > span { text-align: left; }
   .twoColumns { grid-template-columns: 1fr; }
   .formSection { padding-bottom: 22px; }
 }

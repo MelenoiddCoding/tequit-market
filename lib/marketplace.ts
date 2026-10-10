@@ -1,3 +1,4 @@
+import { normalizeWebsiteDetails } from "@/lib/website-details";
 import "server-only";
 
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -19,6 +20,7 @@ type CanonicalRow = {
   service_aliases?: Array<{ alias: string }>;
 } | null;
 type ServiceRow = {
+  created_at?: string;
   id: string;
   title: string;
   description: string;
@@ -41,6 +43,7 @@ type ProviderCategoryRow = {
   } | null;
 };
 type MediaRow = {
+  created_at?: string;
   id: string;
   title: string | null;
   description?: string | null;
@@ -63,11 +66,13 @@ type ProviderAffiliationRow = {
   businesses: { slug: string; name: string } | null;
 };
 type ProviderSiteRow = {
+  details?: Provider["site"]["details"];
   headline: string;
   intro: string;
   years_experience: number | null;
   cover_path: string | null;
   theme: Provider["site"]["theme"];
+  template_id: Provider["site"]["templateId"];
   accent_color: string;
   white_label: boolean;
   social_links: Provider["site"]["socialLinks"];
@@ -229,6 +234,7 @@ function mapProvider(row: ProviderRow): Provider {
     phone: row.phone,
     showPhoneCall: row.show_phone_call,
     services: row.provider_services
+      .sort((a,b) => (a.created_at ?? "").localeCompare(b.created_at ?? "") || a.id.localeCompare(b.id))
       .filter((item) => item.active)
       .map((item) => mapService(item, primaryCategory?.name ?? row.profession)),
     categories,
@@ -241,6 +247,7 @@ function mapProvider(row: ProviderRow): Provider {
       .filter((item) => item.status === "approved")
       .map(mapReview),
     portfolio: row.provider_media
+      .sort((a,b) => (a.created_at ?? "").localeCompare(b.created_at ?? "") || a.id.localeCompare(b.id))
       .filter((item) => !item.archived_at)
       .map((item) => ({
         id: item.id,
@@ -263,9 +270,11 @@ function mapProvider(row: ProviderRow): Provider {
       coverImage: optionalStorageUrl("provider-work", settings?.cover_path),
       coverPath: settings?.cover_path ?? undefined,
       theme: settings?.theme ?? "tequit",
+      templateId: settings?.template_id ?? "legacy",
       accentColor: settings?.accent_color ?? "#254432",
       whiteLabel: Boolean(settings?.white_label),
       socialLinks: settings?.social_links ?? {},
+      details: normalizeWebsiteDetails(settings?.details),
     },
     faqs: row.provider_faqs
       .filter((item) => item.active)
@@ -327,11 +336,11 @@ function mapBusiness(row: BusinessRow): Business {
   };
 }
 
-const providerSelect = `id,slug,name,profession,bio,phone,show_phone_call,zone,plan,status,rating,review_count,avatar_path,is_demo,updated_at,provider_services(id,title,description,active,brands,price_from,quote_only,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),provider_categories(assignment_role,canonical_provider_categories(id,slug,name,description,requires_review,active,canonical_provider_category_aliases(alias))),provider_media(id,title,description,storage_path,archived_at),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name)),provider_site_settings(headline,intro,years_experience,cover_path,theme,accent_color,white_label,social_links),provider_faqs(id,question,answer,sort_order,active),provider_plan_assignments!provider_plan_assignments_provider_id_fkey(id,plan_code,starts_at,ends_at,revoked_at)`;
+const providerSelect = `id,slug,name,profession,bio,phone,show_phone_call,zone,plan,status,rating,review_count,avatar_path,is_demo,updated_at,provider_services(id,created_at,title,description,active,brands,price_from,quote_only,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),provider_categories(assignment_role,canonical_provider_categories(id,slug,name,description,requires_review,active,canonical_provider_category_aliases(alias))),provider_media(id,created_at,title,description,storage_path,archived_at),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name)),provider_site_settings(details,template_id,headline,intro,years_experience,cover_path,theme,accent_color,white_label,social_links),provider_faqs(id,question,answer,sort_order,active),provider_plan_assignments!provider_plan_assignments_provider_id_fkey(id,plan_code,starts_at,ends_at,revoked_at)`;
 const businessSelect = `id,slug,name,description,phone,zone,address,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,description,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
 
 export async function getProviders(
-  options: { includeInactive?: boolean } = {},
+  options: { includeInactive?: boolean; id?: string } = {},
 ): Promise<Provider[]> {
   const client = createAdminClient();
   if (!client) return [];
@@ -340,6 +349,7 @@ export async function getProviders(
     .select(providerSelect)
     .order("rating", { ascending: false });
   if (!options.includeInactive) query = query.eq("status", "active");
+  if ("id" in options && options.id) query = query.eq("id", options.id);
   const { data, error } = await query;
   if (error) {
     console.error("provider query", error.message);

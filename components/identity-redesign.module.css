@@ -205,6 +205,8 @@
 .portfolioItem {
   margin: 0;
 }
+.portfolioTrigger { display:block; width:100%; padding:0; border:0; background:transparent; cursor:zoom-in; text-align:left; }
+.portfolioTrigger:focus-visible { outline:3px solid #e3a600; outline-offset:3px; }
 
 .portfolioItem:first-child:last-child {
   grid-column: 1 / -1;

@@ -1,0 +1,64 @@
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { expect, it, vi } from "vitest";
+import { WEBSITE_TEMPLATES } from "@/lib/website-offer";
+import { normalizeWebsiteDetails } from "@/lib/website-details";
+import { suggestedWebsiteServiceIcon } from "@/lib/website-service-icons";
+import type { Provider } from "@/types";
+vi.mock("@/components/view-tracker",()=>({ViewTracker:()=>null}));
+vi.mock("@/components/identity-redesign",()=>({DirectedRequest:()=> <form data-request-form>Solicitud directa</form>,ReviewList:()=>null}));
+vi.mock("@/components/whatsapp-button",()=>({WhatsAppButton:({disabled,label}:{disabled:boolean;label:string})=><button disabled={disabled}>{label}</button>}));
+vi.mock("@/components/phone-call-button",()=>({PhoneCallButton:()=> <button>Llamar</button>}));
+import { ProviderSiteCatalog } from "@/components/provider-site-catalog";
+const provider={name:"Negocio de prueba",slug:"prueba",profession:"Servicio",zone:"Tepic",areas:[],phone:"3111234567",showPhoneCall:false,canContact:true,services:[],portfolio:[],verifications:[],reviews:[],faqs:[],site:{headline:"Servicio de prueba",intro:"Presentación propia",socialLinks:{},details:{contactName:"Ana",notice:'<script>alert("x")</script>',address:"Dirección propia",hours:"Lunes a viernes"}}} as unknown as Provider;
+it.each(WEBSITE_TEMPLATES)("$name usa contenido propio y preview sin contacto",template=>{
+ const html=renderToStaticMarkup(<ProviderSiteCatalog provider={{...provider,site:{...provider.site,templateId:template.id}}} preview/>);
+ expect(html).toContain(`design-${template.design}`);
+ expect(html).toContain("Dirección propia");
+ expect(html).toContain("&lt;script&gt;");
+ expect(html).not.toContain("<script>");
+ expect(html).not.toContain("Servi-Bombas");
+ expect(html).not.toContain("lh3.googleusercontent");
+ expect(html).not.toContain("<main");
+ expect(html).not.toContain("href=\"tel:");
+ expect(html).not.toContain("wa.me");
+ expect(html).not.toContain("Trabajos Realizados");
+ expect(html).toContain("disabled");
+});
+it("ignora datos de formato inválido de la base de datos",()=>{
+ expect(normalizeWebsiteDetails({notice:{html:"invalid"},hours:" Lunes ",extra:"no"})).toEqual({hours:"Lunes"});
+});
+it("elige iconos relacionados con el servicio y respeta la elección del administrador",()=>{
+ const service={id:"03087997-9943-441e-bc44-4b659cd74349",name:"Mantenimiento de aire acondicionado",slug:"aire",category:"Servicio"};
+ expect(suggestedWebsiteServiceIcon(service.name)).toBe("ac_unit");
+ const base={...provider,services:[service],site:{...provider.site,details:{...provider.site.details}}} as Provider;
+ expect(renderToStaticMarkup(<ProviderSiteCatalog provider={base} preview/>)).toContain(">ac_unit</span>");
+ const selected={...base,site:{...base.site,details:{...base.site.details,serviceIcons:{[service.id]:"electrical_services" as const}}}};
+ expect(renderToStaticMarkup(<ProviderSiteCatalog provider={selected} preview/>)).toContain(">electrical_services</span>");
+ expect(normalizeWebsiteDetails({serviceIcons:{[service.id]:"pool",invalid:"unknown"}}).serviceIcons).toEqual({[service.id]:"pool"});
+});
+it.each(WEBSITE_TEMPLATES)("$name conserva las secciones de la vista previa al publicar, sin formulario de solicitud",template=>{
+ const site={...provider,plan:"pro" as const,site:{...provider.site,templateId:template.id},faqs:[{id:"faq",question:"¿Cómo trabajan?",answer:"Con atención directa",sortOrder:0,active:true}]};
+ const preview=renderToStaticMarkup(<ProviderSiteCatalog provider={site} preview/>);
+ const published=renderToStaticMarkup(<ProviderSiteCatalog provider={site}/>);
+ expect(preview).toContain("Preguntas frecuentes");
+ expect(published).toContain("Preguntas frecuentes");
+ expect(published).not.toContain("Solicitud directa");
+ expect(published).not.toContain("Cuéntale qué necesitas");
+ expect(published).not.toContain("data-request-form");
+});
+it("muestra redes como iconos enlazados justo debajo del horario y conserva la vista previa sin enlaces",()=>{
+ const site={...provider,site:{...provider.site,socialLinks:{facebook:"https://facebook.com/loera",tiktok:"https://tiktok.com/@loera",instagram:"https://instagram.com/loera",website:"https://loera.mx"}}} as Provider;
+ const published=renderToStaticMarkup(<ProviderSiteCatalog provider={site}/>);
+ const social=published.match(/<nav class="sheet-social"[\s\S]*?<\/nav>/)?.[0] ?? "";
+ expect(published.indexOf("Lunes a viernes")).toBeLessThan(published.indexOf("sheet-social"));
+ expect(social.match(/<a /g)).toHaveLength(4);
+ expect(social).toContain('href="https://facebook.com/loera"');
+ expect(social).toContain('href="https://tiktok.com/@loera"');
+ expect(social).toContain('href="https://instagram.com/loera"');
+ expect(social).toContain('href="https://loera.mx"');
+ expect(social).not.toContain(">Facebook<");
+ expect(social).not.toContain(">TikTok<");
+ const preview=renderToStaticMarkup(<ProviderSiteCatalog provider={site} preview/>);
+ expect(preview.match(/<nav class="sheet-social"[\s\S]*?<\/nav>/)?.[0]).not.toContain("<a ");
+});

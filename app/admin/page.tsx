@@ -16,6 +16,7 @@ import {
   PlanRequestAction,
   PublicationAction,
   WelcomeOfferSettings,
+  DiscoverySettings,
 } from "@/components/admin-actions";
 import { TaxonomyManager } from "@/components/taxonomy-manager";
 import { AdminShell } from "@/components/admin-shell";
@@ -84,6 +85,7 @@ export default async function AdminPage({
     { data: welcomeSettings },
     taxonomy,
     { data: searchQueries },
+    { data: discoverySettings },
   ] = await Promise.all([
     admin.rpc("admin_search_providers", {
       p_query: providerQuery,
@@ -114,6 +116,7 @@ export default async function AdminPage({
       .single(),
     getProviderTaxonomy({ includeInactive: true }),
     admin.from("marketplace_search_queries").select("normalized_query,result_count,created_at").order("created_at", { ascending: false }).limit(200),
+    admin.from("marketplace_discovery_settings").select("enabled,free_radius_km,basic_radius_km").eq("id",true).maybeSingle(),
   ]);
   const searchInsights = Object.values((searchQueries ?? []).reduce<Record<string,{query:string;count:number;zeroCount:number}>>((acc,row) => { const key=row.normalized_query; if(!key)return acc; const item=acc[key]??{query:key,count:0,zeroCount:0}; item.count+=1;if(row.result_count===0)item.zeroCount+=1;acc[key]=item;return acc;},{})).sort((a,b)=>b.zeroCount-a.zeroCount||b.count-a.count).slice(0,12);
   const providers = (providerRows ?? []) as ProviderAdminRow[];
@@ -151,6 +154,13 @@ export default async function AdminPage({
             ))}
           </MetricGrid>
         </section>
+        <DashboardSection
+          title="Cobertura por ubicación"
+          description="Controla el alcance de Free y Básico. Pro y Premium utilizan las zonas de servicio elegidas por cada prestador."
+          className={styles.surface}
+        >
+          <DiscoverySettings enabled={discoverySettings?.enabled??true} freeRadius={Number(discoverySettings?.free_radius_km??3)} basicRadius={Number(discoverySettings?.basic_radius_km??5)}/>
+        </DashboardSection>
         <DashboardSection
           title="Prestadores y planes"
           description="Busca cuentas y administra publicación o plan durante la beta."
@@ -210,7 +220,7 @@ export default async function AdminPage({
                   {providers.map((provider) => (
                     <tr key={provider.id}>
                       <td data-label="Prestador">
-                        <Link href={`/p/${provider.slug}`}>
+                        <Link href={`/u/${provider.slug}`}>
                           {provider.name}
                         </Link>
                         <span className={styles.help}>

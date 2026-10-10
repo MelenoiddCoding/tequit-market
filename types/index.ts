@@ -33,7 +33,7 @@ export interface MarketplaceCategory {
   canonicalCategories: CanonicalProviderCategory[];
 }
 export interface ProviderFaq { id:string;question:string;answer:string;sortOrder:number;active:boolean }
-export interface ProviderSiteSettings { headline:string;intro:string;yearsExperience?:number;coverImage?:string;coverPath?:string;theme:"tequit"|"claro"|"oscuro"|"tierra";accentColor:string;whiteLabel:boolean;socialLinks:{facebook?:string;instagram?:string;tiktok?:string;website?:string} }
+export interface ProviderSiteSettings { details?:import("@/lib/website-details").WebsiteDetails; templateId?:import("@/lib/website-offer").WebsiteTemplateId; headline:string;intro:string;yearsExperience?:number;coverImage?:string;coverPath?:string;theme:"tequit"|"claro"|"oscuro"|"tierra";accentColor:string;whiteLabel:boolean;socialLinks:{facebook?:string;instagram?:string;tiktok?:string;website?:string} }
 export interface ProviderSeoEligibility { eligible:boolean;checks:{bio:boolean;phone:boolean;service:boolean;portfolio:boolean};missing:string[] }
 export interface Review { id: string; author: string; rating: number; comment: string; date: string; status: "pending" | "approved" | "rejected"; source: "tequit_lead" | "invited_customer" }
 export interface Verification { type: VerificationType; date?: string }
@@ -58,4 +58,5 @@ export interface Lead {
   id: string; targetProviderSlug?: string; targetBusinessSlug?: string; requestedService: string; description: string;
   customerName: string; customerPhone: string; customerEmail?: string; zone: string; timing?: string; status: LeadStatus; createdAt: string;
 }
-export interface SearchResult { type: "provider" | "business"; score: number; provider?: Provider; business?: Business }
+export type DiscoveryMatch = "nearby" | "service_area";
+export interface SearchResult { type: "provider" | "business"; score: number; provider?: Provider; business?: Business; discoveryMatch?: DiscoveryMatch }

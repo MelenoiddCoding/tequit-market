@@ -1,22 +1,96 @@
-import type {Metadata} from "next";
-import {notFound} from "next/navigation";
-import {ProviderSite} from "@/components/provider-site";
-import {getProviderBySlug} from "@/lib/marketplace";
-import {providerUrl} from "@/lib/provider-site";
-
-type PageProps={params:Promise<{providerSlug:string}>;searchParams:Promise<{ref?:string}>};
-const clip=(value:string,length=158)=>value.length>length?`${value.slice(0,length-1).trim()}…`:value;
-
-export async function generateMetadata({params}:PageProps):Promise<Metadata>{
-  const{providerSlug}=await params;const provider=await getProviderBySlug(providerSlug);
-  if(!provider)return{title:"Perfil no encontrado",robots:{index:false,follow:false}};
-  const canonical=providerUrl(provider.slug);const description=clip(provider.site.intro||provider.bio);const title=`${provider.name} · ${provider.profession} en ${provider.zone}`;const image=`${canonical}/opengraph-image`;
-  return{title,description,alternates:{canonical},robots:{index:provider.seo.eligible,follow:provider.seo.eligible},openGraph:{title,description,url:canonical,siteName:"Tequit",locale:"es_MX",type:"website",images:[{url:image,width:1200,height:630,alt:`${provider.name}, ${provider.profession}`}]},twitter:{card:"summary_large_image",title,description,images:[image]}};
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
+import { ProviderSite } from "@/components/provider-site";
+import { getProviderBySlug } from "@/lib/marketplace";
+import { providerUrl } from "@/lib/provider-site";
+import { getWebsiteAccess } from "@/lib/website-access";
+import { getProviderPlan, planFromCode } from "@/lib/plans";
+import { websiteTemplate, WEBSITE_OFFER } from "@/lib/website-offer";
+type Props = {
+  params: Promise<{ providerSlug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const provider = await getProviderBySlug((await params).providerSlug);
+  if (!provider)
+    return {
+      title: "Sitio no encontrado",
+      robots: { index: false, follow: false },
+    };
+  const access = await getWebsiteAccess(provider.id);
+  const canonical = providerUrl(provider.slug),
+    title = `${provider.name} · ${provider.profession} en ${provider.zone}`,
+    description = (provider.site.intro || provider.bio).slice(0, 158);
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: access.active ? canonical : canonical.replace("/p/", "/u/"),
+    },
+    robots: { index: access.active && provider.seo.eligible, follow: true },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "Tequit",
+      locale: "es_MX",
+      type: "website",
+      images: [
+        { url: `${canonical}/opengraph-image`, width: 1200, height: 630 },
+      ],
+    },
+  };
 }
-
-export default async function ProviderPage({params,searchParams}:PageProps){
-  const[{providerSlug},query]=await Promise.all([params,searchParams]);const provider=await getProviderBySlug(providerSlug);if(!provider)notFound();
-  const canonical=providerUrl(provider.slug);const images=[provider.site.coverImage,provider.avatarImage,...provider.portfolio.map((item)=>item.image)].filter(Boolean) as string[];const sameAs=Object.values(provider.site.socialLinks).filter(Boolean);
-  const jsonLd={"@context":"https://schema.org","@type":"ProfessionalService",name:provider.name,description:provider.site.intro||provider.bio,url:canonical,areaServed:[provider.zone,...provider.areas],serviceType:provider.services.map((service)=>service.name),...(provider.canContact?{telephone:provider.phone}:{}),...(images.length?{image:images}:{}),...(sameAs.length?{sameAs}:{}),...(provider.reviewCount?{aggregateRating:{"@type":"AggregateRating",ratingValue:provider.rating,reviewCount:provider.reviewCount}}:{})};
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,"\\u003c")}}/><ProviderSite provider={provider} referrer={query.ref}/></>;
+export default async function Page({ params, searchParams }: Props) {
+  const [{ providerSlug }, query] = await Promise.all([params, searchParams]);
+  const provider = await getProviderBySlug(providerSlug);
+  if (!provider) notFound();
+  const [access, plan] = await Promise.all([
+    getWebsiteAccess(provider.id),
+    provider.isDemo
+      ? Promise.resolve(planFromCode(provider.plan, null))
+      : getProviderPlan(provider.id),
+  ]);
+  if (!access.active && !provider.isDemo) {
+    const tags = new URLSearchParams();
+    for (const key of ["utm_source", "utm_medium", "ref"])
+      if (typeof query[key] === "string")
+        tags.set(key, query[key].slice(0, 100));
+    redirect(`/u/${provider.slug}${tags.size ? `?${tags}` : ""}`);
+  }
+  const canonical = providerUrl(provider.slug);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: provider.name,
+    description: provider.site.intro || provider.bio,
+    url: canonical,
+    areaServed: [provider.zone, ...provider.areas],
+    serviceType: (websiteTemplate(provider.site.templateId) ? provider.services.slice(0, WEBSITE_OFFER.services) : provider.services).map((s) => s.name),
+    ...(provider.canContact ? { telephone: provider.phone } : {}),
+    ...(provider.reviewCount
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: provider.rating,
+            reviewCount: provider.reviewCount,
+          },
+        }
+      : {}),
+  };
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <ProviderSite
+        provider={provider}
+        referrer={typeof query.ref === "string" ? query.ref : undefined}
+        customBranding={access.active || plan.entitlements.customSiteBranding}
+      />
+    </>
+  );
 }

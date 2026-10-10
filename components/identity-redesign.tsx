@@ -16,6 +16,7 @@ import { SiteContainer } from "@/components/layout-primitives";
 import { RequestForm } from "@/components/request-form";
 import { SaveButton } from "@/components/save-button";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { WorkGallery } from "@/components/work-gallery";
 import { providerMessage } from "@/lib/whatsapp";
 import type { Business, Provider, Review, Service, Verification } from "@/types";
 import styles from "@/components/identity-redesign.module.css";
@@ -35,7 +36,7 @@ function formatDate(date: string) {
   return new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(new Date(`${date}T12:00:00`));
 }
 
-export function EntityHero({ entity, kind }: { entity: Provider | Business; kind: "provider" | "business" }) {
+export function EntityHero({ entity, kind, showRequest = true }: { entity: Provider | Business; kind: "provider" | "business"; showRequest?: boolean }) {
   const isProvider = kind === "provider";
   const title = entity.name;
   const eyebrow = isProvider ? `${(entity as Provider).profession} en Tepic` : `${(entity as Business).category} · Negocio local`;
@@ -60,12 +61,12 @@ export function EntityHero({ entity, kind }: { entity: Provider | Business; kind
         {entity.canContact !== false ? <WhatsAppButton
           phone={entity.phone}
           message={providerMessage(title, isProvider ? (entity as Provider).profession : "sus productos o servicios")}
-          label={`Contactar a ${title} por WhatsApp`}
+          label="Escribir por WhatsApp"
           className={`btn btn-block ${styles.whatsappButton}`}
           targetSlug={entity.slug}
           targetType={kind}
         /> : <button className="btn btn-secondary" type="button" disabled>Contacto no disponible en muestras</button>}
-        {entity.canContact !== false && <Link className="btn btn-secondary" href="#solicitar">Solicitar trabajo</Link>}
+        {showRequest && entity.canContact !== false && <Link className="btn btn-secondary" href="#solicitar">Solicitar trabajo</Link>}
       </div>
     </SiteContainer>
   </section>;
@@ -101,12 +102,12 @@ export function ServiceList({ services }: { services: Service[] }) {
 
 export function PortfolioGallery({ portfolio }: { portfolio: Provider["portfolio"] }) {
   if (!portfolio.length) return <p className="muted">Todavía no hay trabajos publicados.</p>;
-  return <div className={styles.portfolioGrid}>
-    {portfolio.map((work) => <figure className={styles.portfolioItem} key={work.id}>
-      <Image className={styles.portfolioImage} src={work.image} alt={work.title} width={900} height={600} />
+  return <WorkGallery works={portfolio} className={styles.portfolioGrid}>
+    {portfolio.map((work,index) => <figure className={styles.portfolioItem} key={work.id}>
+      <button type="button" data-work-index={index} aria-label={`Ampliar foto: ${work.title}`} aria-haspopup="dialog" className={styles.portfolioTrigger}><Image className={styles.portfolioImage} src={work.image} alt={work.title} width={900} height={600} /></button>
       <figcaption><strong>{work.title}</strong><p>{work.description}</p></figcaption>
     </figure>)}
-  </div>;
+  </WorkGallery>;
 }
 
 export function ProductList({ business }: { business: Business }) {
@@ -118,7 +119,7 @@ export function ProductList({ business }: { business: Business }) {
       {business.canContact !== false ? <WhatsAppButton
         phone={business.phone}
         message={providerMessage(business.name, product.name)}
-        label={`Preguntar por ${product.name} en WhatsApp`}
+        label="Escribir por WhatsApp"
         className={`btn ${styles.whatsappButton}`}
         targetSlug={business.slug}
         targetType="business"
@@ -159,7 +160,7 @@ export function VerificationPanel({ verifications, phone, name, slug, kind, canC
       })}
     </div>
     <p className={styles.verificationNote}>Estas señales confirman datos específicos; no garantizan el resultado de un trabajo ni sustituyen un acuerdo directo.</p>
-    {canContact ? <WhatsAppButton phone={phone} message={providerMessage(name)} label={`Contactar a ${name} por WhatsApp`} className={`btn btn-block ${styles.whatsappButton}`} targetSlug={slug} targetType={kind} /> : <p className="help">Este perfil es una muestra. El contacto está desactivado.</p>}
+    {canContact ? <WhatsAppButton phone={phone} message={providerMessage(name)} label="Escribir por WhatsApp" className={`btn btn-block ${styles.whatsappButton}`} targetSlug={slug} targetType={kind} /> : <p className="help">Este perfil es una muestra. El contacto está desactivado.</p>}
   </div>;
 }
 

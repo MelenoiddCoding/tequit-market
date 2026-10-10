@@ -1,0 +1,133 @@
+/* Five independent compositions using the same reference sections and content. */
+body[class*="design-"] .demo-gallery .grid p { -webkit-line-clamp:unset; display:block; }
+.design-mecanico { --paper:#f0eeea; --ink:#242529; --accent:#ad2728; --muted:#55565b; --line:#c5c4c1; --heading:'Oswald'; --body:'Roboto'; }
+.design-mecanico .demo-hero { background:#242529; color:#fff; }
+.design-mecanico .demo-hero>div:first-child { height:clamp(240px,36vw,440px); border-bottom:8px solid #b9292c; }
+.design-mecanico .demo-hero h1 { color:#fff; font-size:clamp(42px,6vw,76px); text-transform:uppercase; }
+.design-mecanico .demo-hero h2 { color:#ffb5a9; font-family:'Roboto',sans-serif!important; font-size:18px; }
+.design-mecanico .demo-hero .text-primary { color:#fff; }
+.design-mecanico .demo-hero .text-secondary { color:#ffb5a9; }
+.design-mecanico .demo-hero .text-on-surface-variant,.design-mecanico .demo-hero>div:last-child>div:nth-child(3) p { color:#d4d4d7; }
+.design-mecanico .demo-hero>div:last-child>div:first-child>div:first-child { border-radius:4px; border-color:#242529; }
+.design-mecanico .demo-services { background:transparent; }
+.design-mecanico .demo-services>div:first-child { padding-left:16px; border-left:5px solid #ad2728; }
+.design-mecanico .demo-services>div:last-child { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.design-mecanico .demo-services>div:last-child>div { flex-direction:column; padding:20px 16px; border-radius:0; border-bottom:3px solid #ad2728; background:#fff; }
+.design-mecanico .demo-services>div:last-child>div:last-child { grid-column:1/-1; flex-direction:row; }
+.design-mecanico .demo-services>div:last-child>div>div:first-child { background:#242529; border-radius:0; }
+.design-mecanico .demo-services h3 { font-size:20px; font-weight:500; }
+.design-mecanico .demo-gallery h2 { text-transform:uppercase; }
+.design-mecanico .demo-gallery .grid { gap:16px; }
+.design-mecanico .demo-gallery .grid>div { border-radius:0; }
+.design-mecanico .demo-gallery .grid>div>div:last-child { background:#242529; color:#fff; padding:14px 10px; }
+.design-mecanico .demo-gallery .grid p { color:#fff; }
+.design-mecanico .demo-contact>div { border-radius:0; border-left:6px solid #ad2728; }
+.design-mecanico .demo-contact h2 { font-size:32px; text-transform:uppercase; }
+.design-mecanico .demo-footer { border-top:4px solid #242529; }
+.design-mecanico a { border-radius:3px!important; }
+
+/* Clean: a light, narrow reading column, calm typography and open service rows. */
+.design-clean { --paper:#fff; --ink:#263a40; --accent:#44685c; --muted:#5f6d70; --line:#e1e8e6; --heading:'Outfit'; --body:'Manrope'; }
+.design-clean .demo-hero>div:first-child { height:clamp(210px,30vw,360px); }
+.design-clean .demo-hero>div:last-child,.design-clean .demo-services,.design-clean .demo-gallery,.design-clean .demo-contact,.design-clean .demo-footer { max-width:820px; }
+.design-clean .demo-hero>div:last-child { padding-top:24px; gap:24px; }
+.design-clean .demo-hero>div:last-child>div:first-child { margin:0; }
+.design-clean .demo-hero>div:last-child>div:first-child>div:first-child { width:52px; height:52px; border:0; border-radius:50%; }
+.design-clean .demo-hero>div:last-child>div:first-child>div:last-child { padding:0; }
+.design-clean h1 { font-weight:500!important; font-size:clamp(36px,5vw,54px); }
+.design-clean .demo-hero h2 { font-size:18px; font-weight:400; }
+.design-clean .demo-hero>div:last-child>div:nth-child(3) { background:#f3f7f5; border:0; border-radius:8px; padding:16px; }
+.design-clean .demo-services { background:transparent; padding-top:40px; }
+.design-clean .demo-services>div:last-child { gap:0; }
+.design-clean .demo-services>div:last-child>div { background:transparent; padding:24px 0; border-bottom:1px solid var(--line); border-radius:0; gap:16px; }
+.design-clean .demo-services>div:last-child>div>div:first-child { background:transparent; color:#44685c; width:24px; height:28px; }
+.design-clean .demo-services h3 { font-size:20px; font-weight:500; }
+.design-clean .demo-services p { font-size:13px; }
+.design-clean .demo-gallery .grid { gap:24px 16px; }
+.design-clean .demo-gallery .grid>div { background:transparent; border-radius:0; }
+.design-clean .demo-gallery .grid>div>div:first-child { border-radius:8px; }
+.design-clean .demo-gallery .grid>div>div:last-child { padding:12px 0; }
+.design-clean .demo-contact>div { background:#edf4f0; border-radius:12px; padding:32px 24px; }
+.design-clean .demo-contact h2 { color:#263a40; font-size:28px; font-weight:500; }
+.design-clean .demo-contact .text-on-primary-container { color:#52655b; }
+.design-clean .demo-contact .text-secondary-fixed { color:#44685c; }
+.design-clean .demo-footer { border-top:1px solid var(--line); }
+
+/* Brutalist: oversized grotesk, hard offset shadows and uncompromising rules. */
+.design-brutalista { --paper:#f6f5ef; --ink:#171717; --accent:#4a29c7; --muted:#4b4b4b; --line:#171717; --heading:'Space Grotesk'; --body:'Space Grotesk'; }
+.design-brutalista .demo-hero>div:first-child { height:clamp(230px,34vw,420px); border-bottom:4px solid #171717; }
+.design-brutalista .demo-hero>div:last-child>div:first-child>div:first-child { border:3px solid #171717; border-radius:0; box-shadow:5px 5px 0 #171717; }
+.design-brutalista h1 { text-transform:uppercase; font-size:clamp(43px,8vw,88px); letter-spacing:-.055em; line-height:.98; }
+.design-brutalista .demo-hero h2 { font:700 14px/1.5 'Space Mono',monospace!important; text-transform:uppercase; margin-top:12px; }
+.design-brutalista .demo-hero>div:last-child>div:nth-child(3) { background:#e0f560; border:2px solid #171717; padding:16px; }
+.design-brutalista .demo-hero>div:last-child>div:nth-child(3) p { color:#171717; }
+.design-brutalista .demo-services { background:transparent; }
+.design-brutalista .demo-services h2,.design-brutalista .demo-gallery h2 { font-size:38px; text-transform:uppercase; letter-spacing:-.04em; }
+.design-brutalista .demo-services>div:last-child { gap:16px; }
+.design-brutalista .demo-services>div:last-child>div { border:2px solid #171717; border-radius:0; box-shadow:5px 5px 0 #171717; background:#fff; padding:18px 14px; }
+.design-brutalista .demo-services>div:last-child>div>div:first-child { background:#e0f560; color:#171717; border:2px solid #171717; border-radius:0; }
+.design-brutalista .demo-services h3 { font-size:20px; }
+.design-brutalista .demo-gallery .grid { gap:18px 12px; }
+.design-brutalista .demo-gallery .grid>div { border:2px solid #171717; border-radius:0; }
+.design-brutalista .demo-gallery .grid>div>div:first-child { aspect-ratio:1; border-bottom:2px solid #171717; }
+.design-brutalista .demo-gallery .grid>div>div:last-child { background:#e0f560; padding:12px 8px; }
+.design-brutalista .demo-gallery .grid p { font:700 11px/1.45 'Space Mono',monospace; color:#171717; }
+.design-brutalista .demo-contact>div { background:#4a29c7; border:3px solid #171717; border-radius:0; box-shadow:6px 6px 0 #171717; }
+.design-brutalista .demo-contact h2 { font-size:30px; }
+.design-brutalista .demo-contact .text-on-primary-container { color:#f0ebff; }
+.design-brutalista .demo-contact .text-secondary-fixed { color:#e0f560; }
+.design-brutalista a { border-radius:0!important; border:2px solid #171717; }
+.design-brutalista .demo-footer { border-top:4px solid #171717; }
+
+/* Technology: graphite, precise typography and restrained cyan accents. */
+.design-tecnologia { --paper:#10191f; --ink:#edf4f6; --accent:#83d8de; --muted:#b0bdc6; --line:#354751; --heading:'Sora'; --body:'Inter'; }
+.design-tecnologia .demo-hero>div:first-child { height:clamp(230px,33vw,430px); border-bottom:1px solid #83d8de; }
+.design-tecnologia .demo-hero>div:last-child { gap:20px; }
+.design-tecnologia .demo-hero>div:last-child>div:first-child>div:first-child { border:3px solid #10191f; border-radius:16px; }
+.design-tecnologia h1 { font-size:clamp(35px,5vw,58px); font-weight:600!important; }
+.design-tecnologia .demo-hero h2 { font-size:16px; line-height:1.6; }
+.design-tecnologia .demo-hero>div:last-child>div:nth-child(3) { background:#172a32; border-left:2px solid #83d8de; }
+.design-tecnologia .demo-hero>div:last-child>div:nth-child(3) span { color:#83d8de; }
+.design-tecnologia .demo-services { background:transparent; }
+.design-tecnologia .demo-services>div:last-child { gap:0; border-top:1px solid var(--line); }
+.design-tecnologia .demo-services>div:last-child>div { background:transparent; border-bottom:1px solid var(--line); border-radius:0; padding:24px 0; gap:18px; }
+.design-tecnologia .demo-services>div:last-child>div>div:first-child { background:#172a32; border:1px solid #42606b; color:#83d8de; border-radius:10px; }
+.design-tecnologia .demo-services h3 { font-size:17px; }
+.design-tecnologia .demo-gallery .grid { gap:20px 12px; }
+.design-tecnologia .demo-gallery .grid>div { background:#182730; border:1px solid #354751; border-radius:12px; }
+.design-tecnologia .demo-gallery .grid>div>div:last-child { background:#182730; padding:14px 10px; }
+.design-tecnologia .demo-gallery .grid p { color:#e0edf1; font-size:12px; }
+.design-tecnologia .demo-contact>div { background:#182730; border:1px solid #42606b; border-top:3px solid #83d8de; border-radius:16px; }
+.design-tecnologia .demo-contact h2 { font-size:26px; }
+.design-tecnologia .demo-contact .text-secondary-fixed { color:#83d8de; }
+.design-tecnologia .demo-footer .grid a:not([href*="wa.me"]) { background:#182730; color:#e0edf1; border:1px solid #354751; }
+.design-tecnologia .demo-footer .grid a[href*="wa.me"] { background:#17392b; color:#a9e8bf; }
+.design-tecnologia .demo-footer .grid a[href*="wa.me"] span { color:#a9e8bf; }
+.design-tecnologia .demo-footer>p { color:#b0bdc6!important; }
+
+/* Service marketplace: scannable catalogue, listing rows and a photo-led grid. */
+.design-marketplace { --paper:#f3f7fa; --ink:#173f56; --accent:#126485; --muted:#536b79; --line:#cfdee7; --heading:'Plus Jakarta Sans'; --body:'Plus Jakarta Sans'; }
+.design-marketplace .demo-hero>div:first-child { height:clamp(210px,31vw,380px); }
+.design-marketplace .demo-hero>div:last-child { background:#fff; border-bottom:1px solid #cfdee7; padding-bottom:28px; }
+.design-marketplace .demo-hero>div:last-child>div:first-child>div:first-child { border-radius:16px; border-color:#fff; }
+.design-marketplace h1 { font-size:clamp(30px,4vw,48px); letter-spacing:-.035em; }
+.design-marketplace .demo-hero h2 { font-size:17px; }
+.design-marketplace .demo-hero>div:last-child>div:nth-child(3) { background:#eaf5fa; border:0; border-radius:8px; padding:14px; }
+.design-marketplace .demo-services { background:transparent; }
+.design-marketplace .demo-services>div:last-child { gap:12px; }
+.design-marketplace .demo-services>div:last-child>div { padding:18px; border:1px solid #cfdee7; border-radius:12px; background:#fff; gap:14px; }
+.design-marketplace .demo-services>div:last-child>div>div:first-child { width:48px; height:48px; background:#eaf5fa; color:#126485; border-radius:12px; }
+.design-marketplace .demo-services h3 { font-size:17px; }
+.design-marketplace .demo-services p { font-size:13px; }
+.design-marketplace .demo-gallery .grid { gap:16px 12px; }
+.design-marketplace .demo-gallery .grid>div { border:1px solid #cfdee7; border-radius:12px; }
+.design-marketplace .demo-gallery .grid>div>div:first-child { aspect-ratio:1; }
+.design-marketplace .demo-gallery .grid>div>div:last-child { padding:16px 12px; }
+.design-marketplace .demo-gallery .grid p { line-height:1.5; }
+.design-marketplace .demo-contact>div { background:#fff; border:1px solid #cfdee7; border-radius:12px; }
+.design-marketplace .demo-contact h2 { color:#173f56; font-size:26px; }
+.design-marketplace .demo-contact .text-on-primary-container { color:#536b79; }
+.design-marketplace .demo-contact .text-secondary-fixed { color:#126485; }
+.design-marketplace .demo-footer { border:1px solid #cfdee7; border-radius:12px; background:#fff; }
+@media(min-width:768px) { .design-mecanico .demo-services>div:last-child { grid-template-columns:repeat(3,minmax(0,1fr)); } .design-mecanico .demo-services>div:last-child>div:last-child { grid-column:span 2; } .design-marketplace .demo-services>div:last-child { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } .design-marketplace .demo-services>div:last-child>div:last-child { grid-column:1/-1; } .design-marketplace .demo-gallery .grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media(max-width:360px) { .design-mecanico .demo-services>div:last-child { grid-template-columns:1fr; } .design-mecanico .demo-services>div:last-child>div { flex-direction:row; } .design-brutalista h1 { font-size:39px; } }

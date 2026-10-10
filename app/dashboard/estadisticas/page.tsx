@@ -1,11 +1,5 @@
-import {
-  ClipboardList,
-  Eye,
-  MessageCircle,
-  MousePointerClick,
-  Phone,
-  Share2,
-} from "lucide-react";
+import Link from "next/link";
+import { Eye, MessageCircle, Phone } from "lucide-react";
 import { DashboardContent } from "@/components/dashboard-shell";
 import {
   DashboardPageHeader,
@@ -14,104 +8,102 @@ import {
   MetricItem,
   dashboardStyles as styles,
 } from "@/components/dashboard-components";
+import { TrafficReport } from "@/components/traffic-report";
 import {
-  getDailyViews,
   getDashboardContext,
   getDashboardMetrics,
-  getProviderSiteSources,
+  getDailyViews,
 } from "@/lib/dashboard";
-export default async function StatsPage() {
-  const context = await getDashboardContext();
+import { getWebsiteAccess } from "@/lib/website-access";
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ days?: string }>;
+}) {
+  const context = await getDashboardContext(),
+    days = (await searchParams).days === "7" ? 7 : 30;
+  const website =
+    context.kind === "provider"
+      ? await getWebsiteAccess(context.entity.id)
+      : null;
   if (
     context.kind === "provider" &&
-    context.planDetails.entitlements.analyticsLevel === "none"
+    context.planDetails.entitlements.analyticsLevel === "none" &&
+    !website?.active
   )
     return (
       <DashboardContent>
         <DashboardPageHeader
-          eyebrow="Disponible desde Básico"
           title="Estadísticas"
-          description="Tu sitio sigue registrando actividad; sube de plan para consultar métricas."
+          description="La actividad continúa registrándose. Las métricas están incluidas con un sitio activo o un plan desde Básico."
         />
-        <DashboardSection
-          title="Conoce el rendimiento de tu perfil"
-          description="Básico muestra vistas y contactos. Pro añade fuentes, solicitudes y conversión."
-        >
-          <p className={styles.help}>
-            Tu actividad continúa registrándose mientras decides.
-          </p>
-        </DashboardSection>
+        <Link className={styles.primary} href="/dashboard/plan">
+          Ver mi plan
+        </Link>
       </DashboardContent>
     );
-  const [metrics, values, sources] = await Promise.all([
-    getDashboardMetrics(context),
-    getDailyViews(context),
-    getProviderSiteSources(context),
+  const [metrics, trend] = await Promise.all([
+    getDashboardMetrics(context, days),
+    getDailyViews(context, days),
   ]);
-  const advanced =
-    context.kind !== "provider" ||
-    context.planDetails.entitlements.analyticsLevel === "advanced";
+  const attribution =
+    website?.active ||
+    (context.kind === "provider" &&
+      context.planDetails.entitlements.analyticsLevel === "advanced");
   return (
     <DashboardContent>
       <DashboardPageHeader
-        eyebrow="Rendimiento"
         title="Estadísticas"
-        description="Entiende cómo encuentran tu perfil y cuántas personas intentan contactarte."
+        description="Visitas y clics de contacto; no representan ventas ni ganancias confirmadas."
         action={
-          <div className={styles.period} aria-label="Periodo">
-            <button type="button">7 días</button>
-            <button className={styles.periodActive} type="button">
+          <div className={styles.period}>
+            <Link
+              aria-current={days === 7 ? "page" : undefined}
+              className={days === 7 ? styles.periodActive : undefined}
+              href="?days=7"
+            >
+              7 días
+            </Link>
+            <Link
+              aria-current={days === 30 ? "page" : undefined}
+              className={days === 30 ? styles.periodActive : undefined}
+              href="?days=30"
+            >
               30 días
-            </button>
+            </Link>
           </div>
         }
       />
       <MetricGrid>
         <MetricItem
           icon={Eye}
-          label="Vistas"
+          label="Vistas de páginas"
           value={metrics.views}
-          note="Últimos 30 días"
+          note={`Últimos ${days} días`}
         />
         <MetricItem
           icon={MessageCircle}
-          label="WhatsApp"
+          label="Clics WhatsApp"
           value={metrics.whatsapp}
-          note="Contactos iniciados"
+          note="Intentos de contacto"
         />
         <MetricItem
           icon={Phone}
-          label="Llamadas"
+          label="Clics llamar"
           value={metrics.phoneCalls}
-          note="Llamadas iniciadas"
+          note="Intentos de llamada"
         />
-        {advanced && (
-          <MetricItem
-            icon={ClipboardList}
-            label="Solicitudes"
-            value={metrics.leads}
-            note="Solicitudes recibidas"
-          />
-        )}
-        {advanced && (
-          <MetricItem
-            icon={MousePointerClick}
-            label="Conversión"
-            value={`${metrics.conversion}%`}
-            note="Vistas a WhatsApp"
-          />
-        )}
       </MetricGrid>
       <DashboardSection
-        title="Vistas del perfil"
-        description="Tendencia diaria durante los últimos 30 días."
+        title="Visitas por día"
+        description={`Actividad durante los últimos ${days} días.`}
       >
         <div
           className={styles.chart}
           role="img"
-          aria-label="Tendencia de vistas durante el periodo"
+          aria-label={`Tendencia de visitas de ${days} días`}
         >
-          {values.map((value, index) => (
+          {trend.map((value, index) => (
             <span
               className={styles.bar}
               style={{ height: `${value}%` }}
@@ -120,32 +112,8 @@ export default async function StatsPage() {
           ))}
         </div>
       </DashboardSection>
-      {context.kind === "provider" && advanced && (
-        <DashboardSection
-          title="Fuentes del sitio"
-          description="Atribución de los últimos 30 días."
-        >
-          <MetricGrid>
-            <MetricItem
-              icon={Eye}
-              label="Desde QR"
-              value={sources.qr}
-              note="Visitas con QR"
-            />
-            <MetricItem
-              icon={MousePointerClick}
-              label="Enlaces compartidos"
-              value={sources.shared}
-              note="Visitas compartidas"
-            />
-            <MetricItem
-              icon={Share2}
-              label="Compartir"
-              value={sources.shares}
-              note="Acciones realizadas"
-            />
-          </MetricGrid>
-        </DashboardSection>
+      {context.kind === "provider" && attribution && (
+        <TrafficReport providerId={context.entity.id} days={days} />
       )}
     </DashboardContent>
   );

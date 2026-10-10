@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import {useUnsavedForm} from "@/lib/use-unsaved-form";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import {
   ExternalLink,
@@ -11,12 +14,36 @@ import {
   Trash2,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { WebsiteTemplatePicker } from "@/components/website-template-picker";
+import { useOptionalAdminUpdate } from "@/components/admin-update-toast";
+import { WEBSITE_DETAIL_FIELDS } from "@/lib/website-details";
+import { WEBSITE_SERVICE_ICONS, suggestedWebsiteServiceIcon, type WebsiteServiceIcon } from "@/lib/website-service-icons";
+import workspaceStyles from "@/components/website-workspace.module.css";
 import type { Provider } from "@/types";
 import { dashboardStyles as styles } from "@/components/dashboard-components";
 
 type Faq = { question: string; answer: string };
-export function ProviderSiteEditor({ provider }: { provider: Provider }) {
-  const advanced = provider.plan === "pro" || provider.plan === "premium";
+export function ProviderSiteEditor({
+  provider,
+  adminMode = false,
+  workspace = false,
+}: {
+  provider: Provider;
+  adminMode?: boolean;
+  workspace?: boolean;
+}) {
+  const router = useRouter();
+  const showUpdate = useOptionalAdminUpdate();
+  const {markChanged,markSaved}=useUnsavedForm();
+  const advanced = adminMode;
+  const [templateId, setTemplateId] = useState(provider.site.templateId ?? "legacy");
+  const [serviceIcons, setServiceIcons] = useState<Record<string, WebsiteServiceIcon>>(() =>
+    Object.fromEntries(provider.services.slice(0, 5).map(service => [
+      service.id,
+      provider.site.details?.serviceIcons?.[service.id] ?? suggestedWebsiteServiceIcon(service.name),
+    ])),
+  );
+  const faqLimit = templateId === "legacy" ? 6 : 3;
   const [faqs, setFaqs] = useState<Faq[]>(
     provider.faqs.map(({ question, answer }) => ({ question, answer })),
   );
@@ -88,225 +115,65 @@ export function ProviderSiteEditor({ provider }: { provider: Provider }) {
     };
     const services = provider.services.map((service) => ({
       id: service.id,
-      description: String(form.get(`service-${service.id}`) ?? ""),
+      description: workspace ? service.description ?? "" : String(form.get(`service-${service.id}`) ?? ""),
     }));
-    const response = await fetch("/api/dashboard/site", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        providerId: provider.id,
-        headline: form.get("headline"),
-        intro: form.get("intro"),
-        yearsExperience: form.get("yearsExperience")
-          ? Number(form.get("yearsExperience"))
-          : null,
-        coverPath,
-        avatarPath,
-        theme: advanced
-          ? String(form.get("theme") ?? provider.site.theme)
-          : "tequit",
-        accentColor: advanced
-          ? String(form.get("accentColor") ?? provider.site.accentColor)
-          : "#254432",
-        whiteLabel: advanced && form.get("whiteLabel") === "on",
-        socialLinks,
-        services,
-        faqs,
-      }),
-    });
-    const body = await response.json();
-    setMessage(
-      response.ok
-        ? "Sitio actualizado."
-        : (body.error ?? "No pudimos guardar."),
-    );
-    setBusy(false);
+    try {
+      const response = await fetch(
+        adminMode ? "/api/admin/website-content" : "/api/dashboard/site",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            providerId: provider.id,
+            details: Object.fromEntries(WEBSITE_DETAIL_FIELDS.map(f=>[f.key,String(form.get(`detail-${f.key}`)??"")])),
+            headline: form.get("headline"),
+            intro: form.get("intro"),
+            yearsExperience: form.get("yearsExperience")
+              ? Number(form.get("yearsExperience"))
+              : null,
+            coverPath,
+            avatarPath,
+            ...(adminMode ? {
+              serviceIcons: Object.fromEntries(provider.services.slice(0, 5).map(service => [
+                service.id,
+                serviceIcons[service.id] ?? suggestedWebsiteServiceIcon(service.name),
+              ])),
+              templateId,
+              theme: String(form.get("theme") ?? provider.site.theme),
+              accentColor: String(form.get("accentColor") ?? provider.site.accentColor),
+              whiteLabel: form.get("whiteLabel") === "on",
+            } : {}),
+            socialLinks,
+            services,
+            faqs,
+          }),
+        },
+      );
+      const body = await response.json();
+      if (response.ok) {
+        markSaved();
+        if (adminMode) showUpdate({mode:"success",title:"Contenido actualizado",message:"Los cambios de la página ya están guardados. Revisa la vista previa para comprobar cómo se ven."});
+        else setMessage("Sitio actualizado.");
+        router.refresh();
+      } else if (adminMode) showUpdate({mode:"error",title:"No se guardó la página",message:body.error ?? "Revisa los datos e inténtalo de nuevo."});
+      else setMessage(body.error ?? "No pudimos guardar.");
+    } catch {
+      const message = "Comprueba tu conexión e inténtalo de nuevo.";
+      if (adminMode) showUpdate({mode:"error",title:"No se guardó la página",message});
+      else setMessage(`No pudimos guardar. ${message}`);
+    } finally {
+      setBusy(false);
+    }
   }
   return (
-    <form className={styles.form} onSubmit={submit}>
-      <section className={`${styles.surface} ${styles.formSection}`}>
-        <h2>Identidad del sitio</h2>
-        <div className={styles.formGrid}>
-          <div className={`${styles.fieldGroup} ${styles.full}`}>
-            <label htmlFor="site-headline">Frase comercial</label>
-            <input
-              className={styles.field}
-              id="site-headline"
-              name="headline"
-              defaultValue={provider.site.headline}
-              minLength={8}
-              maxLength={120}
-              required
-            />
-          </div>
-          <div className={`${styles.fieldGroup} ${styles.full}`}>
-            <label htmlFor="site-intro">Presentación</label>
-            <textarea
-              className={styles.textarea}
-              id="site-intro"
-              name="intro"
-              defaultValue={provider.site.intro}
-              minLength={40}
-              maxLength={1200}
-              required
-            />
-            <span className={styles.help}>
-              Para indexar en Google, completa al menos 120 caracteres.
-            </span>
-          </div>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="site-years">Años de experiencia</label>
-            <input
-              className={styles.field}
-              id="site-years"
-              name="yearsExperience"
-              type="number"
-              min={0}
-              max={80}
-              defaultValue={provider.site.yearsExperience}
-            />
-          </div>
-          <label className={styles.upload}>
-            <ImagePlus aria-hidden />
-            <strong>Portada</strong>
-            <span className={styles.help}>
-              {coverPath ? "Imagen cargada" : "JPG, PNG o WebP"}
-            </span>
-            <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              onChange={(event) => pick(event, "cover")}
-              hidden
-            />
-          </label>
-          <label className={styles.upload}>
-            <ImagePlus aria-hidden />
-            <strong>Avatar</strong>
-            <span className={styles.help}>
-              {avatarPath ? "Imagen cargada" : "JPG, PNG o WebP"}
-            </span>
-            <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              onChange={(event) => pick(event, "avatar")}
-              hidden
-            />
-          </label>
-        </div>
-      </section>
-      <section className={`${styles.surface} ${styles.formSection}`}>
-        <h2>Servicios</h2>
-        <p className={styles.help}>
-          Una descripción de 40 caracteres o más ayuda a las personas y habilita
-          el SEO.
-        </p>
-        {provider.services.map((service) => (
-          <div className={styles.fieldGroup} key={service.id}>
-            <label htmlFor={`service-${service.id}`}>{service.name}</label>
-            <textarea
-              className={styles.textarea}
-              id={`service-${service.id}`}
-              name={`service-${service.id}`}
-              defaultValue={service.description}
-              maxLength={500}
-            />
-          </div>
-        ))}
-        <Link className={styles.secondary} href="/dashboard/servicios">
-          Administrar servicios
-        </Link>
-      </section>
-      <section className={`${styles.surface} ${styles.formSection}`}>
-        <h2>Preguntas frecuentes</h2>
-        {faqs.map((faq, index) => (
-          <div className={styles.formGrid} key={index}>
-            <div className={styles.fieldGroup}>
-              <label>Pregunta {index + 1}</label>
-              <input
-                className={styles.field}
-                value={faq.question}
-                onChange={(event) =>
-                  setFaqs((current) =>
-                    current.map((item, i) =>
-                      i === index
-                        ? { ...item, question: event.target.value }
-                        : item,
-                    ),
-                  )
-                }
-                minLength={8}
-                maxLength={160}
-                required
-              />
-            </div>
-            <div className={styles.fieldGroup}>
-              <label>Respuesta</label>
-              <textarea
-                className={styles.textarea}
-                value={faq.answer}
-                onChange={(event) =>
-                  setFaqs((current) =>
-                    current.map((item, i) =>
-                      i === index
-                        ? { ...item, answer: event.target.value }
-                        : item,
-                    ),
-                  )
-                }
-                minLength={12}
-                maxLength={600}
-                required
-              />
-            </div>
-            <button
-              className={styles.danger}
-              type="button"
-              onClick={() =>
-                setFaqs((current) => current.filter((_, i) => i !== index))
-              }
-            >
-              <Trash2 size={16} />
-              Eliminar
-            </button>
-          </div>
-        ))}
-        {faqs.length < 6 && (
-          <button
-            className={styles.secondary}
-            type="button"
-            onClick={() =>
-              setFaqs((current) => [...current, { question: "", answer: "" }])
-            }
-          >
-            <Plus size={17} />
-            Agregar pregunta
-          </button>
-        )}
-      </section>
-      <section className={`${styles.surface} ${styles.formSection}`}>
-        <h2>Enlaces</h2>
-        <div className={styles.formGrid}>
-          {(["facebook", "instagram", "tiktok", "website"] as const).map(
-            (key) => (
-              <div className={styles.fieldGroup} key={key}>
-                <label htmlFor={`site-${key}`}>
-                  {key[0].toUpperCase() + key.slice(1)}
-                </label>
-                <input
-                  className={styles.field}
-                  id={`site-${key}`}
-                  name={key}
-                  type="url"
-                  defaultValue={provider.site.socialLinks[key]}
-                  placeholder="https://"
-                />
-              </div>
-            ),
-          )}
-        </div>
-      </section>
-      <section className={`${styles.surface} ${styles.formSection}`}>
-        <h2>Personalización Pro</h2>
+    <form className={`${styles.form} ${workspace ? workspaceStyles.editor : ""}`} onSubmit={submit} onChangeCapture={markChanged}>
+      <p className={styles.help}>Guardar actualiza inmediatamente el contenido publicado. Presentación, servicios y fotografías también se usan en el perfil gratuito.</p>
+      <details className={styles.formSection}><summary>Datos adicionales de la página</summary><p className={styles.help}>Estos datos ocupan los espacios del diseño elegido. Si dejas uno vacío, esa línea no aparece. Usa información autorizada por el prestador y revisa el resultado en Vista previa, también en celular.</p><div className={styles.formGrid}>{WEBSITE_DETAIL_FIELDS.map(field=><label key={field.key} className={styles.fieldGroup}>{field.label}<textarea className={styles.textarea} name={`detail-${field.key}`} defaultValue={provider.site.details?.[field.key]??""} maxLength={field.max} rows={2}/><span className={styles.help}>Para conservar la composición del ejemplo: {field.ideal}.</span></label>)}</div></details>
+      {!adminMode && <p className={styles.help}>Puedes actualizar tu contenido. Tequit administra el diseño, la plantilla y la publicación. <Link href="/dashboard/perfil">Editar contacto y datos del perfil</Link> · <Link href="/dashboard/trabajos">Administrar fotografías</Link></p>}
+      {adminMode && <section className={`${styles.surface} ${styles.formSection}`}>
+        <h2>Diseño del sitio</h2>
+        <WebsiteTemplatePicker value={templateId} onChange={setTemplateId}/>
+        {templateId === "legacy" && <>
         <div className={styles.formGrid}>
           <div className={styles.fieldGroup}>
             <label htmlFor="site-theme">Tema</label>
@@ -344,21 +211,228 @@ export function ProviderSiteEditor({ provider }: { provider: Provider }) {
             />
           </label>
         </div>
-        {!advanced && (
-          <Link className={styles.secondary} href="/dashboard/plan">
-            Conocer Tequit Pro
-          </Link>
+        </>}
+      </section>}
+      <section className={`${styles.surface} ${styles.formSection}`}>
+        <h2>Identidad del sitio</h2>
+        <div className={styles.formGrid}>
+          <div className={`${styles.fieldGroup} ${styles.full}`}>
+            <label htmlFor="site-headline">Frase comercial</label>
+            <input
+              className={styles.field}
+              id="site-headline"
+              name="headline"
+              defaultValue={provider.site.headline}
+              minLength={8}
+              maxLength={120}
+              required
+            />
+            <span className={styles.help}>Para que el título conserve el tamaño del ejemplo, procura una frase de hasta 50 caracteres.</span>
+          </div>
+          <div className={`${styles.fieldGroup} ${styles.full}`}>
+            <label htmlFor="site-intro">Presentación</label>
+            <textarea
+              className={styles.textarea}
+              id="site-intro"
+              name="intro"
+              defaultValue={provider.site.intro}
+              minLength={40}
+              maxLength={1200}
+              required
+            />
+            <span className={styles.help}>
+              Para una lectura similar al ejemplo, usa entre 120 y 240 caracteres. Se requieren al menos 120 para la indexación; Google decide si muestra la página.
+            </span>
+          </div>
+          <div className={styles.fieldGroup}>
+            <label htmlFor="site-years">Años de experiencia</label>
+            <input
+              className={styles.field}
+              id="site-years"
+              name="yearsExperience"
+              type="number"
+              min={0}
+              max={80}
+              defaultValue={provider.site.yearsExperience}
+            />
+          </div>
+          {!workspace && <>
+          <label className={styles.upload}>
+            {coverPath && <Image src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/provider-work/${coverPath}`} alt="Portada actual" width={240} height={135} style={{objectFit:"cover"}} />}
+            <ImagePlus aria-hidden />
+            <strong>Portada</strong>
+            <span className={styles.help}>
+              {coverPath ? "Imagen cargada" : "JPG, PNG o WebP"}
+            </span>
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={(event) => pick(event, "cover")}
+            />
+          </label>
+          {coverPath && <button type="button" className={styles.ghost} onClick={()=>setCoverPath(null)}>Quitar portada al guardar</button>}
+          <label className={styles.upload}>
+            <ImagePlus aria-hidden />
+            {avatarPath && <Image src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${avatarPath}`} alt="Foto de perfil actual" width={96} height={96} style={{objectFit:"cover"}} />}
+            <strong>{avatarPath ? "Cambiar foto de perfil" : "Foto de perfil (opcional)"}</strong>
+            <span className={styles.help}>
+              {avatarPath ? "Imagen cargada" : "JPG, PNG o WebP"}
+            </span>
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={(event) => pick(event, "avatar")}
+            />
+          </label>
+          </>}
+        </div>
+      </section>
+      {adminMode && provider.services.length > 0 && <section className={`${styles.surface} ${styles.formSection}`}>
+        <h2>Iconos de servicios</h2>
+        <p className={styles.help}>Elige el símbolo de cada servicio que aparece en la página. Si cambias el nombre del servicio, el icono que elijas se conserva.</p>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- The icon font belongs only to the provider-site editor and its matching public template. */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&display=swap" precedence="provider-icons" />
+        <div className={styles.formGrid}>
+          {provider.services.slice(0, 5).map(service => <label className={styles.fieldGroup} key={service.id}>
+            <span>{service.name}</span>
+            <span style={{display:"flex",alignItems:"center",gap:12}}>
+              <span className="material-symbols-outlined" aria-hidden style={{fontFamily:"Material Symbols Outlined",fontFeatureSettings:"'liga'",fontSize:28,lineHeight:1}}>{serviceIcons[service.id] ?? suggestedWebsiteServiceIcon(service.name)}</span>
+              <select className={styles.select} value={serviceIcons[service.id] ?? suggestedWebsiteServiceIcon(service.name)} onChange={event => setServiceIcons(current => ({...current,[service.id]:event.target.value as WebsiteServiceIcon}))}>
+                {WEBSITE_SERVICE_ICONS.map(icon => <option value={icon.id} key={icon.id}>{icon.label}</option>)}
+              </select>
+            </span>
+          </label>)}
+        </div>
+      </section>}
+      {!workspace && <>
+      <section className={`${styles.surface} ${styles.formSection}`}>
+        <h2>Servicios</h2>
+        <p className={styles.help}>
+          Una descripción de 40 caracteres o más ayuda a las personas y habilita
+          el SEO.
+        </p>
+        {provider.services.map((service) => (
+          <div className={styles.fieldGroup} key={service.id}>
+            <label htmlFor={`service-${service.id}`}>{service.name}</label>
+            <textarea
+              className={styles.textarea}
+              id={`service-${service.id}`}
+              name={`service-${service.id}`}
+              defaultValue={service.description}
+              maxLength={500}
+            />
+          </div>
+        ))}
+        <Link
+          className={styles.secondary}
+          href={adminMode ? `/admin/sitios/${provider.id}?seccion=datos` : "/dashboard/servicios"}
+        >
+          Administrar servicios
+        </Link>
+      </section>
+      </>}
+      <section className={`${styles.surface} ${styles.formSection}`}>
+        <h2>Preguntas frecuentes</h2>
+        {faqs.map((faq, index) => (
+          <div className={styles.formGrid} key={index}>
+            <div className={styles.fieldGroup}>
+              <label htmlFor={`faq-question-${index}`}>Pregunta {index + 1}</label>
+              <input
+                className={styles.field}
+                id={`faq-question-${index}`}
+                value={faq.question}
+                onChange={(event) =>
+                  setFaqs((current) =>
+                    current.map((item, i) =>
+                      i === index
+                        ? { ...item, question: event.target.value }
+                        : item,
+                    ),
+                  )
+                }
+                minLength={8}
+                maxLength={160}
+                required
+              />
+            </div>
+            <div className={styles.fieldGroup}>
+              <label htmlFor={`faq-answer-${index}`}>Respuesta</label>
+              <textarea
+                className={styles.textarea}
+                id={`faq-answer-${index}`}
+                value={faq.answer}
+                onChange={(event) =>
+                  setFaqs((current) =>
+                    current.map((item, i) =>
+                      i === index
+                        ? { ...item, answer: event.target.value }
+                        : item,
+                    ),
+                  )
+                }
+                minLength={12}
+                maxLength={600}
+                required
+              />
+            </div>
+            <button
+              className={styles.danger}
+              type="button"
+              onClick={() =>
+                (markChanged(), setFaqs((current) => current.filter((_, i) => i !== index)))
+              }
+            >
+              <Trash2 size={16} />
+              Eliminar
+            </button>
+          </div>
+        ))}
+        {faqs.length < faqLimit && (
+          <button
+            className={styles.secondary}
+            type="button"
+            onClick={() =>
+              (markChanged(), setFaqs((current) => [...current, { question: "", answer: "" }]))
+            }
+          >
+            <Plus size={17} />
+            Agregar pregunta
+          </button>
         )}
       </section>
+      <section className={`${styles.surface} ${styles.formSection}`}>
+        <h2>Enlaces</h2>
+        <div className={styles.formGrid}>
+          {(["facebook", "instagram", "tiktok", "website"] as const).map(
+            (key) => (
+              <div className={styles.fieldGroup} key={key}>
+                <label htmlFor={`site-${key}`}>
+                  {key[0].toUpperCase() + key.slice(1)}
+                </label>
+                <input
+                  className={styles.field}
+                  id={`site-${key}`}
+                  name={key}
+                  type="url"
+                  defaultValue={provider.site.socialLinks[key]}
+                  placeholder="https://"
+                />
+              </div>
+            ),
+          )}
+        </div>
+      </section>
+
       <footer className={styles.formFooter}>
+        {!workspace && <>
         <Link
           className={styles.secondary}
           href={`/p/${provider.slug}`}
           target="_blank"
         >
           Vista pública <ExternalLink size={16} />
-        </Link>
-        <button className={styles.primary} disabled={busy}>
+        </Link></>}
+        <button className={styles.primary} disabled={busy || faqs.length > faqLimit}>
           {busy ? <Loader2 className="animate-spin" /> : <Save size={17} />}
           Guardar sitio
         </button>

@@ -170,6 +170,7 @@ textarea.field { min-height: 130px; resize: vertical; }
 .tag-list, .card-services { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0; }
 .tag-list span, .card-services span { padding: 7px 9px; border-radius: 8px; background: var(--surface-muted); font-size: .78rem; font-weight: 700; }
 .entity-trust { display: flex; align-items: center; gap: 7px; color: var(--verified); font-size: .86rem; font-weight: 750; }
+.coverage-match { width: fit-content; display: inline-flex; align-items: center; gap: 6px; margin: 0; padding: 6px 9px; border-radius: 999px; background: var(--brand-soft); color: var(--brand); font-size: .78rem; font-weight: 780; }
 .entity-card-foot, .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
 .entity-card-foot > span { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: .84rem; }
 .business-card { padding-top: 18px; }

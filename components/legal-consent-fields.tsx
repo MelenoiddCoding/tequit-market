@@ -3,7 +3,7 @@ import Link from "next/link";
 import {useEffect,useRef,useState}from "react";
 import {ExternalLink,X}from "lucide-react";
 import {LegalDocumentContent}from "@/components/legal-document-content";
-import {legalDocuments,LEGAL_VERSION,type LegalDocumentType}from "@/lib/legal-documents";
+import {legalDocuments,TERMS_VERSION,PRIVACY_VERSION,type LegalDocumentType}from "@/lib/legal-documents";
 import styles from "@/components/legal.module.css";
 
 export function LegalConsentFields({error}:{error?:string}){const[open,setOpen]=useState<LegalDocumentType|null>(null);const[acceptedTerms,setAcceptedTerms]=useState(false);const[acceptedPrivacy,setAcceptedPrivacy]=useState(false);const dialogRef=useRef<HTMLDialogElement>(null);const triggerRef=useRef<HTMLElement|null>(null);const activeDocument=open?legalDocuments[open]:null;const visibleError=acceptedTerms&&acceptedPrivacy?"":error;
@@ -12,7 +12,7 @@ export function LegalConsentFields({error}:{error?:string}){const[open,setOpen]=
   function close(){const dialog=dialogRef.current;if(dialog?.open)dialog.close();window.document.body.style.overflow="";setOpen(null);window.setTimeout(()=>triggerRef.current?.focus(),0)}
   return <fieldset className={styles.consent} aria-describedby={visibleError?"legal-consent-error":undefined}>
     <legend>Acuerdos legales</legend>
-    <input type="hidden" name="termsVersion" value={LEGAL_VERSION}/><input type="hidden" name="privacyVersion" value={LEGAL_VERSION}/>
+    <input type="hidden" name="termsVersion" value={TERMS_VERSION}/><input type="hidden" name="privacyVersion" value={PRIVACY_VERSION}/>
     <label><input className={visibleError&&!acceptedTerms?styles.checkboxError:undefined} type="checkbox" name="acceptTerms" value="true" checked={acceptedTerms} onChange={event=>setAcceptedTerms(event.target.checked)} aria-invalid={Boolean(visibleError&&!acceptedTerms)||undefined}/><span>He leído y acepto los <Link href="/terminos" onClick={event=>show("terms",event)}>Términos y Condiciones</Link>.</span></label>
     <label><input className={visibleError&&!acceptedPrivacy?styles.checkboxError:undefined} type="checkbox" name="acceptPrivacy" value="true" checked={acceptedPrivacy} onChange={event=>setAcceptedPrivacy(event.target.checked)} aria-invalid={Boolean(visibleError&&!acceptedPrivacy)||undefined}/><span>He leído y acepto el <Link href="/privacidad" onClick={event=>show("privacy",event)}>Aviso y Política de Privacidad</Link>.</span></label>
     <p className={styles.consentHelp}>Ambas aceptaciones son necesarias para crear tu cuenta. Consultar un documento no marca su casilla.</p>

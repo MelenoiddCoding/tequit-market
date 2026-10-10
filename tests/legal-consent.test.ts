@@ -4,11 +4,12 @@ import path from "node:path";
 
 vi.mock("server-only", () => ({}));
 import { legalDocumentHash } from "@/lib/legal-consent";
-import { LEGAL_VERSION, legalDocuments } from "@/lib/legal-documents";
+import { LEGAL_VERSION, PRIVACY_VERSION, legalDocuments } from "@/lib/legal-documents";
 
 describe("consentimiento legal", () => {
   it("mantiene dos documentos completos en una versión compartida", () => {
     expect(LEGAL_VERSION).toBe("2026-09-04");
+    expect(PRIVACY_VERSION).toBe("2026-10-09");
     expect(legalDocuments.terms.sections.length).toBeGreaterThanOrEqual(12);
     expect(legalDocuments.privacy.sections.length).toBeGreaterThanOrEqual(10);
     expect(JSON.stringify(legalDocuments)).toContain("privacidad@tequit.mx");
@@ -20,7 +21,7 @@ describe("consentimiento legal", () => {
         "supabase/migrations/202609040001_legal_consent.sql",
       ),
       "utf8",
-    );
+    )+fs.readFileSync(path.join(process.cwd(),"supabase/migrations/202610090001_location_discovery.sql"),"utf8");
     expect(sql).toContain(legalDocumentHash("terms"));
     expect(sql).toContain(legalDocumentHash("privacy"));
   });

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getSessionProfile } from "@/lib/auth";
+import { TRAFFIC_SOURCES, TRAFFIC_SURFACES } from "@/lib/traffic";
 import { allowRequest } from "@/lib/rate-limit";
 const destinations = [
   "home",
@@ -14,6 +16,8 @@ const eventSchema = z
   .object({
     type: z.enum([
       "profile_view",
+      "website_view",
+      "directory_view",
       "whatsapp_click",
       "phone_call_click",
       "request_created",
@@ -25,6 +29,18 @@ const eventSchema = z
       "marketplace_nav_open",
       "marketplace_nav_click",
     ]),
+    eventId: z.string().min(8).max(300).optional(),
+    attribution: z
+      .object({
+        source: z.enum(TRAFFIC_SOURCES),
+        tagged: z.boolean(),
+        journeyId: z.string().uuid(),
+        surface: z.enum(TRAFFIC_SURFACES),
+        entrySurface: z.enum(TRAFFIC_SURFACES),
+        previousSurface: z.enum(TRAFFIC_SURFACES).nullable(),
+      })
+      .strict()
+      .optional(),
     target: z.string().max(200).optional(),
     targetType: z.enum(["provider", "business"]).optional(),
     destination: z.enum(destinations).optional(),
@@ -46,17 +62,21 @@ const eventSchema = z
 export async function POST(request: Request) {
   if (!(await allowRequest(request, "event", 60, 60)))
     return NextResponse.json({ recorded: false }, { status: 429 });
-  const parsed = eventSchema.safeParse(await request.json());
+  const parsed = eventSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success)
     return NextResponse.json({ error: "Evento inválido" }, { status: 400 });
   const admin = createAdminClient();
   if (admin && process.env.NEXT_PUBLIC_DEMO_MODE !== "true") {
+    const session = await getSessionProfile();
+    if (session?.roles.includes("admin"))
+      return NextResponse.json({ recorded: false });
     let providerId: string | undefined,
       businessId: string | undefined,
       serviceId: string | undefined;
     const providerEvent =
       [
         "profile_view",
+        "website_view",
         "qr_visit",
         "shared_link_visit",
         "share_action",
@@ -69,11 +89,17 @@ export async function POST(request: Request) {
       const row = (
         await admin
           .from("provider_profiles")
-          .select("id,is_demo")
+          .select("id,is_demo,owner_profile_id,status")
           .eq("slug", parsed.data.target)
           .maybeSingle()
       ).data;
-      if (row && !row.is_demo) providerId = row.id;
+      if (
+        row &&
+        !row.is_demo &&
+        row.status === "active" &&
+        row.owner_profile_id !== session?.user.id
+      )
+        providerId = row.id;
     }
     if (
       (parsed.data.type === "business_view" ||
@@ -98,28 +124,41 @@ export async function POST(request: Request) {
           .eq("slug", parsed.data.target)
           .maybeSingle()
       ).data?.id;
-    if (!providerId && !businessId && !serviceId)
+    if (
+      !providerId &&
+      !businessId &&
+      !serviceId &&
+      parsed.data.type !== "directory_view"
+    )
       return NextResponse.json(
         { recorded: false, at: new Date().toISOString() },
         { status: 201 },
       );
-    await admin
-      .from("contact_events")
-      .insert({
-        event_type: parsed.data.type,
-        provider_id: providerId,
-        business_id: businessId,
-        service_id: serviceId,
-        metadata: {
-          target: parsed.data.target,
-          ...(parsed.data.destination
-            ? { destination: parsed.data.destination }
-            : {}),
-        },
-      });
+    const { error } = await admin.from("contact_events").insert({
+      event_type: parsed.data.type,
+      event_key: parsed.data.eventId,
+      provider_id: providerId,
+      business_id: businessId,
+      service_id: serviceId,
+      metadata: {
+        ...(parsed.data.type !== "directory_view"
+          ? { target: parsed.data.target }
+          : {}),
+        ...(parsed.data.attribution ?? {}),
+        ...(parsed.data.destination
+          ? { destination: parsed.data.destination }
+          : {}),
+      },
+    });
+    if (error && error.code !== "23505")
+      return NextResponse.json({ recorded: false }, { status: 503 });
+    return NextResponse.json(
+      { recorded: !error, duplicate: error?.code === "23505" },
+      { status: 201 },
+    );
   }
   return NextResponse.json(
-    { recorded: true, at: new Date().toISOString() },
+    { recorded: false, at: new Date().toISOString() },
     { status: 201 },
   );
 }

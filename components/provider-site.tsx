@@ -1,4 +1,7 @@
+import { ProviderSiteCatalog } from "@/components/provider-site-catalog";
+import { WEBSITE_TEMPLATES } from "@/lib/website-offer";
 import Image from "next/image";
+import { ProviderSiteEssential } from "@/components/provider-site-essential";
 import Link from "next/link";
 import {
   BadgeCheck,
@@ -11,7 +14,6 @@ import {
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import {
-  DirectedRequest,
   PortfolioGallery,
   ReviewList,
 } from "@/components/identity-redesign";
@@ -22,47 +24,62 @@ import {
   ProviderSiteNavigation,
 } from "@/components/provider-site-navigation";
 import { ViewTracker } from "@/components/view-tracker";
+import { WorkGallery } from "@/components/work-gallery";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { ProviderWhatsAppDock } from "@/components/provider-whatsapp-dock";
 import { providerMessage } from "@/lib/whatsapp";
 import type { Provider } from "@/types";
+import { websiteTemplate, WEBSITE_OFFER } from "@/lib/website-offer";
 import styles from "@/components/provider-site.module.css";
 
 export function ProviderSite({
   provider,
   referrer,
+  customBranding = false,
+  preview = false,
 }: {
   provider: Provider;
   referrer?: string;
+  customBranding?: boolean;
+  preview?: boolean;
 }) {
-  const advanced = provider.plan === "pro" || provider.plan === "premium";
+  if (WEBSITE_TEMPLATES.some(t=>t.id===provider.site.templateId)) return <ProviderSiteCatalog provider={provider} preview={preview} referrer={referrer}/>;
+  if (provider.site.templateId === "esencial") return <ProviderSiteEssential provider={provider} referrer={referrer} preview={preview} />;
+  const Wrapper = preview ? "div" : "main";
+  const advanced = customBranding;
+  const template = websiteTemplate(provider.site.templateId);
   const proBrand = advanced && provider.site.whiteLabel;
-  const accent = advanced ? provider.site.accentColor : "#254432";
+  const accent = template?.accent ?? (advanced ? provider.site.accentColor : "#254432");
   return (
-    <main
-      className={`${styles.site} ${styles[`theme_${advanced ? provider.site.theme : "tequit"}`]}`}
+    <Wrapper
+      className={`${styles.site} ${template ? `${styles.curated} ${styles[`template_${template.id}`]}` : styles[`theme_${advanced ? provider.site.theme : "tequit"}`]} ${preview ? styles.preview : ""}`}
       style={{ "--provider-accent": accent } as React.CSSProperties}
     >
       <ViewTracker
-        type="profile_view"
+        type="website_view"
+        disabled={preview || provider.isDemo}
         target={provider.slug}
         referrer={referrer}
       />
-      <ProviderSiteNavigation
-        name={provider.name}
-        avatar={provider.avatarImage}
-        slug={provider.slug}
-        proBrand={proBrand}
-      />
-      <section className={styles.hero}>
+      {!preview && (
+        <ProviderSiteNavigation
+          name={provider.name}
+          avatar={provider.avatarImage}
+          slug={provider.slug}
+          proBrand={proBrand}
+        />
+      )}
+      <section
+        className={`${styles.hero} ${!provider.site.coverImage ? styles.heroWithoutCover : ""}`}
+      >
         {provider.site.coverImage && (
           <Image
             className={styles.cover}
             src={provider.site.coverImage}
             alt={`Trabajo de ${provider.name}`}
             fill
-            priority
+            loading="eager"
             sizes="100vw"
           />
         )}
@@ -71,12 +88,15 @@ export function ProviderSite({
           <p>
             {provider.profession} · {provider.zone}
           </p>
-          <h1>{provider.site.headline || provider.name}</h1>
+          <h1>{template ? provider.name : provider.site.headline || provider.name}</h1>
+          {template && <p className={styles.headline}>{provider.site.headline}</p>}
           <p className={styles.heroIntro}>
-            {provider.site.intro || provider.bio}
+            {template ? `Atención en ${[provider.zone, ...provider.areas].filter((value, index, array) => array.indexOf(value) === index).join(" · ")}` : provider.site.intro || provider.bio}
           </p>
           <div className={styles.heroActions} id="provider-hero-whatsapp">
             <WhatsAppButton
+              disabled={preview || !provider.canContact}
+              disabledLabel={preview ? "Escribir por WhatsApp" : undefined}
               phone={provider.phone}
               message={providerMessage(provider.name, provider.profession)}
               label="Escribir por WhatsApp"
@@ -84,18 +104,13 @@ export function ProviderSite({
               targetSlug={provider.slug}
               targetType="provider"
             />
-            {provider.showPhoneCall && (
+            {provider.canContact && !preview && provider.showPhoneCall && (
               <PhoneCallButton
                 phone={provider.phone}
                 slug={provider.slug}
                 className={styles.requestLink}
               />
             )}{" "}
-            {advanced && (
-              <Link className={styles.requestLink} href="#solicitar">
-                Solicitar trabajo
-              </Link>
-            )}
           </div>
         </div>
       </section>
@@ -107,11 +122,11 @@ export function ProviderSite({
           </strong>
           <small>{provider.reviewCount} reseñas</small>
         </span>
-        <span>
+        {(!template || provider.verifications.length > 0) && <span>
           <ShieldCheck aria-hidden />
           <strong>{provider.verifications.length}</strong>
           <small>verificaciones</small>
-        </span>
+        </span>}
         <span>
           <MapPin aria-hidden />
           <strong>{provider.zone}</strong>
@@ -130,14 +145,12 @@ export function ProviderSite({
           <p className={styles.eyebrow}>Cómo puedo ayudarte</p>
           <h2>Servicios</h2>
           <div className={styles.services}>
-            {provider.services.map((service) => (
+            {(template ? provider.services.slice(0, WEBSITE_OFFER.services) : provider.services).map((service) => (
               <article key={service.id}>
                 <BadgeCheck aria-hidden />
                 <div>
                   <h3>
-                    <Link href={`/servicios/${service.slug}`}>
-                      {service.name}
-                    </Link>
+                    <span>{service.name}</span>
                   </h3>
                   <p>
                     {service.description ||
@@ -151,7 +164,7 @@ export function ProviderSite({
         <section id="trabajos" className={styles.section}>
           <p className={styles.eyebrow}>Trabajo real</p>
           <h2>Proyectos realizados</h2>
-          <PortfolioGallery portfolio={provider.portfolio} />
+          {template ? <WorkGallery works={provider.portfolio.slice(0, WEBSITE_OFFER.photos)} className={styles.workGrid}>{provider.portfolio.slice(0, WEBSITE_OFFER.photos).map((work,index) => <figure key={work.id}><div className={styles.workImage}><button type="button" data-work-index={index} aria-label={`Ampliar foto: ${work.title}`} aria-haspopup="dialog" className={styles.workTrigger}><Image src={work.image} alt={work.title} fill sizes="(max-width: 760px) 100vw, 50vw" /></button></div><figcaption><h3>{work.title}</h3><p>{work.description}</p></figcaption></figure>)}{!provider.portfolio.length && <p>Las fotografías de trabajos se agregarán próximamente. Puedes consultar directamente por el servicio que necesitas.</p>}</WorkGallery> : <PortfolioGallery portfolio={provider.portfolio} />}
         </section>
         <section className={styles.about}>
           <div>
@@ -188,7 +201,7 @@ export function ProviderSite({
             <p className={styles.eyebrow}>Antes de contactar</p>
             <h2>Preguntas frecuentes</h2>
             <div className={styles.faqs}>
-              {provider.faqs.map((faq) => (
+              {(template ? provider.faqs.slice(0, WEBSITE_OFFER.faqs) : provider.faqs).map((faq) => (
                 <details key={faq.id}>
                   <summary>
                     {faq.question}
@@ -200,34 +213,34 @@ export function ProviderSite({
             </div>
           </section>
         )}
-        {advanced && (
-          <section id="solicitar" className={styles.request}>
-            <DirectedRequest entity={provider} kind="provider" />
-          </section>
-        )}
-        <section className={styles.finalCta}>
+        <section id="contacto" className={styles.finalCta}>
           <WhatsAppIcon width={24} height={24} />
           <h2>¿Tienes un trabajo en mente?</h2>
           <p>
             Contacta directamente a {provider.name} y cuéntale qué necesitas.
           </p>
           <WhatsAppButton
+            disabled={preview || !provider.canContact}
+            disabledLabel={preview ? "Contactar por WhatsApp" : undefined}
             phone={provider.phone}
             message={providerMessage(provider.name, provider.profession)}
-            label="Contactar por WhatsApp"
+            label="Escribir por WhatsApp"
             className={styles.whatsapp}
             targetSlug={provider.slug}
             targetType="provider"
           />
-          <ProviderShareTools
+          {!preview && <ProviderShareTools
             slug={provider.slug}
             name={provider.name}
             subtitle={provider.profession}
             compact
-          />
+          />}
+          <nav className={styles.socialLinks} aria-label="Redes del prestador">
+            {Object.entries(provider.site.socialLinks).filter(([,url]) => url && /^https?:\/\//i.test(url)).map(([key,url]) => preview ? <span key={key}>{key === "website" ? "Sitio externo" : key}</span> : <a key={key} href={url} target="_blank" rel="noopener noreferrer">{key === "website" ? "Sitio externo" : key}</a>)}
+          </nav>
         </section>
       </div>
-      <footer className={styles.footer}>
+      {!preview && <footer className={styles.footer}>
         <div className={styles.footerIdentity}>
           <BrandLogo variant="symbol" />
           <div>
@@ -265,8 +278,15 @@ export function ProviderSite({
             Publicar una necesidad
           </ProviderMarketplaceLink>
         </nav>
-      </footer>
-      <ProviderWhatsAppDock heroId="provider-hero-whatsapp" phone={provider.phone} message={providerMessage(provider.name, provider.profession)} slug={provider.slug}/>
-    </main>
+      </footer>}
+      {provider.canContact && !preview && (
+        <ProviderWhatsAppDock
+          heroId="provider-hero-whatsapp"
+          phone={provider.phone}
+          message={providerMessage(provider.name, provider.profession)}
+          slug={provider.slug}
+        />
+      )}
+    </Wrapper>
   );
 }
