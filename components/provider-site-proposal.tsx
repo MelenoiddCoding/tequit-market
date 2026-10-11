@@ -105,9 +105,9 @@ export function ProviderSiteProposal({ provider }: { provider: Provider }) {
           <div className={styles.heroContent}>
             <div className={styles.heroIdentity}>
               <ProviderLogo provider={provider} />
-              <p>{provider.name}</p>
+              <p>Energía solar y soluciones integrales</p>
             </div>
-            <p className={styles.heroKicker}>Energía solar · electricidad · climatización</p>
+            <p className={styles.heroKicker}>Paneles solares · electricidad · climatización</p>
             <h1>{provider.site.headline}</h1>
             <p className={styles.heroCopy}>Soluciones para casas y negocios, dimensionadas de acuerdo con tu consumo, espacio y necesidades.</p>
             <div id="provider-proposal-whatsapp" className={styles.heroActions}>
