@@ -8,7 +8,7 @@ const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-display", disp
 
 export const metadata: Metadata = {
   title: { default: "Tequit — Encuentra quién le sabe", template: "%s | Tequit" },
-  description: "Encuentra personas y negocios en Tepic que pueden hacer el trabajo que necesitas.",
+  description: "Encuentra personas y negocios en Tepic y Uruapan que pueden hacer el trabajo que necesitas.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
   openGraph: { title: "Tequit", description: "Encuentra quién le sabe en Tepic.", type: "website" },
 };

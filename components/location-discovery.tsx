@@ -15,7 +15,7 @@ export function LocationDiscovery({ areas, current, compact = false }: Props) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
-  const selectableAreas = areas;
+  const selectableAreas = areas.filter((area) => area.city === "Tepic" || area.city === "Uruapan");
 
   async function persist(value: DiscoveryLocation) {
     document.cookie = `${LOCATION_COOKIE}=${serializeDiscoveryLocation(value)}; Path=/; Max-Age=15552000; SameSite=Lax; Secure`;
