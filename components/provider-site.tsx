@@ -38,13 +38,15 @@ export function ProviderSite({
   referrer,
   customBranding = false,
   preview = false,
+  coverPresentation = "standard",
 }: {
   provider: Provider;
   referrer?: string;
   customBranding?: boolean;
   preview?: boolean;
+  coverPresentation?: "standard" | "panoramic";
 }) {
-  if (WEBSITE_TEMPLATES.some(t=>t.id===provider.site.templateId)) return <ProviderSiteCatalog provider={provider} preview={preview} referrer={referrer}/>;
+  if (WEBSITE_TEMPLATES.some(t=>t.id===provider.site.templateId)) return <ProviderSiteCatalog provider={provider} preview={preview} referrer={referrer} coverPresentation={coverPresentation}/>;
   if (provider.site.templateId === "esencial") return <ProviderSiteEssential provider={provider} referrer={referrer} preview={preview} />;
   const Wrapper = preview ? "div" : "main";
   const advanced = customBranding;

@@ -23,10 +23,11 @@ function phoneLabel(phone: string) {
   return national.length === 10 ? `${national.slice(0, 3)} ${national.slice(3, 6)} ${national.slice(6)}` : phone;
 }
 
-export function ProviderSiteCatalog({ provider, preview = false, referrer }: {
+export function ProviderSiteCatalog({ provider, preview = false, referrer, coverPresentation = "standard" }: {
   provider: Provider;
   preview?: boolean;
   referrer?: string;
+  coverPresentation?: "standard" | "panoramic";
 }) {
   const template = WEBSITE_TEMPLATES.find(item => item.id === provider.site.templateId) ?? WEBSITE_TEMPLATES[0];
   const details = provider.site.details ?? {};
@@ -37,7 +38,7 @@ export function ProviderSiteCatalog({ provider, preview = false, referrer }: {
   const message = providerMessage(provider.name, provider.profession);
   const quickActionCount = 1 + Number(provider.showPhoneCall) + Number(!!details.address);
 
-  return <Wrapper className={`provider-sheet design-${template.design} ${provider.site.coverImage ? "" : "sheet-no-cover"}`}>
+  return <Wrapper className={`provider-sheet design-${template.design} cover-presentation-${coverPresentation} ${provider.site.coverImage ? "" : "sheet-no-cover"}`}>
     <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=${template.fonts}&family=Material+Symbols+Outlined:wght@400&display=swap`} precedence="provider-font" />
     <ViewTracker type="website_view" target={provider.slug} referrer={referrer} disabled={preview || provider.isDemo} />
     <div className="sheet-content"><div className="flex flex-col w-full">

@@ -343,6 +343,8 @@
 @media(prefers-reduced-motion:reduce){.provider-sheet *{transition:none!important;animation:none!important}}
 
 .provider-sheet .sheet-identity:empty{display:none}
+.provider-sheet.cover-presentation-panoramic .demo-hero>.sheet-cover{height:auto;aspect-ratio:8/3}
+.provider-sheet.cover-presentation-panoramic .demo-hero>.sheet-cover img{object-fit:contain}
 .provider-sheet.design-base .demo-hero h1{font-size:28px;line-height:36px}
 .provider-sheet.design-base .demo-hero h2{font-size:18px;line-height:24px}
 .provider-sheet.design-base .demo-hero>div:last-child,.provider-sheet.design-base .demo-services,.provider-sheet.design-base .demo-gallery,.provider-sheet.design-base .demo-contact,.provider-sheet.design-base .demo-footer{max-width:896px;padding-left:16px;padding-right:16px}

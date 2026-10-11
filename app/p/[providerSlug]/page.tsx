@@ -10,8 +10,9 @@ type Props = {
   params: Promise<{ providerSlug: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const provider = await getProviderBySlug((await params).providerSlug);
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const [{ providerSlug }, query] = await Promise.all([params, searchParams]);
+  const provider = await getProviderBySlug(providerSlug);
   if (!provider)
     return {
       title: "Sitio no encontrado",
@@ -27,7 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: access.active ? canonical : canonical.replace("/p/", "/u/"),
     },
-    robots: { index: access.active && provider.seo.eligible, follow: true },
+    robots: {
+      index:
+        access.active &&
+        provider.seo.eligible &&
+        !(provider.slug === "soluciones-haro" && query.vista === "panoramica"),
+      follow: true,
+    },
     openGraph: {
       title,
       description,
@@ -59,6 +66,17 @@ export default async function Page({ params, searchParams }: Props) {
     redirect(`/u/${provider.slug}${tags.size ? `?${tags}` : ""}`);
   }
   const canonical = providerUrl(provider.slug);
+  const panoramicPreview =
+    provider.slug === "soluciones-haro" && query.vista === "panoramica";
+  const displayProvider = panoramicPreview
+    ? {
+        ...provider,
+        site: {
+          ...provider.site,
+          coverImage: "/providers/soluciones-haro/portada-horizontal.jpg",
+        },
+      }
+    : provider;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -87,9 +105,10 @@ export default async function Page({ params, searchParams }: Props) {
         }}
       />
       <ProviderSite
-        provider={provider}
+        provider={displayProvider}
         referrer={typeof query.ref === "string" ? query.ref : undefined}
         customBranding={access.active || plan.entitlements.customSiteBranding}
+        coverPresentation={panoramicPreview ? "panoramic" : "standard"}
       />
     </>
   );
