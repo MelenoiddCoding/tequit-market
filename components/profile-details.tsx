@@ -23,6 +23,10 @@ export function ProviderProfile({
   siteActive?: boolean;
   directedRequests?: boolean;
 }) {
+  const hasReviews = provider.reviews.some((review) => review.status === "approved");
+  const hasVerifications = provider.verifications.length > 0;
+  const areas = [...new Set([...provider.areas, provider.zone])].filter((area) => area !== provider.zone.split(",")[0]);
+  const hasPresentation = Boolean(provider.bio?.trim()) || areas.length > 0;
   return (
     <main className={identityStyles.detailPage}>
       <ViewTracker
@@ -35,7 +39,7 @@ export function ProviderProfile({
         kind="provider"
         showRequest={directedRequests}
       />
-      <SiteContainer className={identityStyles.detailGrid}>
+      <SiteContainer className={`${identityStyles.detailGrid} ${!hasVerifications ? identityStyles.detailGridSingle : ""}`}>
         <div className={identityStyles.mainColumn}>
           {provider.businessSlug && provider.businessName && (
             <DetailSection
@@ -50,36 +54,35 @@ export function ProviderProfile({
           )}
 
           <DetailSection title="Servicios" eyebrow="Lo que publica">
-            <ServiceList services={provider.services} />
+            <ServiceList services={provider.services} showDescriptions />
           </DetailSection>
 
-          <DetailSection
+          {provider.portfolio.length > 0 && <DetailSection
             title="Trabajos realizados"
             eyebrow="Evidencia del oficio"
           >
             <PortfolioGallery portfolio={provider.portfolio} />
-          </DetailSection>
+          </DetailSection>}
 
-          <DetailSection title="Sobre mí" eyebrow="Experiencia">
-            <p className={identityStyles.bodyCopy}>{provider.bio}</p>
-            <div
+          {hasPresentation && <DetailSection title="Sobre este prestador" eyebrow="Experiencia">
+            {provider.bio?.trim() && <p className={identityStyles.bodyCopy}>{provider.bio}</p>}
+            {areas.length > 0 && <div
               className={identityStyles.tagList}
               aria-label="Zonas y capacidades"
             >
-              {provider.areas.map((area) => (
+              {areas.map((area) => (
                 <span className={identityStyles.tag} key={area}>
                   {area}
                 </span>
               ))}
-              <span className={identityStyles.tag}>{provider.zone}</span>
-            </div>
-          </DetailSection>
+            </div>}
+          </DetailSection>}
 
-          <DetailSection title="Reseñas" eyebrow="Experiencias aprobadas">
+          {hasReviews && <DetailSection title="Reseñas" eyebrow="Experiencias aprobadas">
             <ReviewList reviews={provider.reviews} />
-          </DetailSection>
+          </DetailSection>}
         </div>
-        <aside
+        {hasVerifications && <aside
           className={identityStyles.aside}
           aria-label={`Confianza y contacto de ${provider.name}`}
         >
@@ -91,7 +94,7 @@ export function ProviderProfile({
             kind="provider"
             canContact={provider.canContact}
           />
-        </aside>
+        </aside>}
       </SiteContainer>
       <SiteContainer size="reading">
         {directedRequests && (
@@ -100,13 +103,15 @@ export function ProviderProfile({
           </DetailSection>
         )}
         <DetailSection title="Compartir perfil">
-          <ProviderShareTools
-            slug={provider.slug}
-            name={provider.name}
-            subtitle={provider.profession}
-            surface="profile"
-            compact
-          />
+          <div className={identityStyles.profileShare}>
+            <ProviderShareTools
+              slug={provider.slug}
+              name={provider.name}
+              subtitle={provider.profession}
+              surface="profile"
+              compact
+            />
+          </div>
           {siteActive && (
             <a className="btn btn-secondary" href={"/p/" + provider.slug}>
               Visitar su sitio web

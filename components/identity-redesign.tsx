@@ -38,21 +38,24 @@ function formatDate(date: string) {
 
 export function EntityHero({ entity, kind, showRequest = true }: { entity: Provider | Business; kind: "provider" | "business"; showRequest?: boolean }) {
   const isProvider = kind === "provider";
+  const provider = isProvider ? entity as Provider : null;
   const title = entity.name;
-  const eyebrow = isProvider ? `${(entity as Provider).profession} en Tepic` : `${(entity as Business).category} · Negocio local`;
+  const eyebrow = provider ? `${provider.profession} en ${entity.zone.split(",")[0]}` : `${(entity as Business).category} · Negocio local`;
   const location = isProvider ? entity.zone : (entity as Business).address;
+  const showRating = !isProvider || entity.reviewCount > 0;
+  const showVerifications = !isProvider || entity.verifications.length > 0;
 
   return <section className={styles.entityHero} aria-labelledby="entity-name">
     <SiteContainer className={styles.heroGrid}>
       <div className={`${styles.heroMark} ${!isProvider ? styles.businessMark : ""}`} aria-hidden>
-        {isProvider ? initials(title) : <Building2 size={46} />}
+        {provider ? (provider.avatarImage ? <Image className={styles.heroAvatar} src={provider.avatarImage} alt="" width={120} height={120} sizes="120px" /> : initials(title)) : <Building2 size={46} />}
       </div>
       <div>
         <p className={styles.heroEyebrow}>{entity.isDemo ? "Perfil de muestra · " : ""}{eyebrow}</p>
         <h1 id="entity-name" className={styles.heroTitle}>{title}</h1>
         <div className={styles.heroMeta}>
-          <Rating value={entity.rating} count={entity.reviewCount} />
-          <span className={styles.trustLine}><BadgeCheck size={17} aria-hidden /> {entity.verifications.length} verificaciones</span>
+          {showRating && <Rating value={entity.rating} count={entity.reviewCount} />}
+          {showVerifications && <span className={styles.trustLine}><BadgeCheck size={17} aria-hidden /> {entity.verifications.length} verificaciones</span>}
         </div>
         <p className={styles.heroLocation}><MapPin size={17} aria-hidden /> {location}</p>
       </div>
@@ -90,12 +93,12 @@ export function DetailSection({ eyebrow, title, description, children, id }: {
   </section>;
 }
 
-export function ServiceList({ services }: { services: Service[] }) {
+export function ServiceList({ services, showDescriptions = false }: { services: Service[]; showDescriptions?: boolean }) {
   if (!services.length) return <p className="muted">Este negocio todavía no publica servicios.</p>;
   return <div className={styles.serviceGrid}>
     {services.map((service) => <div className={styles.serviceItem} key={service.id}>
       <div className={styles.serviceTitle}><Check size={18} aria-hidden /><strong>{service.name}</strong></div>
-      <span className="help">{service.category} · Cotización directa</span>
+      {showDescriptions ? (service.description?.trim() ? <p className={styles.serviceDescription}>{service.description}</p> : null) : <span className="help">{service.category} · Cotización directa</span>}
     </div>)}
   </div>;
 }
@@ -177,7 +180,11 @@ export function DirectedRequest({ entity, kind }: { entity: Provider | Business;
     <p className="eyebrow">Solicitud directa</p>
     <h2>Cuéntale qué necesitas</h2>
     <p className="section-description">Describe el trabajo para que {entity.name} pueda revisar tu solicitud. No necesitas crear una cuenta.</p>
-    <RequestForm {...(kind === "provider" ? { targetProvider: entity.slug } : { targetBusiness: entity.slug })} />
+    <RequestForm {...(kind === "provider" ? {
+      targetProvider: entity.slug,
+      servicePlaceholder: `Ej. ${(entity as Provider).services[0]?.name ?? (entity as Provider).profession}`,
+      zoneCity: entity.zone.split(",")[0],
+    } : { targetBusiness: entity.slug })} />
   </div>;
 }
 
