@@ -11,6 +11,9 @@ import type { AssistedInitial, AssistedService } from "@/components/assisted-onb
 import type { MarketplaceCategory } from "@/types";
 import { dashboardStyles as ui } from "@/components/dashboard-components";
 import styles from "@/components/website-workspace.module.css";
+import {ProviderLocationPicker} from "@/components/provider-location-picker";
+import {MARKET_CITIES,emptyProviderLocation,cityFromZone} from "@/lib/provider-location";
+import type {DiscoveryArea} from "@/lib/location";
 
 export async function websiteProfileRequest(body:unknown) {
   const response=await fetch("/api/admin/onboardings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
@@ -19,7 +22,7 @@ export async function websiteProfileRequest(body:unknown) {
   return data;
 }
 
-export function WebsiteProfileForm({initial,categories}:{initial?:AssistedInitial;categories:MarketplaceCategory[]}) {
+export function WebsiteProfileForm({initial,categories,discoveryAreas=[]}:{initial?:AssistedInitial;categories:MarketplaceCategory[];discoveryAreas?:DiscoveryArea[]}) {
   const router=useRouter();
   const showUpdate=useAdminUpdate();
   const [templateId,setTemplateId]=useState<WebsiteTemplateId>("base");
@@ -29,12 +32,14 @@ export function WebsiteProfileForm({initial,categories}:{initial?:AssistedInitia
   const [primary,setPrimary]=useState(initial?.primaryCategoryId??"");
   const [secondary,setSecondary]=useState(initial?.secondaryCategoryIds??[]);
   const [services,setServices]=useState<AssistedService[]>(initial?.services??[]);
+  const [location,setLocation]=useState(initial?.location??emptyProviderLocation(cityFromZone(initial?.zone??"Tepic")));
   const [matches,setMatches]=useState<{id:string;name:string}[]>([]);
   const [busy,setBusy]=useState(false),[error,setError]=useState("");
   async function submit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true);setError("");
+    if(!location.source){setBusy(false);setError("Marca un punto de trabajo aproximado antes de continuar.");return;}
     const form=new FormData(event.currentTarget);
-    const basics={name:String(form.get("name")??""),phone:String(form.get("phone")??""),zone:String(form.get("zone")??""),
+    const basics={name:String(form.get("name")??""),phone:String(form.get("phone")??""),zone:MARKET_CITIES[location.citySlug].label,location,
       profession:categories.flatMap(c=>c.canonicalCategories).find(c=>c.id===primary)?.name??initial?.profession??"",
       primaryCategoryId:primary,secondaryCategoryIds:secondary,address:"",source:String(form.get("source")??"whatsapp")};
     try {
@@ -51,7 +56,7 @@ export function WebsiteProfileForm({initial,categories}:{initial?:AssistedInitia
       if(!recordId){const managed=await websiteProfileRequest({action:"manage",providerId:entityId});recordId=managed.id;setId(recordId);}
       const saved=await websiteProfileRequest({action:"save",id:recordId,...basics,
         bio:initial?.bio??"",headline:initial?.headline??"",yearsExperience:initial?.yearsExperience??null,
-        areas:String(form.get("areas")??"").split("\n").map(x=>x.trim()).filter(Boolean),services,
+        areas:[],services,
         verifications:initial?.verifications??[],consentConfirmed:form.get("consentConfirmed")==="on",consentNote:String(form.get("consentNote")??""),
         duplicateReviewed:initial?.duplicateReviewed??Boolean(form.get("duplicateReviewed")),duplicateNote:initial?.duplicateNote??""});
       markSaved();setServices(saved.services);showUpdate({mode:"success",title:"Datos y servicios guardados",message:"La página y la ficha del directorio usan esta información."});router.refresh();
@@ -64,9 +69,8 @@ export function WebsiteProfileForm({initial,categories}:{initial?:AssistedInitia
         <label className={ui.fieldGroup}>Nombre público<input className={ui.field} name="name" defaultValue={initial?.name} minLength={2} maxLength={120} required/></label>
         <label className={ui.fieldGroup}>WhatsApp de contacto<input className={ui.field} name="phone" type="tel" defaultValue={initial?.phone} minLength={10} maxLength={20} required/></label>
         <div className={styles.full}><ProviderCategorySelector categories={categories} primaryId={primary} secondaryIds={secondary} onChange={(p,s)=>{setPrimary(p);setSecondary(s);}} idPrefix="website-category"/></div>
-        <label className={ui.fieldGroup}>Ciudad y estado<input className={ui.field} name="zone" defaultValue={initial?.zone??"Tepic, Nayarit"} minLength={2} maxLength={160} required/></label>
+        <div className={styles.full}><ProviderLocationPicker areas={discoveryAreas} value={location} onChange={setLocation}/></div>
         <label className={ui.fieldGroup}>Cómo recibiste la información<select className={ui.select} name="source" defaultValue={initial?.source??"whatsapp"}><option value="whatsapp">WhatsApp</option><option value="in_person">En persona</option><option value="call">Llamada</option></select></label>
-        {initial&&<label className={`${ui.fieldGroup} ${styles.full}`}>Zonas de atención (una por línea)<textarea className={ui.textarea} name="areas" defaultValue={initial.areas.join("\n")}/></label>}
       </div>
     </section>
     {initial&&<><section className={styles.section}><div><h2>Servicios</h2><p className={styles.note}>Los primeros cinco aparecen en las plantillas del sitio.</p></div>

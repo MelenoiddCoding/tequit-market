@@ -58,5 +58,5 @@ export interface Lead {
   id: string; targetProviderSlug?: string; targetBusinessSlug?: string; requestedService: string; description: string;
   customerName: string; customerPhone: string; customerEmail?: string; zone: string; timing?: string; status: LeadStatus; createdAt: string;
 }
-export type DiscoveryMatch = "nearby" | "service_area";
+export type DiscoveryMatch = "nearby" | "service_area" | "city";
 export interface SearchResult { type: "provider" | "business"; score: number; provider?: Provider; business?: Business; discoveryMatch?: DiscoveryMatch }

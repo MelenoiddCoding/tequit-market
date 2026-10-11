@@ -20,7 +20,7 @@ export async function searchMarketplace(
   if (admin && location && type !== "business") {
     const { data } = await admin.rpc("discover_provider_profiles", { p_query: query, p_lat: location.lat ?? null, p_lng: location.lng ?? null, p_area_slug: location.areaSlug ?? null, p_verified: verified, p_limit: 200 });
     if (data) {
-      const matches = new Map((data as Array<{ provider_id: string; search_rank: number; match_type: "nearby"|"service_area"; distance_m: number }>).map((row) => [row.provider_id, row]));
+      const matches = new Map((data as Array<{ provider_id: string; search_rank: number; match_type: "nearby"|"service_area"|"city"; distance_m: number|null }>).map((row) => [row.provider_id, row]));
       const providerResults = marketplace.providers
         .filter((provider) => matches.has(provider.id))
         .filter((provider) => !verified || provider.verifications.length > 0)

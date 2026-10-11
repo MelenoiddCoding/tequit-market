@@ -13,6 +13,7 @@ import {dashboardStyles as ui} from "@/components/dashboard-components";
 import {requireRole} from "@/lib/auth";
 import {getProviders} from "@/lib/marketplace";
 import {getProviderTaxonomy} from "@/lib/taxonomy";
+import {getDiscoveryAreas} from "@/lib/location-server";
 import {getSiteProfileInitial} from "@/lib/admin-site";
 import {getWebsiteAccess} from "@/lib/website-access";
 import {createAdminClient} from "@/lib/supabase/admin";
@@ -26,13 +27,13 @@ export default async function Page({params,searchParams}:{params:Promise<{provid
  if(!provider)notFound();
  const selected=(await searchParams).seccion;
  const section=sections.some(([key])=>key===selected)?selected:'contenido';
- const [initial,categories,access]=await Promise.all([getSiteProfileInitial(provider),getProviderTaxonomy(),getWebsiteAccess(id)]);
+ const [initial,categories,access,areas]=await Promise.all([getSiteProfileInitial(provider),getProviderTaxonomy(),getWebsiteAccess(id),getDiscoveryAreas()]);
  const {data:orders,error}=section==='publicacion'?await createAdminClient()!.from('website_orders').select('id,status,amount_mxn,duration_months,ends_at').eq('provider_id',id).order('created_at',{ascending:false}).limit(30):{data:null,error:null};
  return <AdminShell><div className={styles.workspace}>
   <header className={styles.header}><div><Link href="/admin/sitios">← Páginas</Link><h1>{provider.name}</h1><p>{access.active?'Sitio publicado':'Sitio sin publicación activa'}{access.endsAt?` · Vigencia hasta ${new Date(access.endsAt).toLocaleDateString('es-MX')}`:''}</p></div><div className={styles.actions}>{access.active&&<Link className={ui.secondary} href={`/p/${provider.slug}`} target="_blank">Abrir sitio</Link>}<Link className={ui.ghost} href="/tu-pagina/ejemplos" target="_blank">Ver temas</Link></div></header>
   <nav className={styles.tabs} aria-label="Preparación de la página">{sections.map(([key,label])=><Link key={key} href={`?seccion=${key}`} aria-current={section===key?'page':undefined}>{label}</Link>)}</nav>
   <div className={section==='vista'?styles.preview:styles.body}>
-   {section==='datos'&&<WebsiteProfileForm key={provider.updatedAt} initial={initial} categories={categories}/>}
+   {section==='datos'&&<WebsiteProfileForm key={provider.updatedAt} initial={initial} categories={categories} discoveryAreas={areas}/>}
    {section==='contenido'&&<ProviderSiteEditor key={provider.updatedAt} provider={provider} adminMode workspace/>}
    {section==='fotos'&&<WebsiteMedia provider={provider} onboardingId={initial.id} limit={initial.portfolioLimit??5}/>}
    {section==='vista'&&<ProviderSite provider={provider} customBranding preview/>}

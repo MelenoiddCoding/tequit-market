@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { LocateFixed, MapPin } from "lucide-react";
-import type { DiscoveryArea } from "@/lib/location";
-import { dashboardStyles as styles } from "@/components/dashboard-components";
+import {useState} from "react";
+import {ProviderLocationPicker} from "@/components/provider-location-picker";
+import type {DiscoveryArea} from "@/lib/location";
+import type {ProviderLocationDraft} from "@/lib/provider-location";
+import {dashboardStyles as styles} from "@/components/dashboard-components";
 
-export function ProviderLocationSettings({providerId,areas,currentArea,source}:{providerId:string;areas:DiscoveryArea[];currentArea?:string;source?:string}) {
-  const [areaSlug,setAreaSlug]=useState(currentArea??"");const[message,setMessage]=useState(source==="area_centroid"?"Ubicación aproximada: conviene actualizarla.":"Tu punto exacto es privado.");const[busy,setBusy]=useState(false);
-  async function save(payload:{lat?:number;lng?:number;source:"browser"|"manual";areaSlug?:string;accuracy?:number}){setBusy(true);const response=await fetch("/api/dashboard/location",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({providerId,...payload})});const body=await response.json();setMessage(response.ok?"Ubicación de trabajo guardada. Sólo se usa para calcular cobertura.":body.error??"No pudimos guardarla.");setBusy(false)}
-  function locate(){if(!navigator.geolocation){setMessage("El navegador no permite compartir ubicación.");return}setBusy(true);setMessage("Buscando ubicación…");navigator.geolocation.getCurrentPosition((position)=>void save({source:"browser",lat:position.coords.latitude,lng:position.coords.longitude,accuracy:Math.round(position.coords.accuracy),areaSlug:areaSlug||undefined}),()=>{setBusy(false);setMessage("No pudimos obtenerla. Puedes guardar una zona aproximada.")},{timeout:10000,maximumAge:300000})}
-  return <section className={styles.formSection}><div><h2>Ubicación para aparecer en búsquedas</h2><p className={styles.help}>Tu dirección o coordenadas no se muestran. Tequit sólo calcula si estás cerca o si atiendes la zona del cliente.</p></div><div className={styles.formGrid}><div className={styles.fieldGroup}><label htmlFor="provider-area">Zona que atiendes</label><select className={styles.select} id="provider-area" value={areaSlug} onChange={(event)=>setAreaSlug(event.target.value)}><option value="">Selecciona una zona</option>{areas.map((area)=><option key={`${area.city}-${area.slug}`} value={area.slug}>{area.city} · {area.name}</option>)}</select></div><div className={styles.fieldGroup}><label>Punto de trabajo habitual</label><button className={styles.secondary} type="button" onClick={locate} disabled={busy}><LocateFixed size={17}/>{busy?"Ubicando…":"Usar ubicación actual"}</button></div></div><div className={styles.tableActions}><button className={styles.secondary} type="button" disabled={!areaSlug||busy} onClick={()=>void save({source:"manual",areaSlug})}><MapPin size={17}/>Guardar sólo zona aproximada</button><span className={styles.help} role="status">{message}</span></div></section>
+export function ProviderLocationSettings({providerId,areas,initial}:{providerId:string;areas:DiscoveryArea[];initial:ProviderLocationDraft}) {
+  const [location,setLocation]=useState(initial);
+  const [busy,setBusy]=useState(false);
+  const [message,setMessage]=useState(initial.source?"Tu ubicación de trabajo está configurada.":"Completa este dato para aparecer en búsquedas por cercanía.");
+  async function save(){if(!location.source){setMessage("Marca una colonia o un punto para actualizar la ubicación.");return}setBusy(true);try{const response=await fetch("/api/dashboard/location",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({providerId,location})});const data=await response.json();if(!response.ok)throw new Error(data.error??"No pudimos guardar la ubicación.");setLocation({...location,source:"existing"});setMessage("Ubicación y cobertura guardadas.")}catch(error){setMessage(error instanceof Error?error.message:"No pudimos guardar la ubicación.")}finally{setBusy(false)}}
+  return <section className={styles.formSection}><ProviderLocationPicker areas={areas} value={location} onChange={setLocation}/><div className={styles.tableActions}><button className={styles.secondary} type="button" onClick={save} disabled={busy}>{busy?"Guardando…":"Guardar ubicación y cobertura"}</button><span className={styles.help} role="status">{message}</span></div></section>;
 }

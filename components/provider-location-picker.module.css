@@ -1,0 +1,6 @@
+.picker{display:grid;gap:16px;min-width:0;padding:16px;border:1px solid var(--color-border);border-radius:var(--radius-card);background:var(--color-surface)}
+.picker h3,.picker p{margin:0}.picker h3{font-size:16px}.picker p{font-size:13px;color:var(--color-text-muted)}
+.field{display:grid;gap:6px;font-size:13px;font-weight:750}.field select{width:100%;min-height:46px;padding:10px;border:1px solid var(--color-border);border-radius:var(--radius-control);background:white;color:var(--color-text);font:inherit}
+.choices{display:flex;flex-wrap:wrap;gap:8px}.choices button{min-height:44px;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-control);background:white;color:var(--color-text);font:inherit;font-size:13px;font-weight:750;cursor:pointer}.choices button:hover,.choices button:focus-visible{border-color:var(--color-brand)}
+.map{height:260px;width:100%;min-width:0;border-radius:10px;overflow:hidden}.status{font-size:13px;color:var(--color-brand-strong);font-weight:700}.coverage{display:flex;flex-wrap:wrap;gap:12px}.coverage label{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700}.coverage input{accent-color:var(--color-brand)}
+@media(max-width:390px){.picker{padding:12px}.map{height:230px}.choices button{flex:1}}
