@@ -1,0 +1,55 @@
+.profileActions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.profileButton {
+  width: 100%;
+  min-height: 54px;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.profileButton svg {
+  flex: none;
+}
+
+.profileButton span {
+  min-width: 0;
+}
+
+.facebookAction {
+  min-width: 0;
+}
+
+.facebookStatus {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: .83rem;
+  overflow-wrap: anywhere;
+}
+
+.siteButton {
+  margin-top: 8px;
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.siteButton:hover,
+.siteButton:focus-visible {
+  background: var(--surface);
+}
+
+@media (min-width: 640px) {
+  .profileActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .siteButton {
+    margin-top: 0;
+  }
+}

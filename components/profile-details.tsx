@@ -103,20 +103,14 @@ export function ProviderProfile({
           </DetailSection>
         )}
         <DetailSection title="Compartir perfil">
-          <div className={identityStyles.profileShare}>
-            <ProviderShareTools
-              slug={provider.slug}
-              name={provider.name}
-              subtitle={provider.profession}
-              surface="profile"
-              compact
-            />
-          </div>
-          {siteActive && (
-            <a className="btn btn-secondary" href={"/p/" + provider.slug}>
-              Visitar su sitio web
-            </a>
-          )}
+          <ProviderShareTools
+            slug={provider.slug}
+            name={provider.name}
+            subtitle={provider.profession}
+            surface="profile"
+            compact
+            siteHref={siteActive ? `/p/${provider.slug}` : undefined}
+          />
         </DetailSection>
       </SiteContainer>
     </main>

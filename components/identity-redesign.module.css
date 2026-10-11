@@ -206,18 +206,6 @@
   line-height: 1.6;
 }
 
-.profileShare :global(.provider-share-compact .btn) {
-  border-color: var(--line);
-  background: var(--surface);
-  color: var(--brand);
-}
-
-.profileShare :global(.provider-share-compact .btn:hover),
-.profileShare :global(.provider-share-compact .btn:focus-visible) {
-  border-color: var(--brand);
-  background: var(--brand-soft);
-}
-
 .productItem p {
   min-height: 44px;
   margin: 8px 0 16px;

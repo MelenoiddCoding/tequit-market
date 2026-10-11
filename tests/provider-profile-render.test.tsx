@@ -4,7 +4,7 @@ import { expect, it, vi } from "vitest";
 import type { Provider } from "@/types";
 
 vi.mock("@/components/view-tracker", () => ({ ViewTracker: () => null }));
-vi.mock("@/components/provider-share-tools", () => ({ ProviderShareTools: () => <button>Compartir</button> }));
+vi.mock("@/components/provider-share-tools", () => ({ ProviderShareTools: ({ siteHref }: { siteHref?: string }) => <div><button>Compartir</button>{siteHref && <a href={siteHref}>Visitar su sitio web</a>}</div> }));
 vi.mock("@/components/save-button", () => ({ SaveButton: () => <button>Guardar</button> }));
 vi.mock("@/components/whatsapp-button", () => ({ WhatsAppButton: () => <button>WhatsApp</button> }));
 

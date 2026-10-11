@@ -3,9 +3,11 @@
 import { trackEvent } from "@/lib/traffic-client";
 import { FacebookShare } from "@/components/facebook-share";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Check, Copy, Download, QrCode, Share2 } from "lucide-react";
+import { Check, Copy, Download, ExternalLink, ImageIcon, QrCode, Share2 } from "lucide-react";
 import QRCode from "qrcode";
+import styles from "@/components/provider-share-tools.module.css";
 
 const SIZE = 1200;
 function loadImage(src: string) {
@@ -97,12 +99,14 @@ export function ProviderShareTools({
   subtitle = "Servicios profesionales",
   compact = false,
   surface = "website",
+  siteHref,
 }: {
   slug: string;
   name: string;
   subtitle?: string;
   compact?: boolean;
   surface?: "profile" | "website";
+  siteHref?: string;
 }) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://tequit.mx"}/${surface === "profile" ? "u" : "p"}/${slug}`;
   const qrUrl = `${url}?ref=qr`;
@@ -110,6 +114,7 @@ export function ProviderShareTools({
   const [card, setCard] = useState("");
   const [copied, setCopied] = useState(false);
   useEffect(() => {
+    if (compact) return;
     let active = true;
     createShareCard(qrUrl, name, subtitle).then((canvas) => {
       if (active) setCard(canvas.toDataURL("image/png", 0.9));
@@ -117,7 +122,7 @@ export function ProviderShareTools({
     return () => {
       active = false;
     };
-  }, [qrUrl, name, subtitle]);
+  }, [compact, qrUrl, name, subtitle]);
   async function track() {
     trackEvent({ type: "share_action", target: slug, targetType: "provider" });
   }
@@ -174,6 +179,23 @@ export function ProviderShareTools({
     anchor.click();
     if (format === "svg") URL.revokeObjectURL(href);
     await track();
+  }
+  if (compact && surface === "profile") {
+    return <div className={styles.profileActions} aria-label="Opciones para compartir el perfil">
+      <button className={`btn btn-secondary ${styles.profileButton}`} type="button" onClick={share}>
+        <ImageIcon size={19} aria-hidden />
+        <span>Compartir imagen</span>
+      </button>
+      <button className={`btn btn-secondary ${styles.profileButton}`} type="button" onClick={copy}>
+        {copied ? <Check size={19} aria-hidden /> : <Copy size={19} aria-hidden />}
+        <span>{copied ? "Enlace copiado" : "Copiar enlace"}</span>
+      </button>
+      <FacebookShare path={url} appearance="profile" />
+      {siteHref && <Link className={`btn btn-secondary ${styles.profileButton} ${styles.siteButton}`} href={siteHref}>
+        <ExternalLink size={19} aria-hidden />
+        <span>Visitar sitio web</span>
+      </Link>}
+    </div>;
   }
   return (
     <div
