@@ -1,25 +1,13 @@
 import type { Metadata } from "next";
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ProviderSiteProposal } from "@/components/provider-site-proposal";
 import type { Provider } from "@/types";
+import { socialImageMetadata, socialImageUrl, socialImageVersion, socialPreviewAlt } from "@/lib/social-preview";
 
 const title = "Soluciones Haro · Energía solar en Tepic";
 const description = "Instalación de paneles solares, calentadores solares, aire acondicionado, domótica y soluciones eléctricas en Tepic, Nayarit.";
-
-export const metadata: Metadata = {
-  title: { absolute: title },
-  description,
-  robots: { index: false, follow: false },
-  alternates: { canonical: "https://tequit.mx/p/soluciones-haro-propuesta" },
-  openGraph: {
-    title,
-    description,
-    url: "https://tequit.mx/p/soluciones-haro-propuesta",
-    siteName: "Soluciones Haro",
-    locale: "es_MX",
-    type: "website",
-  },
-};
-
 const mediaBase = "https://vgszdeymfipvuiziklpq.supabase.co/storage/v1/object/public";
 
 const proposal: Provider = {
@@ -68,6 +56,25 @@ const proposal: Provider = {
   },
   seo: { eligible: false, checks: { bio: true, phone: true, service: true, portfolio: true }, missing: [] },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cover = await readFile(path.join(process.cwd(), "public", "providers", "soluciones-haro", "portada-horizontal.jpg"));
+  const coverDigest = createHash("sha256").update(cover).digest("hex").slice(0, 12);
+  const image = socialImageMetadata(
+    socialImageUrl("proposal", "soluciones-haro", socialImageVersion(proposal.name, proposal.profession, proposal.avatarImage, coverDigest)),
+    socialPreviewAlt(proposal.name, proposal.profession),
+  );
+  return {
+    title: { absolute: title }, description,
+    robots: { index: false, follow: false },
+    alternates: { canonical: "https://tequit.mx/p/soluciones-haro-propuesta" },
+    openGraph: {
+      title, description, url: "https://tequit.mx/p/soluciones-haro-propuesta",
+      siteName: "Soluciones Haro", locale: "es_MX", type: "website", images: [image],
+    },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
+}
 
 export default function SolucionesHaroProposalPage() {
   return <ProviderSiteProposal provider={proposal} />;

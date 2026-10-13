@@ -49,6 +49,7 @@ export interface Provider {
 export interface Product { id: string; name: string; description: string }
 export interface Business {
   id: string; slug: string; name: string; category: string; description: string; zone: string; address: string;
+  logoImage?: string; logoPath?: string; coverImage?: string; coverPath?: string;
   rating: number; reviewCount: number; status: PublicationStatus; phone: string; services: Service[]; products: Product[];
   verifications: Verification[]; reviews: Review[]; providerSlugs: string[]; featured?: boolean;
   isDemo?: boolean; canContact?: boolean;

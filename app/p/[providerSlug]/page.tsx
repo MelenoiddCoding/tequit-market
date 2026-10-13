@@ -6,6 +6,7 @@ import { providerUrl } from "@/lib/provider-site";
 import { getWebsiteAccess } from "@/lib/website-access";
 import { getProviderPlan, planFromCode } from "@/lib/plans";
 import { websiteTemplate, WEBSITE_OFFER } from "@/lib/website-offer";
+import { socialImageMetadata, socialImageUrl, socialImageVersion, socialPreviewAlt } from "@/lib/social-preview";
 type Props = {
   params: Promise<{ providerSlug: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -22,6 +23,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const canonical = providerUrl(provider.slug),
     title = `${provider.name} · ${provider.profession} en ${provider.zone}`,
     description = (provider.site.intro || provider.bio).slice(0, 158);
+  const image = socialImageMetadata(
+    socialImageUrl("site", provider.slug, socialImageVersion(provider.name, provider.profession, provider.primaryCategory?.name, provider.zone, provider.site.coverPath ?? provider.site.coverImage, provider.avatarPath ?? provider.avatarImage, provider.site.accentColor)),
+    socialPreviewAlt(provider.name, provider.primaryCategory?.name ?? provider.profession),
+  );
   return {
     title,
     description,
@@ -39,13 +44,12 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       title,
       description,
       url: canonical,
-      siteName: "Tequit",
+      siteName: provider.name,
       locale: "es_MX",
       type: "website",
-      images: [
-        { url: `${canonical}/opengraph-image`, width: 1200, height: 630 },
-      ],
+      images: [image],
     },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 export default async function Page({ params, searchParams }: Props) {

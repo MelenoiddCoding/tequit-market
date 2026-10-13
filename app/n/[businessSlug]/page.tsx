@@ -4,11 +4,26 @@ import { BusinessTeam, DetailSection, DirectedRequest, EntityHero, identityStyle
 import { SiteContainer } from "@/components/layout-primitives";
 import { ViewTracker } from "@/components/view-tracker";
 import { getBusinessBySlug, getProviders } from "@/lib/marketplace";
+import { APP_URL } from "@/lib/provider-site";
+import { socialImageMetadata, socialImageUrl, socialImageVersion, socialPreviewAlt } from "@/lib/social-preview";
 
 export async function generateMetadata({ params }: { params: Promise<{ businessSlug: string }> }): Promise<Metadata> {
   const { businessSlug } = await params;
   const business = await getBusinessBySlug(businessSlug);
-  return business ? { title: business.name, description: business.description } : { title: "Negocio no encontrado" };
+  if (!business) return { title: "Negocio no encontrado", robots: { index: false } };
+  const canonical = `${APP_URL}/n/${business.slug}`;
+  const title = `${business.name} · ${business.category}`;
+  const description = business.description.slice(0, 158);
+  const image = socialImageMetadata(
+    socialImageUrl("business", business.slug, socialImageVersion(business.name, business.category, business.zone, business.logoPath, business.coverPath)),
+    socialPreviewAlt(business.name, business.category),
+  );
+  return {
+    title, description, alternates: { canonical },
+    robots: { index: !business.isDemo },
+    openGraph: { title, description, url: canonical, siteName: "Tequit", locale: "es_MX", type: "website", images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
 }
 
 export default async function BusinessPage({ params }: { params: Promise<{ businessSlug: string }> }) {

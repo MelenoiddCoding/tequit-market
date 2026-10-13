@@ -3,11 +3,36 @@ import { ProviderSite } from "@/components/provider-site";
 import { WEBSITE_TEMPLATES, websiteTemplate } from "@/lib/website-offer";
 import { websiteDemoProvider } from "@/lib/website-demo-provider";
 import type { Provider } from "@/types";
+import type { Metadata } from "next";
+import { APP_URL } from "@/lib/provider-site";
+import { socialImageMetadata, socialImageUrl, socialImageVersion, socialPreviewAlt } from "@/lib/social-preview";
 import styles from "./examples.module.css";
 
-export const metadata = { title: "Plantillas para tu oficio", robots: { index: false, follow: false } };
+type DemoParams = { searchParams: Promise<{ tema?: string; contenido?: string }> };
 
-export default async function Page({ searchParams }: { searchParams: Promise<{ tema?: string; contenido?: string }> }) {
+export async function generateMetadata({ searchParams }: DemoParams): Promise<Metadata> {
+  const params = await searchParams;
+  const template = websiteTemplate(params.tema as Provider["site"]["templateId"]) ?? WEBSITE_TEMPLATES[0];
+  const sparse = params.contenido === "breve";
+  const provider = websiteDemoProvider(template.id, template.accent, sparse);
+  const title = `${provider.name} · Ejemplo ${template.name}`;
+  const description = `Ejemplo de página ${template.name} para ${provider.profession.toLowerCase()}. Contenido ilustrativo; contacto desactivado.`;
+  const url = new URL("/tu-pagina/ejemplos", APP_URL);
+  url.searchParams.set("tema", template.id);
+  if (sparse) url.searchParams.set("contenido", "breve");
+  const image = socialImageMetadata(
+    socialImageUrl("demo", template.id, socialImageVersion(template.id, template.accent, sparse ? "breve" : "fotos", provider.name, provider.profession), sparse),
+    `${socialPreviewAlt(provider.name, provider.profession)} · Ejemplo ${template.name}`,
+  );
+  return {
+    title, description, robots: { index: false, follow: false },
+    alternates: { canonical: url.toString() },
+    openGraph: { title, description, url: url.toString(), siteName: "Tequit", locale: "es_MX", type: "website", images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
+}
+
+export default async function Page({ searchParams }: DemoParams) {
   const params = await searchParams;
   const template = websiteTemplate(params.tema as Provider["site"]["templateId"]) ?? WEBSITE_TEMPLATES[0];
   const sparse = params.contenido === "breve";
