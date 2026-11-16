@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { BriefcaseBusiness, Heart, Home, MapPin, Search, Store, UserRound } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { CitySuggestion } from "@/components/city-suggestion";
-import { LOCATION_COOKIE, parseDiscoveryLocation } from "@/lib/location";
+import { LOCATION_COOKIE, marketCityForDiscovery, parseDiscoveryLocation } from "@/lib/location";
 import { cn } from "@/lib/cn";
 
 const publicLinks = [
@@ -42,7 +42,7 @@ function marketHref(href: string, area: string | null) {
   return area && (href === "/" || href === "/buscar" || href === "/negocios") ? `${href}?area=${encodeURIComponent(area)}` : href;
 }
 
-export function Header({initialCity="Tepic"}:{initialCity?:"Tepic"|"Uruapan"}) {
+export function Header({initialCity="Tepic"}:{initialCity?:string}) {
   const pathname = usePathname();
   const area = useMarketArea(pathname);
   const [city, setCity] = useState(initialCity);
@@ -51,7 +51,8 @@ export function Header({initialCity="Tepic"}:{initialCity?:"Tepic"|"Uruapan"}) {
       const area = new URLSearchParams(window.location.search).get("area");
       const saved = parseDiscoveryLocation(document.cookie.split("; ").find((part) => part.startsWith(`${LOCATION_COOKIE}=`))?.split("=")[1]);
       const slug = area === "tepic" || area === "uruapan" ? area : saved?.areaSlug;
-      setCity(slug === "uruapan" || /uruapan/i.test(saved?.label ?? "") ? "Uruapan" : "Tepic");
+      const savedCity = saved ? marketCityForDiscovery(saved, []) : null;
+      setCity(slug === "uruapan" ? "Uruapan" : slug === "tepic" ? "Tepic" : saved?.source === "browser" && !savedCity ? "Elegir ciudad" : savedCity === "uruapan" || /uruapan/i.test(saved?.label ?? "") ? "Uruapan" : "Tepic");
     };
     update(); window.addEventListener("tequit:location-change", update); return () => window.removeEventListener("tequit:location-change", update);
   }, [pathname]);
@@ -69,7 +70,7 @@ export function Footer() {
   return <footer className="footer"><div className="site-container site-container-content"><div className="footer-grid"><div className="footer-brand"><Link href="/" aria-label="Tequit — Inicio"><BrandLogo variant="app-dark" /></Link><p>Encuentra personas y negocios en Tepic y Uruapan que puedan hacer el trabajo que necesitas.</p></div><nav aria-label="Explora"><strong>Explora</strong><Link href="/buscar">Buscar servicios</Link><Link href="/negocios">Negocios locales</Link><Link href="/guardados">Guardados</Link></nav><nav aria-label="Para quien le sabe"><strong>Para quien le sabe</strong><Link href="/registro?tipo=prestador">Crear perfil</Link><Link href="/login">Iniciar sesión</Link><Link href="/dashboard/plan">Tequit Pro</Link></nav><nav aria-label="Información legal"><strong>Legal</strong><Link href="/terminos">Términos y Condiciones</Link><Link href="/privacidad">Privacidad</Link></nav></div><div className="footer-note"><BriefcaseBusiness size={16} aria-hidden /> Tequit facilita el contacto. No garantiza resultados ni participa en pagos o acuerdos entre clientes y prestadores.</div></div></footer>;
 }
 
-export function PublicChrome({ children, ipCity, initialCity }: { children: React.ReactNode; ipCity: string | null; initialCity: "Tepic" | "Uruapan" }) {
+export function PublicChrome({ children, ipCity, initialCity }: { children: React.ReactNode; ipCity: string | null; initialCity: string }) {
   const pathname = usePathname();
   if(pathname.startsWith("/admin"))return children;
   if(pathname.startsWith("/dashboard"))return children;
