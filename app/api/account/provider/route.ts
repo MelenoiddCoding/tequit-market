@@ -6,7 +6,7 @@ import {MARKET_CITIES} from "@/lib/provider-location";
 const locationSchema=z.object({citySlug:z.enum(["tepic","uruapan"]),coverageCities:z.array(z.enum(["tepic","uruapan"])).min(1).max(2),source:z.enum(["browser","manual","area","existing"]).nullable(),areaSlug:z.string().max(100).nullable(),lat:z.number().min(-90).max(90).nullable(),lng:z.number().min(-180).max(180).nullable(),accuracy:z.number().int().min(0).max(100000).nullable()});
 
 const providerSchema=z.object({kind:z.literal("provider"),action:z.enum(["save","publish"]),step:z.number().int().min(1).max(4),name:z.string().trim().min(2).max(100),profession:z.string().trim().min(2).max(100),primaryCategoryId:z.string().uuid(),secondaryCategoryIds:z.array(z.string().uuid()).max(2),phone:z.string().regex(/^[\d\s+()-]{8,20}$/),zone:z.string().trim().min(2).max(120),location:locationSchema,bio:z.string().trim().max(1200),service:z.string().trim().max(100),serviceDescription:z.string().trim().max(500),avatarPath:z.string().max(300).nullable(),coverPath:z.string().max(300).nullable()}).superRefine((value,context)=>{if(value.secondaryCategoryIds.includes(value.primaryCategoryId)||new Set(value.secondaryCategoryIds).size!==value.secondaryCategoryIds.length)context.addIssue({code:"custom",message:"Selecciona actividades diferentes."})});
-const businessSchema=z.object({kind:z.literal("business"),name:z.string().trim().min(2).max(100),profession:z.string().trim().min(2).max(100),phone:z.string().regex(/^[\d\s+()-]{8,20}$/),zone:z.string().trim().min(2).max(120),bio:z.string().trim().min(20).max(1000),firstService:z.string().trim().min(2).max(100)});
+const businessSchema=z.object({kind:z.literal("business"),name:z.string().trim().min(2).max(100),profession:z.string().trim().min(2).max(100),phone:z.string().regex(/^[\d\s+()-]{8,20}$/),marketCitySlug:z.enum(["tepic","uruapan"]),zone:z.string().trim().min(2).max(120),bio:z.string().trim().min(20).max(1000),firstService:z.string().trim().min(2).max(100)});
 
 export async function POST(request:Request){
   const body=await request.json();const supabase=await createClient();const{data:{user}}=await supabase.auth.getUser();
@@ -14,7 +14,7 @@ export async function POST(request:Request){
   if(body.kind==="business"){
     const parsed=businessSchema.safeParse(body);if(!parsed.success)return NextResponse.json({error:"Revisa los datos del negocio."},{status:400});
     const{data:existing}=await supabase.from("business_members").select("id").eq("profile_id",user.id).eq("member_role","owner").maybeSingle();if(existing)return NextResponse.json({destination:"/dashboard"});
-    const{error}=await supabase.rpc("complete_business_onboarding",{p_name:parsed.data.name,p_category:parsed.data.profession,p_phone:parsed.data.phone,p_zone:parsed.data.zone,p_description:parsed.data.bio,p_first_service:parsed.data.firstService});
+    const{error}=await supabase.rpc("complete_business_onboarding",{p_name:parsed.data.name,p_category:parsed.data.profession,p_phone:parsed.data.phone,p_zone:parsed.data.zone,p_description:parsed.data.bio,p_first_service:parsed.data.firstService,p_market_city_slug:parsed.data.marketCitySlug});
     return error?NextResponse.json({error:"No pudimos crear el negocio."},{status:409}):NextResponse.json({destination:"/dashboard"},{status:201});
   }
   const parsed=providerSchema.safeParse(body);if(!parsed.success)return NextResponse.json({error:parsed.error.issues[0]?.message??"Revisa los datos del perfil."},{status:400});

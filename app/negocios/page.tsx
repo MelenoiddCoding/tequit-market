@@ -1,10 +1,22 @@
 import { BusinessCard } from "@/components/cards";
 import { AutoGrid, SiteContainer } from "@/components/layout-primitives";
+import { LocationDiscovery } from "@/components/location-discovery";
 import { DiscoveryEmpty } from "@/components/public-redesign";
 import styles from "@/components/public-redesign.module.css";
 import { SearchBar } from "@/components/search-bar";
-import { getMarketplace } from "@/lib/marketplace";
-import { searchMarketplaceData } from "@/lib/search";
+import { marketCityForDiscovery } from "@/lib/location";
+import { getDiscoveryAreas, getDiscoveryLocation } from "@/lib/location-server";
+import { searchMarketplace } from "@/lib/marketplace-search";
 
-export const metadata={title:"Negocios locales en Tepic"};
-export default async function BusinessesPage({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}) { const params=await searchParams; const query=typeof params.q==="string"?params.q.trim():""; const marketplace=await getMarketplace(); const matches=searchMarketplaceData(marketplace.providers,marketplace.businesses,query,"business").flatMap(result=>result.business?[result.business]:[]); return <main><section className={styles.businessHero}><SiteContainer><p className="eyebrow">Comercio local</p><h1>Negocios locales</h1><p>Descubre comercios de Tepic que venden productos, prestan servicios o hacen ambas cosas.</p><SearchBar initial={query} destination="/negocios" placeholder="Buscar negocio, oficio o categoría…" label="Buscar negocios"/></SiteContainer></section><SiteContainer className={styles.businessResults}><div className={styles.businessResultsHeader}><h2>{query?`Resultados para “${query}”`:"Explora los negocios"}</h2><p>{matches.length} {matches.length===1?"negocio":"negocios"}</p></div>{matches.length?<AutoGrid kind="cards">{matches.map(business=><BusinessCard key={business.id} business={business}/>)}</AutoGrid>:<DiscoveryEmpty query={query}/>}</SiteContainer></main> }
+export const metadata = { title: "Negocios locales en Tequit" };
+export default async function BusinessesPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const params = await searchParams;
+  const query = typeof params.q === "string" ? params.q.trim() : "";
+  const area = typeof params.area === "string" ? params.area : undefined;
+  const [location, areas] = await Promise.all([getDiscoveryLocation(area), getDiscoveryAreas()]);
+  const { results } = await searchMarketplace(query, "business", false, location, areas);
+  const matches = results.flatMap((result) => result.business ? [result.business] : []);
+  const city = marketCityForDiscovery(location, areas);
+  const cityName = city === "uruapan" ? "Uruapan" : "Tepic";
+  return <main><section className={styles.businessHero}><SiteContainer><p className="eyebrow">Comercio local</p><h1>Negocios locales</h1><p>{city ? `Descubre comercios de ${cityName} que venden productos, prestan servicios o hacen ambas cosas.` : "Elige Tepic o Uruapan para explorar negocios."}</p><SearchBar initial={query} destination="/negocios" placeholder="Buscar negocio, oficio o categoría…" label="Buscar negocios"/></SiteContainer></section><SiteContainer className={styles.businessResults}><LocationDiscovery areas={areas} current={location}/><div className={styles.businessResultsHeader}><h2>{query?`Resultados para “${query}”`:`Negocios en ${cityName}`}</h2><p>{matches.length} {matches.length===1?"negocio":"negocios"}</p></div>{matches.length?<AutoGrid kind="cards">{matches.map(business=><BusinessCard key={business.id} business={business}/>)}</AutoGrid>:<DiscoveryEmpty query={query}/>}</SiteContainer></main>;
+}

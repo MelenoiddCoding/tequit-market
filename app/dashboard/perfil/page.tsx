@@ -21,6 +21,6 @@ export default async function ProfileEditPage() {
   const locationInitial=location?.market_city_slug?{...emptyProviderLocation(city),source:"existing" as const,coverageCities:[...new Set([city,...coverage])]}:emptyProviderLocation(city);
   return <DashboardContent>
     <DashboardPageHeader eyebrow="Información pública" title="Mi perfil" description="Mantén claros tus datos, zonas de trabajo y forma de contacto." />
-    <ProfileEditor kind={context.kind} id={entity.id} name={entity.name} profession={profession} bio={bio} zone={entity.zone} phone={entity.phone} publicHref={context.kind==="provider"?`/u/${entity.slug}`:`/n/${entity.slug}`} rating={entity.rating} reviewCount={entity.reviewCount} locationSettings={context.kind==="provider"?<ProviderLocationSettings providerId={entity.id} areas={areas} initial={locationInitial}/>:undefined}/>
+    <ProfileEditor kind={context.kind} id={entity.id} name={entity.name} profession={profession} bio={bio} zone={entity.zone} marketCitySlug={context.kind==="business"?context.entity.marketCitySlug:null} phone={entity.phone} publicHref={context.kind==="provider"?`/u/${entity.slug}`:`/n/${entity.slug}`} rating={entity.rating} reviewCount={entity.reviewCount} locationSettings={context.kind==="provider"?<ProviderLocationSettings providerId={entity.id} areas={areas} initial={locationInitial}/>:undefined}/>
   </DashboardContent>;
 }

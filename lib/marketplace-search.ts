@@ -4,18 +4,20 @@ import { getMarketplace } from "@/lib/marketplace";
 import { searchMarketplaceData } from "@/lib/search";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { SearchResult } from "@/types";
-import type { DiscoveryLocation } from "@/lib/location";
+import { marketCityForDiscovery, type DiscoveryArea, type DiscoveryLocation } from "@/lib/location";
 
 export async function searchMarketplace(
   query: string,
   type: "all" | "provider" | "business" = "all",
   verified = false,
   location: DiscoveryLocation | null = null,
+  areas: DiscoveryArea[] = [],
 ): Promise<{ results: SearchResult[]; marketplace: Awaited<ReturnType<typeof getMarketplace>> }> {
   const marketplace = await getMarketplace();
-  const fallback = searchMarketplaceData(marketplace.providers, marketplace.businesses, query, type, verified);
+  const city = location ? marketCityForDiscovery(location, areas) : null;
+  const fallback = searchMarketplaceData(marketplace.providers, marketplace.businesses.filter((item) => city && item.marketCitySlug === city), query, type, verified);
   const admin = createAdminClient();
-  let results = location ? fallback.filter((result) => result.type === "business") : fallback.filter((result) => result.type === "business");
+  let results = fallback.filter((result) => result.type === "business");
 
   if (admin && location && type !== "business") {
     const { data } = await admin.rpc("discover_provider_profiles", { p_query: query, p_lat: location.lat ?? null, p_lng: location.lng ?? null, p_area_slug: location.areaSlug ?? null, p_verified: verified, p_limit: 200 });

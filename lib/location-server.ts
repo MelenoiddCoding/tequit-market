@@ -2,7 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { LOCATION_COOKIE, parseDiscoveryLocation, type DiscoveryArea } from "@/lib/location";
+import { DEFAULT_DISCOVERY_LOCATION, LOCATION_COOKIE, parseDiscoveryLocation, type DiscoveryArea, type DiscoveryLocation } from "@/lib/location";
 
 const fallbackAreas:DiscoveryArea[]=[
   {slug:"tepic",name:"Tepic",city:"Tepic",state:"Nayarit",type:"municipality"},
@@ -16,10 +16,19 @@ const fallbackAreas:DiscoveryArea[]=[
   {slug:"uruapan",name:"Uruapan",city:"Uruapan",state:"Michoacán",type:"municipality"},
 ];
 
-export async function getDiscoveryLocation(areaSlug?: string) {
-  if (areaSlug) return { source: "manual" as const, areaSlug, label: areaSlug.split("-").map((part)=>part.charAt(0).toUpperCase()+part.slice(1)).join(" ") };
+export async function getDiscoveryLocation(areaSlug?: string): Promise<DiscoveryLocation> {
+  if (areaSlug) {
+    const area = (await getDiscoveryAreas()).find((item) => item.slug === areaSlug && (item.city === "Tepic" || item.city === "Uruapan"));
+    if (area) return { source: "manual", areaSlug: area.slug, label: area.type === "municipality" ? area.name : `${area.name}, ${area.city}` };
+  }
   const store = await cookies();
-  return parseDiscoveryLocation(store.get(LOCATION_COOKIE)?.value);
+  const saved = parseDiscoveryLocation(store.get(LOCATION_COOKIE)?.value);
+  if (saved?.source === "browser") return saved;
+  if (saved?.areaSlug) {
+    const area = (await getDiscoveryAreas()).find((item) => item.slug === saved.areaSlug && (item.city === "Tepic" || item.city === "Uruapan"));
+    if (area) return { ...saved, label: area.type === "municipality" ? area.name : `${area.name}, ${area.city}` };
+  }
+  return DEFAULT_DISCOVERY_LOCATION;
 }
 
 export async function getDiscoveryAreas(): Promise<DiscoveryArea[]> {

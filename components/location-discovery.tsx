@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { LocateFixed, MapPin, X } from "lucide-react";
-import { LOCATION_CONSENT_VERSION, LOCATION_COOKIE, serializeDiscoveryLocation, type DiscoveryArea, type DiscoveryLocation } from "@/lib/location";
+import { LOCATION_CONSENT_VERSION, LOCATION_COOKIE, marketCityForDiscovery, serializeDiscoveryLocation, type DiscoveryArea, type DiscoveryLocation } from "@/lib/location";
 import styles from "@/components/public-redesign.module.css";
 
 type Props = { areas: DiscoveryArea[]; current: DiscoveryLocation | null; compact?: boolean };
@@ -16,9 +16,11 @@ export function LocationDiscovery({ areas, current, compact = false }: Props) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const selectableAreas = areas.filter((area) => area.city === "Tepic" || area.city === "Uruapan");
+  const outsideMarket = current?.source === "browser" && !marketCityForDiscovery(current, areas);
 
   async function persist(value: DiscoveryLocation) {
     document.cookie = `${LOCATION_COOKIE}=${serializeDiscoveryLocation(value)}; Path=/; Max-Age=15552000; SameSite=Lax; Secure`;
+    window.dispatchEvent(new Event("tequit:location-change"));
     void fetch("/api/account/location", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...value, consentVersion: LOCATION_CONSENT_VERSION }) }).catch(()=>undefined);
     const params = new URLSearchParams(searchParams.toString());
     if (value.areaSlug) params.set("area", value.areaSlug); else params.delete("area");
@@ -31,7 +33,7 @@ export function LocationDiscovery({ areas, current, compact = false }: Props) {
     if (!navigator.geolocation) { setMessage("Tu navegador no permite compartir ubicación. Elige una zona."); return; }
     setBusy(true); setMessage("Buscando tu ubicación…");
     navigator.geolocation.getCurrentPosition(
-      (position) => { void persist({ source: "browser", lat: position.coords.latitude, lng: position.coords.longitude, label: "Cerca de ti" }); setBusy(false); },
+      (position) => { const next: DiscoveryLocation = { source: "browser", lat: position.coords.latitude, lng: position.coords.longitude, label: "Cerca de ti" }; if (!marketCityForDiscovery(next, areas)) { setMessage("Estás fuera de Tepic y Uruapan. Elige una ciudad para explorar sus servicios."); setBusy(false); return; } void persist(next); setBusy(false); },
       () => { setBusy(false); setMessage("No pudimos usar tu ubicación. Elige tu colonia o zona."); },
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
     );
@@ -39,13 +41,14 @@ export function LocationDiscovery({ areas, current, compact = false }: Props) {
 
   function clearLocation() {
     document.cookie = `${LOCATION_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax; Secure`;
+    window.dispatchEvent(new Event("tequit:location-change"));
     void fetch("/api/account/location", { method: "DELETE" }).catch(()=>undefined);
     const params = new URLSearchParams(searchParams.toString()); params.delete("area");
     router.replace(`${pathname}${params.size ? `?${params}` : ""}`, { scroll: false }); router.refresh(); setOpen(true);
   }
 
   return <section className={`${styles.locationPanel} ${compact ? styles.locationPanelCompact : ""}`} aria-labelledby="location-title">
-    <div className={styles.locationPanelLead}><MapPin size={20} aria-hidden/><div><strong id="location-title">{current ? current.label : "¿En qué zona necesitas ayuda?"}</strong><p>{current ? "Te mostramos prestadores que pueden atenderte ahí." : "Tu ubicación sólo se usa para encontrar cobertura; nunca mostramos tu punto exacto."}</p></div></div>
+    <div className={styles.locationPanelLead}><MapPin size={20} aria-hidden/><div><strong id="location-title">{outsideMarket ? "Elige Tepic o Uruapan" : current?.source === "default" ? "En Tepic" : current ? current.label : "¿En qué zona necesitas ayuda?"}</strong><p>{outsideMarket ? "Tu GPS está fuera de las ciudades donde operamos. Elige una ciudad para explorar sin marcar resultados como cercanos." : current?.source === "default" ? "Mostramos Tepic por defecto. Puedes cambiar de ciudad o precisar tu colonia." : current ? "Te mostramos prestadores que pueden atenderte ahí." : "Tu ubicación sólo se usa para encontrar cobertura; nunca mostramos tu punto exacto."}</p></div></div>
     <div className={styles.locationActions}>
       {current ? <><button className="btn btn-secondary" type="button" onClick={() => setOpen((value) => !value)}>Cambiar ubicación</button><button className={styles.locationClear} type="button" onClick={clearLocation} aria-label="Quitar ubicación"><X size={18}/></button></> : <button className="btn btn-primary" type="button" onClick={() => setOpen(true)}>Elegir ubicación</button>}
     </div>

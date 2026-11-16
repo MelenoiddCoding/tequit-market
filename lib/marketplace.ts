@@ -137,6 +137,7 @@ type BusinessRow = {
   phone: string;
   zone: string;
   address: string | null;
+  market_city_slug: "tepic" | "uruapan" | null;
   status: Business["status"];
   rating: number | string;
   review_count: number;
@@ -298,6 +299,7 @@ function mapBusiness(row: BusinessRow): Business {
     phone: row.phone,
     zone: row.zone,
     address: row.address ?? row.zone,
+    marketCitySlug: row.market_city_slug,
     category: row.service_categories?.name ?? "Negocio local",
     logoImage: optionalStorageUrl("business-media", row.logo_path),
     logoPath: row.logo_path ?? undefined,
@@ -341,7 +343,7 @@ function mapBusiness(row: BusinessRow): Business {
 }
 
 const providerSelect = `id,slug,name,profession,bio,phone,show_phone_call,zone,plan,status,rating,review_count,avatar_path,is_demo,updated_at,provider_services(id,created_at,title,description,active,brands,price_from,quote_only,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),provider_categories(assignment_role,canonical_provider_categories(id,slug,name,description,requires_review,active,canonical_provider_category_aliases(alias))),provider_media(id,created_at,title,description,storage_path,archived_at),provider_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_service_areas(service_areas(name)),provider_business_affiliations(status,businesses(slug,name)),provider_site_settings(details,template_id,headline,intro,years_experience,cover_path,theme,accent_color,white_label,social_links),provider_faqs(id,question,answer,sort_order,active),provider_plan_assignments!provider_plan_assignments_provider_id_fkey(id,plan_code,starts_at,ends_at,revoked_at)`;
-const businessSelect = `id,slug,name,description,phone,zone,address,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,description,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
+const businessSelect = `id,slug,name,description,phone,zone,address,market_city_slug,status,rating,review_count,logo_path,cover_path,is_demo,service_categories(name),business_services(id,title,description,active,canonical_services(id,slug,name,service_categories(name),service_aliases(alias))),business_products(id,name,description,image_path,active),business_media(id,title,storage_path),business_verifications(type,verified_at),reviews(id,customer_name,rating,comment,created_at,status,review_requests(source)),provider_business_affiliations(status,provider_profiles(slug))`;
 
 export async function getProviders(
   options: { includeInactive?: boolean; id?: string } = {},
